@@ -66,7 +66,8 @@ notify = db.Table('notify',
                   db.Column('fb_id', db.Integer, db.ForeignKey('foodbanks.id')))
 
 stocks = db.Table('stocks',
-                  db.Column('fb_id', db.Integer, db.ForeignKey('foodbanks.id')),
-                  db.Column('sku', db.String(10), db.ForeignKey("items.sku")))
+                  db.Column('fb_id', db.Integer, db.ForeignKey('foodbanks.id'), primary_key=True),
+                  db.Column('sku', db.String(10), db.ForeignKey("items.sku"), primary_key=True),
+                  db.Column('quantity', db.Integer))
 
 # note to team: I need to do more research before implementing dietReq and openingHours tables, will explain in meeting
