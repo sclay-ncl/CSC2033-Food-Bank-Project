@@ -24,11 +24,6 @@ class User(db.Model):
         self.long = None  # long and lat aren't needed on signup, so are initially assigned None Types
         self.lat = None
 
-appointments = db.Table('appointments',
-                        db.Column('appointment_id', db.String(10), primary_key=True),
-                        db.Column('user_id', db.Integer, db.ForeignKey('users.id')),
-                        db.Column('fb_id'), db.Integer, db.ForeignKey('foodbanks.id'))
-
 class FoodBank(db.Model):
     """Models the foodbanks table"""
     __table_name__ = 'foodbanks'
@@ -47,11 +42,31 @@ class FoodBank(db.Model):
         self.long = long
         self.lat = lat
 
+class Items(db.Model):
+    """Models the items table"""
+    __table_name__ = 'items'
+    sku = db.Column(db.String(10), primary_key=True)
+    name = db.Column(db.String(100))
+    category = db.Column(db.String(100))
+
+    def __init__(self, sku, name, category):
+        self.sku = sku
+        self.name = name
+        self.category = category
 
 
-def init_db():
-    db.drop_all()
-    db.create_all()
-    admin = User(email='admin@email.com')
-    db.session.add(admin)
-    db.session.commit()
+appointments = db.Table('appointments',
+                        db.Column('appointment_id', db.String(10), primary_key=True),
+                        db.Column('user_id', db.Integer, db.ForeignKey('users.id')),
+                        db.Column('fb_id', db.Integer, db.ForeignKey('foodbanks.id')))
+
+notify = db.Table('notify',
+                  db.column('id', db.String(10), primary_key=True),
+                  db.Column('user_id', db.Integer, db.ForeignKey('users.id')),
+                  db.Column('fb_id', db.Integer, db.ForeignKey('foodbanks.id')))
+
+stocks = db.Table('stocks',
+                  db.Column('fb_id', db.Integer, db.ForeignKey('foodbanks.id')),
+                  db.Column('sku', db.String(10), db.ForeignKey("items.sku")))
+
+# note to team: I need to do more research before implementing dietReq and openingHours tables, will explain in meeting
