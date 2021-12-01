@@ -1,5 +1,6 @@
 from app import db
 
+
 class User(db.Model):
     """Models the user table:
     Stores all user information"""
@@ -26,6 +27,7 @@ class User(db.Model):
         self.long = None
         self.lat = None
 
+
 class FoodBank(db.Model):
     """Models the food_bank table:
     Stores all Food Bank information"""
@@ -34,10 +36,12 @@ class FoodBank(db.Model):
     name = db.Column(db.String(100), nullable=False)
     email = db.Column(db.String(50), nullable=False)
     phone_number = db.Column(db.String(50), nullable=False)
+    address = db.Column(db.String())
     long = db.Column(db.Float, nullable=False)
     lat = db.Column(db.Float, nullable=False)
 
     opening_hours = db.relationship('OpeningHours')
+    stock_levels = db.relationship('StockLevels')
 
     def __init__(self, name, email, phone_number, long, lat):
         self.name = name
@@ -45,6 +49,7 @@ class FoodBank(db.Model):
         self.phone_number = phone_number
         self.long = long
         self.lat = lat
+
 
 class Item(db.Model):
     """Models the item table:
@@ -58,6 +63,7 @@ class Item(db.Model):
         self.sku = sku
         self.name = name
         self.category = category
+
 
 class OpeningHours(db.Model):
     """Models opening_hours table:
@@ -74,6 +80,7 @@ class OpeningHours(db.Model):
         self.open_time = open_time
         self.close_time = close_time
 
+
 class DietReq(db.Model):
     """Models the diet_req table:
     Stores a user's dietary requirements note"""
@@ -84,6 +91,39 @@ class DietReq(db.Model):
     def __init__(self, user_id, note):
         self.user_id = user_id
         self.note = note
+
+
+class StockLevels(db.Model):
+    """Models the stock_levels table:
+    Stores information about the stock level of each category of item for each food bank
+    2 is the well stocked, 1 is low stock, 0 is urgent"""
+
+    fb_id = db.Column(db.Integer, db.ForeignKey('food_bank.id'), primary_key=True)
+    starchy = db.Column(db.Integer)
+    protein = db.Column(db.Integer)
+    fruit_veg = db.Column(db.Integer)
+    soup_sauce = db.Column(db.Integer)
+    drinks = db.Column(db.Integer)
+    cooking_ingredients = db.Column(db.Integer)
+    herbs_spices = db.Column(db.Integer)
+    baking = db.Column(db.Integer)
+    condiments = db.Column(db.Integer)
+    toiletries = db.Column(db.Integer)
+
+    def __init__(self, fb_id, starchy, protein, fruit_veg, soup_sauce, drinks, cooking_ingredients, herbs_spices,
+                 baking, condiments, toiletries):
+        self.fb_id = fb_id
+        self.starchy = starchy
+        self.protein = protein
+        self.fruit_veg = fruit_veg
+        self.soup_sauce = soup_sauce
+        self.drinks = drinks
+        self.cooking_ingredients = cooking_ingredients
+        self.herbs_spices = herbs_spices
+        self.baking = baking
+        self.condiments = condiments
+        self.toiletries = toiletries
+
 
 
 appointments = db.Table('appointments',
