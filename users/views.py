@@ -19,11 +19,14 @@ def get_lat_long(address):
 
 
 def register():
-    pass
+    pass  # TODO: add register functionality
 
 
 def login():
-    pass
+    pass  # TODO: add login functionality
+
+def account():
+    pass  # TODO:add account functionality
 
 @login_required
 def logout():
