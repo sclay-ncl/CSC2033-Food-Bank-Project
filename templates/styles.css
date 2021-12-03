@@ -1,0 +1,15 @@
+body {
+    background-color: wheat;
+}
+
+p {
+    font: 15px Arial, sans-serif;
+}
+
+p.page-header {
+    font-size: 20px;
+    text-align: center;
+    color: gray;
+    text-decoration: underline;
+
+}
