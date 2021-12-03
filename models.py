@@ -26,11 +26,9 @@ class FoodBank(db.Model):
     name = db.Column(db.String(100), nullable=False)
     email = db.Column(db.String(50), nullable=False)
     phone_number = db.Column(db.String(50), nullable=False)
-    address = db.Column(db.String())
-    long = db.Column(db.Float, nullable=False)
-    lat = db.Column(db.Float, nullable=False)
+    website = db.Column(db.String(100))
 
-    opening_hours = db.relationship('OpeningHours')
+    address = db.relationship('Address')
     stock_levels = db.relationship('StockLevels')
 
 
@@ -38,20 +36,33 @@ class Item(db.Model):
     """Models the item table:
     Stores item information"""
 
-    sku = db.Column(db.String(10), primary_key=True)  # SKU stands for Stock Keeping Unit
+    id = db.Column(db.String(10), primary_key=True)  # SKU stands for Stock Keeping Unit
     name = db.Column(db.String(100), nullable=False)
     category = db.Column(db.String(100), nullable=False)
 
 
 class OpeningHours(db.Model):
     """Models opening_hours table:
-    Stores the opening and closing times for a given day of a food bank"""
+    Stores the opening and closing times for a given day of a food bank address"""
 
-    fb_id = db.Column(db.Integer, db.ForeignKey('food_bank.id'), primary_key=True)
+    address_id = db.Column(db.Integer, db.ForeignKey('address.id'), primary_key=True)
     day = db.Column(db.String(8), primary_key=True)
     open_time = db.Column(db.Time, nullable=False)
     close_time = db.Column(db.Time, nullable=False)
 
+
+class Address(db.Model):
+    """Models address table:
+    Store the address of a food bank"""
+
+    id = db.Column(db.Integer, primary_key=True)
+    fb_id = db.Column(db.Integer, db.ForeignKey('food_bank.id'))
+    building_name = db.Column(db.String(100))
+    number_and_road = db.Column(db.String(50), nullable=False)
+    town = db.Column(db.String(50), nullable=False)
+    post_code = db.Column(db.String(7), nullable=False)
+
+    opening_hours = db.relationship('OpeningHours')
 
 class DietReq(db.Model):
     """Models the diet_req table:
@@ -74,9 +85,8 @@ class StockLevels(db.Model):
     fruit_veg = db.Column(db.Integer)
     soup_sauce = db.Column(db.Integer)
     drinks = db.Column(db.Integer)
+    snacks = db.Column(db.Integer)
     cooking_ingredients = db.Column(db.Integer)
-    herbs_spices = db.Column(db.Integer)
-    baking = db.Column(db.Integer)
     condiments = db.Column(db.Integer)
     toiletries = db.Column(db.Integer)
     # stock level high stock bounds
@@ -85,9 +95,8 @@ class StockLevels(db.Model):
     fruit_veg_high = db.Column(db.Integer)
     soup_sauce_high = db.Column(db.Integer)
     drinks_high = db.Column(db.Integer)
+    snacks_high = db.Column(db.Integer)
     cooking_ingredients_high = db.Column(db.Integer)
-    herbs_spices_high = db.Column(db.Integer)
-    baking_high = db.Column(db.Integer)
     condiments_high = db.Column(db.Integer)
     toiletries_high = db.Column(db.Integer)
     # stock level low stock bounds
@@ -96,18 +105,17 @@ class StockLevels(db.Model):
     fruit_veg_low = db.Column(db.Integer)
     soup_sauce_low = db.Column(db.Integer)
     drinks_low = db.Column(db.Integer)
+    snacks_low = db.Column(db.Integer)
     cooking_ingredients_low = db.Column(db.Integer)
-    herbs_spices_low = db.Column(db.Integer)
-    baking_low = db.Column(db.Integer)
     condiments_low = db.Column(db.Integer)
     toiletries_low = db.Column(db.Integer)
-
 
 
 appointments = db.Table('appointments',
                         db.Column('appointment_id', db.String(10), primary_key=True),
                         db.Column('user_id', db.Integer, db.ForeignKey('user.id'), nullable=False),
-                        db.Column('fb_id', db.Integer, db.ForeignKey('food_bank.id'), nullable=False))
+                        db.Column('fb_id', db.Integer, db.ForeignKey('food_bank.id'), nullable=False),
+                        db.Column('datetime', db.DateTime, nullable=False))
 
 notify = db.Table('notify',
                   db.Column('user_id', db.Integer, db.ForeignKey('user.id'), primary_key=True),
@@ -115,7 +123,7 @@ notify = db.Table('notify',
 
 stocks = db.Table('stocks',
                   db.Column('fb_id', db.Integer, db.ForeignKey('food_bank.id'), primary_key=True),
-                  db.Column('sku', db.String(10), db.ForeignKey("item.sku"), primary_key=True),
+                  db.Column('item_id', db.String(10), db.ForeignKey("item.id"), primary_key=True),
                   db.Column('quantity', db.Integer, nullable=False))
 
 
