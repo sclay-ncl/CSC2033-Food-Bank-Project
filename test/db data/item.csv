@@ -1,0 +1,47 @@
+sku,name,category
+1,porridge,starchy
+2,crackers,starchy
+3,cereal,starchy
+4,bread,starchy
+5,rice,starchy
+6,instant mash,starchy
+7,noodles,starchy
+8,pasta,starchy
+8,tinned/dried beans,protein
+9,baked beans,protein
+10,tinned/dried lentils,protein
+11,tinned fish,protein
+12,tinned meat,protein
+13,tinned fruit,fruit and veg
+14,tinned vegetables,fruit and veg
+15,chopped tomatoes,fruit and veg
+16,milk,dairy
+17,custard,dairy
+18,rice pudding,dairy
+19,tinned soup,soup and sauce
+20,pasta sauce,soup and sauce
+21,pesto,soup and sauce
+21,curry packet,soup and sauce
+22,fruit juice,drinks
+23,cordial,drinks
+24,coffee,drinks
+25,tea,drinks
+26,hot chocolate,drinks
+27,biscuits,snacks
+28,rice cakes,snacks
+29,crisps,snacks
+30,cooking oil,cooking ingredients
+31,tomato puree,cooking ingredients
+32,stock cubes,cooking ingredients
+33,pepper,cooking ingredients
+34,dried herbs,cooking ingredients
+35,spice,cooking ingredients
+36,flour,cooking ingredients
+37,sugar,cooking ingredients
+38,peanut butter,condiments
+39,honey,condiments
+40,jam,condiments
+41,ketchup,condiments
+42,toilet roll,toiletries
+43,shower gel,toiletries
+44,tooth paste,toiletries

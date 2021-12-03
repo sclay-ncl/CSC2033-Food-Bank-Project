@@ -1,0 +1,8 @@
+address_id,day,open_time,close_time
+1,tuesday,10:00,13:00
+1,wednesday,10:00,13:00
+2,thursday,17:00,17:30
+3,monday,10:00,16:00
+3,tuesday,10:00,16:00
+3,wednesday,10:00,16:00
+3,thursday,10:00,16:00
