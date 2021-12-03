@@ -1,5 +1,7 @@
 import requests
 import urllib.parse
+from flask_login import current_user, login_user, logout_user, login_required
+from flask import redirect, url_for
 
 """ 
 Function returns the latitude and longitude of a given address
@@ -23,6 +25,7 @@ def register():
 def login():
     pass
 
-
+@login_required
 def logout():
-    pass
+    logout_user()
+    return redirect(url_for('index'))
