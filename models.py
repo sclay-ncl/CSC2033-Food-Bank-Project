@@ -64,6 +64,7 @@ class Address(db.Model):
 
     opening_hours = db.relationship('OpeningHours')
 
+
 class DietReq(db.Model):
     """Models the diet_req table:
     Stores a user's dietary requirements note"""
