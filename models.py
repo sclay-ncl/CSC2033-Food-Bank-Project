@@ -1,6 +1,7 @@
 from app import db
 from flask_login import UserMixin
 from datetime import datetime
+from werkzeug.security import generate_password_hash
 
 class User(db.Model, UserMixin):
     """Models the user table:
@@ -22,7 +23,7 @@ class User(db.Model, UserMixin):
 
     def __init__(self, email, password):
         self.email = email
-        self.password = password
+        self.password = generate_password_hash(password)
 
 
 class FoodBank(db.Model):
