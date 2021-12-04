@@ -20,10 +20,6 @@ class User(db.Model, UserMixin):
 
     diet_req = db.relationship('DietReq')
 
-    def __init__(self, email, password):
-        self.email = email
-        self.password = password
-
 
 class FoodBank(db.Model):
     """Models the food_bank table:
