@@ -1,8 +1,7 @@
-import re
 from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField, PasswordField
-from wtforms.validators import Required, Email, Length, EqualTo, ValidationError
-
+from wtforms.validators import DataRequired, Email, Length, EqualTo, ValidationError
+import re
 
 # Custom Validation
 # if * or ? appears it will raise a Validation Error
@@ -14,24 +13,24 @@ def character_check(form, field):
 
 
 class RegisterForm(FlaskForm):
-    email = StringField(validators=[Required(), Email()])
+    email = StringField(validators=[DataRequired(), Email()])
     # email is required to be filled and meet the Email requirements
 
-    first_name = StringField(validators=[Required(), character_check])
+    first_name = StringField(validators=[DataRequired(), character_check])
     # first name is required
 
-    last_name = StringField(validators=[Required(), character_check])
+    last_name = StringField(validators=[DataRequired(), character_check])
     # last name is required
 
-    phone_number = StringField(validators=[Required()])
+    phone_number = StringField(validators=[DataRequired()])
     # phone number is required
 
-    password = PasswordField(validators=[Required(), Length(min=8, max=16, message='Password must be between 8 and 16 '
+    password = PasswordField(validators=[DataRequired(), Length(min=8, max=16, message= 'Password must be between 8 and 16 '
                                                                                    'characters.'), character_check])
     # password is required to be filled, must be between 8 and 16 characters, must not contain * or ?, include at...
     # ...least one digit and an uppercase letter
 
-    confirm_password = PasswordField(validators=[Required(), EqualTo('password', message='This must be the same as '
+    confirm_password = PasswordField(validators=[DataRequired(), EqualTo('password', message='This must be the same as '
                                                                                          'the password.')])
     # confirm password must be the same as password
     submit = SubmitField()
@@ -51,6 +50,6 @@ class RegisterForm(FlaskForm):
 
 
 class LoginForm(FlaskForm):
-    email = StringField(validators=[Required(), Email()])
-    password = PasswordField(validators=[Required()])
+    email = StringField(validators=[DataRequired(), Email()])
+    password = PasswordField(validators=[DataRequired()])
     submit = SubmitField()
