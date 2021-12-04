@@ -1,7 +1,7 @@
 from flask import Flask, render_template
 from flask_sqlalchemy import SQLAlchemy
 from functools import wraps
-from flask_login import current_user
+from flask_login import current_user, LoginManager
 
 app = Flask(__name__)
 
@@ -25,9 +25,25 @@ def requires_roles(*roles):
 
 
 @app.route('/')
-def hello_world():  # put application's code here
-    return 'Hello World!'
+def index():  # put application's code here
+    return render_template('index.html')  # TODO: create index.html and render it (front end)
 
 
 if __name__ == '__main__':
+
+    # Login Manager
+    login_manager = LoginManager()
+    login_manager.login_view = 'users.login'
+    login_manager.init_app(app)
+
+    from models import User
+
+    @login_manager.user_loader
+    def load_user(id):
+        return User.query.get(int(id))
+
+    # Blueprints
+    from users.views import users_blueprint  # TODO: add users_blueprint to users.views
+    app.register_blueprint(users_blueprint)
+
     app.run()
