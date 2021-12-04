@@ -38,12 +38,12 @@ def register():
             return render_template('register.html', form=form)
         # if the inputted username matches up with a username in the db, return the user to the register page
 
-        new_user = User(email=form.email.data, password=form.password.data)
+        new_user = User(email=form.email.data, password=form.password.data) # TODO: need to pass in all parameters, also check with Sol about way to create new user, as different to last module
 
         db.session.add(new_user)
         db.session.commit()
 
-        return redirect(url_for(('users.login')))
+        return redirect(url_for('users.login'))
 
     return render_template('register.html', form=form)  # TODO: create register.html (front end)
 
