@@ -60,12 +60,6 @@ def login():
 
         login_user(user)
 
-        # adds the date and time for when a user logs in to the db
-        user.last_logged_in = user.current_logged_in
-        user.current_logged_in = datetime.now()
-        db.session.add(user)
-        db.session.commit()
-
         pass  # TODO: return to home page
     # if the login details are correct it will redirect the user to the home page
 

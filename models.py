@@ -20,17 +20,9 @@ class User(db.Model, UserMixin):
 
     diet_req = db.relationship('DietReq')
 
-    registered_on = db.Column(db.DateTime, nullable=False)
-    last_logged_in = db.Column(db.DateTime, nullable=True)
-    current_logged_in = db.Column(db.DateTime, nullable=True)
-
     def __init__(self, email, password):
         self.email = email
         self.password = password
-        self.registered_on = datetime.now()
-        self.last_logged_in = None
-        self.current_logged_in = None
-
 
 
 class FoodBank(db.Model):
