@@ -1,9 +1,12 @@
 from app import db
+from flask_login import UserMixin
+from datetime import datetime
 
-
-class User(db.Model):
+class User(db.Model, UserMixin):
     """Models the user table:
     Stores all user information"""
+
+    __tablename__ = 'users'
 
     id = db.Column(db.Integer, primary_key=True)
     role = db.Column(db.String(50), nullable=False)
@@ -16,6 +19,18 @@ class User(db.Model):
     lat = db.Column(db.Float)
 
     diet_req = db.relationship('DietReq')
+
+    registered_on = db.Column(db.DateTime, nullable=False)
+    last_logged_in = db.Column(db.DateTime, nullable=True)
+    current_logged_in = db.Column(db.DateTime, nullable=True)
+
+    def __init__(self, email, password):
+        self.email = email
+        self.password = password
+        self.registered_on = datetime.now()
+        self.last_logged_in = None
+        self.current_logged_in = None
+
 
 
 class FoodBank(db.Model):
