@@ -79,24 +79,55 @@ form label{
 }
 
 input{
-
-    margin-top: 5px;
-    margin-bottom: 15px;
-    height: 50px;
-    padding: 25px;
     font-size: 14px;
+    padding: 12px 15px;
+	margin: 25px 0px;
+	width: 100%;
 }
 
 input::placeholder {
   color: gray;
   text-align: center;
 }
+.login_text{
+    padding: 25px 5px;
+    font-size: 15px;
+    text-align: center;
+}
+
+.link-to-reg{
+    color: darkgrey;
+    text-align: center;
+    font-size: 14px;
+
+}
+
+button {
+	border-radius: 20px;
+	border: 1px solid #bde0ff;
+	background-color: #bde0ff;
+	color: black;
+	font-size: 12px;
+	font-weight: bold;
+	padding: 12px 45px;
+	letter-spacing: 1px;
+	text-transform: uppercase;
+}
+
+.submit-button{
+    text-align: center;
+}
+
+button:active {
+	transform: scale(0.95);
+}
+
 body {
-    background-color: wheat;
+    background-color: aliceblue;
 }
 
 p {
-    font: 15px Arial, sans-serif;
+    font: 15px Poppins, sans-serif;
 }
 
 p.page-header {
