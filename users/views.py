@@ -1,7 +1,7 @@
 import requests
 import urllib.parse
 from flask_login import current_user, login_user, logout_user, login_required
-from flask import redirect, url_for, render_template, flash, Blueprint
+from flask import redirect, url_for, render_template, flash, Blueprint, session
 from users.forms import RegisterForm, LoginForm
 from app import db
 from models import User
@@ -29,7 +29,6 @@ def get_lat_long(address):
 def register():
     form = RegisterForm()
 
-    # TODO: implement CAPTCHA
     if form.validate_on_submit():
         user = User.query.filter_by(email=form.email.data).first()
 
@@ -50,15 +49,34 @@ def register():
 
 @users_blueprint.route('/login', methods=['GET', 'POST'])
 def login():
+
+    if not session.get('logins'):
+        session['logins'] = 0
+    # displays an error message if the number of incorrect logins is 3 or more
+    elif session.get('logins') >= 3:
+        flash('Youve exceeded the number of incorrect login attempts')
+
     form = LoginForm()
 
-    # TODO: limit unsuccessful login attempts
     if form.validate_on_submit():
+
+        session['logins'] += 1
+
         user = User.query.filter_by(email=form.email.data).first()
 
         if not user or not check_password_hash(user.password, form.password.data):
-            flash("These login details are incorrect, please try again")
+
+            if session['logins'] == 3:
+                flash('Youve exceeded the number of incorrect login attempts')
+            elif session['logins'] == 2:
+                flash('Your login details are incorrect. 1 attempt remaining')
+            else:
+                flash('Your login details are incorrect. 2 attempts remaining')
+
             return render_template('login.html', form=form)
+
+        # if login was successful, reset number of attempts to 0
+        session['logins'] = 0
 
         login_user(user)
 
