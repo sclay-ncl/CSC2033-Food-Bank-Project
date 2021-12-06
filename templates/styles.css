@@ -1,0 +1,139 @@
+/* Style Sheet */
+
+/* Styling the Navigation Bar */
+/* Used as inspiration - CHANGE NAV MORE https://codepen.io/fghty/pen/NWpjwVd */
+@import url('https://fonts.googleapis.com/css?family=Poppins:400,500,600,700&display=swap');
+
+body{
+    background-color: aliceblue;
+    align-content: center;
+}
+
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+}
+nav{
+  display: flex;
+  height: 80px;
+  width: 100%;
+  background: black;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 50px 0 100px;
+  flex-wrap: wrap;
+}
+
+nav ul{
+  display: flex;
+  flex-wrap: wrap;
+  list-style: none;
+}
+
+nav ul li{
+  margin: 0 5px;
+}
+
+nav ul li a{
+  color: aliceblue;
+  text-decoration: none;
+  font-size: 18px;
+  font-weight: 500;
+  padding: 8px 15px;
+  letter-spacing: 1px;
+}
+
+.logo-image img{
+    height: 80px;
+    width: auto;
+    object-fit: contain;
+    float: left;
+}
+
+/* Header */
+h1 {
+    padding: 40px 20px 40px 20px;
+    text-align: center;
+    color: black;
+}
+
+/* Body */
+
+form{
+    margin-top: 100px;
+    margin-left: 500px;
+    margin-right: 500px;
+    align-content: center;
+    background: white;
+    color: black;
+    position: relative;
+    width: 350px;
+    height: 550px;
+    box-shadow: 20px 20px rgba(0,0,0,.15);
+}
+
+form label{
+  padding: 20px 25px 20px 40px;
+}
+
+input{
+    font-size: 14px;
+    padding: 12px 15px;
+	margin: 25px 0px;
+	width: 100%;
+}
+
+input::placeholder {
+  color: gray;
+  text-align: center;
+}
+.login_text{
+    padding: 25px 5px;
+    font-size: 15px;
+    text-align: center;
+}
+
+.link-to-reg{
+    color: darkgrey;
+    text-align: center;
+    font-size: 14px;
+
+}
+
+button {
+	border-radius: 20px;
+	border: 1px solid #bde0ff;
+	background-color: #bde0ff;
+	color: black;
+	font-size: 12px;
+	font-weight: bold;
+	padding: 12px 45px;
+	letter-spacing: 1px;
+	text-transform: uppercase;
+}
+
+.submit-button{
+    text-align: center;
+}
+
+button:active {
+	transform: scale(0.95);
+}
+
+body {
+    background-color: aliceblue;
+}
+
+p {
+    font: 15px Poppins, sans-serif;
+}
+
+p.page-header {
+    font-size: 20px;
+    text-align: center;
+    color: gray;
+    text-decoration: underline;
+
+}
