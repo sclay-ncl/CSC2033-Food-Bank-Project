@@ -4,33 +4,47 @@
     <meta charset="UTF-8">
     <title>Login</title>
     <link rel="stylesheet" href="styles.css">
-</head>
-<!-- Page Header -->
-<h1> Login </h1>
 
+</head>
 <!-- Creating a top navigation bar  -->
-<div class="nav-bar" id="top-nav-bar">
-    <a href="food-banks.html"> Our Food Banks </a>
-    <a href="appointments.html"> Book an Appointment </a>
-    <a href="donate.html"> Donate </a>
-    <a href="register.html"> Register </a>
-</div>
+<nav>
+    <div class="logo-image">
+        <img src="logo-image"><a href="https://lh3.googleusercontent.com/2Fz6Fn5zq_hh75oNLsyNqyGSHzPopHojN77Eu6GImw_3bb4JteONR_K8lnCY2nRbZQV9RD7ACVYvTHEEoW6oGt2GNkAVXzsGdHl1XI9JWwr9ojo3N7t5mYgqaux8lESdvi4mJTti4Ok=w2400?source=screenshot.guru"></a>
+    </div>
+    <ul>
+    <li><a href="food-banks.html"> Our Food Banks </a></li>
+    <li><a href="appointments.html"> Book an Appointment </a></li>
+    <li><a href="donate.html"> Donate </a></li>
+    <li><a href="register.html"> Register </a></li>
+    </ul>
+</nav>
+
 <body>
-<!-- Creating the Login Form  -->
+
+<!-- Creating the Register Form  -->
+<div class="login-form">
 <form>
+    <!-- Page Header -->
+    <h1> Login </h1>
 
     <label for="email">Email Address:</label>
-    <input type="text"><br>
+    <input type="text" placeholder="Enter your Email Address">
+
     <label for="password">Password:</label>
-    <input type="password"><br>
-    <label for="confirm-password">Confirm Password:</label>
-    <input type="password"><br>
-    <input type="submit" value="Submit"><br>
-    <br>
-    <p>Or Register:</p>
-    <a href="register.html">Register</a>
+    <input type="password" placeholder="Enter your Password">
+
+
+    <div class="submit-button">
+    <button type="submit" value="Submit"> Submit </button>
+    </div>
+
+    <div class="login_text">Or Register:</div>
+    <div class="link-to-reg">
+        <a href="register.html">Register</a>
+    </div>
 
 </form>
+</div>
 
 </body>
 </html>
