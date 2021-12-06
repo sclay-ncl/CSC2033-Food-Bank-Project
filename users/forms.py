@@ -1,6 +1,6 @@
 from flask_wtf import FlaskForm, RecaptchaField
 from wtforms import StringField, SubmitField, PasswordField
-from wtforms.validators import DataRequired, Email, Length, EqualTo, ValidationError
+from wtforms.validators import Email, Length, EqualTo, ValidationError, InputRequired
 from ukpostcodeutils import validation
 import re
 
@@ -20,31 +20,31 @@ def postcode_check(form, field):
 
 
 class RegisterForm(FlaskForm):
-    email = StringField(validators=[DataRequired(), Email()])
+    email = StringField(validators=[InputRequired(), Email()])
     # email is required to be filled and meet the Email requirements
 
-    first_name = StringField(validators=[DataRequired(), character_check])
+    first_name = StringField(validators=[InputRequired(), character_check])
     # first name is required
 
-    last_name = StringField(validators=[DataRequired(), character_check])
+    last_name = StringField(validators=[InputRequired(), character_check])
     # last name is required
 
-    address_line_1 = StringField(validators=[DataRequired(), character_check])
+    address_line_1 = StringField(validators=[InputRequired(), character_check])
     #
 
     address_line_2 = StringField(validators=[character_check])
 
-    postcode = StringField(validators=[DataRequired(), postcode_check])
+    postcode = StringField(validators=[InputRequired(), postcode_check])
 
     phone_number = StringField(validators=[])
     # phone number is required
 
-    password = PasswordField(validators=[DataRequired(), Length(min=8, max=16, message= 'Password must be between 8 and 16 '
+    password = PasswordField(validators=[InputRequired(), Length(min=8, max=16, message= 'Password must be between 8 and 16 '
                                                                                    'characters.'), character_check])
     # password is required to be filled, must be between 8 and 16 characters, must not contain * or ?, include at...
     # ...least one digit and an uppercase letter
 
-    confirm_password = PasswordField(validators=[DataRequired(), EqualTo('password', message='This must be the same as '
+    confirm_password = PasswordField(validators=[InputRequired(), EqualTo('password', message='This must be the same as '
                                                                                          'the password.')])
     # confirm password must be the same as password
     submit = SubmitField()
@@ -64,7 +64,7 @@ class RegisterForm(FlaskForm):
 
 
 class LoginForm(FlaskForm):
-    email = StringField(validators=[DataRequired(), Email()])
-    password = PasswordField(validators=[DataRequired()])
+    email = StringField(validators=[InputRequired(), Email()])
+    password = PasswordField(validators=[InputRequired()])
     recaptcha = RecaptchaField()
     submit = SubmitField()
