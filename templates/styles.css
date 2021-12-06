@@ -6,7 +6,7 @@
 
 body{
     background-color: aliceblue;
-    align-content: center;
+    align-text: center;
 }
 
 *{
@@ -104,11 +104,17 @@ input{
 }
 
 
-.form-name{
+.first-name{
     position:relative;
-    margin-bottom:10px;
-    width: 45%;
+    width:48%;
+    margin-right:4%;
+    display:inline-block;
+}
 
+.last-name{
+    width:48%;
+    display: block;
+    float:right;
 }
 
 input::placeholder {
