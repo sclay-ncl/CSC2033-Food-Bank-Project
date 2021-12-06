@@ -1,7 +1,9 @@
 from flask_wtf import FlaskForm, RecaptchaField
 from wtforms import StringField, SubmitField, PasswordField
 from wtforms.validators import DataRequired, Email, Length, EqualTo, ValidationError
+from ukpostcodeutils import validation
 import re
+
 
 # Custom Validation
 # if * or ? appears it will raise a Validation Error
@@ -10,6 +12,11 @@ def character_check(form, field):
     for char in field.data:
         if char in excluded_characters:
             raise ValidationError(f"Character {char} is not allowed.")
+
+
+def postcode_check(form, field):
+    if not validation.is_valid_postcode(field.data):
+        raise ValidationError(f" {field.data} is not a valid postcode.")
 
 
 class RegisterForm(FlaskForm):
@@ -22,7 +29,14 @@ class RegisterForm(FlaskForm):
     last_name = StringField(validators=[DataRequired(), character_check])
     # last name is required
 
-    phone_number = StringField(validators=[DataRequired()])
+    address_line_1 = StringField(validators=[DataRequired(), character_check])
+    #
+
+    address_line_2 = StringField(validators=[character_check])
+
+    postcode = StringField(validators=[DataRequired(), postcode_check])
+
+    phone_number = StringField(validators=[])
     # phone number is required
 
     password = PasswordField(validators=[DataRequired(), Length(min=8, max=16, message= 'Password must be between 8 and 16 '
