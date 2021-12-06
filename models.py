@@ -36,7 +36,7 @@ class Item(db.Model):
     """Models the item table:
     Stores item information"""
 
-    id = db.Column(db.String(10), primary_key=True)  # SKU stands for Stock Keeping Unit
+    id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(100), nullable=False)
     category = db.Column(db.String(100), nullable=False)
 
@@ -47,8 +47,8 @@ class OpeningHours(db.Model):
 
     address_id = db.Column(db.Integer, db.ForeignKey('address.id'), primary_key=True)
     day = db.Column(db.String(8), primary_key=True)
-    open_time = db.Column(db.Time, nullable=False)
-    close_time = db.Column(db.Time, nullable=False)
+    open_time = db.Column(db.String(5), nullable=False)
+    close_time = db.Column(db.String(5), nullable=False)
 
 
 class Address(db.Model):
