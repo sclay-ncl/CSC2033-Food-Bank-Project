@@ -1,9 +1,12 @@
 from app import db
+from flask_login import UserMixin
 
 
-class User(db.Model):
+class User(db.Model, UserMixin):
     """Models the user table:
     Stores all user information"""
+
+    __tablename__ = 'users'
 
     id = db.Column(db.Integer, primary_key=True)
     role = db.Column(db.String(50), nullable=False)
