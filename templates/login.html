@@ -1,21 +1,7 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Login</title>
-    <link rel="stylesheet" href="../static/styles.css">
-</head>
-<!-- Page Header -->
-<h1> Login </h1>
+{% extends "base.html" %}
 
-<!-- Creating a top navigation bar  -->
-<div class="nav-bar" id="top-nav-bar">
-    <a href="food-banks.html"> Our Food Banks </a>
-    <a href="appointments.html"> Book an Appointment </a>
-    <a href="donate.html"> Donate </a>
-    <a href="register.html"> Register </a>
-</div>
-<body>
+{% block content %}
+
 <!-- Creating the Login Form  -->
 <form>
 
@@ -32,5 +18,4 @@
 
 </form>
 
-</body>
-</html>
+{% endblock %}
