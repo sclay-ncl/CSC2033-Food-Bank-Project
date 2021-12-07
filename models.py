@@ -16,6 +16,9 @@ class User(db.Model):
     lat = db.Column(db.Float)
 
     diet_req = db.relationship('DietReq')
+    notify = db.relationship('FoodBank',
+                             secondary='notify',
+                             backref=db.backref('notify', lazy='dynamic'))
 
 
 class FoodBank(db.Model):
@@ -91,41 +94,51 @@ class StockLevels(db.Model):
     condiments = db.Column(db.Integer)
     toiletries = db.Column(db.Integer)
     # stock level high stock bounds
-    starchy_high = db.Column(db.Integer)
-    protein_high = db.Column(db.Integer)
-    fruit_veg_high = db.Column(db.Integer)
-    soup_sauce_high = db.Column(db.Integer)
-    drinks_high = db.Column(db.Integer)
-    snacks_high = db.Column(db.Integer)
-    cooking_ingredients_high = db.Column(db.Integer)
-    condiments_high = db.Column(db.Integer)
-    toiletries_high = db.Column(db.Integer)
+    starchy_high = db.Column(db.Integer, default=100)
+    protein_high = db.Column(db.Integer, default=100)
+    fruit_veg_high = db.Column(db.Integer, default=100)
+    soup_sauce_high = db.Column(db.Integer, default=100)
+    drinks_high = db.Column(db.Integer, default=100)
+    snacks_high = db.Column(db.Integer, default=100)
+    cooking_ingredients_high = db.Column(db.Integer, default=100)
+    condiments_high = db.Column(db.Integer, default=100)
+    toiletries_high = db.Column(db.Integer, default=100)
     # stock level low stock bounds
-    starchy_low = db.Column(db.Integer)
-    protein_low = db.Column(db.Integer)
-    fruit_veg_low = db.Column(db.Integer)
-    soup_sauce_low = db.Column(db.Integer)
-    drinks_low = db.Column(db.Integer)
-    snacks_low = db.Column(db.Integer)
-    cooking_ingredients_low = db.Column(db.Integer)
-    condiments_low = db.Column(db.Integer)
-    toiletries_low = db.Column(db.Integer)
+    starchy_low = db.Column(db.Integer, default=10)
+    protein_low = db.Column(db.Integer, default=10)
+    fruit_veg_low = db.Column(db.Integer, default=10)
+    soup_sauce_low = db.Column(db.Integer, default=10)
+    drinks_low = db.Column(db.Integer, default=10)
+    snacks_low = db.Column(db.Integer, default=10)
+    cooking_ingredients_low = db.Column(db.Integer, default=10)
+    condiments_low = db.Column(db.Integer, default=10)
+    toiletries_low = db.Column(db.Integer, default=10)
+
+class Appointment(db.Model):
+    """Models the appointment association table that associates
+     the food_bank and user tables"""
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), primary_key=True)
+    fb_id = db.Column(db.Integer, db.ForeignKey('food_bank.id'), primary_key=True)
+    datetime = db.Column(db.DateTime, primary_key=True)
+
+    user = db.relationship('User', backref=db.backref('appointments'))
+    food_bank = db.relationship('FoodBank', backref=db.backref('appointments'))
 
 
-appointments = db.Table('appointments',
-                        db.Column('appointment_id', db.String(10), primary_key=True),
-                        db.Column('user_id', db.Integer, db.ForeignKey('user.id'), nullable=False),
-                        db.Column('fb_id', db.Integer, db.ForeignKey('food_bank.id'), nullable=False),
-                        db.Column('datetime', db.DateTime, nullable=False))
+class Stocks(db.Model):
+    """Models the stocks association table that associates
+     the food_bank and item tables"""
+    fb_id = db.Column(db.Integer, db.ForeignKey('food_bank.id'), primary_key=True)
+    item_id = db.Column(db.Integer, db.ForeignKey("item.id"), primary_key=True)
+    quantity = db.Column(db.Integer, nullable=False)
+
+    food_bank = db.relationship('FoodBank', backref=db.backref('items'))
+    item = db.relationship('Item', backref=db.backref('stocked_at'))
+
 
 notify = db.Table('notify',
                   db.Column('user_id', db.Integer, db.ForeignKey('user.id'), primary_key=True),
                   db.Column('fb_id', db.Integer, db.ForeignKey('food_bank.id'), primary_key=True))
-
-stocks = db.Table('stocks',
-                  db.Column('fb_id', db.Integer, db.ForeignKey('food_bank.id'), primary_key=True),
-                  db.Column('item_id', db.String(10), db.ForeignKey("item.id"), primary_key=True),
-                  db.Column('quantity', db.Integer, nullable=False))
 
 
 def init_db():
