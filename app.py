@@ -1,18 +1,9 @@
-from flask import Flask
+from flask import Flask, render_template
 from flask_sqlalchemy import SQLAlchemy
-from sshtunnel import SSHTunnelForwarder
-import pymysql
+import socket
 
 app = Flask(__name__)
 
-# ssh tunnel set up, untested until ssh servers are back up
-
-# tunnel = SSHTunnelForwarder(
-#     ssh_address_or_host='linux.cs.ncl.ac.uk',
-#     ssh_username="username",
-#     ssh_password='password',
-#     remote_bind_address=('cs-db.ncl.ac.uk', 3306)
-# )
 
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
@@ -25,9 +16,16 @@ db = SQLAlchemy(app)
 
 
 @app.route('/')
-def hello_world():  # put application's code here
-    return 'Hello World!'
+def index():  # put application's code here
+    return render_template('index.html')
 
 
 if __name__ == '__main__':
-    app.run()
+    my_host = "127.0.0.1"
+    free_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    free_socket.bind((my_host, 0))
+    free_socket.listen(5)
+    free_port = free_socket.getsockname()[1]
+    free_socket.close()
+
+    app.run(host=my_host, port=free_port, debug=True)
