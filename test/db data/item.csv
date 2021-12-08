@@ -7,41 +7,41 @@ id,name,category
 6,instant mash,starchy
 7,noodles,starchy
 8,pasta,starchy
-8,tinned/dried beans,protein
-9,baked beans,protein
-10,tinned/dried lentils,protein
-11,tinned fish,protein
-12,tinned meat,protein
-13,tinned fruit,fruit and veg
-14,tinned vegetables,fruit and veg
-15,chopped tomatoes,fruit and veg
-16,milk,dairy
-17,custard,dairy
-18,rice pudding,dairy
-19,tinned soup,soup and sauce
-20,pasta sauce,soup and sauce
-21,pesto,soup and sauce
-21,curry packet,soup and sauce
-22,fruit juice,drinks
-23,cordial,drinks
-24,coffee,drinks
-25,tea,drinks
-26,hot chocolate,drinks
-27,biscuits,snacks
-28,rice cakes,snacks
-29,crisps,snacks
-30,cooking oil,cooking ingredients
-31,tomato puree,cooking ingredients
-32,stock cubes,cooking ingredients
-33,pepper,cooking ingredients
-34,dried herbs,cooking ingredients
-35,spice,cooking ingredients
-36,flour,cooking ingredients
-37,sugar,cooking ingredients
-38,peanut butter,condiments
-39,honey,condiments
-40,jam,condiments
-41,ketchup,condiments
-42,toilet roll,toiletries
-43,shower gel,toiletries
-44,tooth paste,toiletries
+9,tinned/dried beans,protein
+10,baked beans,protein
+11,tinned/dried lentils,protein
+12,tinned fish,protein
+13,tinned meat,protein
+14,tinned fruit,fruit and veg
+15,tinned vegetables,fruit and veg
+16,chopped tomatoes,fruit and veg
+17,milk,dairy
+18,custard,dairy
+19,rice pudding,dairy
+20,tinned soup,soup and sauce
+21,pasta sauce,soup and sauce
+22,pesto,soup and sauce
+23,curry packet,soup and sauce
+24,fruit juice,drinks
+25,cordial,drinks
+26,coffee,drinks
+27,tea,drinks
+28,hot chocolate,drinks
+29,biscuits,snacks
+30,rice cakes,snacks
+31,crisps,snacks
+32,cooking oil,cooking ingredients
+33,tomato puree,cooking ingredients
+34,stock cubes,cooking ingredients
+35,pepper,cooking ingredients
+36,dried herbs,cooking ingredients
+37,spice,cooking ingredients
+38,flour,cooking ingredients
+39,sugar,cooking ingredients
+40,peanut butter,condiments
+41,honey,condiments
+42,jam,condiments
+43,ketchup,condiments
+44,toilet roll,toiletries
+45,shower gel,toiletries
+46,tooth paste,toiletries
