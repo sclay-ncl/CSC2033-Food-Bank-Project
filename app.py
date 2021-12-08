@@ -21,6 +21,10 @@ def index():  # put application's code here
 
 
 if __name__ == '__main__':
+    from users.views import users_blueprint  # TODO: add users_blueprint to users.views
+
+    app.register_blueprint(users_blueprint)
+
     my_host = "127.0.0.1"
     free_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     free_socket.bind((my_host, 0))
