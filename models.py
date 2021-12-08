@@ -1,8 +1,12 @@
 from app import db
+from flask_login import UserMixin
 
-class User(db.Model):
+
+class User(db.Model, UserMixin):
     """Models the user table:
     Stores all user information"""
+
+    __tablename__ = 'users'
 
     id = db.Column(db.Integer, primary_key=True)
     role = db.Column(db.String(50), nullable=False)
@@ -16,15 +20,6 @@ class User(db.Model):
 
     diet_req = db.relationship('DietReq')
 
-    def __init__(self, role, first_name, last_name, email, phone_number, password):
-        self.role = role
-        self.first_name = first_name
-        self.last_name = last_name
-        self.email = email
-        self.phone_number = phone_number
-        self.password = password
-        self.long = None
-        self.lat = None
 
 class FoodBank(db.Model):
     """Models the food_bank table:
@@ -34,17 +29,13 @@ class FoodBank(db.Model):
     name = db.Column(db.String(100), nullable=False)
     email = db.Column(db.String(50), nullable=False)
     phone_number = db.Column(db.String(50), nullable=False)
+    address = db.Column(db.String())
     long = db.Column(db.Float, nullable=False)
     lat = db.Column(db.Float, nullable=False)
 
     opening_hours = db.relationship('OpeningHours')
+    stock_levels = db.relationship('StockLevels')
 
-    def __init__(self, name, email, phone_number, long, lat):
-        self.name = name
-        self.email = email
-        self.phone_number = phone_number
-        self.long = long
-        self.lat = lat
 
 class Item(db.Model):
     """Models the item table:
@@ -54,10 +45,6 @@ class Item(db.Model):
     name = db.Column(db.String(100), nullable=False)
     category = db.Column(db.String(100), nullable=False)
 
-    def __init__(self, sku, name, category):
-        self.sku = sku
-        self.name = name
-        self.category = category
 
 class OpeningHours(db.Model):
     """Models opening_hours table:
@@ -68,11 +55,6 @@ class OpeningHours(db.Model):
     open_time = db.Column(db.Time, nullable=False)
     close_time = db.Column(db.Time, nullable=False)
 
-    def __init__(self, fb_id, day, open_time, close_time):
-        self.fb_id = fb_id
-        self.day = day
-        self.open_time = open_time
-        self.close_time = close_time
 
 class DietReq(db.Model):
     """Models the diet_req table:
@@ -81,9 +63,48 @@ class DietReq(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), primary_key=True)
     note = db.Column(db.String(500), nullable=False)
 
-    def __init__(self, user_id, note):
-        self.user_id = user_id
-        self.note = note
+
+class StockLevels(db.Model):
+    """Models the stock_levels table:
+    Stores information about the stock level of each category of item for each food bank
+    2 is high stock, 1 is low stock, 0 is urgent
+    Also stores the bounds for stock level rankings"""
+
+    fb_id = db.Column(db.Integer, db.ForeignKey('food_bank.id'), primary_key=True)
+    # stock levels
+    starchy = db.Column(db.Integer)
+    protein = db.Column(db.Integer)
+    fruit_veg = db.Column(db.Integer)
+    soup_sauce = db.Column(db.Integer)
+    drinks = db.Column(db.Integer)
+    cooking_ingredients = db.Column(db.Integer)
+    herbs_spices = db.Column(db.Integer)
+    baking = db.Column(db.Integer)
+    condiments = db.Column(db.Integer)
+    toiletries = db.Column(db.Integer)
+    # stock level high stock bounds
+    starchy_high = db.Column(db.Integer)
+    protein_high = db.Column(db.Integer)
+    fruit_veg_high = db.Column(db.Integer)
+    soup_sauce_high = db.Column(db.Integer)
+    drinks_high = db.Column(db.Integer)
+    cooking_ingredients_high = db.Column(db.Integer)
+    herbs_spices_high = db.Column(db.Integer)
+    baking_high = db.Column(db.Integer)
+    condiments_high = db.Column(db.Integer)
+    toiletries_high = db.Column(db.Integer)
+    # stock level low stock bounds
+    starchy_low = db.Column(db.Integer)
+    protein_low = db.Column(db.Integer)
+    fruit_veg_low = db.Column(db.Integer)
+    soup_sauce_low = db.Column(db.Integer)
+    drinks_low = db.Column(db.Integer)
+    cooking_ingredients_low = db.Column(db.Integer)
+    herbs_spices_low = db.Column(db.Integer)
+    baking_low = db.Column(db.Integer)
+    condiments_low = db.Column(db.Integer)
+    toiletries_low = db.Column(db.Integer)
+
 
 
 appointments = db.Table('appointments',

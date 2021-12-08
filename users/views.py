@@ -1,0 +1,97 @@
+import requests
+import urllib.parse
+from flask_login import current_user, login_user, logout_user, login_required
+from flask import redirect, url_for, render_template, flash, Blueprint, session
+from users.forms import RegisterForm, LoginForm
+from app import db
+from models import User
+from werkzeug.security import check_password_hash
+
+# CONFIG
+users_blueprint = Blueprint('users', __name__, template_folder='templates')
+
+""" 
+Function returns the latitude and longitude of a given address
+@param:address, address of desired latitude and longitude co-ordinates
+@returns: tuple of latitude and longitude co-ordinates
+"""
+def get_lat_long(address):
+    url = 'https://nominatim.openstreetmap.org/search/' + urllib.parse.quote(address) + '?format=json'
+    response = requests.get(url).json()
+
+    latitude = response[0]["lat"]
+    longitude = response[0]["lon"]
+
+    return latitude, longitude
+
+
+@users_blueprint.route('/register', methods=['GET', 'POST']) # TODO: add users_blueprint (front end, requires a template/CSS)
+def register():
+    form = RegisterForm()
+
+    if form.validate_on_submit():
+        user = User.query.filter_by(email=form.email.data).first()
+
+        if user:
+            flash("This username already exists")
+            return render_template('register.html', form=form)
+        # if the inputted username matches up with a username in the db, return the user to the register page
+
+        new_user = User(email=form.email.data, password=form.password.data) # TODO: need to pass in all parameters, also check with Sol about way to create new user, as different to last module
+
+        db.session.add(new_user)
+        db.session.commit()
+
+        return redirect(url_for('users.login'))
+
+    return render_template('register.html', form=form)  # TODO: create register.html (front end)
+
+
+@users_blueprint.route('/login', methods=['GET', 'POST'])
+def login():
+
+    if not session.get('logins'):
+        session['logins'] = 0
+    # displays an error message if the number of incorrect logins is 3 or more
+    elif session.get('logins') >= 3:
+        flash('Youve exceeded the number of incorrect login attempts')
+
+    form = LoginForm()
+
+    if form.validate_on_submit():
+
+        session['logins'] += 1
+
+        user = User.query.filter_by(email=form.email.data).first()
+
+        if not user or not check_password_hash(user.password, form.password.data):
+
+            if session['logins'] == 3:
+                flash('Youve exceeded the number of incorrect login attempts')
+            elif session['logins'] == 2:
+                flash('Your login details are incorrect. 1 attempt remaining')
+            else:
+                flash('Your login details are incorrect. 2 attempts remaining')
+
+            return render_template('login.html', form=form)
+
+        # if login was successful, reset number of attempts to 0
+        session['logins'] = 0
+
+        login_user(user)
+
+        pass  # TODO: return to home page
+    # if the login details are correct it will redirect the user to the home page
+
+    return render_template('login.html', form=form)  # TODO: create login.html (front end)
+
+
+def account():
+    pass  # TODO: add account functionality
+
+
+@login_required
+@users_blueprint.route('/logout')
+def logout():
+    logout_user()
+    return redirect(url_for('index'))
