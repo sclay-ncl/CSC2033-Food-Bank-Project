@@ -5,8 +5,8 @@
 @import url('https://fonts.googleapis.com/css?family=Poppins:400,500,600,700&display=swap');
 
 body{
-    background-color: aliceblue;
-    align-text: center;
+    background-color: #000000;
+    align-content: center;
 }
 
 *{
@@ -54,14 +54,14 @@ nav ul li a{
 
 /* Header */
 h1 {
-    padding: 40px 20px 20px 20px;
+    padding: 40px 20px 40px 20px;
     text-align: center;
     color: black;
 }
 
 /* Body */
 
-.login-form{
+form{
     margin-top: 100px;
     margin-left: 500px;
     margin-right: 500px;
@@ -74,54 +74,21 @@ h1 {
     box-shadow: 20px 20px rgba(0,0,0,.15);
 }
 
-.register-form{
-    padding: 40px;
-    max-width:600px;
-    margin:40px auto;
-    align-content: center;
-    background: white;
-    color: black;
-    position: relative;
-    height:86%;
-    width:50%;
-    box-shadow: 20px 20px rgba(0,0,0,.15);
-}
-
 form label{
   padding: 20px 25px 20px 40px;
 }
 
 input{
     font-size: 14px;
-    text-align: center;
-    height: 50px;
-    width: 100%;
-    border: rgba(0,0,0,.3) 2px solid;
-    box-sizing: border-box;
-    padding: 20px;
-    margin-top: 15px;
-    margin-bottom: 30px;
-}
-
-
-.first-name{
-    position:relative;
-    width:48%;
-    margin-right:4%;
-    display:inline-block;
-}
-
-.last-name{
-    width:48%;
-    display: block;
-    float:right;
+    padding: 12px 15px;
+	margin: 25px 0px;
+	width: 100%;
 }
 
 input::placeholder {
   color: gray;
   text-align: center;
 }
-
 .login_text{
     padding: 25px 5px;
     font-size: 15px;
@@ -132,6 +99,7 @@ input::placeholder {
     color: darkgrey;
     text-align: center;
     font-size: 14px;
+
 }
 
 button {
@@ -168,4 +136,7 @@ p.page-header {
     color: gray;
     text-decoration: underline;
 
+}
+
+nav {display: block;
 }

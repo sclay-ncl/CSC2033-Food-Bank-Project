@@ -18,7 +18,6 @@ app.config['RECAPTCHA_PRIVATE_KEY'] = "6LfFdRMcAAAAAILSgmbrJcTLnkDV5fG-xwPzyoR4"
 
 db = SQLAlchemy(app)
 
-
 # FUNCTIONS
 def requires_roles(*roles):
     def wrapper(f):
@@ -28,9 +27,7 @@ def requires_roles(*roles):
                 # Redirect the user to an unauthorised error page
                 return render_template()  # TODO: add path to error page
             return f(*args, **kwargs)
-
         return wrapped
-
     return wrapper
 
 
@@ -40,6 +37,13 @@ def index():  # put application's code here
 
 
 if __name__ == '__main__':
+    my_host = "127.0.0.1"
+    free_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    free_socket.bind((my_host, 0))
+    free_socket.listen(5)
+    free_port = free_socket.getsockname()[1]
+    free_socket.close()
+
     # Login Manager
     login_manager = LoginManager()
     login_manager.login_view = 'users.login'
@@ -47,22 +51,12 @@ if __name__ == '__main__':
 
     from models import User
 
-
     @login_manager.user_loader
     def load_user(id):
         return User.query.get(int(id))
 
-
     # Blueprints
     from users.views import users_blueprint  # TODO: add users_blueprint to users.views
-
     app.register_blueprint(users_blueprint)
-
-    my_host = "127.0.0.1"
-    free_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    free_socket.bind((my_host, 0))
-    free_socket.listen(5)
-    free_port = free_socket.getsockname()[1]
-    free_socket.close()
 
     app.run(host=my_host, port=free_port, debug=True)

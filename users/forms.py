@@ -6,9 +6,15 @@ import re
 
 
 # Custom Validation
-# if * or ? appears it will raise a Validation Error
 def character_check(form, field):
-    excluded_characters = "*?"
+    excluded_characters = "±§!@€#<$%^&*()_+={}[]:;'|<,>.?/1234567890"
+    for char in field.data:
+        if char in excluded_characters:
+            raise ValidationError(f"Character {char} is not allowed.")
+
+# character_check but without the numbers
+def address_character_check(form, field):
+    excluded_characters = "±§!@€#<#$%^&*()_+={}[]:;'|<>.?/"
     for char in field.data:
         if char in excluded_characters:
             raise ValidationError(f"Character {char} is not allowed.")
@@ -29,20 +35,19 @@ class RegisterForm(FlaskForm):
     last_name = StringField(validators=[InputRequired(), character_check])
     # last name is required
 
-    address_line_1 = StringField(validators=[InputRequired(), character_check])
+    address_line_1 = StringField(validators=[InputRequired(), address_character_check])
     #
 
-    address_line_2 = StringField(validators=[character_check])
+    address_line_2 = StringField(validators=[address_character_check])
 
     postcode = StringField(validators=[InputRequired(), postcode_check])
 
     phone_number = StringField(validators=[])
-    # phone number is required
 
     password = PasswordField(validators=[InputRequired(), Length(min=8, max=16, message= 'Password must be between 8 and 16 '
-                                                                                   'characters.'), character_check])
-    # password is required to be filled, must be between 8 and 16 characters, must not contain * or ?, include at...
-    # ...least one digit and an uppercase letter
+                                                                                   'characters.')])
+    # password is required to be filled, must be between 8 and 16 characters, has the option to contain a special ...
+    # ... character, include at least one digit and an uppercase letter
 
     confirm_password = PasswordField(validators=[InputRequired(), EqualTo('password', message='This must be the same as '
                                                                                          'the password.')])
@@ -51,15 +56,16 @@ class RegisterForm(FlaskForm):
 
     # Pattern Matching
     # will raise a Validation Error if password doesnt contain a digit or uppercase letter
+    # its called implicitly because its inside of the RegisterForm class
     def validate_password(self, password):
         p = re.compile(r'(?=.*\d)(?=.*[A-Z])')
         if not p.match(self.password.data):
             raise ValidationError("Password must contain at least 1 digit and 1 uppercase letter.")
 
-    # will raise a Validation Error if phone number isn't 11 digits in length
+    # will raise a Validation Error if phone number isn't 11 digits in length, or start with 07
     def validate_phone(self, phone_number):
-        ph = re.compile(r'^(?:\s*)\d{11}(?:\s*)$')
-        if not ph.match(self.phone_nuumber.data):
+        ph = re.compile(r'^(?:\s*)[0][7]\d{9}(?:\s*)$')
+        if not ph.match(self.phone_number.data):
             raise ValidationError("Phone number must be 11 digits long.")
 
 

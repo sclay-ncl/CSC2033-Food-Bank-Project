@@ -1,51 +1,21 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Login</title>
-    <link rel="stylesheet" href="../static/styles.css">
+{% extends "base.html" %}
 
+{% block content %}
 
-</head>
-<!-- Creating a top navigation bar  -->
-<nav>
-    <div class="logo-image">
-        <img src="../static/logo600x200.png" alt="Feeding Newcastle">
-    </div>
-    <ul>
-    <li><a href="food-banks.html"> Our Food Banks </a></li>
-    <li><a href="appointments.html"> Book an Appointment </a></li>
-    <li><a href="donate.html"> Donate </a></li>
-    <li><a href="register.html"> Register </a></li>
-    </ul>
-</nav>
-
-<body>
-
-<!-- Creating the Register Form  -->
-<div class="login-form">
+<!-- Creating the Login Form  -->
 <form>
-    <!-- Page Header -->
-    <h1> Login </h1>
 
     <label for="email">Email Address:</label>
-    <input type="text" placeholder="Enter your Email Address">
-
+    <input type="text"><br>
     <label for="password">Password:</label>
-    <input type="password" placeholder="Enter your Password">
-
-
-    <div class="submit-button">
-    <button type="submit" value="Submit"> Submit </button>
-    </div>
-
-    <div class="login_text">Or Register:</div>
-    <div class="link-to-reg">
-        <a href="register.html">Register</a>
-    </div>
+    <input type="password"><br>
+    <label for="confirm-password">Confirm Password:</label>
+    <input type="password"><br>
+    <input type="submit" value="Submit"><br>
+    <br>
+    <p>Or Register:</p>
+    <a href="register.html">Register</a>
 
 </form>
-</div>
 
-</body>
-</html>
+{% endblock %}
