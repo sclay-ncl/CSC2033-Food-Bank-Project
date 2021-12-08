@@ -35,24 +35,27 @@ def convert_to_object(data, object_type):
                                 phone_number=attr[4],
                                 password=attr[5]))
         elif object_type == "food_bank":
-            objects.append(FoodBank(name=attr[0],
-                                    email=attr[1],
-                                    phone_number=attr[2],
-                                    website=attr[3]))
+            objects.append(FoodBank(id=int(attr[0]),
+                                    name=attr[1],
+                                    email=attr[2],
+                                    phone_number=attr[3],
+                                    website=attr[4]))
         elif object_type == "item":
-            objects.append(Item(name=attr[0],
-                                category=attr[1]))
+            objects.append(Item(id=attr[0],
+                                name=attr[1],
+                                category=attr[2]))
         elif object_type == "opening_hours":
             objects.append(OpeningHours(address_id=int(attr[0]),
                                         day=attr[1],
                                         open_time=attr[2],
                                         close_time=attr[3]))
         elif object_type == "address":
-            objects.append(Address(fb_id=int(attr[0]),
-                                   building_name=attr[1],
-                                   number_and_road=attr[2],
-                                   town=attr[3],
-                                   post_code=attr[4]))
+            objects.append(Address(id=attr[0],
+                                   fb_id=attr[1],
+                                   building_name=attr[2],
+                                   number_and_road=attr[3],
+                                   town=attr[4],
+                                   post_code=attr[5]))
     return objects
 
 def generate_stocks(low, high):
@@ -100,9 +103,9 @@ def pop_db():
     db.drop_all()
     db.create_all()
     data = {"user": csv_to_list(file="db data/user.csv", start_index=1),
-            "food_bank": csv_to_list(file="db data/food_bank.csv", start_index=1),
-            "item": csv_to_list(file="db data/item.csv", start_index=1),
-            "address": csv_to_list(file="db data/address.csv", start_index=1),
+            "food_bank": csv_to_list(file="db data/food_bank.csv", start_index=0),
+            "item": csv_to_list(file="db data/item.csv", start_index=0),
+            "address": csv_to_list(file="db data/address.csv", start_index=0),
             "opening_hours": csv_to_list(file="db data/opening_hours.csv", start_index=0)}
     for key in data:
         add_to_db(convert_to_object(data.get(key), key))
