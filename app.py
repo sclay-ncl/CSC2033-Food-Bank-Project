@@ -2,12 +2,14 @@ from flask import Flask, render_template
 from flask_sqlalchemy import SQLAlchemy
 from functools import wraps
 from flask_login import current_user, LoginManager
+import socket
 
 app = Flask(__name__)
 
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SQLALCHEMY_DATABASE_URI'] = \
     "mariadb+mariadbconnector://csc2033_team15:Pea5NudeCure@127.0.0.1:8989/csc2033_team15"
+app.config['SECRET_KEY'] = 'LongAndRandomSecretKey'
 
 # TODO: change these API keys, obtained from Canvas (need a URL first)
 # https://www.google.com/u/2/recaptcha/admin/create
@@ -35,6 +37,12 @@ def index():  # put application's code here
 
 
 if __name__ == '__main__':
+    my_host = "127.0.0.1"
+    free_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    free_socket.bind((my_host, 0))
+    free_socket.listen(5)
+    free_port = free_socket.getsockname()[1]
+    free_socket.close()
 
     # Login Manager
     login_manager = LoginManager()
@@ -51,4 +59,4 @@ if __name__ == '__main__':
     from users.views import users_blueprint  # TODO: add users_blueprint to users.views
     app.register_blueprint(users_blueprint)
 
-    app.run()
+    app.run(host=my_host, port=free_port, debug=True)
