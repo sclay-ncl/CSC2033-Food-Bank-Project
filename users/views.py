@@ -2,7 +2,7 @@ import requests
 import urllib.parse
 from flask_login import current_user, login_user, logout_user, login_required
 from flask import redirect, url_for, render_template, flash, Blueprint, session
-from users.forms import RegisterForm, LoginForm
+from users.forms import LoginForm, RegisterForm
 from app import db
 from models import User
 from werkzeug.security import check_password_hash

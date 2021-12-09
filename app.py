@@ -56,7 +56,17 @@ if __name__ == '__main__':
         return User.query.get(int(id))
 
     # Blueprints
-    from users.views import users_blueprint  # TODO: add users_blueprint to users.views
+    from users.views import users_blueprint
+    from admin.views import admin_blueprint
+    from appointments.views import appointments_blueprint
+    from donate.views import donate_blueprint
+    from food_banks.views import food_banks_blueprint
+
     app.register_blueprint(users_blueprint)
+    app.register_blueprint(admin_blueprint)
+    app.register_blueprint(appointments_blueprint)
+    app.register_blueprint(food_banks_blueprint)
+    app.register_blueprint(donate_blueprint)
+
 
     app.run(host=my_host, port=free_port, debug=True)
