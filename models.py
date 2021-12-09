@@ -34,6 +34,32 @@ class FoodBank(db.Model):
     address = db.relationship('Address')
     stock_levels = db.relationship('StockLevels')
 
+    def update_stock_levels(self):
+        """
+        Calculates and sets the stock levels for the food bank based on the quantity of items in each category
+        """
+        stock_levels = StockLevels.query.filter_by(fb_id=self.id).first()  # get stock_level table for this food bank
+        categories = {'starchy', 'protein', 'fruit_veg', 'soup_sauce',
+                      'drinks', 'snacks', 'condiments', 'cooking_ingredients', 'toiletries'}
+        for category in categories:
+            # get the ids of all the items stocked in given category
+            # the list comprehension extracts the integer from the returned tuple
+            item_ids = [x[0] for x in Item.query.filter_by(category=category).with_entities(Item.id).all()]
+            total_quantity = 0
+            for item_id in item_ids:
+                # go through each item and sum their quantities
+                total_quantity += \
+                    Stocks.query.filter_by(fb_id=self.id, item_id=item_id).with_entities(Stocks.quantity).first()[0]
+            low_boundary = getattr(stock_levels, category+"_low")  # get the boundaries for the category
+            high_boundary = getattr(stock_levels, category+"_high")
+            if total_quantity < low_boundary:  # decide stock level based on total quantity
+                level = 0
+            elif total_quantity < high_boundary:
+                level = 1
+            else:
+                level = 2
+            setattr(stock_levels, category, level)  # set the stock level
+            db.session.commit()
 
 class Item(db.Model):
     """Models the item table:
@@ -113,6 +139,7 @@ class StockLevels(db.Model):
     cooking_ingredients_low = db.Column(db.Integer, default=10)
     condiments_low = db.Column(db.Integer, default=10)
     toiletries_low = db.Column(db.Integer, default=10)
+
 
 class Appointment(db.Model):
     """Models the appointment association table that associates
