@@ -8,8 +8,9 @@ def csv_to_list(file, start_index=0):
     """
     Converts data stored in csv files into a list of lists that contain the database field data
 
-    @:param start_index: defines which column the list should begin at
-    @:return output: a list of lists, each list containing the field data for one table row """
+    :param file: the csv file containing the data
+    :param start_index: defines which column the list should begin at
+    :return output: a list of lists, each list containing the field data for one table row """
 
     with open(file, mode='r') as f:
         csv_data = csv.reader(f)
@@ -22,7 +23,7 @@ def convert_to_object(data, object_type):
 
     :param data: the data stored in lists
     :param object_type: the model to which the data should be converted to
-    :return: list of sqlalchemy model objects
+    :return list of sqlalchemy model objects
     """
     objects = []
     for i in range(1, len(data)):
@@ -83,6 +84,13 @@ def generate_notify():
         user.notify.append(random.choice(food_banks))
     db.session.commit()
 
+def generate_stock_levels():
+    """Generates a stock_levels table for each food bank"""
+    food_banks = FoodBank.query.all()
+    for f in food_banks:
+        db.session.add(StockLevels(fb_id=f.id))
+    db.session.commit()
+
 def generate_appointments():  # need to design appointments system further
     pass
 
@@ -110,8 +118,9 @@ def pop_db():
     for key in data:
         add_to_db(convert_to_object(data.get(key), key))
     db.session.commit()
-    generate_stocks(1, 100)
+    generate_stocks(1, 10)
     generate_notify()
+    generate_stock_levels()
 
 
 if __name__ == '__main__':
