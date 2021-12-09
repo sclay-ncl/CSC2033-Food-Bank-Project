@@ -40,7 +40,7 @@ class RegisterForm(FlaskForm):
 
     address_line_2 = StringField(validators=[address_character_check])
 
-    postcode = StringField(validators=[InputRequired(), postcode_check])
+    postcode = StringField(validators=[InputRequired()])
 
     phone_number = StringField(validators=[])
 

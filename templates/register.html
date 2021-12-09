@@ -13,8 +13,8 @@
                 {% endif %}
             {% endwith %}
             <form method="POST">
-
                 <div class="field">
+                    {{ form.csrf_token() }}
                     <div class="control">
                         {{ form.first_name(class="input", placeholder="First Name") }}
                         {% for error in form.first_name.errors %}
