@@ -1,21 +1,48 @@
 {% extends "base.html" %}
 
 {% block content %}
+    <div class="column is-4 is-offset-4">
+        <h3 class="title">Login</h3>
+        <div class="box">
+            {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                    <div class="notification is-danger">
+                        {{ messages[0] }}
+                    </div>
+                {% endif %}
+            {% endwith %}
+                <form method="POST">
+                    <div class="field">
+                        {{ form.csrf_token() }}
+                        <div class="control">
+                            {{ form.email(class="input", placeholder="Email") }}
+                            {% for error in form.email.errors %}
+                                {{ error }}
+                            {% endfor %}
+                        </div>
+                    </div>
+                    <div class="field">
+                        <div class="control">
+                            {{ form.password(class="input", placeholder="Password") }}
+                            {% for error in form.password.errors %}
+                                {{ error }}
+                            {% endfor %}
+                        </div>
+                    </div>
 
-<!-- Creating the Login Form  -->
-<form>
+                    <div>
+                        {{ form.recaptcha }}
+                        {% for error in form.recaptcha.errors %}
+                            {{ error }}
+                        {% endfor %}
+                    </div>
+                    <div>
+                        {{ form.submit(class="button is-info is-centered") }}
+                    </div>
+                </form>
 
-    <label for="email">Email Address:</label>
-    <input type="text"><br>
-    <label for="password">Password:</label>
-    <input type="password"><br>
-    <label for="confirm-password">Confirm Password:</label>
-    <input type="password"><br>
-    <input type="submit" value="Submit"><br>
-    <br>
-    <p>Or Register:</p>
-    <a href="register.html">Register</a>
-
-</form>
-
+        </div>
+    </div>
 {% endblock %}
+
+
