@@ -12,16 +12,16 @@ id,name,category
 11,tinned/dried lentils,protein
 12,tinned fish,protein
 13,tinned meat,protein
-14,tinned fruit,fruit and veg
-15,tinned vegetables,fruit and veg
-16,chopped tomatoes,fruit and veg
+14,tinned fruit,fruit_veg
+15,tinned vegetables,fruit_veg
+16,chopped tomatoes,fruit_veg
 17,milk,dairy
 18,custard,dairy
 19,rice pudding,dairy
-20,tinned soup,soup and sauce
-21,pasta sauce,soup and sauce
-22,pesto,soup and sauce
-23,curry packet,soup and sauce
+20,tinned soup,soup_sauce
+21,pasta sauce,soup_sauce
+22,pesto,soup_sauce
+23,curry packet,soup_sauce
 24,fruit juice,drinks
 25,cordial,drinks
 26,coffee,drinks
@@ -30,14 +30,14 @@ id,name,category
 29,biscuits,snacks
 30,rice cakes,snacks
 31,crisps,snacks
-32,cooking oil,cooking ingredients
-33,tomato puree,cooking ingredients
-34,stock cubes,cooking ingredients
-35,pepper,cooking ingredients
-36,dried herbs,cooking ingredients
-37,spice,cooking ingredients
-38,flour,cooking ingredients
-39,sugar,cooking ingredients
+32,cooking oil,cooking_ingredients
+33,tomato puree,cooking_ingredients
+34,stock cubes,cooking_ingredients
+35,pepper,cooking_ingredients
+36,dried herbs,cooking_ingredients
+37,spice,cooking_ingredients
+38,flour,cooking_ingredients
+39,sugar,cooking_ingredients
 40,peanut butter,condiments
 41,honey,condiments
 42,jam,condiments
