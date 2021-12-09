@@ -11,14 +11,63 @@
 <body>
 
     <section>
-        <div>
-            <nav class="menu-nav">
-                <a href="food-banks.html">Our Food Banks</a>
-                <a href="appointments.html">Book an Appointment</a>
-                <a href="donate.html">Donate</a>
-                <a href="register.html">Register</a>
+        <nav class="navbar">
+                <div class="container">
+
+                    <div id="navbarMenuHeroA" class="navbar-menu">
+                       <div class="navbar-end">
+                            <a href="{{ url_for('index') }}" class="navbar-item">
+                               Home
+                            </a>
+                                {% if current_user.is_authenticated and current_user.role=='user' %}
+                                <a href="{{ url_for('users.profile') }}" class="navbar-item">
+                                    Profile
+                                </a>
+                                {% endif %}
+
+
+                                {% if current_user.is_authenticated and current_user.role=='admin'%}
+                                <a href="{{ url_for('admin.admin') }}" class="navbar-item">
+                                    Admin
+                                </a>
+                                {% endif %}
+
+                                {% if not current_user.is_authenticated %}
+                                 <a href="{{ url_for('users.login') }}" class="navbar-item">
+                                    Login
+                                </a>
+                                {% endif %}
+
+                                {% if not current_user.is_authenticated %}
+                                <a href="{{ url_for('users.register') }}" class="navbar-item">
+                                    Register
+                                </a>
+                                <a href="{{ url_for('food_banks.food_banks') }}" class="navbar-item">
+                                    Our Food Banks
+                                </a>
+                                <a href="{{ url_for('appointments.appointments') }}" class="navbar-tem">
+                                    Book an Appointment
+                                </a>
+                                <a href="{{ url_for('donate.donate') }}" class="navbar-tem">
+                                    Donate
+                                </a>
+                                {% endif %}
+
+
+                                {% if current_user.is_authenticated %}
+                                 <a href="{{ url_for('users.account') }}" class="navbar-item">
+                                    Account
+                                </a>
+
+                                <a href="{{ url_for('users.logout') }}" class="navbar-item">
+                                    Logout
+                                </a>
+                                {% endif %}
+
+                       </div>
+                    </div>
+                </div>
             </nav>
-        </div>
     </section>
 
     <div id="content">{% block content %}{% endblock %}</div>
