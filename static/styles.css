@@ -48,7 +48,7 @@ nav .navbar-item{
 
 /* Header */
 h1 {
-    padding: 40px 20px 40px 20px;
+    padding: 40px 20px 20px 20px;
     text-align: center;
     color: black;
 }
@@ -163,13 +163,84 @@ body {
 
 p {
     font: 15px Poppins, sans-serif;
+    text-align: center;
+    color: black;
+
 }
 
 p.page-header {
     font-size: 20px;
     text-align: center;
-    color: gray;
+    color: #a9a9a9;
     text-decoration: underline;
 
 }
 
+.index-main-banner {
+    background: #ffffff;
+    position: absolute;
+    width: 80%;
+    left: 10%;
+    right: 10%;
+    top: 102px;
+  height: 300px;
+  overflow: hidden;
+    border-radius: 0 0 20% 70%;
+}
+
+.index-main-banner .index-text-right {
+    float: right;
+}
+
+.index-main-banner .index-img-left {
+    float: left;
+}
+
+.index-main-banner .index-donate-button{
+	border-radius: 20px;
+	border: 1px solid #5c8631;
+	background-color: #97c170;
+	color: #000000;
+	font-size: 12px;
+	font-weight: bold;
+	padding: 12px 35px;
+	letter-spacing: 1px;
+	text-transform: uppercase;
+    cursor: pointer;
+    position: relative;
+    left: 176px;
+    top: 30px;
+    text-decoration: none;
+}
+
+.index-div-break{
+    background: #ffffff;
+    position: absolute;
+    width: 80%;
+    left: 10%;
+    right: 10%;
+    top: 480px;
+  height: 550px;
+  overflow: hidden;
+    align-content: center;
+
+}
+
+.index-div-break .index-div-p{
+    position: relative;
+    float: left;
+}
+
+.index-div-break .break-text {
+    position: relative;
+    text-decoration: underline;
+    text-decoration-thickness: 4px;
+}
+
+.footer{
+    text-align: center;
+    position: absolute;
+   bottom:0;
+   width:100%;
+   background: rgba(178, 178, 178, 0.66);
+}

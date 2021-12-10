@@ -1,7 +1,27 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h1 align="center">We strive to achieve zero hunger</h1>
-<h2 align="center">Offering free food for people in Newcastle</h2>
-<h2 align="center">Get help now</h2>
+    <div class="index-main-banner">
+    <img src="../static/foodbank_image.jpg" alt="Food bank image" class="index-img-left">
+    <h1>Support Feeding Newcastle <br>
+        this Christmas</h1>
+    <p>Help us fund food banks across Newcastle that helps <br>
+        people eat this christmas. </p>
+    <a href="{{ url_for('users.donate') }}" class="index-donate-button">
+                        Make a difference
+    </a>
+    </div>
+
+    <section class="index-div-break">
+        <h1 class="break-text">What we do</h1>
+
+        <h1 class="index-div-p">Provide Information</h1>
+        <h1 class="index-div-p">Make Donating Food Easier</h1>
+        <h1 class="index-div-p">Stock Monitoring For Food Banks</h1>
+
+    </section>
+
+
+
+
 {% endblock %}
