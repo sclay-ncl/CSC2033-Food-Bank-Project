@@ -6,8 +6,6 @@ class User(db.Model, UserMixin):
     """Models the user table:
     Stores all user information"""
 
-    __tablename__ = 'users'
-
     id = db.Column(db.Integer, primary_key=True)
     role = db.Column(db.String(50), nullable=False)
     first_name = db.Column(db.String(50), nullable=False)
