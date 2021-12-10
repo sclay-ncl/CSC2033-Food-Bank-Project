@@ -69,6 +69,16 @@ def profile():
     return render_template('profile.html')
 
 
+@users_blueprint.route('/appointments')
+def appointments():
+    return render_template('appointments.html')
+
+
+@users_blueprint.route('/donate')
+def donate():
+    return render_template('donate.html')
+
+
 @login_required
 @users_blueprint.route('/logout')
 def logout():
