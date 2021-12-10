@@ -105,15 +105,27 @@ form label{
 
 .first-name{
     position:relative;
-    width:48%;
+    width:42.5%;
     margin-right:4%;
+    margin-left: 5%;
     display:inline-block;
+    font-size: 14px;
+    text-align: center;
+    height: 50px;
+    border: rgba(0,0,0,.3) 2px solid;
+    box-sizing: border-box;
 }
 
 .last-name{
-    width:48%;
+    width:42.5%;
     display: block;
     float:right;
+    margin-right: 5%;
+    font-size: 14px;
+    text-align: center;
+    height: 50px;
+    border: rgba(0,0,0,.3) 2px solid;
+    box-sizing: border-box;
 }
 
 input::placeholder {
