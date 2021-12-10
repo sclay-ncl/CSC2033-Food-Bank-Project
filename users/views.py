@@ -49,45 +49,24 @@ def register():
 
 @users_blueprint.route('/login', methods=['GET', 'POST'])
 def login():
-
-    if not session.get('logins'):
-        session['logins'] = 0
-    # displays an error message if the number of incorrect logins is 3 or more
-    elif session.get('logins') >= 3:
-        flash('Youve exceeded the number of incorrect login attempts')
-
     form = LoginForm()
 
     if form.validate_on_submit():
-
-        session['logins'] += 1
-
         user = User.query.filter_by(email=form.email.data).first()
 
-        if not user or not check_password_hash(user.password, form.password.data):
-
-            if session['logins'] == 3:
-                flash('Youve exceeded the number of incorrect login attempts')
-            elif session['logins'] == 2:
-                flash('Your login details are incorrect. 1 attempt remaining')
-            else:
-                flash('Your login details are incorrect. 2 attempts remaining')
-
+        if not user or not user.password == form.password.data:
             return render_template('login.html', form=form)
 
-        # if login was successful, reset number of attempts to 0
-        session['logins'] = 0
-
-        login_user(user)
-
-        pass  # TODO: return to home page
+        else:
+            login_user(user)
+            return render_template('profile.html')
     # if the login details are correct it will redirect the user to the home page
-
     return render_template('login.html', form=form)  # TODO: create login.html (front end)
 
 
-def account():
-    pass  # TODO: add account functionality
+@users_blueprint.route('/profile', methods=['GET', 'POST'])
+def profile():
+    return render_template('profile.html')
 
 
 @login_required
