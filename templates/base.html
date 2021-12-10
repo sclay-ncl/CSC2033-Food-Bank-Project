@@ -5,72 +5,51 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>CSC2031</title>
+    <title>Feeding Newcastle</title>
     <link rel="stylesheet" href="../static/styles.css" />
 </head>
 <body>
-
-    <section>
-        <nav class="navbar">
-                <div class="container">
-
-                    <div id="navbarMenuHeroA" class="navbar-menu">
-                       <div class="navbar-end">
-                            <a href="{{ url_for('index') }}" class="navbar-item">
-                               Home
-                            </a>
-                                {% if current_user.is_authenticated and current_user.role=='user' %}
-                                <a href="{{ url_for('users.profile') }}" class="navbar-item">
-                                    Profile
-                                </a>
-                                {% endif %}
-
-
-                                {% if current_user.is_authenticated and current_user.role=='admin'%}
-                                <a href="{{ url_for('admin.admin') }}" class="navbar-item">
-                                    Admin
-                                </a>
-                                {% endif %}
-
-                                {% if not current_user.is_authenticated %}
-                                 <a href="{{ url_for('users.login') }}" class="navbar-item">
-                                    Login
-                                </a>
-                                {% endif %}
-
-                                {% if not current_user.is_authenticated %}
-                                <a href="{{ url_for('users.register') }}" class="navbar-item">
-                                    Register
-                                </a>
-                                <a href="{{ url_for('food_banks.food_banks') }}" class="navbar-item">
-                                    Our Food Banks
-                                </a>
-                                <a href="{{ url_for('appointments.appointments') }}" class="navbar-tem">
-                                    Book an Appointment
-                                </a>
-                                <a href="{{ url_for('donate.donate') }}" class="navbar-tem">
-                                    Donate
-                                </a>
-                                {% endif %}
-
-
-                                {% if current_user.is_authenticated %}
-                                 <a href="{{ url_for('users.account') }}" class="navbar-item">
-                                    Account
-                                </a>
-
-                                <a href="{{ url_for('users.logout') }}" class="navbar-item">
-                                    Logout
-                                </a>
-                                {% endif %}
-
-                       </div>
-                    </div>
-                </div>
-            </nav>
-    </section>
-
-    <div id="content">{% block content %}{% endblock %}</div>
+        <nav class="nav">
+        <div class="logo">
+                    <img src="../static/logo600x200.png" alt="Feeding Newcastle" width="240" height="80">
+        </div>
+            <div class="navbar-item">
+                {% if current_user.is_authenticated %}
+                    <a href="{{ url_for('users.logout') }}" class="navbar-item">
+                        Logout
+                    </a>
+                    <a href="{{ url_for('users.profile') }}" class="navbar-item">
+                        Profile
+                    </a>
+                {% endif %}
+                {% if current_user.is_authenticated and current_user.role=='admin'%}
+                    <a href="{{ url_for('admin.admin') }}" class="navbar-item">
+                        Admin
+                    </a>
+                {% endif %}
+                {% if not current_user.is_authenticated %}
+                    <a href="{{ url_for('users.register') }}" class="navbar-item">
+                        Register
+                    </a>
+                    <a href="{{ url_for('users.login') }}" class="navbar-item">
+                        Login
+                    </a>
+                {% endif %}
+                <a href="{{ url_for('donate.donate') }}" class="navbar-item">
+                        Donate
+                    </a>
+                <a href="{{ url_for('appointments.appointments') }}" class="navbar-item">
+                        Book an Appointment
+                    </a>
+                <a href="{{ url_for('food_banks.food_banks') }}" class="navbar-item">
+                        Our Food Banks
+                    </a>
+                <a href="{{ url_for('index') }}" class="navbar-item">
+                    Home
+                </a>
+            </div>
+        </nav>
+        <div id="content">{% block content %}{% endblock %}</div>
 
 </body>
 </html>

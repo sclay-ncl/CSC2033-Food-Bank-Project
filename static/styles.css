@@ -4,52 +4,45 @@
 /* Used as inspiration - CHANGE NAV MORE https://codepen.io/fghty/pen/NWpjwVd */
 @import url('https://fonts.googleapis.com/css?family=Poppins:400,500,600,700&display=swap');
 
-body{
-    background-color: #000000;
-    align-content: center;
-}
-
 *{
   margin: 0;
   padding: 0;
   box-sizing: border-box;
   font-family: 'Poppins', sans-serif;
 }
-nav{
-  display: flex;
-  height: 80px;
+
+.nav{
+  height: 95px;
   width: 100%;
-  background: black;
+  background: #5c8631;
   align-items: center;
   justify-content: space-between;
   padding: 0 50px 0 100px;
-  flex-wrap: wrap;
 }
 
-nav ul{
-  display: flex;
-  flex-wrap: wrap;
-  list-style: none;
+.nav .logo{
+    float: left;
+    position: relative;
+    top: 10px;
 }
 
-nav ul li{
-  margin: 0 5px;
-}
-
-nav ul li a{
-  color: aliceblue;
+nav .navbar-item{
+    color: #f2f2f2;
   text-decoration: none;
   font-size: 18px;
   font-weight: 500;
   padding: 8px 15px;
+  border-radius: 5px;
   letter-spacing: 1px;
+  transition: all 0.3s ease;
+    float: right;
+    position: relative;
+    top: 10px;
 }
 
-.logo-image img{
-    height: 80px;
-    width: auto;
-    object-fit: contain;
-    float: left;
+.nav a:hover{
+  color: #ffffff;
+  background: rgb(151, 193, 112);
 }
 
 /* Header */
@@ -123,7 +116,7 @@ button:active {
 }
 
 body {
-    background-color: aliceblue;
+    background-color: rgba(151, 193, 112, 0.9);
 }
 
 p {
@@ -138,5 +131,3 @@ p.page-header {
 
 }
 
-nav {display: block;
-}
