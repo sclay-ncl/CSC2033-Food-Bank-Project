@@ -1,4 +1,35 @@
 {% extends "base.html" %}
 
 {% block content %}
+    <h3>Your Account</h3>
+    <div class="box">
+        <table>
+        <tbody>
+            <tr>
+                <th>Account No.</th>
+                <th>{{ acc_no }}</th>
+            </tr>
+            <tr>
+                <th>Account Role</th>
+                <th>{{ role }}</th>
+            </tr>
+            <tr>
+                <th>Email</th>
+                <th>{{ email }}</th>
+            </tr>
+            <tr>
+                <th>First Name</th>
+                <th>{{ firstname }}</th>
+            </tr>
+            <tr>
+                <th>Last Name</th>
+                <th>{{ lastname }}</th>
+            </tr>
+            <tr>
+                <th>Phone No.</th>
+                <th>{{ phone }}</th>
+            </tr>
+        </tbody>
+        </table>
+    </div>
 {% endblock %}

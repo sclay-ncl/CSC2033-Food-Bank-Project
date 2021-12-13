@@ -55,6 +55,7 @@ def login():
         user = User.query.filter_by(email=form.email.data).first()
 
         if not user or not user.password == form.password.data:
+            flash("incorrect username/password")
             return render_template('login.html', form=form)
 
         else:
@@ -66,7 +67,14 @@ def login():
 
 @users_blueprint.route('/profile', methods=['GET', 'POST'])
 def profile():
-    return render_template('profile.html')
+    return render_template('profile.html',
+                           acc_no=current_user.id,
+                           role=current_user.role,
+                           email=current_user.email,
+                           firstname=current_user.first_name,
+                           lastname=current_user.last_name,
+                           phone=current_user.phone_number,
+                           user=current_user)
 
 
 @users_blueprint.route('/appointments')
