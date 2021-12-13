@@ -55,6 +55,12 @@ h1 {
 
 /* Body */
 
+.iframe {
+    border:0;
+    width: 600px;
+    height: 450px;
+}
+
 .notification-is-danger{
     width: 90%;
     display: block;
