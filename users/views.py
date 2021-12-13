@@ -90,18 +90,24 @@ def profile():
 def book_appointments():
     return render_template('book-appointments.html')
 
+
 @users_blueprint.route('/edit_appointments')
 def edit_appointments():
     return render_template('edit-appointments.html')
+
 
 @users_blueprint.route('/food-bank-search')
 def food_bank_search():
     return render_template('food-bank-search.html')
 
+
 @users_blueprint.route('/food-bank-information/<food_bank_id>')
 def food_bank_information(food_bank_id):
     food_bank = FoodBank.query.filter_by(id=food_bank_id).first()
-    return render_template('food-bank-information.html')
+    address = food_bank.address[0]
+    lat_long = get_lat_long(address.number_and_road + ", " + address.town + ", " + address.post_code)
+    return render_template('food-bank-information.html', latitude=lat_long[0], longitude=lat_long[1])
+
 
 @users_blueprint.route('/donate')
 def donate():
