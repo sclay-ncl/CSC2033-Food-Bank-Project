@@ -33,12 +33,12 @@
                             {{ error }}
                         {% endfor %}
 
-                    {{ form.address_line_1(class="input", placeholder="Enter the first line of your address") }}
-                        {% for error in form.address_line_1.errors %}
+                    {{ form.address_line(class="input", placeholder="Enter the first line of your address") }}
+                        {% for error in form.address_line.errors %}
                             {{ error }}
                         {% endfor %}
 
-                    {{ form.address_line_2(class="input", placeholder="Enter the second line of your address") }}
+                    {{ form.town_city(class="input", placeholder="Enter your town/city") }}
                         {% for error in form.first_name.errors %}
                             {{ error }}
                         {% endfor %}
