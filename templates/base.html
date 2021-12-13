@@ -35,7 +35,7 @@
                         Login
                     </a>
                 {% endif %}
-                {% if not current_user.is_authenticated and not current_user.role=="admin"%}
+                {% if not current_user.role=="admin"%}
                 <a href="{{ url_for('users.donate') }}" class="navbar-item">
                         Donate
                     </a>

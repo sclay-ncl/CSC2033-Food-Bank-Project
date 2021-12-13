@@ -55,6 +55,24 @@ h1 {
 
 /* Body */
 
+.notification-is-danger{
+    width: 90%;
+    display: block;
+    text-align: center;
+	border-radius: 20px;
+	border: 1px solid #8e2c23;
+	background-color: #fedce0;
+	color: #8e2c23;
+	font-size: 12px;
+	font-weight: bold;
+	padding: 10px 30px;
+	letter-spacing: 1px;
+    position: absolute;
+    left: 50%;
+    top: 4.5%;
+    transform: translate(-50%, -50%);
+}
+
 .login-form{
     margin-top: 100px;
     margin-left: auto;
