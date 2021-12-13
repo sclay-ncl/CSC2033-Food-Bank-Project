@@ -101,7 +101,11 @@ def food_bank_search():
 @users_blueprint.route('/food-bank-information/<food_bank_id>')
 def food_bank_information(food_bank_id):
     food_bank = FoodBank.query.filter_by(id=food_bank_id).first()
-    return render_template('food-bank-information.html')
+    return render_template('food-bank-information.html',
+                           fb_name=food_bank.name,
+                           fb_email=food_bank.email,
+                           fb_phone=food_bank.phone_number,
+                           fb_web=food_bank.website)
 
 @users_blueprint.route('/donate')
 def donate():
