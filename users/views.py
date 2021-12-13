@@ -6,6 +6,7 @@ from users.forms import LoginForm, RegisterForm
 from app import db, requires_roles
 from models import User, FoodBank
 from werkzeug.security import check_password_hash, generate_password_hash
+from math import radians, cos, sin, asin, sqrt, pi
 
 # CONFIG
 users_blueprint = Blueprint('users', __name__, template_folder='templates')
@@ -25,6 +26,35 @@ def get_lat_long(address):
     longitude = response[0]["lon"]
 
     return latitude, longitude
+
+
+# https://stackoverflow.com/questions/41336756/find-the-closest-latitude-and-longitude inspiration
+def find_closest_fb():
+    def distance(usr_lat, usr_long, fb_lat, fb_long):
+        radians_convert = pi / 180
+        haversine = 0.5 - cos((fb_lat - usr_lat) * radians_convert) / 2 + cos(usr_lat * radians_convert) * \
+                    cos(fb_lat * radians_convert) * (1 - cos((fb_long - usr_long) * radians_convert)) / 2
+        return 12742 * asin(sqrt(haversine))
+
+    def closest(fb_data, urs_cords):
+        return min(fb_data, key=lambda f: distance(urs_cords["lat"], urs_cords["lon"], f["lat"], f["lon"]))
+
+    if not current_user.is_authenticated: #for testing purposes
+        id_num = 314
+        user = User.query.filter_by(id=id_num).first()
+        login_user(user)
+
+    user_lat_long = {"lat": current_user.lat, "lon": current_user.long}
+    fb_lat_long = []
+
+    fb_address_data = FoodBank.query.all()
+    for fb in fb_address_data:
+        address = fb.address[0]
+        lat_long = get_lat_long(address.number_and_road + ", " + address.town + ", " + address.post_code)
+        dict_lat_long = {"lat": float(lat_long[0]), "lon": float(lat_long[1])}
+        fb_lat_long.append(dict_lat_long)
+
+    return closest(fb_lat_long, user_lat_long)
 
 
 @users_blueprint.route('/register', methods=['GET', 'POST'])
@@ -111,7 +141,8 @@ def edit_appointments():
 
 @users_blueprint.route('/food-bank-search')
 def food_bank_search():
-    return render_template('food-bank-search.html')
+    closest_fb = find_closest_fb() # TODO: change, only implemented for testing
+    return render_template('food-bank-search.html', latitude=closest_fb['lat'], longitude=closest_fb['lon'])
 
 
 @users_blueprint.route('/food-bank-information/<food_bank_id>')
