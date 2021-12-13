@@ -22,7 +22,8 @@ def address_character_check(form, field):
 
 
 def postcode_check(form, field):
-    if not validation.is_valid_postcode(field.data):
+    postcode = field.data.replace(" ", "")
+    if not validation.is_valid_postcode(postcode):
         raise ValidationError(f" {field.data} is not a valid postcode.")
 
 
@@ -33,13 +34,13 @@ class RegisterForm(FlaskForm):
     first_name = StringField(validators=[InputRequired(), character_check])
     # first name is required
 
-    last_name = StringField(validators=[InputRequired(), character_check])
+    last_name: StringField = StringField(validators=[InputRequired(), character_check])
     # last name is required
 
-    address_line_1 = StringField(validators=[InputRequired(), address_character_check])
+    address_line = StringField(validators=[InputRequired(), address_character_check])
     #
 
-    address_line_2 = StringField(validators=[address_character_check])
+    town_city = StringField(validators=[address_character_check])
 
     postcode = StringField(validators=[InputRequired(), postcode_check])
 
