@@ -14,7 +14,7 @@
                     <img src="../static/logo600x200.png" alt="Feeding Newcastle" width="240" height="80">
         </div>
             <div class="navbar-item">
-                {% if current_user.is_authenticated %}
+                {% if current_user.is_authenticated%}
                     <a href="{{ url_for('users.logout') }}" class="navbar-item">
                         Logout
                     </a>
@@ -35,18 +35,21 @@
                         Login
                     </a>
                 {% endif %}
-                <a href="{{ url_for('donate.donate') }}" class="navbar-item">
+                {% if not current_user.role=="admin"%}
+                <a href="{{ url_for('users.donate') }}" class="navbar-item">
                         Donate
                     </a>
-                <a href="{{ url_for('appointments.appointments') }}" class="navbar-item">
+                <a href="{{ url_for('users.appointments') }}" class="navbar-item">
                         Book an Appointment
                     </a>
                 <a href="{{ url_for('food_banks.food_banks') }}" class="navbar-item">
                         Our Food Banks
                     </a>
+                {% endif %}
                 <a href="{{ url_for('index') }}" class="navbar-item">
                     Home
                 </a>
+
             </div>
         </nav>
         <div id="content">{% block content %}{% endblock %}</div>

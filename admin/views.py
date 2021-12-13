@@ -7,3 +7,7 @@ admin_blueprint = Blueprint('admin', __name__, template_folder='templates')
 @admin_blueprint.route('/admin')
 def admin():
     return render_template('admin.html')
+
+@admin_blueprint.route('/food-bank-registration')
+def food_bank_registration():
+    return render_template('food-bank-registration.html')

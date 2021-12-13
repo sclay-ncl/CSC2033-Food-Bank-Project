@@ -48,14 +48,38 @@ nav .navbar-item{
 
 /* Header */
 h1 {
-    padding: 40px 20px 40px 20px;
+    padding: 40px 20px 20px 20px;
     text-align: center;
     color: black;
 }
 
 /* Body */
 
-form{
+.iframe {
+    border:0;
+    width: 600px;
+    height: 450px;
+}
+
+.notification-is-danger{
+    width: 90%;
+    display: block;
+    text-align: center;
+	border-radius: 20px;
+	border: 1px solid #8e2c23;
+	background-color: #fedce0;
+	color: #8e2c23;
+	font-size: 12px;
+	font-weight: bold;
+	padding: 10px 30px;
+	letter-spacing: 1px;
+    position: absolute;
+    left: 50%;
+    top: 4.5%;
+    transform: translate(-50%, -50%);
+}
+
+.login-form{
     margin-top: 100px;
     margin-left: auto;
     margin-right: auto;
@@ -68,21 +92,71 @@ form{
     box-shadow: 20px 20px rgba(0,0,0,.15);
 }
 
+.register-form{
+    padding: 40px;
+    max-width:600px;
+    margin:40px auto;
+    align-content: center;
+    background: white;
+    color: black;
+    position: relative;
+    height:86%;
+    width:50%;
+    box-shadow: 20px 20px rgba(0,0,0,.15);
+}
+
 form label{
   padding: 20px 25px 20px 40px;
 }
 
-input{
+.input{
     font-size: 14px;
-    padding: 12px 15px;
-	margin: 25px 0px;
-	width: 100%;
+    text-align: center;
+    height: 50px;
+    width: 90%;
+    border: rgba(0,0,0,.3) 2px solid;
+    box-sizing: border-box;
+    padding: 20px;
+    display: block;
+    margin: 15px auto 30px;
+}
+
+.recaptcha {
+    margin: auto;
+  padding: 20px;
+    display: inline-block;
+}
+
+.first-name{
+    position:relative;
+    width:42.5%;
+    margin-right:4%;
+    margin-left: 5%;
+    display:inline-block;
+    font-size: 14px;
+    text-align: center;
+    height: 50px;
+    border: rgba(0,0,0,.3) 2px solid;
+    box-sizing: border-box;
+}
+
+.last-name{
+    width:42.5%;
+    display: block;
+    float:right;
+    margin-right: 5%;
+    font-size: 14px;
+    text-align: center;
+    height: 50px;
+    border: rgba(0,0,0,.3) 2px solid;
+    box-sizing: border-box;
 }
 
 input::placeholder {
   color: gray;
   text-align: center;
 }
+
 .login_text{
     padding: 25px 5px;
     font-size: 15px;
@@ -95,16 +169,20 @@ input::placeholder {
     font-size: 14px;
 }
 
-button {
+.button {
+    text-align: center;
 	border-radius: 20px;
-	border: 1px solid #bde0ff;
-	background-color: #bde0ff;
-	color: black;
+	border: 1px solid #5c8631;
+	background-color: #97c170;
+	color: #000000;
 	font-size: 12px;
 	font-weight: bold;
-	padding: 12px 45px;
+	padding: 12px 35px;
 	letter-spacing: 1px;
 	text-transform: uppercase;
+    cursor: pointer;
+    display: block;
+    margin: 30px auto 0;
 }
 
 .submit-button{
@@ -116,18 +194,89 @@ button:active {
 }
 
 body {
-    background-color: rgba(151, 193, 112, 0.9);
+    background-color: #97c170;
 }
 
 p {
     font: 15px Poppins, sans-serif;
+    text-align: center;
+    color: black;
+
 }
 
 p.page-header {
     font-size: 20px;
     text-align: center;
-    color: gray;
+    color: #a9a9a9;
     text-decoration: underline;
 
 }
 
+.index-main-banner {
+    background: #ffffff;
+    position: absolute;
+    width: 80%;
+    left: 10%;
+    right: 10%;
+    top: 102px;
+  height: 300px;
+  overflow: hidden;
+    border-radius: 0 0 20% 70%;
+}
+
+.index-main-banner .index-text-right {
+    float: right;
+}
+
+.index-main-banner .index-img-left {
+    float: left;
+}
+
+.index-main-banner .index-donate-button{
+	border-radius: 20px;
+	border: 1px solid #5c8631;
+	background-color: #97c170;
+	color: #000000;
+	font-size: 12px;
+	font-weight: bold;
+	padding: 12px 35px;
+	letter-spacing: 1px;
+	text-transform: uppercase;
+    cursor: pointer;
+    position: relative;
+    left: 176px;
+    top: 30px;
+    text-decoration: none;
+}
+
+.index-div-break{
+    background: #ffffff;
+    position: absolute;
+    width: 80%;
+    left: 10%;
+    right: 10%;
+    top: 480px;
+  height: 550px;
+  overflow: hidden;
+    align-content: center;
+
+}
+
+.index-div-break .index-div-p{
+    position: relative;
+    float: left;
+}
+
+.index-div-break .break-text {
+    position: relative;
+    text-decoration: underline;
+    text-decoration-thickness: 4px;
+}
+
+.footer{
+    text-align: center;
+    position: absolute;
+   bottom:0;
+   width:100%;
+   background: rgba(178, 178, 178, 0.66);
+}
