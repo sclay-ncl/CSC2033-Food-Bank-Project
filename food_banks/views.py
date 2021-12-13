@@ -6,7 +6,4 @@ food_banks_blueprint = Blueprint('food_banks', __name__, template_folder='templa
 
 @food_banks_blueprint.route('/food_banks')
 def food_banks():
-    latitude = 54.988620
-    longitude = -1.598900
-
-    return render_template('food-banks.html', latitude=latitude, longitude=longitude)
+    return render_template('food-bank-search.html')
