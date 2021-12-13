@@ -3,9 +3,9 @@ import urllib.parse
 from flask_login import current_user, login_user, logout_user, login_required
 from flask import redirect, url_for, render_template, flash, Blueprint, session
 from users.forms import LoginForm, RegisterForm
-from app import db
+from app import db, requires_roles
 from models import User, FoodBank
-from werkzeug.security import check_password_hash
+from werkzeug.security import check_password_hash, generate_password_hash
 
 # CONFIG
 users_blueprint = Blueprint('users', __name__, template_folder='templates')
@@ -27,7 +27,7 @@ def get_lat_long(address):
     return latitude, longitude
 
 
-@users_blueprint.route('/register', methods=['GET', 'POST']) # TODO: add users_blueprint (front end, requires a template/CSS)
+@users_blueprint.route('/register', methods=['GET', 'POST'])
 def register():
     form = RegisterForm()
 
@@ -39,14 +39,21 @@ def register():
             return render_template('register.html', form=form)
         # if the inputted username matches up with a username in the db, return the user to the register page
 
-        new_user = User(email=form.email.data, password=form.password.data) # TODO: need to pass in all parameters, also check with Sol about way to create new user, as different to last module
+        new_user = User(email=form.email.data,
+                        first_name=form.first_name.data,
+                        last_name=form.last_name.data,
+                        password=generate_password_hash(form.password.data),
+                        phone_number=form.phone_number.data,
+                        role='user',  # TODO: assign different user roles (donor and collector)
+                        long='0',  # TODO: generate the longitude and latitude from the user's address
+                        lat='0')
 
         db.session.add(new_user)
         db.session.commit()
 
         return redirect(url_for('users.login'))
 
-    return render_template('register.html', form=form)  # TODO: create register.html (front end)
+    return render_template('register.html', form=form)
 
 
 @users_blueprint.route('/login', methods=['GET', 'POST'])
@@ -64,7 +71,7 @@ def login():
             login_user(user)
             return render_template('profile.html')
     # if the login details are correct it will redirect the user to the home page
-    return render_template('login.html', form=form)  # TODO: create login.html (front end)
+    return render_template('login.html', form=form)
 
 
 @login_required
@@ -73,7 +80,8 @@ def logout():
     logout_user()
     return redirect(url_for('index'))
 
-
+@login_required
+@requires_roles('donor', 'collector', 'admin')
 @users_blueprint.route('/profile', methods=['GET', 'POST'])
 def profile():
     return render_template('profile.html',
@@ -90,7 +98,8 @@ def profile():
 def book_appointments():
     return render_template('book-appointments.html')
 
-
+@login_required
+@requires_roles('collector')
 @users_blueprint.route('/edit_appointments')
 def edit_appointments():
     return render_template('edit-appointments.html')
@@ -104,6 +113,12 @@ def food_bank_search():
 @users_blueprint.route('/food-bank-information/<food_bank_id>')
 def food_bank_information(food_bank_id):
     food_bank = FoodBank.query.filter_by(id=food_bank_id).first()
+    return render_template('food-bank-information.html',
+                           fb_name=food_bank.name,
+                           fb_email=food_bank.email,
+                           fb_phone=food_bank.phone_number,
+                           fb_web=food_bank.website)
+
     address = food_bank.address[0]
     lat_long = get_lat_long(address.number_and_road + ", " + address.town + ", " + address.post_code)
     return render_template('food-bank-information.html', latitude=lat_long[0], longitude=lat_long[1])

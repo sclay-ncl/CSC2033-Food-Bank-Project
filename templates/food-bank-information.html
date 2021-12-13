@@ -1,8 +1,16 @@
 {% extends "base.html" %}
 
 {% block content %}
+<!-- Page Header -->
+<p class="page-header"> {{ fb_name }}:</p>
 
-<iframe class="iframe" loading="lazy" allowfullscreen
-src="https://www.google.com/maps/embed/v1/view?key=AIzaSyA-z5qXTaMbrt-bqNW0uXT2UXZ7Cevb3qg&zoom=17&center={{ latitude }}%2C{{ longitude }}"></iframe>
 
+
+
+    <div>
+    Contact details:
+    Email: {{ fb_email }}
+    Phone number: {{ fb_phone }}
+    Website: {{ fb_web if fb_web is not none else 'Not Avaialble'}}
+    </div>
 {% endblock %}
