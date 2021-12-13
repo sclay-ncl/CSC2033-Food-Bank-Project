@@ -4,6 +4,10 @@ from flask import redirect, url_for, render_template, flash, Blueprint, session
 food_banks_blueprint = Blueprint('food_banks', __name__, template_folder='templates')
 
 
-@food_banks_blueprint.route('/food_banks')
-def food_banks():
-    return render_template('food-bank-search.html')
+@food_banks_blueprint.route('/manage_stock')
+def manage_stock():
+    return render_template('manage-stock.html')
+
+@food_banks_blueprint.route('/upcoming_appointments')
+def upcoming_appointments():
+    return render_template('upcoming-appointments.html')
