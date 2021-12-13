@@ -12,6 +12,7 @@ def character_check(form, field):
         if char in excluded_characters:
             raise ValidationError(f"Character {char} is not allowed.")
 
+
 # character_check but without the numbers
 def address_character_check(form, field):
     excluded_characters = "±§!@€#<#$%^&*()_+={}[]:;'|<>.?/"
@@ -40,7 +41,7 @@ class RegisterForm(FlaskForm):
 
     address_line_2 = StringField(validators=[address_character_check])
 
-    postcode = StringField(validators=[InputRequired()])
+    postcode = StringField(validators=[InputRequired(), postcode_check])
 
     phone_number = StringField(validators=[])
 
@@ -63,10 +64,11 @@ class RegisterForm(FlaskForm):
             raise ValidationError("Password must contain at least 1 digit and 1 uppercase letter.")
 
     # will raise a Validation Error if phone number isn't 11 digits in length, or start with 07
+    # TODO: figure out why this isn't working, no validation for phone is working
     def validate_phone(self, phone_number):
         ph = re.compile(r'^(?:\s*)[0][7]\d{9}(?:\s*)$')
         if not ph.match(self.phone_number.data):
-            raise ValidationError("Phone number must be 11 digits long.")
+            raise ValidationError("Phone number must be 11 digits total length and start with 07.")
 
 
 class LoginForm(FlaskForm):
