@@ -3,7 +3,7 @@ import urllib.parse
 from flask_login import current_user, login_user, logout_user, login_required
 from flask import redirect, url_for, render_template, flash, Blueprint, session
 from users.forms import LoginForm, RegisterForm
-from app import db
+from app import db, requires_roles
 from models import User, FoodBank
 from werkzeug.security import check_password_hash, generate_password_hash
 
@@ -80,7 +80,8 @@ def logout():
     logout_user()
     return redirect(url_for('index'))
 
-
+@login_required
+@requires_roles('donor', 'collector', 'admin')
 @users_blueprint.route('/profile', methods=['GET', 'POST'])
 def profile():
     return render_template('profile.html',
@@ -97,7 +98,8 @@ def profile():
 def book_appointments():
     return render_template('book-appointments.html')
 
-
+@login_required
+@requires_roles('collector')
 @users_blueprint.route('/edit_appointments')
 def edit_appointments():
     return render_template('edit-appointments.html')
