@@ -38,6 +38,8 @@ def register():
             flash("This username already exists")
             return render_template('register.html', form=form)
         # if the inputted username matches up with a username in the db, return the user to the register page
+        lat_long = get_lat_long(
+            str(form.address_line.data) + ", " + str(form.town_city.data) + ", " + str(form.postcode.data))
 
         new_user = User(email=form.email.data,
                         first_name=form.first_name.data,
@@ -45,8 +47,8 @@ def register():
                         password=generate_password_hash(form.password.data),
                         phone_number=form.phone_number.data,
                         role='user',  # TODO: assign different user roles (donor and collector)
-                        long='0',  # TODO: generate the longitude and latitude from the user's address
-                        lat='0')
+                        long=lat_long[1],
+                        lat=lat_long[0])
 
         db.session.add(new_user)
         db.session.commit()
@@ -63,7 +65,7 @@ def login():
     if form.validate_on_submit():
         user = User.query.filter_by(email=form.email.data).first()
 
-        if not user or not user.password == form.password.data:
+        if not user or not check_password_hash(user.password, form.password.data):
             flash("incorrect username/password")
             return render_template('login.html', form=form)
 
@@ -79,6 +81,7 @@ def login():
 def logout():
     logout_user()
     return redirect(url_for('index'))
+
 
 @login_required
 @requires_roles('donor', 'collector', 'admin')
@@ -97,6 +100,7 @@ def profile():
 @users_blueprint.route('/book_appointments')
 def book_appointments():
     return render_template('book-appointments.html')
+
 
 @login_required
 @requires_roles('collector')
@@ -127,4 +131,3 @@ def food_bank_information(food_bank_id):
 @users_blueprint.route('/donate')
 def donate():
     return render_template('donate.html')
-
