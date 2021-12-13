@@ -90,7 +90,7 @@ class Address(db.Model):
     building_name = db.Column(db.String(100))
     number_and_road = db.Column(db.String(50), nullable=False)
     town = db.Column(db.String(50), nullable=False)
-    post_code = db.Column(db.String(7), nullable=False)
+    post_code = db.Column(db.String(8), nullable=False)
 
     opening_hours = db.relationship('OpeningHours')
 
