@@ -6,4 +6,4 @@ food_banks_blueprint = Blueprint('food_banks', __name__, template_folder='templa
 
 @food_banks_blueprint.route('/food_banks')
 def food_banks():
-    return render_template('food-banks.html')
+    return render_template('food-bank-search.html')

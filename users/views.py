@@ -79,7 +79,7 @@ def profile():
 
 @users_blueprint.route('/appointments')
 def appointments():
-    return render_template('appointments.html')
+    return render_template('book-appointments.html')
 
 
 @users_blueprint.route('/donate')
