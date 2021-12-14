@@ -29,7 +29,7 @@ def get_lat_long(address):
     return latitude, longitude
 
 
-# https://stackoverflow.com/questions/41336756/find-the-closest-latitude-and-longitude inspiration
+# https://stackoverflow.com/questions/41336756/find-the-closest-latitude-and-longitude parts took from this
 def find_closest_fb():
     """
     Function returns the latitude and longitude of the closest food bank to the logged in user.
