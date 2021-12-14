@@ -29,7 +29,7 @@ def get_lat_long(address):
     return latitude, longitude
 
 
-# https://stackoverflow.com/questions/41336756/find-the-closest-latitude-and-longitude inspiration
+# https://stackoverflow.com/questions/41336756/find-the-closest-latitude-and-longitude parts took from this
 def find_closest_fb():
     """
     Function returns the latitude and longitude of the closest food bank to the logged in user.
@@ -165,11 +165,14 @@ def food_bank_search():
 @users_blueprint.route('/food-bank-information/<food_bank_id>')
 def food_bank_information(food_bank_id):
     food_bank = FoodBank.query.filter_by(id=food_bank_id).first()
+    stock_level = FoodBank.query.filter_by(fb_id=food_bank_id).first()
     address = food_bank.address[0]
     lat_long = get_lat_long(address.number_and_road + ", " + address.town + ", " + address.post_code)
     return render_template('food-bank-information.html',
                            latitude=lat_long[0],
                            longitude=lat_long[1],
+                           id=food_bank_id,
+                           fb_stock=stock_level,
                            fb_name=food_bank.name,
                            fb_email=food_bank.email,
                            fb_phone=food_bank.phone_number,

@@ -1,35 +1,63 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <h3>Your Account</h3>
-    <div class="box">
-        <table>
-        <tbody>
-            <tr>
-                <th>Account No.</th>
-                <th>{{ acc_no }}</th>
-            </tr>
-            <tr>
-                <th>Account Role</th>
-                <th>{{ role }}</th>
-            </tr>
-            <tr>
-                <th>Email</th>
-                <th>{{ email }}</th>
-            </tr>
-            <tr>
-                <th>First Name</th>
-                <th>{{ firstname }}</th>
-            </tr>
-            <tr>
-                <th>Last Name</th>
-                <th>{{ lastname }}</th>
-            </tr>
-            <tr>
-                <th>Phone No.</th>
-                <th>{{ phone }}</th>
-            </tr>
-        </tbody>
-        </table>
+
+    {% if current_user.is_authenticated %}
+
+    <h3> My Profile </h3>
+    <h1> Account Details </h1>
+
+    <div class="name-details">
+        <h3>Name</h3>
+        {{ current_user.firstname }}{{ current_user.lastname}}
     </div>
-{% endblock %}
+
+    <div class="contact-details">
+        <h3>Contact Details</h3>
+
+        <p> Email Address:</p>
+        {{ current_user.email }}
+
+        <p> Phone Number:</p>
+        {{ current_user.phone_number}}
+    </div>
+
+    <div class="address-details">
+        <h3>Address</h3>
+        {{ current_user.address_line }}
+        {{ current_user.town_city }}
+        {{ current_user.postcode }}
+    </div>
+
+    <div class="fb-preference">
+        <h3> Saved Food Bank</h3>
+    #{{ current_user.saved_fb }}#
+    </div>
+
+    {% if current_user.role=='donor' %}
+    <div class="notification">
+        <h3> Notification Settings </h3>
+        <p> Food Banks sending you notifications:</p>
+        #{{ current_user.preffered_fb }}#
+
+        <p>Type of notification:</p>
+        #{{ current_user.type_notification }}#
+    </div>
+
+    {% if current_user.role=='collector' %}
+    <div class="diet_req">
+        <h3>Dietary Requirements</h3>
+        {{ current_user.diet_req }}
+    </div>
+
+    {% if current_user.role=='collector' %}
+    <div class="their-appointments">
+        <h3>Your Appointments</h3>
+        <p> Date </p>
+        #{{ current_users.appointment_date }}#
+        <p> Appointment Number</p>
+        #{{ current_users.appointment_id }}#
+    </div>
+
+
+{% endblock%}
