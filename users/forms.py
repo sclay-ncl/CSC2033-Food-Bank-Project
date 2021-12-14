@@ -66,3 +66,18 @@ class LoginForm(FlaskForm):
     password = PasswordField(validators=[InputRequired()])
     recaptcha = RecaptchaField()
     submit = SubmitField()
+
+class UpdateAccountInformationForm(FlaskForm):
+    # TODO: Check if email already in database
+    email = StringField(validators=[InputRequired(), Email(), Length(max=50)])
+    first_name = StringField(validators=[InputRequired(), character_check, Length(max=50)])
+    last_name: StringField = StringField(validators=[InputRequired(), character_check, Length(max=50)])
+    address_line = StringField(validators=[InputRequired(), address_character_check, Length(max=50)])
+    town_city = StringField(validators=[address_character_check, Length(max=50)])
+    postcode = StringField(validators=[InputRequired(), postcode_check, Length(max=50)])
+    phone_number = StringField(validators=[Length(max=50)])
+    submit = SubmitField()
+
+class DietaryRequirementsForm(FlaskForm):
+    requirements = StringField(Length(max=500))
+    submit = SubmitField()
