@@ -6,7 +6,7 @@ from users.forms import LoginForm, RegisterForm
 from app import db, requires_roles
 from models import User, FoodBank
 from werkzeug.security import check_password_hash, generate_password_hash
-from math import radians, cos, sin, asin, sqrt, pi
+from math import cos, asin, sqrt, pi
 
 # CONFIG
 users_blueprint = Blueprint('users', __name__, template_folder='templates')
@@ -17,6 +17,7 @@ def get_lat_long(address):
     Function returns the latitude and longitude of a given address
 
     @param: address, address of desired latitude and longitude co-ordinates
+
     @return: tuple of latitude and longitude co-ordinates
     """
     url = 'https://nominatim.openstreetmap.org/search/' + urllib.parse.quote(address) + '?format=json'
@@ -30,11 +31,27 @@ def get_lat_long(address):
 
 # https://stackoverflow.com/questions/41336756/find-the-closest-latitude-and-longitude inspiration
 def find_closest_fb():
+    """
+    Function returns the latitude and longitude of the closest food bank to the logged in user.
+
+    @param: usr_lat: The current user's latitude co-ordinate
+    @param: usr_long: The current user's longitude co-ordinate
+    @param: fb_lat: The food bank's latitude co-ordinate the code is currently checking
+    @param: fb_long: The food bank's longitude co-ordinate the code is currently checking
+    @param: fb_data: Query from the database of all food bank data
+    @param: A tuple of the current user's co-ordinates
+
+    @return: Dictionary of the co-ordinates of the closest food bank
+    """
     def distance(usr_lat, usr_long, fb_lat, fb_long):
         radians_convert = pi / 180
-        haversine = 0.5 - cos((fb_lat - usr_lat) * radians_convert) / 2 + cos(usr_lat * radians_convert) * \
-                    cos(fb_lat * radians_convert) * (1 - cos((fb_long - usr_long) * radians_convert)) / 2
-        return 12742 * asin(sqrt(haversine))
+        diam_earth_km = 12742
+        d_lat = fb_lat - usr_lat
+        d_long = fb_long - usr_long
+        haversine = 0.5 - cos(d_lat * radians_convert) / 2 + cos(usr_lat * radians_convert) * \
+                    cos(fb_lat * radians_convert) * (1 - cos(d_long * radians_convert)) / 2
+        dist = asin(sqrt(haversine))
+        return diam_earth_km * dist
 
     def closest(fb_data, urs_cords):
         return min(fb_data, key=lambda f: distance(urs_cords["lat"], urs_cords["lon"], f["lat"], f["lon"]))
