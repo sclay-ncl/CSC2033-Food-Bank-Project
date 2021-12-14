@@ -2,6 +2,8 @@
 
 {% block content %}
 
+    {% if current_user.is_authenticated %}
+
     <h3> My Profile </h3>
     <h1> Account Details </h1>
 
@@ -32,6 +34,7 @@
     #{{ current_user.saved_fb }}#
     </div>
 
+    {% if current_user.role=='donor' %}
     <div class="notification">
         <h3> Notification Settings </h3>
         <p> Food Banks sending you notifications:</p>
@@ -41,11 +44,13 @@
         #{{ current_user.type_notification }}#
     </div>
 
+    {% if current_user.role=='collector' %}
     <div class="diet_req">
         <h3>Dietary Requirements</h3>
         {{ current_user.diet_req }}
     </div>
 
+    {% if current_user.role=='collector' %}
     <div class="their-appointments">
         <h3>Your Appointments</h3>
         <p> Date </p>
