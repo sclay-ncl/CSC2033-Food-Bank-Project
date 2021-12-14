@@ -28,29 +28,18 @@ def postcode_check(form, field):
 
 
 class RegisterForm(FlaskForm):
-    email = StringField(validators=[InputRequired(), Email()])
-    # email is required to be filled and meet the Email requirements
-
-    first_name = StringField(validators=[InputRequired(), character_check])
-    # first name is required
-
-    last_name: StringField = StringField(validators=[InputRequired(), character_check])
-    # last name is required
-
-    address_line = StringField(validators=[InputRequired(), address_character_check])
-    #
-
-    town_city = StringField(validators=[address_character_check])
-
-    postcode = StringField(validators=[InputRequired(), postcode_check])
-
-    phone_number = StringField(validators=[])
-
+    # TODO: Check if email already in database
+    email = StringField(validators=[InputRequired(), Email(), Length(max=50)])
+    first_name = StringField(validators=[InputRequired(), character_check, Length(max=50)])
+    last_name: StringField = StringField(validators=[InputRequired(), character_check, Length(max=50)])
+    address_line = StringField(validators=[InputRequired(), address_character_check, Length(max=50)])
+    town_city = StringField(validators=[address_character_check, Length(max=50)])
+    postcode = StringField(validators=[InputRequired(), postcode_check, Length(max=50)])
+    phone_number = StringField(validators=[Length(max=50)])
+    # password is required to be filled, must be between 8 and 16 characters, has the option to contain a special
+    # character, include at least one digit and an uppercase letter
     password = PasswordField(validators=[InputRequired(), Length(min=8, max=16, message= 'Password must be between 8 and 16 '
                                                                                    'characters.')])
-    # password is required to be filled, must be between 8 and 16 characters, has the option to contain a special ...
-    # ... character, include at least one digit and an uppercase letter
-
     confirm_password = PasswordField(validators=[InputRequired(), EqualTo('password', message='This must be the same as '
                                                                                          'the password.')])
     # confirm password must be the same as password
