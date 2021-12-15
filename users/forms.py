@@ -32,8 +32,8 @@ class RegisterForm(FlaskForm):
     email = StringField(validators=[InputRequired(), Email(), Length(max=50)])
     first_name = StringField(validators=[InputRequired(), character_check, Length(max=50)])
     last_name: StringField = StringField(validators=[InputRequired(), character_check, Length(max=50)])
-    address_line = StringField(validators=[InputRequired(), address_character_check, Length(max=50)])
-    town_city = StringField(validators=[address_character_check, Length(max=50)])
+    number_and_road = StringField(validators=[InputRequired(), address_character_check, Length(max=50)])
+    town = StringField(validators=[address_character_check, Length(max=50)])
     postcode = StringField(validators=[InputRequired(), postcode_check, Length(max=50)])
     phone_number = StringField(validators=[Length(max=50)])
     # password is required to be filled, must be between 8 and 16 characters, has the option to contain a special

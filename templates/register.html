@@ -34,12 +34,12 @@
                         {% endfor %}
 
                     {{ form.number_and_road(class="input", placeholder="Enter the first line of your address") }}
-                        {% for error in form.address_line.errors %}
+                        {% for error in form.number_and_road.errors %}
                             {{ error }}
                         {% endfor %}
 
                     {{ form.town(class="input", placeholder="Enter your town/city") }}
-                        {% for error in form.first_name.errors %}
+                        {% for error in form.town.errors %}
                             {{ error }}
                         {% endfor %}
 
