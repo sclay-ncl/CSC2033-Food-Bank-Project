@@ -16,12 +16,4 @@ class FoodBankRegistrationForm(FlaskForm):
     confirm_password = PasswordField(
         validators=[InputRequired(), EqualTo('password', message='This must be the same as '
                                                                  'the password.')])
-
-    # address information
-    building_name = StringField(validators=[Length(max=100)])  # not all places have a building name, therefore nullable
-    number_and_road = StringField(validators=[InputRequired(), Length(max=50)])
-    town = StringField(validators=[InputRequired(), Length(max=50)])
-    postcode = StringField(validators=[InputRequired(), Length(max=8)])  # TODO: Add postcode validation
-
     submit = SubmitField()
-
