@@ -8,8 +8,9 @@ import socket
 app = Flask(__name__)
 
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-app.config['SQLALCHEMY_DATABASE_URI'] = \
-    "mysql+pymysql://csc2033_team15:Pea5NudeCure@127.0.0.1:8989/csc2033_team15"
+# app.config['SQLALCHEMY_DATABASE_URI'] = \
+#     "mysql+pymysql://csc2033_team15:Pea5NudeCure@127.0.0.1:8989/csc2033_team15"
+app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:///temp.db"
 app.config['SECRET_KEY'] = 'LongAndRandomSecretKey'
 
 # TODO: change these API keys, obtained from Canvas (need a URL first)
