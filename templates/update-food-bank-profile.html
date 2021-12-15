@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="update-food-bank-profile">
+        <h1>Update</h1>
+            {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                    <div class="notification is-danger">
+                        {{ messages[0] }}. Go to <a href="{{ url_for('users.login') }}">login page</a>.
+                    </div>
+                {% endif %}
+            {% endwith %}
+            <form method="POST">
+                    {{ form.csrf_token() }}
+                        {{ form.name(class="input") }}
+                        {% for error in form.name.errors %}
+                            {{ error }}
+                        {% endfor %}
+
+                    {{ form.email(class="input") }}
+                        {% for error in form.email.errors %}
+                            {{ error }}
+                        {% endfor %}
+
+                    {{ form.phone_number(class="input") }}
+                        {% for error in form.phone_number.errors %}
+                            {{ error }}
+                        {% endfor %}
+
+                    {{ form.website(class="input") }}
+                        {% for error in form.website.errors %}
+                            {{ error }}
+                        {% endfor %}
+
+                    {{ form.submit(class="button") }}
+            </form>
+        </div>
+
+
+{% endblock %}
