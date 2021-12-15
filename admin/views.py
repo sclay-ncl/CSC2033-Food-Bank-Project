@@ -16,7 +16,7 @@ def admin():
 
 @login_required
 @requires_roles('admin')
-@admin_blueprint.route('/food-bank-registration')
+@admin_blueprint.route('/food-bank-registration', methods=['GET', 'POST'])
 def food_bank_registration():
     form = FoodBankRegistrationForm()
 
