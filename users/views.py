@@ -57,7 +57,7 @@ def find_closest_fb():
         return min(fb_data, key=lambda f: distance(urs_cords["lat"], urs_cords["lon"], f["lat"], f["lon"]))
 
     if not current_user.is_authenticated: #for testing purposes
-        id_num = 314
+        id_num = 311
         user = User.query.filter_by(id=id_num).first()
         login_user(user)
 
