@@ -163,7 +163,7 @@ def update_profile():
     form.town.data = user.town
     form.postcode.data = user.postcode
     form.phone_number.data = user.phone_number
-    return render_template('update.html', form=form)
+    return render_template('update-profile.html', form=form)
 
 @users_blueprint.route('/book_appointments')
 def book_appointments():
