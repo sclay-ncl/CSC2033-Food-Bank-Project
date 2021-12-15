@@ -23,7 +23,7 @@ def address_character_check(form, field):
 
 def postcode_check(form, field):
     postcode = field.data.replace(" ", "")
-    if not validation.is_valid_postcode(postcode):
+    if not validation.is_valid_postcode(postcode.upper()):
         raise ValidationError(f" {field.data} is not a valid postcode.")
 
 
