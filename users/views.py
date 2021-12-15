@@ -7,6 +7,7 @@ from app import db, requires_roles
 from models import User, FoodBank
 from werkzeug.security import check_password_hash, generate_password_hash
 from math import cos, asin, sqrt, pi
+from users.forms import UpdateAccountInformationForm
 
 # CONFIG
 users_blueprint = Blueprint('users', __name__, template_folder='templates')
@@ -143,6 +144,26 @@ def profile():
                            phone=current_user.phone_number,
                            user=current_user)
 
+
+@users_blueprint.route('/update-profile', methods=['POST', 'GET'])
+@login_required
+def update_profile():
+    user = current_user
+    form = UpdateAccountInformationForm()  # show update form
+    if form.validate_on_submit():  # if form is valid
+        user.update_post(form.email.data, form.first_name.data, form.last_name.data, form.number_and_road.data,
+                         form.town.data, form.postcode.data, form.phone_number.data)
+        return profile()
+
+    # get original user details and load them into the form
+    form.email.data = user.email
+    form.first_name.data = user.first_name
+    form.last_name.data = user.last_name
+    form.number_and_road.data = user.number_and_road
+    form.town.data = user.town
+    form.postcode.data = user.postcode
+    form.phone_number.data = user.phone_number
+    return render_template('update.html', form=form)
 
 @users_blueprint.route('/book_appointments')
 def book_appointments():
