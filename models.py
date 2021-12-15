@@ -15,7 +15,7 @@ class User(db.Model, UserMixin):
     password = db.Column(db.String(50), nullable=False)  # TODO: implement hashing
     number_and_road = db.Column(db.String(50))
     town = db.Column(db.String(50))
-    post_code = db.Column(db.String(8))
+    postcode = db.Column(db.String(8))
     long = db.Column(db.Float)
     lat = db.Column(db.Float)
 
@@ -23,6 +23,16 @@ class User(db.Model, UserMixin):
     notify = db.relationship('FoodBank',
                              secondary='notify',
                              backref=db.backref('notify', lazy='dynamic'))
+
+    def update_information(self, first_name, last_name, email, phone_number, number_and_road, town, postcode):
+        self.first_name = first_name
+        self.last_name = last_name
+        self.email = email
+        self.phone_number = phone_number
+        self.number_and_road = number_and_road
+        self.town = town
+        self.postcode = postcode
+        db.session.commit()
 
 
 class FoodBank(db.Model):
@@ -93,7 +103,7 @@ class Address(db.Model):
     building_name = db.Column(db.String(100))
     number_and_road = db.Column(db.String(50), nullable=False)
     town = db.Column(db.String(50), nullable=False)
-    post_code = db.Column(db.String(8), nullable=False)
+    postcode = db.Column(db.String(8), nullable=False)
 
     opening_hours = db.relationship('OpeningHours')
 
