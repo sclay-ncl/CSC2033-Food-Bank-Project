@@ -9,7 +9,7 @@ app = Flask(__name__)
 
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SQLALCHEMY_DATABASE_URI'] = \
-    "mariadb+mariadbconnector://csc2033_team15:Pea5NudeCure@127.0.0.1:8989/csc2033_team15"
+    "mysql+pymysql://csc2033_team15:Pea5NudeCure@127.0.0.1:8989/csc2033_team15"
 app.config['SECRET_KEY'] = 'LongAndRandomSecretKey'
 
 # TODO: change these API keys, obtained from Canvas (need a URL first)
