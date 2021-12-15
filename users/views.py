@@ -67,10 +67,11 @@ def find_closest_fb():
 
     fb_address_data = FoodBank.query.all()
     for fb in fb_address_data:
-        address = fb.address[0]
-        lat_long = get_lat_long(address.number_and_road + ", " + address.town + ", " + address.postcode)
-        dict_lat_long = {"lat": float(lat_long[0]), "lon": float(lat_long[1])}
-        fb_lat_long.append(dict_lat_long)
+        if fb.address:
+            address = fb.address[0]
+            lat_long = get_lat_long(address.number_and_road + ", " + address.town + ", " + address.postcode)
+            dict_lat_long = {"lat": float(lat_long[0]), "lon": float(lat_long[1])}
+            fb_lat_long.append(dict_lat_long)
 
     return closest(fb_lat_long, user_lat_long)
 
@@ -87,7 +88,7 @@ def register():
             return render_template('register.html', form=form)
         # if the inputted username matches up with a username in the db, return the user to the register page
         lat_long = get_lat_long(
-            str(form.address_line.data) + ", " + str(form.town_city.data) + ", " + str(form.postcode.data))
+            str(form.number_and_road.data) + ", " + str(form.town.data) + ", " + str(form.postcode.data))
 
         new_user = User(email=form.email.data,
                         first_name=form.first_name.data,
