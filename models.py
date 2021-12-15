@@ -20,9 +20,9 @@ class User(db.Model, UserMixin):
     lat = db.Column(db.Float)
 
     diet_req = db.relationship('DietReq')
-    notify = db.relationship('FoodBank',
-                             secondary='notify',
-                             backref=db.backref('notify', lazy='dynamic'))
+    associated = db.relationship('FoodBank',
+                                 secondary='associate',
+                                 backref=db.backref('associated', lazy='dynamic'))
 
     def update_information(self, first_name, last_name, email, phone_number, number_and_road, town, postcode):
         self.first_name = first_name
@@ -64,8 +64,8 @@ class FoodBank(db.Model):
                 # go through each item and sum their quantities
                 total_quantity += \
                     Stocks.query.filter_by(fb_id=self.id, item_id=item_id).with_entities(Stocks.quantity).first()[0]
-            low_boundary = getattr(stock_levels, category+"_low")  # get the boundaries for the category
-            high_boundary = getattr(stock_levels, category+"_high")
+            low_boundary = getattr(stock_levels, category + "_low")  # get the boundaries for the category
+            high_boundary = getattr(stock_levels, category + "_high")
             if total_quantity < low_boundary:  # decide stock level based on total quantity
                 level = 0
             elif total_quantity < high_boundary:
@@ -74,6 +74,7 @@ class FoodBank(db.Model):
                 level = 2
             setattr(stock_levels, category, level)  # set the stock level
             db.session.commit()
+
 
 class Item(db.Model):
     """Models the item table:
@@ -176,10 +177,10 @@ class Stocks(db.Model):
     food_bank = db.relationship('FoodBank', backref=db.backref('items'))
     item = db.relationship('Item', backref=db.backref('stocked_at'))
 
-
-notify = db.Table('notify',
-                  db.Column('user_id', db.Integer, db.ForeignKey('user.id'), primary_key=True),
-                  db.Column('fb_id', db.Integer, db.ForeignKey('food_bank.id'), primary_key=True))
+# associate table models any user association with a food bank
+associate = db.Table('associate',
+                     db.Column('user_id', db.Integer, db.ForeignKey('user.id'), primary_key=True),
+                     db.Column('fb_id', db.Integer, db.ForeignKey('food_bank.id'), primary_key=True))
 
 
 def init_db():
