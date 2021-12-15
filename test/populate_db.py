@@ -81,7 +81,7 @@ def generate_notify():
     donor_users = User.query.filter_by(role="donor").all()
     food_banks = FoodBank.query.all()
     for user in donor_users:
-        user.notify.append(random.choice(food_banks))
+        user.associated.append(random.choice(food_banks))
     db.session.commit()
 
 def generate_stock_levels():
