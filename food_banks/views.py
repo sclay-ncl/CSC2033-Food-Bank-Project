@@ -21,4 +21,5 @@ def upcoming_appointments():
 @food_banks_blueprint.route('/update-food-bank-profile')
 def update_information():
     form = UpdateFoodBankInformationForm()
+    # TODO: actually use form data
     return render_template('update-food-bank-profile.html', form=form)
