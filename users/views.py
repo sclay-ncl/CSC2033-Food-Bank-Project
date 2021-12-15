@@ -68,7 +68,7 @@ def find_closest_fb():
     fb_address_data = FoodBank.query.all()
     for fb in fb_address_data:
         address = fb.address[0]
-        lat_long = get_lat_long(address.number_and_road + ", " + address.town + ", " + address.post_code)
+        lat_long = get_lat_long(address.number_and_road + ", " + address.town + ", " + address.postcode)
         dict_lat_long = {"lat": float(lat_long[0]), "lon": float(lat_long[1])}
         fb_lat_long.append(dict_lat_long)
 
