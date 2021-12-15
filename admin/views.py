@@ -40,9 +40,9 @@ def food_bank_registration():
                         phone_number=form.phone_number.data,
                         role='food_bank')
 
-    new_food_bank.associated.append(new_user)  # associates the user account with the food bank
-    db.session.add(new_food_bank)
-    db.session.add(new_user)
-    db.session.commit()
+        new_food_bank.associated.append(new_user)  # associates the user account with the food bank
+        db.session.add(new_food_bank)
+        db.session.add(new_user)
+        db.session.commit()
 
     return render_template('food-bank-registration.html', form=form)
