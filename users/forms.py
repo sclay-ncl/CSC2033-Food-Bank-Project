@@ -67,6 +67,7 @@ class LoginForm(FlaskForm):
     recaptcha = RecaptchaField()
     submit = SubmitField()
 
+
 class UpdateAccountInformationForm(FlaskForm):
     # TODO: Check if email already in database
     email = StringField(validators=[InputRequired(), Email(), Length(max=50)])
@@ -78,6 +79,12 @@ class UpdateAccountInformationForm(FlaskForm):
     phone_number = StringField(validators=[Length(max=50)])
     submit = SubmitField()
 
+
 class DietaryRequirementsForm(FlaskForm):
     requirements = StringField(Length(max=500))
+    submit = SubmitField()
+
+
+class FbSearch(FlaskForm):
+    search = StringField()
     submit = SubmitField()

@@ -54,6 +54,22 @@ h1 {
 }
 
 /* Body */
+#map {
+    top: 20px;
+    height: 350px;
+    width: 650px;
+    box-shadow: 20px 20px rgba(0,0,0,.15);
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.marker {
+  background-size: cover;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  cursor: pointer;
+}
 
 .iframe {
     border:0;
@@ -103,6 +119,18 @@ h1 {
     height:86%;
     width:50%;
     box-shadow: 20px 20px rgba(0,0,0,.15);
+}
+
+.fb-list {
+    font-size: 14px;
+    text-align: center;
+    height: 50px;
+    width: 90%;
+    border: rgba(0,0,0,.3) 2px solid;
+    box-sizing: border-box;
+    padding: 20px;
+    display: block;
+    margin: 15px auto 30px;
 }
 
 form label{

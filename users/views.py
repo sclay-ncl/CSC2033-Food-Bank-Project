@@ -1,13 +1,13 @@
 import requests
 import urllib.parse
 from flask_login import current_user, login_user, logout_user, login_required
-from flask import redirect, url_for, render_template, flash, Blueprint, session
+from flask import redirect, url_for, render_template, flash, Blueprint
 from users.forms import LoginForm, RegisterForm
 from app import db, requires_roles
 from models import User, FoodBank
 from werkzeug.security import check_password_hash, generate_password_hash
 from math import cos, asin, sqrt, pi
-from users.forms import UpdateAccountInformationForm
+from users.forms import UpdateAccountInformationForm, FbSearch
 
 # CONFIG
 users_blueprint = Blueprint('users', __name__, template_folder='templates')
@@ -44,6 +44,7 @@ def find_closest_fb():
 
     @return: Dictionary of the co-ordinates of the closest food bank
     """
+
     def distance(usr_lat, usr_long, fb_lat, fb_long):
         radians_convert = pi / 180
         diam_earth_km = 12742
@@ -57,7 +58,7 @@ def find_closest_fb():
     def closest(fb_data, urs_cords):
         return min(fb_data, key=lambda f: distance(urs_cords["lat"], urs_cords["lon"], f["lat"], f["lon"]))
 
-    if not current_user.is_authenticated: #for testing purposes
+    if not current_user.is_authenticated:  # for testing purposes
         id_num = 311
         user = User.query.filter_by(id=id_num).first()
         login_user(user)
@@ -152,8 +153,8 @@ def update_profile():
     user = current_user
     form = UpdateAccountInformationForm()  # show update form
     if form.validate_on_submit():  # if form is valid
-        user.update_information(first_name=form.first_name.data, last_name=form.last_name.data, email= form.email.data,
-                                phone_number=form.phone_number.data,  number_and_road=form.number_and_road.data,
+        user.update_information(first_name=form.first_name.data, last_name=form.last_name.data, email=form.email.data,
+                                phone_number=form.phone_number.data, number_and_road=form.number_and_road.data,
                                 town=form.town.data, postcode=form.postcode.data)
         return profile()
 
@@ -167,6 +168,7 @@ def update_profile():
     form.phone_number.data = user.phone_number
     return render_template('update-profile.html', form=form)
 
+
 @users_blueprint.route('/book_appointments')
 def book_appointments():
     return render_template('book-appointments.html')
@@ -179,10 +181,24 @@ def edit_appointments():
     return render_template('edit-appointments.html')
 
 
-@users_blueprint.route('/food-bank-search')
+@users_blueprint.route('/food-bank-search', methods=['POST', 'GET'])
 def food_bank_search():
-    closest_fb = find_closest_fb() # TODO: change, only implemented for testing
-    return render_template('food-bank-search.html', latitude=closest_fb['lat'], longitude=closest_fb['lon'])
+    lat = []
+    long = []
+    fb_names = []
+
+    fb_address_data = FoodBank.query.all()
+    for fb in fb_address_data:
+        fb_names.append(fb.name)
+        if fb.address:
+            address = fb.address[0]
+            lat_long = get_lat_long(address.number_and_road + ", " + address.town + ", " + address.postcode)
+            lat.append(lat_long[0])
+            long.append(lat_long[1])
+
+    # closest_fb = find_closest_fb() # TODO: change, only implemented for testing
+    form = FbSearch()
+    return render_template('food-bank-search.html', form=form, lat=lat, long=long, food_banks=fb_names)
 
 
 @users_blueprint.route('/food-bank-information/<food_bank_id>')
