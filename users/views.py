@@ -88,6 +88,9 @@ def register():
                         password=generate_password_hash(form.password.data),
                         phone_number=form.phone_number.data,
                         role='user',  # TODO: assign different user roles (donor and collector)
+                        number_and_road=form.number_and_road,
+                        town=form.town,
+                        postcode=form.postcode,
                         long=lat_long[1],
                         lat=lat_long[0])
 
