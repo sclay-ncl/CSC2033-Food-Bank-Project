@@ -177,10 +177,12 @@ class Stocks(db.Model):
     food_bank = db.relationship('FoodBank', backref=db.backref('items'))
     item = db.relationship('Item', backref=db.backref('stocked_at'))
 
+
 # associate table models any user association with a food bank
-associate = db.Table('associate',
-                     db.Column('user_id', db.Integer, db.ForeignKey('user.id'), primary_key=True),
-                     db.Column('fb_id', db.Integer, db.ForeignKey('food_bank.id'), primary_key=True))
+class Associate(db.Model):
+    associate = db.Table('associate',
+                         db.Column('user_id', db.Integer, db.ForeignKey('user.id'), primary_key=True),
+                         db.Column('fb_id', db.Integer, db.ForeignKey('food_bank.id'), primary_key=True))
 
 
 def init_db():
