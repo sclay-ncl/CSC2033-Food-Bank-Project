@@ -5,11 +5,6 @@
         <h1>Our Food Banks</h1>
     </div>
 
-    <div>
-     {{ form.search(class="input", placeholder="Search for a Food Bank") }}
-     {{ form.submit(class="button") }}
-    </div>
-
     <div id='map'>
 
     <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
@@ -48,6 +43,15 @@ trackUserLocation: true,
 showUserHeading: true
 })
 );
+
 </script>
     </div>
+
+    {% for fb in fb_info %}
+        <a href="{{ url_for('users.food_bank_information' ,food_bank_id=fb[0]) }}" class="fb-button">
+                {{ fb[1] }}
+        </a>
+    {% endfor %}
+
+
 {% endblock %}

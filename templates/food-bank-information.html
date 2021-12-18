@@ -2,11 +2,31 @@
 
 {% block content %}
 <!-- Page Header -->
-<p class="page-header"> {{ fb_name }}:</p>
+<h1 class="page-header"> {{ fb_name }}</h1>
 
-<iframe class="iframe" loading="lazy" allowfullscreen
-src="https://www.google.com/maps/embed/v1/view?key=AIzaSyA-z5qXTaMbrt-bqNW0uXT2UXZ7Cevb3qg&zoom=17&center={{ latitude }}%2C{{ longitude }}"></iframe>
+<div id='map'>
 
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+    <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v2.6.1/mapbox-gl.js'></script>
+    <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v2.6.1/mapbox-gl.css' rel='stylesheet' />
+<script>
+
+mapboxgl.accessToken = 'pk.eyJ1IjoiZmVlZGluZ25ld2Nhc3RsZSIsImEiOiJja3hhOXphejQweTcwMzFxYzl1aXk4NXR5In0.OihrSx_S50ZkVWRPjEXL2Q';
+
+const lat = {{ lat|safe }};
+const long = {{ long|safe }};
+
+const map = new mapboxgl.Map({
+  container: 'map',
+  style: 'mapbox://styles/mapbox/streets-v10',
+  center: [long, lat],
+  zoom: 14
+});
+
+const marker = new mapboxgl.Marker().setLngLat([long, lat]).addTo(map);
+
+</script>
+    </div>
 {{ fb_stock }}
 
     <div>

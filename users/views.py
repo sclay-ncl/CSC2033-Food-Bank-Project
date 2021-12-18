@@ -1,13 +1,13 @@
 import requests
 import urllib.parse
 from flask_login import current_user, login_user, logout_user, login_required
-from flask import redirect, url_for, render_template, flash, Blueprint
+from flask import redirect, url_for, render_template, flash, Blueprint, request
 from users.forms import LoginForm, RegisterForm
 from app import db, requires_roles
 from models import User, FoodBank
 from werkzeug.security import check_password_hash, generate_password_hash
 from math import cos, asin, sqrt, pi
-from users.forms import UpdateAccountInformationForm, FbSearch
+from users.forms import UpdateAccountInformationForm
 
 # CONFIG
 users_blueprint = Blueprint('users', __name__, template_folder='templates')
@@ -185,33 +185,33 @@ def edit_appointments():
 def food_bank_search():
     lat = []
     long = []
-    fb_names = []
+    fb_id_name = []
 
     fb_address_data = FoodBank.query.all()
     for fb in fb_address_data:
-        fb_names.append(fb.name)
         if fb.address:
+            temp_fb = [fb.id, fb.name]
+            fb_id_name.append(temp_fb)
             address = fb.address[0]
             lat_long = get_lat_long(address.number_and_road + ", " + address.town + ", " + address.postcode)
             lat.append(lat_long[0])
             long.append(lat_long[1])
 
     # closest_fb = find_closest_fb() # TODO: change, only implemented for testing
-    form = FbSearch()
-    return render_template('food-bank-search.html', form=form, lat=lat, long=long, food_banks=fb_names)
+    return render_template('food-bank-search.html', lat=lat, long=long, fb_info=fb_id_name)
 
 
 @users_blueprint.route('/food-bank-information/<food_bank_id>')
 def food_bank_information(food_bank_id):
     food_bank = FoodBank.query.filter_by(id=food_bank_id).first()
-    stock_level = FoodBank.query.filter_by(fb_id=food_bank_id).first()
+    #stock_level = FoodBank.query.filter_by(fb_id=food_bank_id).first()
     address = food_bank.address[0]
-    lat_long = get_lat_long(address.number_and_road + ", " + address.town + ", " + address.post_code)
+    lat_long = get_lat_long(address.number_and_road + ", " + address.town + ", " + address.postcode)
     return render_template('food-bank-information.html',
-                           latitude=lat_long[0],
-                           longitude=lat_long[1],
+                           lat=lat_long[0],
+                           long=lat_long[1],
                            id=food_bank_id,
-                           fb_stock=stock_level,
+                           #fb_stock=stock_level,
                            fb_name=food_bank.name,
                            fb_email=food_bank.email,
                            fb_phone=food_bank.phone_number,
