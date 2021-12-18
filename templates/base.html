@@ -9,6 +9,46 @@
     <link rel="stylesheet" href="../static/styles.css" />
 </head>
 <body>
+        <div class="dropdown">
+          <button class="dropbtn">Menu</button>
+          <div class="dropdown-content">
+              {% if current_user.is_authenticated%}
+                    <a href="{{ url_for('users.logout') }}">
+                        Logout
+                    </a>
+                    <a href="{{ url_for('users.profile') }}">
+                        Profile
+                    </a>
+                {% endif %}
+                {% if current_user.is_authenticated and current_user.role=='admin'%}
+                    <a href="{{ url_for('admin.admin') }}">
+                        Admin
+                    </a>
+                {% endif %}
+                {% if not current_user.is_authenticated %}
+                    <a href="{{ url_for('users.register') }}">
+                        Register
+                    </a>
+                    <a href="{{ url_for('users.login') }}">
+                        Login
+                    </a>
+                {% endif %}
+                {% if not current_user.role=="admin"%}
+                <a href="{{ url_for('users.donate') }}">
+                        Donate
+                    </a>
+                <a href="{{ url_for('users.book_appointments') }}">
+                        Book an Appoint
+                    </a>
+                <a href="{{ url_for('users.food_bank_search') }}">
+                        Our Food Banks
+                    </a>
+                {% endif %}
+                <a href="{{ url_for('index') }}">
+                    Home
+                </a>
+            </div>
+        </div>
         <nav class="nav">
         <div class="logo">
                     <img src="../static/logo600x200.png" alt="Feeding Newcastle" width="240" height="80">
@@ -49,10 +89,8 @@
                 <a href="{{ url_for('index') }}" class="navbar-item">
                     Home
                 </a>
-
             </div>
         </nav>
         <div id="content">{% block content %}{% endblock %}</div>
-
 </body>
 </html>

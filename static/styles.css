@@ -46,6 +46,67 @@ nav .navbar-item{
   background: rgb(151, 193, 112);
 }
 
+@media screen and (min-width: 1237px) {
+    .dropbtn {
+        display: none !important;
+    }
+}
+
+@media screen and (max-width: 1240px) {
+    .navbar-item{
+        visibility: collapse;
+        display: none !important;}
+
+}
+
+
+.dropbtn {
+    position: absolute;
+    top: 10px;
+	border-radius: 15px;
+	border: 1px solid #ffffff;
+	background-color: #ffffff;
+	color: #000000;
+	font-size: 14px;
+	font-weight: bold;
+	padding: 10px 24px;
+	letter-spacing: 1px;
+    text-decoration: none;
+    cursor: pointer;
+    margin: 8px auto 0;
+    box-shadow: 5px 5px rgba(0,0,0,.15);
+}
+
+.dropdown {
+  position: absolute;
+  display: inline-block;
+    float: right;
+    top: 10px;
+    right: 25%;
+    z-index: 1000;
+}
+
+.dropdown-content {
+    top: 62px;
+  display: none;
+  position: absolute;
+  background-color: #5c8631;
+    border-radius: 15px;
+}
+
+.dropdown-content a {
+    color: #ffffff;
+    padding: 10px 15px;
+    text-decoration: none;
+    display: block;
+}
+
+.dropdown-content a:hover {background-color: #97c170; border-radius: 5px}
+
+.dropdown:hover .dropdown-content {display: block;}
+
+.dropdown:hover .dropbtn {background-color: #97c170;}
+
 /* Header */
 h1 {
     padding: 40px 20px 20px 20px;
@@ -57,11 +118,23 @@ h1 {
 #map {
     top: 20px;
     height: 350px;
-    width: 850px;
+    width: 70%;
     box-shadow: 20px 20px rgba(0,0,0,.15);
     margin-left: auto;
     margin-right: auto;
     margin-bottom: 85px;
+    max-width: 850px;
+}
+
+#map1 {
+    top: 20px;
+    height: 350px;
+    width: 70%;
+    box-shadow: 20px 20px rgba(0,0,0,.15);
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 70px;
+    max-width: 850px;
 }
 
 .marker {
@@ -70,12 +143,6 @@ h1 {
   height: 50px;
   border-radius: 50%;
   cursor: pointer;
-}
-
-.iframe {
-    border:0;
-    width: 600px;
-    height: 450px;
 }
 
 .notification-is-danger{
@@ -118,7 +185,7 @@ h1 {
     color: black;
     position: relative;
     height:86%;
-    width:50%;
+    width:80%;
     box-shadow: 20px 20px rgba(0,0,0,.15);
 }
 
@@ -229,6 +296,8 @@ input::placeholder {
     display: block;
     margin: 8px auto 0;
     width: 60%;
+    max-width: 850px;
+    box-shadow: 5px 5px rgba(0,0,0,.15);
 }
 
 .submit-button{
