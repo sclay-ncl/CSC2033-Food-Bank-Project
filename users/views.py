@@ -4,10 +4,11 @@ from flask_login import current_user, login_user, logout_user, login_required
 from flask import redirect, url_for, render_template, flash, Blueprint, request
 from users.forms import LoginForm, RegisterForm
 from app import db, requires_roles
-from models import User, FoodBank
+from models import User, FoodBank, Associate
 from werkzeug.security import check_password_hash, generate_password_hash
 from math import cos, asin, sqrt, pi
-from users.forms import UpdateAccountInformationForm
+from users.forms import UpdateAccountInformationForm, FavForm
+from sqlalchemy import insert
 
 # CONFIG
 users_blueprint = Blueprint('users', __name__, template_folder='templates')
@@ -208,8 +209,29 @@ def food_bank_search():
     return render_template('food-bank-search.html', lat=lat, long=long, fb_info=fb_id_name)
 
 
-@users_blueprint.route('/food-bank-information/<food_bank_id>')
+@users_blueprint.route('/food-bank-information/<food_bank_id>', methods=['POST', 'GET'])
 def food_bank_information(food_bank_id):
+    form = FavForm()
+    if request.method == 'POST':
+        if request.form['action'] == "add":
+            new_fav = Associate(user_id=current_user.id, fb_id=food_bank_id)
+
+            db.session.add(new_fav)
+            db.session.commit()
+
+        if request.form['action'] == "remove":
+            Associate.query.filter_by(fb_id=food_bank_id, user_id=current_user.id).delete()
+            db.session.commit()
+
+    is_fav = False
+    if current_user.is_authenticated:
+        user_info = User.query.filter_by(id=current_user.id).first()
+        fav_fb_data = user_info.associated
+
+        for fb in fav_fb_data:
+            if str(fb.id) == str(food_bank_id):
+                is_fav = True
+
     food_bank = FoodBank.query.filter_by(id=food_bank_id).first()
     # stock_level = FoodBank.query.filter_by(fb_id=food_bank_id).first() TODO: fix this
     address = food_bank.address[0]
@@ -222,7 +244,9 @@ def food_bank_information(food_bank_id):
                            fb_name=food_bank.name,
                            fb_email=food_bank.email,
                            fb_phone=food_bank.phone_number,
-                           fb_web=food_bank.website)
+                           fb_web=food_bank.website,
+                           form=form,
+                           is_fav=is_fav)
 
 
 @users_blueprint.route('/donate')

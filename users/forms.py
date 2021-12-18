@@ -85,6 +85,6 @@ class DietaryRequirementsForm(FlaskForm):
     submit = SubmitField()
 
 
-class FbSearch(FlaskForm):
-    search = StringField()
-    submit = SubmitField()
+class FavForm(FlaskForm):
+    add = SubmitField("Favourite")
+    remove = SubmitField("Un-favourite")

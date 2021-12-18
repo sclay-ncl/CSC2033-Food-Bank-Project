@@ -137,6 +137,13 @@ h1 {
     max-width: 850px;
 }
 
+.fav {
+  position: relative;
+  top: 50%;
+  left: 50%;
+}
+
+
 .marker {
   background-size: cover;
   width: 50px;

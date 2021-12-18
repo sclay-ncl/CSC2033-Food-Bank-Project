@@ -41,4 +41,7 @@ const usr_marker = new mapboxgl.Marker({ color: 'black'}).setLngLat([usr_long, u
                 {{ fb[1] }}
         </a>
     {% endfor %}
+    {% if fav_fb|length == 0 %}
+        <p>You haven't favourited any food banks yet!</p>
+    {% endif %}
 {% endblock %}
