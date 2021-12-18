@@ -174,11 +174,6 @@ def edit_appointments():
 
 @users_blueprint.route('/food-bank-search', methods=['POST', 'GET'])
 def food_bank_search():
-    if current_user.is_authenticated:  # for testing purposes
-        id_num = 311
-        user = User.query.filter_by(id=id_num).first()
-        login_user(user)
-
     lat = []
     long = []
     fb_id_name = []
