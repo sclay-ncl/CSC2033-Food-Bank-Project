@@ -31,7 +31,7 @@ def get_lat_long(address):
 
 
 # https://stackoverflow.com/questions/41336756/find-the-closest-latitude-and-longitude parts took from this
-def find_closest_fb():
+def find_closest_fb(fb_address_lat, db_address_long):
     """
     Function returns the latitude and longitude of the closest food bank to the logged in user.
 
@@ -58,21 +58,12 @@ def find_closest_fb():
     def closest(fb_data, urs_cords):
         return min(fb_data, key=lambda f: distance(urs_cords["lat"], urs_cords["lon"], f["lat"], f["lon"]))
 
-    if not current_user.is_authenticated:  # for testing purposes
-        id_num = 311
-        user = User.query.filter_by(id=id_num).first()
-        login_user(user)
-
     user_lat_long = {"lat": current_user.lat, "lon": current_user.long}
     fb_lat_long = []
 
-    fb_address_data = FoodBank.query.all()
-    for fb in fb_address_data:
-        if fb.address:
-            address = fb.address[0]
-            lat_long = get_lat_long(address.number_and_road + ", " + address.town + ", " + address.postcode)
-            dict_lat_long = {"lat": float(lat_long[0]), "lon": float(lat_long[1])}
-            fb_lat_long.append(dict_lat_long)
+    for fb in range(len(fb_address_lat)):
+        dict_lat_long = {"lat": float(fb_address_lat[fb]), "lon": float(db_address_long[fb])}
+        fb_lat_long.append(dict_lat_long)
 
     return closest(fb_lat_long, user_lat_long)
 
@@ -183,6 +174,11 @@ def edit_appointments():
 
 @users_blueprint.route('/food-bank-search', methods=['POST', 'GET'])
 def food_bank_search():
+    if current_user.is_authenticated:  # for testing purposes
+        id_num = 311
+        user = User.query.filter_by(id=id_num).first()
+        login_user(user)
+
     lat = []
     long = []
     fb_id_name = []
@@ -197,21 +193,34 @@ def food_bank_search():
             lat.append(lat_long[0])
             long.append(lat_long[1])
 
-    # closest_fb = find_closest_fb() # TODO: change, only implemented for testing
+    if current_user.is_authenticated:
+        closest_fb = find_closest_fb(lat, long)
+        for fb in range(len(lat)):
+            if str(lat[fb]) == str(closest_fb["lat"]) and str(long[fb]) == str(closest_fb["lon"]):
+                closest_fb_name_id = fb_id_name[fb][0], fb_id_name[fb][1]
+
+        user_info = User.query.filter_by(id=current_user.id).first()
+        fav_fb_data = user_info.associated
+        fav_fb = []
+        for i in range(len(fav_fb_data)):
+            fav_fb.append((fav_fb_data[i].id, fav_fb_data[i].name))
+
+        return render_template('food-bank-search-logged-in.html', lat=closest_fb["lat"], long=closest_fb["lon"], closest_fb=closest_fb, closest_fb_name_id=closest_fb_name_id, fav_fb=fav_fb)
+
     return render_template('food-bank-search.html', lat=lat, long=long, fb_info=fb_id_name)
 
 
 @users_blueprint.route('/food-bank-information/<food_bank_id>')
 def food_bank_information(food_bank_id):
     food_bank = FoodBank.query.filter_by(id=food_bank_id).first()
-    #stock_level = FoodBank.query.filter_by(fb_id=food_bank_id).first()
+    # stock_level = FoodBank.query.filter_by(fb_id=food_bank_id).first() TODO: fix this
     address = food_bank.address[0]
     lat_long = get_lat_long(address.number_and_road + ", " + address.town + ", " + address.postcode)
     return render_template('food-bank-information.html',
                            lat=lat_long[0],
                            long=lat_long[1],
                            id=food_bank_id,
-                           #fb_stock=stock_level,
+                           # fb_stock=stock_level,
                            fb_name=food_bank.name,
                            fb_email=food_bank.email,
                            fb_phone=food_bank.phone_number,

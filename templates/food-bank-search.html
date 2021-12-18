@@ -46,12 +46,10 @@ showUserHeading: true
 
 </script>
     </div>
-
     {% for fb in fb_info %}
         <a href="{{ url_for('users.food_bank_information' ,food_bank_id=fb[0]) }}" class="fb-button">
                 {{ fb[1] }}
         </a>
     {% endfor %}
-
 
 {% endblock %}

@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div>
+        <h1>Your closest Food Bank</h1>
+    </div>
+
+    <div id='map1'>
+
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+    <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v2.6.1/mapbox-gl.js'></script>
+    <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v2.6.1/mapbox-gl.css' rel='stylesheet' />
+<script>
+
+mapboxgl.accessToken = 'pk.eyJ1IjoiZmVlZGluZ25ld2Nhc3RsZSIsImEiOiJja3hhOXphejQweTcwMzFxYzl1aXk4NXR5In0.OihrSx_S50ZkVWRPjEXL2Q';
+
+const lat = {{ lat|safe }};
+const long = {{ long|safe }};
+const usr_lat = {{ current_user.lat|safe }};
+const usr_long = {{ current_user.long|safe }};
+
+const map = new mapboxgl.Map({
+  container: 'map1',
+  style: 'mapbox://styles/mapbox/streets-v10',
+  center: [usr_long, usr_lat],
+  zoom: 12
+});
+
+const cls_marker = new mapboxgl.Marker({ color: 'red'}).setLngLat([long, lat]).addTo(map);
+const usr_marker = new mapboxgl.Marker({ color: 'black'}).setLngLat([usr_long, usr_lat]).addTo(map);
+
+</script>
+    </div>
+    <a href="{{ url_for('users.food_bank_information' ,food_bank_id=closest_fb_name_id[0]) }}" class="fb-button">
+                {{ closest_fb_name_id[1] }}
+        </a>
+
+    <h1>Your Favourite Food Banks</h1>
+    {% for fb in fav_fb %}
+        <a href="{{ url_for('users.food_bank_information' ,food_bank_id=fb[0]) }}" class="fb-button">
+                {{ fb[1] }}
+        </a>
+    {% endfor %}
+{% endblock %}
