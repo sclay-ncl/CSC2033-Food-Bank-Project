@@ -89,9 +89,9 @@ def register():
                         password=generate_password_hash(form.password.data),
                         phone_number=form.phone_number.data,
                         role='user',  # TODO: assign different user roles (donor and collector)
-                        number_and_road=form.number_and_road,
-                        town=form.town,
-                        postcode=form.postcode,
+                        number_and_road=form.number_and_road.data,
+                        town=form.town.data,
+                        postcode=form.postcode.data,
                         long=lat_long[1],
                         lat=lat_long[0])
 
@@ -188,9 +188,8 @@ def food_bank_search():
             temp_fb = [fb.id, fb.name]
             fb_id_name.append(temp_fb)
             address = fb.address[0]
-            lat_long = get_lat_long(address.number_and_road + ", " + address.town + ", " + address.postcode)
-            lat.append(lat_long[0])
-            long.append(lat_long[1])
+            lat.append(address.lat)
+            long.append(address.long)
 
     if current_user.is_authenticated:
         closest_fb = find_closest_fb(lat, long)
@@ -235,7 +234,7 @@ def food_bank_information(food_bank_id):
     food_bank = FoodBank.query.filter_by(id=food_bank_id).first()
     # stock_level = FoodBank.query.filter_by(fb_id=food_bank_id).first() TODO: fix this
     address = food_bank.address[0]
-    lat_long = get_lat_long(address.number_and_road + ", " + address.town + ", " + address.postcode)
+    lat_long = [address.lat, address.long]
     return render_template('food-bank-information.html',
                            lat=lat_long[0],
                            long=lat_long[1],
