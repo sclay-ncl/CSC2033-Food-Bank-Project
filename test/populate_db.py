@@ -56,7 +56,9 @@ def convert_to_object(data, object_type):
                                    building_name=attr[2],
                                    number_and_road=attr[3],
                                    town=attr[4],
-                                   postcode=attr[5]))
+                                   postcode=attr[5],
+                                   lat=attr[6],
+                                   long=attr[7]))
     return objects
 
 def generate_stocks(low, high):

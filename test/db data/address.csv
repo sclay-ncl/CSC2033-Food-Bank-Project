@@ -1,4 +1,10 @@
-id,fb_id,building_name,number_and_road,town,post_code
-1,1,Newcastle Foodbank Centre,Benwell Lane,Newcastle upon Tyne,NE15 6LX
-2,1,Lemington Methodist Church,2 Lorain Terrace,Newcastle upon Tyne,NE15 8EA
-3,2,NULL,162 Brinkburn St,Newcastle upon Tyne, NE6 2AR
+id,fb_id,building_name,number_and_road,town,post_code,lat,long
+1,1,NULL,Benwell Ln,Newcastle upon Tyne,NE15 6LX,54.974082,-1.673955
+2,2,NULL,162 Brinkburn St,Newcastle upon Tyne,NE6 2AR,54.971608,-1.578957
+3,3,The Davidson Building,Swan St,Newcastle upon Tyne,NE8 1BG,54.963612,-1.600040
+4,4,NULL,15 Corsenside,Newcastle upon Tyne,NE5 2DA,54.99046621094068,-1.6909662548885305
+5,5,Kenton Retail,177 Kirkwood Dr,Newcastle upon Tyne,NE3 3BE,55.00617773473667,-1.653550985166302
+6,6,NULL,45 Heaton Rd,Newcastle upon Tyne,NE6 1SB,54.97981502121372,-1.5803104994896804
+7,7,Monkchester Community Centre,Monkchester Rd,Newcastle upon Tyne,NE6 2LJ,54.96960638613519,-1.5618370945372626
+8,8,City of God Christian Centre,25 Church Walk,Newcastle upon Tyne,NE6 3DP,54.97362813460478,-1.5450326299743509
+9,9,NULL,Bolam St,Newcastle upon Tyne,NE8 2TZ,54.950167561232306,-1.6287242935522934
