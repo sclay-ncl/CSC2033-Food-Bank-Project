@@ -105,6 +105,8 @@ class Address(db.Model):
     number_and_road = db.Column(db.String(50), nullable=False)
     town = db.Column(db.String(50), nullable=False)
     postcode = db.Column(db.String(8), nullable=False)
+    lat = db.Column(db.Float)
+    long = db.Column(db.Float)
 
     opening_hours = db.relationship('OpeningHours')
 
