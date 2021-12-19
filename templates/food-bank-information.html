@@ -6,9 +6,9 @@
 
     <form method="POST">
         {% if not is_fav and current_user.is_authenticated %}
-        <button style="background: transparent; border: 0" type=submit name="action" value="add" class="fav"> <img src="../static/free-favourite-icon-2765-thumb.png" alt="Feeding Newcastle" width="40" height="40"></button>
+        <button style="background: transparent; border: 0" type=submit name="action" value="add" class="fav"> <img src="../static/unsaved.png" alt="not saved" width="40" height="40"></button>
         {% elif is_fav%}
-        <button style="background: transparent; border: 0" type=submit name="action" value="remove" class="fav"> <img src="../static/cartoon-gold-star.png" alt="Feeding Newcastle" width="40" height="40"></button>
+        <button style="background: transparent; border: 0" type=submit name="action" value="remove" class="fav"> <img src="../static/saved.png" alt="saved" width="40" height="40"></button>
         {% endif %}
     </form>
 

@@ -204,7 +204,7 @@ def food_bank_search():
         for i in range(len(fav_fb_data)):
             fav_fb.append((fav_fb_data[i].id, fav_fb_data[i].name))
 
-        return render_template('food-bank-search-logged-in.html', lat=closest_fb["lat"], long=closest_fb["lon"], closest_fb=closest_fb, closest_fb_name_id=closest_fb_name_id, fav_fb=fav_fb)
+        return render_template('food-bank-search-logged-in.html', lat=closest_fb["lat"], long=closest_fb["lon"], closest_fb=closest_fb, closest_fb_name_id=closest_fb_name_id, fav_fb=fav_fb, fb_info=fb_id_name)
 
     return render_template('food-bank-search.html', lat=lat, long=long, fb_info=fb_id_name)
 
