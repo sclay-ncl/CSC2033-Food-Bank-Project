@@ -40,4 +40,4 @@ def update_information():
 @food_banks_blueprint.route('/manage-addresses')
 def manage_addresses():
     current_food_bank = current_user.associated[0]  # get food bank associated with user
-    return render_template('food-bank-manage-addresses', addresses=current_food_bank.address)
+    return render_template('food-bank-manage-addresses.html', addresses=current_food_bank.address)
