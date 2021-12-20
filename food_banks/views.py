@@ -64,6 +64,6 @@ def add_address():
 
         db.session.add(new_address)
         db.session.commit()
-        return manage_addresses
+        return manage_addresses()
 
     return render_template('add-address.html', form=form)
