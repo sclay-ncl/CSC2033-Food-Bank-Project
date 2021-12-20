@@ -5,17 +5,25 @@
     <h3> Manage Food Bank Addresses</h3>
 
     <div class="manage-addresses">
+
         <table>
-            <tr>
-                <th> Building Name</th>
-                <th> Address Line </th>
-                <th> Town </th>
-                <th> Postcode </th>
-            </tr>
-            <tr>
-                <td></td>
-            </tr>
+                <tr>
+                    <th> Building Name</th>
+                    <th> Address Line </th>
+                    <th> Town </th>
+                    <th> Postcode </th>
+                </tr>
+                {% for address in addresses %}
+                <tr>
+                    <td>{{ address.building_name }}</td>
+                    <td>{{ address.number_and_road }}</td>
+                    <td>{{ address.town }}</td>
+                    <td>{{ address.postcode }}</td>
+                </tr>
+                {% endfor %}
         </table>
+
+
     </div>
 
 {% endblock %}
