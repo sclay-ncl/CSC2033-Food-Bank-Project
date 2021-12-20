@@ -19,6 +19,9 @@
                     <td>{{ address.number_and_road }}</td>
                     <td>{{ address.town }}</td>
                     <td>{{ address.postcode }}</td>
+                    <td><a href="{{ url_for('food_banks.delete_address', address_id=address.id) }}" class="button">
+                    Delete
+                    </a></td>
                 </tr>
                 {% endfor %}
         </table>
