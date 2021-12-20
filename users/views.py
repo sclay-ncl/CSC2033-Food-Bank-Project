@@ -8,13 +8,22 @@ from models import User, FoodBank, Associate
 from werkzeug.security import check_password_hash, generate_password_hash
 from math import cos, asin, sqrt, pi
 from users.forms import UpdateAccountInformationForm, FavForm
-from sqlalchemy import insert
 
 # CONFIG
 users_blueprint = Blueprint('users', __name__, template_folder='templates')
 
 
-def get_lat_long(address):
+def get_lat_long(number_road, city, post_code):
+    def find_gap(postcode):
+        for i in range(len(postcode)):
+            if postcode[i].isdigit():
+                if postcode[i + 1].isalpha() and postcode[i + 2].isalpha():
+                    return postcode[0:i] + " " + postcode[i:]
+
+    if not " " in post_code:
+        post_code = find_gap(post_code)
+
+    address = number_road + ", " + city + ", " + post_code
     """
     Function returns the latitude and longitude of a given address
 
@@ -85,8 +94,7 @@ def register():
             flash("This username already exists")
             return render_template('register.html', form=form)
         # if the inputted username matches up with a username in the db, return the user to the register page
-        lat_long = get_lat_long(
-            str(form.number_and_road.data) + ", " + str(form.town.data) + ", " + str(form.postcode.data))
+        lat_long = get_lat_long(str(form.number_and_road.data), str(form.town.data), str(form.postcode.data).upper())
 
         new_user = User(email=form.email.data,
                         first_name=form.first_name.data,
