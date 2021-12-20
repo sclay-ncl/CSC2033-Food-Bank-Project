@@ -1,5 +1,6 @@
 import csv
 import random
+from werkzeug.security import generate_password_hash
 from app import db
 from models import User, FoodBank, Item, OpeningHours, Address, Stocks, StockLevels
 
@@ -34,7 +35,7 @@ def convert_to_object(data, object_type):
                                 last_name=attr[2],
                                 email=attr[3],
                                 phone_number=attr[4],
-                                password=attr[5]))
+                                password=generate_password_hash(attr[5])))
         elif object_type == "food_bank":
             objects.append(FoodBank(id=int(attr[0]),
                                     name=attr[1],

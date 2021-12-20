@@ -48,6 +48,13 @@ class FoodBank(db.Model):
     address = db.relationship('Address')
     stock_levels = db.relationship('StockLevels')
 
+    def update_information(self, name, email, phone_number, website):
+        self.name = name
+        self.email = email
+        self.phone_number = phone_number
+        self.website = website
+        db.session.commit()
+
     def update_stock_levels(self):
         """
         Calculates and sets the stock levels for the food bank based on the quantity of items in each category
