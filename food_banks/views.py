@@ -35,3 +35,9 @@ def update_information():
     form.phone_number.data = current_food_bank.phone_number
     form.website.data = current_food_bank.website
     return render_template('update-food-bank-profile.html', form=form)
+
+@login_required
+@requires_roles('food_bank')
+@food_banks_blueprint.route('/manage-addresses')
+def manage_addresses():
+    return render_template('food-bank-manage-addresses', addresses=current_food_bank.address)
