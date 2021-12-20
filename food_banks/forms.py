@@ -16,6 +16,8 @@ class AddressForm(FlaskForm):
     town = StringField(validators=[InputRequired(), Length(max=50)])
     postcode = StringField(validators=[InputRequired(), Length(max=8)])  # TODO: Add postcode validation
 
+    submit = SubmitField()
+
 class OpeningTimesForm(FlaskForm):
     """Form for food banks to add opening times"""
 
