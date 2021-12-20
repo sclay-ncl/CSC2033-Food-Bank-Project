@@ -9,61 +9,67 @@
     <link rel="stylesheet" href="../static/styles.css" />
 </head>
 <nav class="nav">
-        <div class="logo">
-                    <img src="../static/logo600x200.png" alt="Feeding Newcastle" width="240" height="80">
-        </div>
+         <div class="logo">
+                     <img src="../static/logo600x200.png" alt="Feeding Newcastle" width="240" height="80">
+         </div>
             <div class="navbar-item">
-                {% if current_user.is_authenticated %}
-                    <a href="{{ url_for('users.logout') }}" class="navbar-item">
-                        Logout
-                    </a>
-                {% endif %}
-                {% if current_user.is_authenticated and current_user.role=='admin'%}
-                    <a href="{{ url_for('admin.admin') }}" class="navbar-item">
-                        Admin
-                    </a>
-                {% endif %}
-                {% if not current_user.is_authenticated %}
-                    <a href="{{ url_for('users.register') }}" class="navbar-item">
-                        Register
-                    </a>
-                    <a href="{{ url_for('users.login') }}" class="navbar-item">
-                        Login
-                    </a>
-                {% endif %}
-                {% if not current_user.role=="admin" and not current_user.role=="food_bank"%}
-                <a href="{{ url_for('users.donate') }}" class="navbar-item">
-                        Donate
-                </a>
-                <a href="{{ url_for('users.book_appointments') }}" class="navbar-item">
-                        Book an Appointment
-                </a>
-                <a href="{{ url_for('users.food_bank_search') }}" class="navbar-item">
-                        Our Food Banks
-                </a>
-                <a href="{{ url_for('index') }}" class="navbar-item">
-                    Home
-                </a>
-                <a href="{{ url_for('users.contact_us') }}" class="navbar-item">
-                    Contact Us
+                {% if current_user.is_authenticated%}
+                <a href="{{ url_for('users.logout') }}" class="navbar-item">
+                    Logout
                 </a>
                 <a href="{{ url_for('users.profile') }}" class="navbar-item">
                     Profile
                 </a>
                 {% endif %}
-                {% if current_user.role=="food_bank" %}
-                <a href="{{ url_for('food_banks.manage_stock') }}" class="navbar-item">
-                    Manage Stock
+                {% if current_user.is_authenticated and current_user.role=='admin'%}
+                <a href="{{ url_for('admin.admin') }}" class="navbar-item">
+                    Admin
                 </a>
-                <a href="{{ url_for('food_banks.appointments') }}" class="navbar-item">
-                    Upcoming Appointments
-                </a>
-                <a href="{{ url_for('food_banks.update_information') }}" class="navbar-item">
-                    Update Information
+                <a href="{{ url_for('admin.food_bank_registration') }}" class="navbar-item">
+                    Register Food Banks
                 </a>
                 {% endif %}
-            </div>
-        </nav>
-        <div id="content">{% block content %}{% endblock %}</div>
+                {% if not current_user.is_authenticated %}
+                <a href="{{ url_for('users.register') }}" class="navbar-item">
+                    Register
+                </a>
+                <a href="{{ url_for('users.login') }}" class="navbar-item">
+                    Login
+                </a>
+                {% endif %}
+                {% if not current_user.role=="admin" and not current_user.role=="food_bank"%}
+                <a href="{{ url_for('index') }}" class="navbar-item">
+                     Home
+                </a>
+                <a href="{{ url_for('users.book_appointments') }}" class="navbar-item">
+                        Book an Appointment
+                </a>
+                <a href="{{ url_for('users.food_bank_search') }}" class="navbar-item">
+                         Our Food Banks
+                </a>
+                <a href="{{ url_for('users.donate') }}" class="navbar-item">
+                        Donate
+                </a>
+                <a href="{{ url_for('users.contact_us') }}" class="navbar-item">
+                     Contact Us
+                </a>
+                {% endif %}
+                {% if current_user.role=="food_bank"%}
+                <a href="{{ url_for('food_banks.manage_stock') }}" class="navbar-item">
+                        Manage Stock
+                </a>
+                <a href="{{ url_for('food_banks.upcoming_appointments') }}" class="navbar-item">
+                    Appointments
+                </a>
+                <a href="{{ url_for('food_banks.update_information') }}" class="navbar-item">
+                        Update Information
+                </a>
+                <a href="{{ url_for('food_banks.manage_addresses') }}" class="navbar-item">
+                        Manage Addresses
+                </a>
+                {% endif %}
+             </div>
+         </nav>
+         <div id="content">{% block content %}{% endblock %}</div>
 </body>
 </html>
