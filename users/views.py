@@ -69,6 +69,11 @@ def find_closest_fb(fb_address_lat, db_address_long):
     return closest(fb_lat_long, user_lat_long)
 
 
+@users_blueprint.route('/contact-us', methods=['GET', 'POST'])
+def contact_us():
+    return render_template('contact-us.html')
+
+
 @users_blueprint.route('/register', methods=['GET', 'POST'])
 def register():
     form = RegisterForm()
