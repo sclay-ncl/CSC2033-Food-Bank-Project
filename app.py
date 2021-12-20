@@ -38,6 +38,13 @@ def index():  # put application's code here
 
 
 if __name__ == '__main__':
+    my_host = "127.0.0.1"
+    free_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    free_socket.bind((my_host, 0))
+    free_socket.listen(5)
+    free_port = free_socket.getsockname()[1]
+    free_socket.close()
+
     # Login Manager
     login_manager = LoginManager()
     login_manager.login_view = 'users.login'
@@ -58,4 +65,4 @@ if __name__ == '__main__':
     app.register_blueprint(admin_blueprint)
     app.register_blueprint(food_banks_blueprint)
 
-    app.run(debug=True)
+    app.run(host=my_host, port=free_port, debug=True)
