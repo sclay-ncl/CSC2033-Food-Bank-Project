@@ -5,6 +5,8 @@ from food_banks.forms import UpdateFoodBankInformationForm
 
 food_banks_blueprint = Blueprint('food_banks', __name__, template_folder='templates')
 
+current_food_bank = current_user.assosiated[0]  # get food bank associated with user
+
 @login_required
 @requires_roles('food_bank')
 @food_banks_blueprint.route('/manage-stock')
@@ -22,15 +24,14 @@ def upcoming_appointments():
 @food_banks_blueprint.route('/update-food-bank-profile', methods=['POST', 'GET'])
 def update_information():
     form = UpdateFoodBankInformationForm()
-    food_bank = current_user.assosiated[0]  # get food bank associated with user
     if form.validate_on_submit():  # if form is valid
-        food_bank.update_information(name=form.name.data, email=form.email.data, phone_number=form.phone_number.data,
+        current_food_bank.update_information(name=form.name.data, email=form.email.data, phone_number=form.phone_number.data,
                                      website=form.website.data)
         return update_information()
 
     # get original food bank details and load them into the form
-    form.name.data = food_bank.name
-    form.email.data = food_bank.email
-    form.phone_number.data = food_bank.phone_number
-    form.website.data = food_bank.website
+    form.name.data = current_food_bank.name
+    form.email.data = current_food_bank.email
+    form.phone_number.data = current_food_bank.phone_number
+    form.website.data = current_food_bank.website
     return render_template('update-food-bank-profile.html', form=form)
