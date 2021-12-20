@@ -64,6 +64,16 @@ def add_address():
 
         db.session.add(new_address)
         db.session.commit()
-        return manage_addresses
+        return manage_addresses()
 
     return render_template('add-address.html', form=form)
+
+@login_required
+@requires_roles('food_bank')
+@food_banks_blueprint.route('/delete-address/<address_id>', methods=['GET', 'POST'])
+def delete_address(address_id):
+    address = Address.query.filter_by(id=address_id).first()
+    if address:
+        db.session.delete(address)
+        db.session.commit()
+    manage_addresses()
