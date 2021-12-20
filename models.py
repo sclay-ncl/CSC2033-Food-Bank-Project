@@ -19,7 +19,7 @@ class User(db.Model, UserMixin):
     long = db.Column(db.Float)
     lat = db.Column(db.Float)
 
-    diet_req = db.relationship('DietReq')
+    diet_req = db.relationship('DietReq', cascade="delete-orphan")
     associated = db.relationship('FoodBank',
                                  secondary='associate',
                                  backref=db.backref('associated', lazy='dynamic'))
@@ -45,8 +45,8 @@ class FoodBank(db.Model):
     phone_number = db.Column(db.String(50), nullable=False)
     website = db.Column(db.String(100))
 
-    address = db.relationship('Address')
-    stock_levels = db.relationship('StockLevels')
+    address = db.relationship('Address', cascade="delete-orphan")
+    stock_levels = db.relationship('StockLevels', cascade="delete-orphan")
 
     def update_information(self, name, email, phone_number, website):
         self.name = name
@@ -115,7 +115,7 @@ class Address(db.Model):
     lat = db.Column(db.Float)
     long = db.Column(db.Float)
 
-    opening_hours = db.relationship('OpeningHours')
+    opening_hours = db.relationship('OpeningHours', cascade="delete-orphan")
 
 
 class DietReq(db.Model):
