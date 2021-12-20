@@ -36,7 +36,7 @@ def food_bank_registration():
         new_user = User(email=form.email.data,  # creates user to manage the food bank
                         first_name=form.name.data,
                         last_name="N/A",
-                        password=form.password.data,  # TODO: hash password when hash function is working
+                        password=generate_password_hash(form.password.data),
                         phone_number=form.phone_number.data,
                         role='food_bank')
 
