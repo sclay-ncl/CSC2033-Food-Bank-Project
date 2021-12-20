@@ -76,4 +76,4 @@ def delete_address(address_id):
     if address:
         db.session.delete(address)
         db.session.commit()
-    return redirect(url_for(manage_addresses))
+    return redirect(url_for('food_banks.manage_addresses'))
