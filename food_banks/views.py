@@ -22,7 +22,7 @@ def upcoming_appointments():
 @food_banks_blueprint.route('/update-food-bank-profile', methods=['POST', 'GET'])
 def update_information():
     form = UpdateFoodBankInformationForm()
-    current_food_bank = current_user.assosiated[0]  # get food bank associated with user
+    current_food_bank = current_user.associated[0]  # get food bank associated with user
     if form.validate_on_submit():  # if form is valid
         current_food_bank.update_information(name=form.name.data, email=form.email.data, phone_number=form.phone_number.data,
                                      website=form.website.data)
@@ -39,5 +39,5 @@ def update_information():
 @requires_roles('food_bank')
 @food_banks_blueprint.route('/manage-addresses')
 def manage_addresses():
-    current_food_bank = current_user.assosiated[0]  # get food bank associated with user
+    current_food_bank = current_user.associated[0]  # get food bank associated with user
     return render_template('food-bank-manage-addresses', addresses=current_food_bank.address)
