@@ -29,13 +29,13 @@
 
 nav .navbar-item{
     color: #f2f2f2;
-  text-decoration: none;
-  font-size: 18px;
-  font-weight: 500;
-  padding: 8px 15px;
-  border-radius: 5px;
-  letter-spacing: 1px;
-  transition: all 0.3s ease;
+    text-decoration: none;
+    font-size: 18px;
+    font-weight: 500;
+    padding: 8px 15px;
+    border-radius: 5px;
+    letter-spacing: 1px;
+    transition: all 0.3s ease;
     float: right;
     position: relative;
     top: 10px;
@@ -78,8 +78,8 @@ nav .navbar-item{
 }
 
 .dropdown {
-  position: absolute;
-  display: inline-block;
+    position: absolute;
+    display: inline-block;
     float: right;
     top: 10px;
     right: 25%;
@@ -88,9 +88,9 @@ nav .navbar-item{
 
 .dropdown-content {
     top: 62px;
-  display: none;
-  position: absolute;
-  background-color: #5c8631;
+    display: none;
+    position: absolute;
+    background-color: #5c8631;
     border-radius: 15px;
 }
 
@@ -101,20 +101,48 @@ nav .navbar-item{
     display: block;
 }
 
-.dropdown-content a:hover {background-color: #97c170; border-radius: 5px}
+.dropdown-content a:hover {
+    background-color: #97c170;
+    border-radius: 5px
+}
 
-.dropdown:hover .dropdown-content {display: block;}
+.dropdown:hover .dropdown-content {
+    display: block;
+}
 
-.dropdown:hover .dropbtn {background-color: #97c170;}
+.dropdown:hover .dropbtn {
+    background-color: #97c170;
+}
 
 /* Header */
 h1 {
-    padding: 40px 20px 20px 20px;
+    padding: 10px ;
     text-align: center;
     color: black;
 }
 
+h3 {
+    text-align: center;
+    padding: 30px 10px 10px 10px;
+}
+
 /* Body */
+body {
+    background-color: #97c170;
+}
+
+p {
+    font: 15px Poppins, sans-serif;
+    color: black;
+}
+
+p.page-header {
+    font-size: 20px;
+    text-align: center;
+    color: #a9a9a9;
+    text-decoration: underline;
+}
+
 #map {
     top: 20px;
     height: 350px;
@@ -138,9 +166,9 @@ h1 {
 }
 
 .fav {
-  position: relative;
-  top: 50%;
-  left: 50%;
+    position: relative;
+    top: 50%;
+    left: 50%;
     cursor: pointer;
 }
 
@@ -227,7 +255,7 @@ form label{
 
 .recaptcha {
     margin: auto;
-  padding: 20px;
+    padding: 20px;
     display: inline-block;
 }
 
@@ -286,7 +314,8 @@ input::placeholder {
 	text-transform: uppercase;
     cursor: pointer;
     display: block;
-    margin: 30px auto 0;
+    margin: 30px auto ;
+    width: 35%;
 }
 
 .fb-button{
@@ -316,23 +345,65 @@ button:active {
 	transform: scale(0.95);
 }
 
-body {
-    background-color: #97c170;
+/* Profile page */
+.profile-display{
+    border: thin solid rgba(0, 0, 0, .15);
+    text-align: center;
+    margin: 20px auto;
+    background-color: white;
+    align-content: center;
+    position: relative;
+    width: 70%;
+    height: 75%;
+    box-shadow: 20px 20px rgba(0,0,0,.15);
+    font-size: 15px;
 }
 
-p {
-    font: 15px Poppins, sans-serif;
-    text-align: center;
-    color: black;
-
+.form-header{
+    font-weight: bold;
+    padding: 2px;
 }
 
-p.page-header {
-    font-size: 20px;
-    text-align: center;
-    color: #a9a9a9;
-    text-decoration: underline;
+.name-details{
+    padding: 10px;
+    border-bottom: solid rgba(0,0,0,.15);
+    border-bottom-width: thin;
+}
 
+.contact-details{
+    padding: 10px;
+    border-bottom: solid rgba(0,0,0,.15);
+    border-bottom-width: thin;
+}
+
+.address-details{
+    padding: 10px;
+    border-bottom: solid rgba(0,0,0,.15);
+    border-bottom-width: thin;
+}
+
+.fb-preference{
+    padding: 10px;
+    border-bottom: solid rgba(0,0,0,.15);
+    border-bottom-width: thin;
+}
+
+.notification{
+    padding: 10px;
+    border-bottom: solid rgba(0,0,0,.15);
+    border-bottom-width: thin;
+}
+
+.diet_req{
+    padding: 10px;
+    border-bottom: solid rgba(0,0,0,.15);
+    border-bottom-width: thin;
+}
+
+.their-appointments{
+    padding: 10px;
+    border-bottom: solid rgba(0,0,0,.15);
+    border-bottom-width: thin;
 }
 
 .index-main-banner {
@@ -342,8 +413,8 @@ p.page-header {
     left: 10%;
     right: 10%;
     top: 102px;
-  height: 300px;
-  overflow: hidden;
+    height: 300px;
+    overflow: hidden;
     border-radius: 0 0 20% 70%;
 }
 
@@ -394,4 +465,10 @@ p.page-header {
     position: relative;
     text-decoration: underline;
     text-decoration-thickness: 4px;
+}
+
+.manage-addresses{
+    position: relative;
+    text-align: center;
+    padding: 0.5rem;
 }
