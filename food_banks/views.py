@@ -95,8 +95,8 @@ def add_opening_hours(address_id):
     if address:
         form = OpeningHoursForm()
         if form.validate_on_submit():
-            open_time = datetime.strptime(form.open_hour.data+":"+form.open_minute.data, "%H:%M")
-            close_time = datetime.strptime(form.close_hour.data+":"+form.close_minute.data, "%H:%M")
+            open_time = datetime.strptime(form.open_hour.data+":"+form.open_minute.data, "%H:%M").time()
+            close_time = datetime.strptime(form.close_hour.data+":"+form.close_minute.data, "%H:%M").time()
             new_opening_hours = OpeningHours(address_id=address_id,
                                              day=form.day.data,
                                              open_time=open_time,

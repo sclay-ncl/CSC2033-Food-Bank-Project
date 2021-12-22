@@ -50,8 +50,8 @@ def convert_to_object(data, object_type):
         elif object_type == "opening_hours":
             objects.append(OpeningHours(address_id=int(attr[0]),
                                         day=attr[1],
-                                        open_time=datetime.strptime(attr[2], "%H:%M"),
-                                        close_time=datetime.strptime(attr[3], "%H:%M")))
+                                        open_time=datetime.strptime(attr[2], "%H:%M").time(),
+                                        close_time=datetime.strptime(attr[3], "%H:%M").time()))
         elif object_type == "address":
             objects.append(Address(id=attr[0],
                                    fb_id=attr[1],
