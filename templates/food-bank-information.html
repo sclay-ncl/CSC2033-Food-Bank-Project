@@ -32,8 +32,10 @@ const map = new mapboxgl.Map({
   zoom: 14
 });
 
-const marker = new mapboxgl.Marker().setLngLat([long, lat]).addTo(map);
+var msg = {{fb_name|tojson}};
 
+const popup = new mapboxgl.Popup({offset: 25}).setText(msg);
+const marker = new mapboxgl.Marker().setLngLat([long, lat]).setPopup(popup).addTo(map);
 </script>
     </div>
 {{ fb_stock }}
