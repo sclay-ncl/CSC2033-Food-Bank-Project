@@ -18,13 +18,12 @@ class AddressForm(FlaskForm):
 
     submit = SubmitField()
 
-class OpeningTimesForm(FlaskForm):
+class OpeningHoursForm(FlaskForm):
     """Form for food banks to add opening times"""
 
     days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
     hours = ["0" + str(x) if x < 10 else str(x) for x in range(0, 25)]
     minutes = ["00", "15", "30", "45"]
-    address = SelectField(validators=[InputRequired()]) # address list is set in view function
     day = SelectField(choices=days, validators=[InputRequired()])  # SelectField is a drop-down menu
     open_hour = SelectField(choices=hours, validators=[InputRequired()])
     open_minute = SelectField(choices=minutes, validators=[InputRequired()])

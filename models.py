@@ -98,8 +98,8 @@ class OpeningHours(db.Model):
 
     address_id = db.Column(db.Integer, db.ForeignKey('address.id'), primary_key=True)
     day = db.Column(db.String(8), primary_key=True)
-    open_time = db.Column(db.String(5), nullable=False)
-    close_time = db.Column(db.String(5), nullable=False)
+    open_time = db.Column(db.Time, nullable=False)
+    close_time = db.Column(db.Time, nullable=False)
 
 
 class Address(db.Model):
