@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+    <h3> Add Opening Hours </h3>
+
+     <form method="POST">
+                    {{ form.csrf_token() }}
+                        {{ form.day(class="dropdown", placeholder="Day") }}
+                        {% for error in form.day.errors %}
+                            {{ error }}
+                        {% endfor %}
+
+                    {{ form.open_time(class="dropdown", placeholder="Opening Time") }}
+                        {% for error in form.open_time.errors %}
+                            {{ error }}
+                        {% endfor %}
+
+                    {{ form.close_time(class="dropdown", placeholder="Closing Time") }}
+                        {% for error in form.close_time.errors %}
+                            {{ error }}
+                        {% endfor %}
+
+
+                    {{ form.submit(class="button") }}
+            </form>
+
+{% endblock %}

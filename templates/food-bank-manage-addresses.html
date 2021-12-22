@@ -19,16 +19,26 @@
                     <td>{{ address.number_and_road }}</td>
                     <td>{{ address.town }}</td>
                     <td>{{ address.postcode }}</td>
+                    <div class="opening-hours-button">
+                        <td><a href="{{ url_for('food_banks.manage_opening_hours', address_id=address.id) }}" class="button">
+                            Opening Hours
+                        </a></td>
+                    </div>
                     <td><a href="{{ url_for('food_banks.delete_address', address_id=address.id) }}" class="button">
                     Delete
                     </a></td>
+
                 </tr>
                 {% endfor %}
         </table>
+    </div>
 
+    <div class="add-button">
         <a href="{{ url_for('food_banks.add_address') }}" class="button">
             Add Address
         </a>
     </div>
+
+
 
 {% endblock %}

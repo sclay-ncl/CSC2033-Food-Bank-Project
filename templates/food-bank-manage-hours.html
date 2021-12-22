@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+    <h3> Opening Hours </h3>
+
+    <div class="opening-hours">
+
+        <table>
+                <tr>
+                    <th> Day </th>
+                    <th> Opening Time </th>
+                    <th> Closing Time </th>
+
+                </tr>
+                {% for day in opening_hours %}
+                {% set open_time = day.open_time | string() %}
+                {% set close_time = day.close_time | string() %}
+                <tr>
+                    <td>{{ day.day }}</td>
+                    <td>{{ open_time[:5] }}</td>
+                    <td>{{ close_time[:5] }}</td>
+                    <td><a href="{{ url_for('food_banks.delete_opening_hours', address_id=opening_hours.address_id, day=opening_hours.day) }}" class="button">
+                    Delete
+                    </a></td>
+                </tr>
+                {% endfor %}
+        </table>
+    </div>
+
+    <div class="add-button">
+        <a href="{{ url_for('food_banks.add_opening_hours', address_id=opening_hours.address_id) }}" class="button">
+            Add Opening Hours
+        </a>
+    </div>
+
+{% endblock %}
