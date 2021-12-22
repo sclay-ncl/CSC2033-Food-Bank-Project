@@ -83,7 +83,7 @@ def delete_address(address_id):
 @requires_roles
 @food_banks_blueprint.route('/manage_opening_hours/<address_id>', methods=['GET', 'POST'])
 def manage_opening_hours(address_id):
-    address = Address.query.filter_by(address_id=address_id).first()
+    address = Address.query.filter_by(id=address_id).first()
     if address:
         return render_template('food-bank-manage-hours.html', opening_hours=address.opening_hours)
 
@@ -110,7 +110,7 @@ def add_opening_hours(address_id):
 @requires_roles('food_bank')
 @food_banks_blueprint.route('/delete-opening-hour/<address_id>/<day>', methods=['GET', 'POST'])
 def delete_open_hours(address_id, day):
-    opening_hours = OpeningHours.query.filter_by(address_id=address_id, day=day)
+    opening_hours = OpeningHours.query.filter_by(id=address_id, day=day)
     if opening_hours:
         db.session.delete(opening_hours)
         db.session.commit()
