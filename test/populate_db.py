@@ -3,6 +3,7 @@ import random
 from werkzeug.security import generate_password_hash
 from app import db
 from models import User, FoodBank, Item, OpeningHours, Address, Stocks, StockLevels
+from datetime import datetime
 
 
 def csv_to_list(file, start_index=0):
@@ -49,8 +50,8 @@ def convert_to_object(data, object_type):
         elif object_type == "opening_hours":
             objects.append(OpeningHours(address_id=int(attr[0]),
                                         day=attr[1],
-                                        open_time=attr[2],
-                                        close_time=attr[3]))
+                                        open_time=datetime.strptime(attr[2], "%H:%M"),
+                                        close_time=datetime.strptime(attr[3], "%H:%M")))
         elif object_type == "address":
             objects.append(Address(id=attr[0],
                                    fb_id=attr[1],
