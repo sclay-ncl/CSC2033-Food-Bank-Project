@@ -23,13 +23,17 @@ const map = new mapboxgl.Map({
 
 const lat = {{ lat|safe }};
 const long = {{ long|safe }};
+const fb_ids = {{ fb_info|safe }}
+
 
 for (let i = 0; i < lat.length; i++) {
-    displayPointer(lat[i], long[i])
+    const fb_id = fb_ids[i][1]
+    displayPointer(lat[i], long[i], fb_id)
 }
 
-function displayPointer(lat, long) {
-    const marker = new mapboxgl.Marker().setLngLat([long, lat]).addTo(map);
+function displayPointer(lat, long, fb_id) {
+    const popup = new mapboxgl.Popup({offset: 25}).setText(fb_id);
+    const marker = new mapboxgl.Marker().setLngLat([long, lat]).setPopup(popup).addTo(map);
 }
 
 map.addControl(
