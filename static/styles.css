@@ -315,7 +315,7 @@ input::placeholder {
     cursor: pointer;
     display: block;
     margin: 30px auto ;
-    width: 35%;
+    width: 55%;
 }
 
 .fb-button{
@@ -366,45 +366,81 @@ button:active {
 
 .name-details{
     padding: 10px;
-    border-bottom: solid rgba(0,0,0,.15);
-    border-bottom-width: thin;
 }
 
 .contact-details{
     padding: 10px;
-    border-bottom: solid rgba(0,0,0,.15);
-    border-bottom-width: thin;
 }
 
 .address-details{
     padding: 10px;
-    border-bottom: solid rgba(0,0,0,.15);
-    border-bottom-width: thin;
 }
 
 .fb-preference{
     padding: 10px;
-    border-bottom: solid rgba(0,0,0,.15);
-    border-bottom-width: thin;
 }
 
 .notification{
     padding: 10px;
-    border-bottom: solid rgba(0,0,0,.15);
-    border-bottom-width: thin;
 }
 
 .diet_req{
     padding: 10px;
-    border-bottom: solid rgba(0,0,0,.15);
-    border-bottom-width: thin;
 }
 
 .their-appointments{
     padding: 10px;
-    border-bottom: solid rgba(0,0,0,.15);
-    border-bottom-width: thin;
 }
+
+/* Manage Address Page */
+table, tr, td {
+    border-collapse: collapse;
+    border: thin solid rgba(0, 0, 0, .15);
+}
+.manage-addresses{
+    margin: 10px;
+    width:100%;
+    table-layout: fixed;
+}
+
+th.manage-addresses{
+    padding: 20px 15px;
+    text-align: left;
+    font-weight: 500;
+    color: #000000;
+}
+
+td.manage-addresses{
+    padding: 15px;
+    text-align: left;
+    vertical-align:middle;
+    font-weight: 300;
+    color: #000000;
+}
+
+/* Opening Hours */
+
+.opening-hours{
+    margin: 10px;
+    width:100%;
+    table-layout: fixed;
+}
+
+th.opening-hours{
+    padding: 20px 15px;
+    text-align: left;
+    font-weight: 500;
+    color: #000000;
+}
+
+td.opening-hours{
+    padding: 15px;
+    text-align: center;
+    vertical-align:middle;
+    font-weight: 300;
+    color: #000000;
+}
+
 
 .index-main-banner {
     background: #ffffff;
@@ -417,6 +453,7 @@ button:active {
     overflow: hidden;
     border-radius: 0 0 20% 70%;
 }
+
 
 .index-main-banner .index-text-right {
     float: right;
