@@ -29,3 +29,5 @@ class OpeningHoursForm(FlaskForm):
     open_minute = SelectField(choices=minutes, validators=[InputRequired()])
     close_hour = SelectField(choices=hours, validators=[InputRequired()])
     close_minute = SelectField(choices=minutes, validators=[InputRequired()])
+
+    submit = SubmitField()
