@@ -11,13 +11,23 @@
                             {{ error }}
                         {% endfor %}
 
-                    {{ form.open_time(class="dropdown", placeholder="Opening Time") }}
-                        {% for error in form.open_time.errors %}
+                    {{ form.open_hour(class="dropdown", placeholder="Opening Time") }}
+                        {% for error in form.open_hour.errors %}
                             {{ error }}
                         {% endfor %}
 
-                    {{ form.close_time(class="dropdown", placeholder="Closing Time") }}
-                        {% for error in form.close_time.errors %}
+                    {{ form.open_minute(class="dropdown", placeholder="Opening Time") }}
+                        {% for error in form.open_minute.errors %}
+                            {{ error }}
+                        {% endfor %}
+
+                    {{ form.close_hour(class="dropdown", placeholder="Closing Time") }}
+                        {% for error in form.close_hour.errors %}
+                            {{ error }}
+                        {% endfor %}
+
+                    {{ form.close_minute(class="dropdown", placeholder="Closing Time") }}
+                        {% for error in form.close_minute.errors %}
                             {{ error }}
                         {% endfor %}
 
