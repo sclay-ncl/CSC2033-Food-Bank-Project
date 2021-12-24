@@ -1,5 +1,5 @@
 from flask_login import current_user, login_user, logout_user, login_required
-from flask import redirect, url_for, render_template, flash, Blueprint, session
+from flask import redirect, url_for, render_template, flash, Blueprint, session, request
 from app import requires_roles, db
 from food_banks.forms import UpdateFoodBankInformationForm, AddressForm, OpeningHoursForm
 from models import Address, OpeningHours
@@ -89,22 +89,22 @@ def manage_opening_hours(address_id):
 
 @login_required
 @requires_roles
-@food_banks_blueprint.route('/add-opening-hours/<address_id>', methods=['GET', 'POST'])
-def add_opening_hours(address_id):
-    address = Address.query.filter_by(id=address_id).first()
-    if address:
-        form = OpeningHoursForm()
-        if form.validate_on_submit():
-            open_time = datetime.strptime(form.open_hour.data+":"+form.open_minute.data, "%H:%M").time()
-            close_time = datetime.strptime(form.close_hour.data+":"+form.close_minute.data, "%H:%M").time()
-            new_opening_hours = OpeningHours(address_id=address_id,
-                                             day=form.day.data,
-                                             open_time=open_time,
-                                             close_time=close_time)
-            db.session.add(new_opening_hours)
-            db.session.commit()
-            return redirect(url_for('food_banks.manage_opening_hours'))
-    return render_template('food-bank-add-opening-hours.html')
+@food_banks_blueprint.route('/add-opening-hours/', methods=['GET', 'POST'])
+def add_opening_hours():
+    address_id = request.args.get('address_id', None)
+    address = Address.query.filter_by(id=address_id).first()  # TODO: check if address exists
+    form = OpeningHoursForm()
+    if form.validate_on_submit():
+        open_time = datetime.strptime(form.open_hour.data+":"+form.open_minute.data, "%H:%M").time()
+        close_time = datetime.strptime(form.close_hour.data+":"+form.close_minute.data, "%H:%M").time()
+        new_opening_hours = OpeningHours(address_id=address_id,
+                                         day=form.day.data,
+                                         open_time=open_time,
+                                         close_time=close_time)
+        db.session.add(new_opening_hours)
+        db.session.commit()
+        return redirect(url_for('food_banks.manage_opening_hours'))
+    return render_template('food-bank-add-opening-hours.html', form=form)
 
 @login_required
 @requires_roles('food_bank')
