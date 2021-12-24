@@ -19,6 +19,7 @@ def csv_to_list(file, start_index=0):
         output = [line[start_index:] for line in csv_data]
     return output
 
+
 def convert_to_object(data, object_type):
     """
     Converts database field data stored in lists into sqlalchemy models
@@ -38,11 +39,21 @@ def convert_to_object(data, object_type):
                                 phone_number=attr[4],
                                 password=generate_password_hash(attr[5])))
         elif object_type == "food_bank":
-            objects.append(FoodBank(id=int(attr[0]),
-                                    name=attr[1],
-                                    email=attr[2],
-                                    phone_number=attr[3],
-                                    website=attr[4]))
+            new_food_bank = FoodBank(id=int(attr[0]),
+                                     name=attr[1],
+                                     email=attr[2],
+                                     phone_number=attr[3],
+                                     website=attr[4])
+            new_user = User(email=attr[2],  # creates user to manage the food bank
+                            first_name=attr[1],
+                            last_name="N/A",
+                            password=generate_password_hash(password="password"),
+                            phone_number=attr[4],
+                            role='food_bank')
+            new_user.associated.append(new_food_bank)  # creates association between the managing user and the food bank
+            objects.append(new_food_bank)
+            objects.append(new_user)
+
         elif object_type == "item":
             objects.append(Item(id=attr[0],
                                 name=attr[1],
@@ -63,6 +74,7 @@ def convert_to_object(data, object_type):
                                    long=attr[7]))
     return objects
 
+
 def generate_stocks(low, high):
     """
     Generates instances of the association table Stocks with a bounded random quantity
@@ -72,11 +84,12 @@ def generate_stocks(low, high):
     """
     items_count = db.session.query(Item).count()
     food_bank_count = db.session.query(FoodBank).count()
-    for f in range(1, food_bank_count+1):
-        for i in range(1, items_count+1):
+    for f in range(1, food_bank_count + 1):
+        for i in range(1, items_count + 1):
             quantity = random.randrange(low, high)
             db.session.add(Stocks(fb_id=f, item_id=i, quantity=quantity))
     db.session.commit()
+
 
 def generate_notify():
     """"
@@ -88,6 +101,7 @@ def generate_notify():
         user.associated.append(random.choice(food_banks))
     db.session.commit()
 
+
 def generate_stock_levels():
     """Generates a stock_levels table for each food bank"""
     food_banks = FoodBank.query.all()
@@ -95,8 +109,10 @@ def generate_stock_levels():
         db.session.add(StockLevels(fb_id=f.id))
     db.session.commit()
 
+
 def generate_appointments():  # need to design appointments system further
     pass
+
 
 def add_to_db(object_list):
     """
