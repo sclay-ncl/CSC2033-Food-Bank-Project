@@ -127,7 +127,7 @@ h3 {
 }
 
 h4 {
-    padding-bottom: 10px;
+    padding-bottom: 5px;
 }
 
 /* Body */
@@ -471,6 +471,10 @@ td.opening-hours{
     border-radius: 0 0 20% 70%;
 }
 
+/* Update Food Bank Profile Page */
+.update-food-bank-profile h4{
+    text-align: center;
+}
 
 .index-main-banner .index-text-right {
     float: right;

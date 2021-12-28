@@ -13,21 +13,25 @@
             {% endwith %}
             <form method="POST">
                     {{ form.csrf_token() }}
+                    <h4> Name </h4>
                         {{ form.name(class="input") }}
                         {% for error in form.name.errors %}
                             {{ error }}
                         {% endfor %}
 
+                    <h4> Email </h4>
                     {{ form.email(class="input") }}
                         {% for error in form.email.errors %}
                             {{ error }}
                         {% endfor %}
 
+                    <h4> Phone Number </h4>
                     {{ form.phone_number(class="input") }}
                         {% for error in form.phone_number.errors %}
                             {{ error }}
                         {% endfor %}
 
+                    <h4> Website </h4>
                     {{ form.website(class="input") }}
                         {% for error in form.website.errors %}
                             {{ error }}
@@ -36,6 +40,5 @@
                     {{ form.submit(class="button") }}
             </form>
         </div>
-
 
 {% endblock %}
