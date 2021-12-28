@@ -437,8 +437,13 @@ td.manage-addresses{
     color: #000000;
 }
 
-/* Opening Hours */
+.manage-addresses{
+    position: relative;
+    text-align: center;
+    padding: 0.5rem;
+}
 
+/* Opening Hours */
 .opening-hours{
     margin: 10px;
     width:100%;
@@ -487,7 +492,6 @@ td.opening-hours{
     display:inline-block;
     font-size: 14px;
     text-align: center;
-
 }
 
 .add-minute{
@@ -497,14 +501,32 @@ td.opening-hours{
     display: block;
     font-size: 14px;
     text-align: center;
-
-
 }
-
 
 /* Update Food Bank Profile Page */
 .update-food-bank-profile h4{
     text-align: center;
+}
+
+/* Manage Stock Page */
+.stock-table{
+    width:100%;
+    table-layout: fixed;
+}
+
+th.stock-table{
+    padding: 20px 15px;
+    text-align: left;
+    font-weight: 500;
+    color: #000000;
+}
+
+td.stock-table{
+    padding: 15px;
+    text-align: left;
+    vertical-align:middle;
+    font-weight: 300;
+    color: #000000;
 }
 
 .index-main-banner {
@@ -568,8 +590,3 @@ td.opening-hours{
     text-decoration-thickness: 4px;
 }
 
-.manage-addresses{
-    position: relative;
-    text-align: center;
-    padding: 0.5rem;
-}
