@@ -116,7 +116,7 @@ nav .navbar-item{
 
 /* Header */
 h1 {
-    padding: 10px ;
+    padding: 20px ;
     text-align: center;
     color: black;
 }
@@ -124,6 +124,11 @@ h1 {
 h3 {
     text-align: center;
     padding: 30px 10px 10px 10px;
+}
+
+h4 {
+    padding-top: 10px;
+    padding-bottom: 10px;
 }
 
 /* Body */
@@ -345,6 +350,21 @@ button:active {
 	transform: scale(0.95);
 }
 
+/* Contact Us page */
+
+.contact-us{
+    margin: 2%;
+}
+
+/* Food Bank Information Page */
+.fb-contact-details{
+    margin: 2%;
+}
+
+h3.fb-contact-details{
+    text-align: left;
+}
+
 /* Profile page */
 .profile-display{
     border: thin solid rgba(0, 0, 0, .15);
@@ -435,12 +455,10 @@ th.opening-hours{
 
 td.opening-hours{
     padding: 15px;
-    text-align: center;
     vertical-align:middle;
     font-weight: 300;
     color: #000000;
 }
-
 
 .index-main-banner {
     background: #ffffff;

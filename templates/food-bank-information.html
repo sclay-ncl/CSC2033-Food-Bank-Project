@@ -40,10 +40,10 @@ const marker = new mapboxgl.Marker().setLngLat([long, lat]).setPopup(popup).addT
     </div>
 {{ fb_stock }}
 
-    <div>
-    Contact details:
-    Email: {{ fb_email }}
-    Phone number: {{ fb_phone }}
-    Website: {{ fb_web if fb_web is not none else 'Not Avaialble'}}
+    <div class="fb-contact-details">
+        <h4> Contact details: </h4>
+        <p> Email:  {{ fb_email }} </p>
+        <p> Phone number: {{ fb_phone }} </p>
+    <p> Website: {{ fb_web if fb_web is not none else 'Not Avaialble'}} </p>
     </div>
 {% endblock %}
