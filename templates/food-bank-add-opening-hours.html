@@ -7,7 +7,7 @@
             <form method="POST">
                     {{ form.csrf_token() }}
                     <h4> Day </h4>
-                        {{ form.day(class="form-dropdown", placeholder="Day") }}
+                        {{ form.day(class="form-dropdown") }}
                         {% for error in form.day.errors %}
                             {{ error }}
                         {% endfor %}
@@ -15,15 +15,15 @@
                     <h4> Opening </h4>
             <div class="add-hour">
                     <p> Hour </p>
-                    {{ form.open_hour(class="form-dropdown", placeholder="Opening Time") }}
+                    {{ form.open_hour(class="form-dropdown") }}
                         {% for error in form.open_hour.errors %}
                             {{ error }}
                         {% endfor %}
             </div>
 
             <div class="add-minute">
-                    <p> Minute  </p>
-                    {{ form.open_minute(class="form-dropdown", placeholder="Opening Time") }}
+                    <p> Minute </p>
+                    {{ form.open_minute(class="form-dropdown") }}
                         {% for error in form.open_minute.errors %}
                             {{ error }}
                         {% endfor %}
@@ -32,7 +32,7 @@
                     <h4> Closing </h4>
             <div class="add-hour">
                     <p> Hour </p>
-                    {{ form.close_hour(class="form-dropdown", placeholder="Closing Time") }}
+                    {{ form.close_hour(class="form-dropdown") }}
                         {% for error in form.close_hour.errors %}
                             {{ error }}
                         {% endfor %}
@@ -40,7 +40,7 @@
 
             <div class="add-minute">
                     <p> Minute </p>
-                    {{ form.close_minute(class="form-dropdown", placeholder="Closing Time") }}
+                    {{ form.close_minute(class="form-dropdown") }}
                         {% for error in form.close_minute.errors %}
                             {{ error }}
                         {% endfor %}

@@ -372,7 +372,7 @@ h3.fb-contact-details{
     background-color: white;
     align-content: center;
     position: relative;
-    width: 70%;
+    width: 60%;
     height: 75%;
     box-shadow: 20px 20px rgba(0,0,0,.15);
     font-size: 15px;
@@ -460,9 +460,22 @@ td.opening-hours{
 }
 
 /* Add Opening Hours */
-.add-opening-hours{
+.add-opening-hours {
     text-align: center;
+    margin: 20px;
 }
+
+.form-dropdown{
+    font-size: 14px;
+    text-align: center;
+    height: 50px;
+    border: rgba(0,0,0,.15) 1px solid;
+    box-sizing: border-box;
+    padding: 20px;
+    display: block;
+    margin: 15px auto 15px;
+}
+
 .add-opening-hours h4{
     Padding: 15px;
 }
@@ -474,7 +487,6 @@ td.opening-hours{
     display:inline-block;
     font-size: 14px;
     text-align: center;
-    height: 50px;
 
 }
 
@@ -485,7 +497,7 @@ td.opening-hours{
     display: block;
     font-size: 14px;
     text-align: center;
-    height: 50px;
+
 
 }
 
