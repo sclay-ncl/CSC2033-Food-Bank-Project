@@ -6,27 +6,33 @@
 
      <form method="POST">
                     {{ form.csrf_token() }}
-                        {{ form.day(class="dropdown", placeholder="Day") }}
+
+                    <h4> Day </h4>
+                        {{ form.day(class="form-dropdown", placeholder="Day") }}
                         {% for error in form.day.errors %}
                             {{ error }}
                         {% endfor %}
 
-                    {{ form.open_hour(class="dropdown", placeholder="Opening Time") }}
+                    <h4> Opening Hour  </h4>
+                    {{ form.open_hour(class="form-dropdown", placeholder="Opening Time") }}
                         {% for error in form.open_hour.errors %}
                             {{ error }}
                         {% endfor %}
 
-                    {{ form.open_minute(class="dropdown", placeholder="Opening Time") }}
+                    <h4> Minute  </h4>
+                    {{ form.open_minute(class="form-dropdown", placeholder="Opening Time") }}
                         {% for error in form.open_minute.errors %}
                             {{ error }}
                         {% endfor %}
 
-                    {{ form.close_hour(class="dropdown", placeholder="Closing Time") }}
+                    <h4> Closing Hour  </h4>
+                    {{ form.close_hour(class="form-dropdown", placeholder="Closing Time") }}
                         {% for error in form.close_hour.errors %}
                             {{ error }}
                         {% endfor %}
 
-                    {{ form.close_minute(class="dropdown", placeholder="Closing Time") }}
+                    <h4> Minute </h4>
+                    {{ form.close_minute(class="form-dropdown", placeholder="Closing Time") }}
                         {% for error in form.close_minute.errors %}
                             {{ error }}
                         {% endfor %}
