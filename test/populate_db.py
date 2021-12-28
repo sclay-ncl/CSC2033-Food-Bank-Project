@@ -48,7 +48,7 @@ def convert_to_object(data, object_type):
                             first_name=attr[1],
                             last_name="N/A",
                             password=generate_password_hash(password="password"),
-                            phone_number=attr[4],
+                            phone_number=attr[3],
                             role='food_bank')
             new_user.associated.append(new_food_bank)  # creates association between the managing user and the food bank
             objects.append(new_food_bank)

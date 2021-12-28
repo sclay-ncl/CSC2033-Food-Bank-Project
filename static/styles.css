@@ -116,7 +116,7 @@ nav .navbar-item{
 
 /* Header */
 h1 {
-    padding: 10px ;
+    padding: 20px ;
     text-align: center;
     color: black;
 }
@@ -124,6 +124,10 @@ h1 {
 h3 {
     text-align: center;
     padding: 30px 10px 10px 10px;
+}
+
+h4 {
+    padding-bottom: 5px;
 }
 
 /* Body */
@@ -345,6 +349,21 @@ button:active {
 	transform: scale(0.95);
 }
 
+/* Contact Us page */
+
+.contact-us{
+    margin: 2%;
+}
+
+/* Food Bank Information Page */
+.fb-contact-details{
+    margin: 2%;
+}
+
+h3.fb-contact-details{
+    text-align: left;
+}
+
 /* Profile page */
 .profile-display{
     border: thin solid rgba(0, 0, 0, .15);
@@ -353,7 +372,7 @@ button:active {
     background-color: white;
     align-content: center;
     position: relative;
-    width: 70%;
+    width: 60%;
     height: 75%;
     box-shadow: 20px 20px rgba(0,0,0,.15);
     font-size: 15px;
@@ -401,6 +420,9 @@ table, tr, td {
     margin: 10px;
     width:100%;
     table-layout: fixed;
+    position: relative;
+    text-align: center;
+    padding: 0.5rem;
 }
 
 th.manage-addresses{
@@ -418,12 +440,15 @@ td.manage-addresses{
     color: #000000;
 }
 
-/* Opening Hours */
 
+/* Opening Hours */
 .opening-hours{
     margin: 10px;
     width:100%;
     table-layout: fixed;
+    position: relative;
+    text-align: center;
+    padding: 0.5rem;
 }
 
 th.opening-hours{
@@ -435,12 +460,79 @@ th.opening-hours{
 
 td.opening-hours{
     padding: 15px;
-    text-align: center;
+    text-align: left;
     vertical-align:middle;
     font-weight: 300;
     color: #000000;
 }
 
+/* Add Opening Hours */
+.add-opening-hours {
+    text-align: center;
+    margin: 20px;
+}
+
+.form-dropdown{
+    font-size: 14px;
+    text-align: center;
+    height: 50px;
+    border: rgba(0,0,0,.15) 1px solid;
+    box-sizing: border-box;
+    padding: 20px;
+    display: block;
+    margin: 15px auto 15px;
+}
+
+.add-opening-hours h4{
+    Padding: 15px;
+}
+
+.add-hour{
+    position:relative;
+    margin-left: 44%;
+    margin-right: 0.5%;
+    display:inline-block;
+    font-size: 14px;
+    text-align: center;
+}
+
+.add-minute{
+    margin-left: 0.5%;
+    margin-right: 45%;
+    float: right;
+    display: block;
+    font-size: 14px;
+    text-align: center;
+}
+
+/* Update Food Bank Profile Page */
+.update-food-bank-profile h4{
+    text-align: center;
+}
+
+/* Manage Stock Page */
+.stock-table{
+    width:100%;
+    table-layout: fixed;
+    position: relative;
+    text-align: center;
+    padding: 0.5rem;
+}
+
+th.stock-table{
+    padding: 20px 15px;
+    text-align: left;
+    font-weight: 500;
+    color: #000000;
+}
+
+td.stock-table{
+    padding: 15px;
+    text-align: left;
+    vertical-align:middle;
+    font-weight: 300;
+    color: #000000;
+}
 
 .index-main-banner {
     background: #ffffff;
@@ -453,7 +545,6 @@ td.opening-hours{
     overflow: hidden;
     border-radius: 0 0 20% 70%;
 }
-
 
 .index-main-banner .index-text-right {
     float: right;
@@ -504,8 +595,3 @@ td.opening-hours{
     text-decoration-thickness: 4px;
 }
 
-.manage-addresses{
-    position: relative;
-    text-align: center;
-    padding: 0.5rem;
-}
