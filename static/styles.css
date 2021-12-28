@@ -420,6 +420,9 @@ table, tr, td {
     margin: 10px;
     width:100%;
     table-layout: fixed;
+    position: relative;
+    text-align: center;
+    padding: 0.5rem;
 }
 
 th.manage-addresses{
@@ -437,17 +440,15 @@ td.manage-addresses{
     color: #000000;
 }
 
-.manage-addresses{
-    position: relative;
-    text-align: center;
-    padding: 0.5rem;
-}
 
 /* Opening Hours */
 .opening-hours{
     margin: 10px;
     width:100%;
     table-layout: fixed;
+    position: relative;
+    text-align: center;
+    padding: 0.5rem;
 }
 
 th.opening-hours{
@@ -459,6 +460,7 @@ th.opening-hours{
 
 td.opening-hours{
     padding: 15px;
+    text-align: left;
     vertical-align:middle;
     font-weight: 300;
     color: #000000;
@@ -512,6 +514,9 @@ td.opening-hours{
 .stock-table{
     width:100%;
     table-layout: fixed;
+    position: relative;
+    text-align: center;
+    padding: 0.5rem;
 }
 
 th.stock-table{
