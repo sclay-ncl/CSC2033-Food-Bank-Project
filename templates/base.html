@@ -36,13 +36,27 @@
                 <a href="{{ url_for('users.login') }}" class="navbar-item">
                     Login
                 </a>
+                <a href="{{ url_for('users.donate') }}" class="navbar-item">
+                    Donate
+                </a>
                 {% endif %}
-                {% if not current_user.role=="admin" and not current_user.role=="food_bank"%}
+                {% if not current_user.role=="admin" and not current_user.role=="food_bank" and not current_user.role=="donor"%}
                 <a href="{{ url_for('users.book_appointments') }}" class="navbar-item">
-                        Book an Appointment
+                    Book an Appointment
                 </a>
                 <a href="{{ url_for('users.contact_us') }}" class="navbar-item">
                      Contact Us
+                </a>
+                <a href="{{ url_for('users.food_bank_search') }}" class="navbar-item">
+                    Our Food Banks
+                </a>
+                <a href="{{ url_for('index') }}" class="navbar-item">
+                     Home
+                </a>
+                {% endif %}
+                {% if current_user.role=="donor" %}
+                <a href="{{ url_for('users.contact_us') }}" class="navbar-item">
+                    Contact Us
                 </a>
                 <a href="{{ url_for('users.donate') }}" class="navbar-item">
                     Donate
