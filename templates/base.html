@@ -53,6 +53,20 @@
                      Home
                 </a>
                 {% endif %}
+                {% if current_user.role=="donor" %}
+                <a href="{{ url_for('users.contact_us') }}" class="navbar-item">
+                    Contact Us
+                </a>
+                <a href="{{ url_for('users.donate') }}" class="navbar-item">
+                    Donate
+                </a>
+                <a href="{{ url_for('users.food_bank_search') }}" class="navbar-item">
+                    Our Food Banks
+                </a>
+                <a href="{{ url_for('index') }}" class="navbar-item">
+                     Home
+                </a>
+                {% endif %}
                 {% if current_user.role=="food_bank"%}
                 <a href="{{ url_for('food_banks.manage_stock') }}">
                         Manage Stock
@@ -147,5 +161,6 @@
              </div>
          </nav>
          <div id="content">{% block content %}{% endblock %}</div>
+<div style="margin-bottom: 5%"></div>
 </body>
 </html>
