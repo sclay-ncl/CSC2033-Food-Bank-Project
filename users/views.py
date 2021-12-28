@@ -32,10 +32,14 @@ def get_lat_long(number_road, city, post_code):
     @return: tuple of latitude and longitude co-ordinates
     """
     url = 'https://nominatim.openstreetmap.org/search/' + urllib.parse.quote(address) + '?format=json'
-    response = requests.get(url).json()
 
-    latitude = response[0]["lat"]
-    longitude = response[0]["lon"]
+    try:
+        response = requests.get(url).json()
+        latitude = response[0]["lat"]
+        longitude = response[0]["lon"]
+    except LookupError:
+        latitude = "54.972572326660156"
+        longitude = "-1.6141237020492554"
 
     return latitude, longitude
 
@@ -216,7 +220,9 @@ def food_bank_search():
         for i in range(len(fav_fb_data)):
             fav_fb.append((fav_fb_data[i].id, fav_fb_data[i].name))
 
-        return render_template('food-bank-search-logged-in.html', lat=closest_fb["lat"], long=closest_fb["lon"], closest_fb=closest_fb, closest_fb_name_id=closest_fb_name_id, fav_fb=fav_fb, fb_info=fb_id_name)
+        return render_template('food-bank-search-logged-in.html', lat=closest_fb["lat"], long=closest_fb["lon"],
+                               closest_fb=closest_fb, closest_fb_name_id=closest_fb_name_id, fav_fb=fav_fb,
+                               fb_info=fb_id_name)
 
     return render_template('food-bank-search.html', lat=lat, long=long, fb_info=fb_id_name)
 
