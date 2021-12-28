@@ -13,7 +13,7 @@
                         {% endfor %}
 
                     <h4> Opening </h4>
-            <div class="hour">
+            <div class="add-hour">
                     <p> Hour </p>
                     {{ form.open_hour(class="form-dropdown", placeholder="Opening Time") }}
                         {% for error in form.open_hour.errors %}
@@ -21,7 +21,7 @@
                         {% endfor %}
             </div>
 
-            <div class="minute">
+            <div class="add-minute">
                     <p> Minute  </p>
                     {{ form.open_minute(class="form-dropdown", placeholder="Opening Time") }}
                         {% for error in form.open_minute.errors %}
@@ -30,7 +30,7 @@
             </div>
 
                     <h4> Closing </h4>
-            <div class="hour">
+            <div class="add-hour">
                     <p> Hour </p>
                     {{ form.close_hour(class="form-dropdown", placeholder="Closing Time") }}
                         {% for error in form.close_hour.errors %}
@@ -38,7 +38,7 @@
                         {% endfor %}
             </div>
 
-            <div class="minute">
+            <div class="add-minute">
                     <p> Minute </p>
                     {{ form.close_minute(class="form-dropdown", placeholder="Closing Time") }}
                         {% for error in form.close_minute.errors %}

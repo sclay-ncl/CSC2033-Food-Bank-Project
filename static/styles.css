@@ -467,7 +467,7 @@ td.opening-hours{
     Padding: 15px;
 }
 
-.hour{
+.add-hour{
     position:relative;
     margin-left: 44%;
     margin-right: 0.5%;
@@ -478,7 +478,7 @@ td.opening-hours{
 
 }
 
-.minute{
+.add-minute{
     margin-left: 0.5%;
     margin-right: 45%;
     float: right;
