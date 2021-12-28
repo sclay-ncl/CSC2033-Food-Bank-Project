@@ -459,6 +459,42 @@ td.opening-hours{
     color: #000000;
 }
 
+/* Add Opening Hours */
+.add-opening-hours{
+    text-align: center;
+}
+.add-opening-hours h4{
+    Padding: 15px;
+}
+
+.hour{
+    position:relative;
+    margin-left: 44%;
+    margin-right: 0.5%;
+    display:inline-block;
+    font-size: 14px;
+    text-align: center;
+    height: 50px;
+
+}
+
+.minute{
+    margin-left: 0.5%;
+    margin-right: 45%;
+    float: right;
+    display: block;
+    font-size: 14px;
+    text-align: center;
+    height: 50px;
+
+}
+
+
+/* Update Food Bank Profile Page */
+.update-food-bank-profile h4{
+    text-align: center;
+}
+
 .index-main-banner {
     background: #ffffff;
     position: absolute;
@@ -469,11 +505,6 @@ td.opening-hours{
     height: 300px;
     overflow: hidden;
     border-radius: 0 0 20% 70%;
-}
-
-/* Update Food Bank Profile Page */
-.update-food-bank-profile h4{
-    text-align: center;
 }
 
 .index-main-banner .index-text-right {

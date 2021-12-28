@@ -2,43 +2,52 @@
 
 {% block content %}
 
-    <h3> Add Opening Hours </h3>
-
-     <form method="POST">
+    <div class="add-opening-hours">
+        <h3> Add Opening Hours </h3>
+            <form method="POST">
                     {{ form.csrf_token() }}
-
                     <h4> Day </h4>
                         {{ form.day(class="form-dropdown", placeholder="Day") }}
                         {% for error in form.day.errors %}
                             {{ error }}
                         {% endfor %}
 
-                    <h4> Opening Hour  </h4>
+                    <h4> Opening </h4>
+            <div class="hour">
+                    <p> Hour </p>
                     {{ form.open_hour(class="form-dropdown", placeholder="Opening Time") }}
                         {% for error in form.open_hour.errors %}
                             {{ error }}
                         {% endfor %}
+            </div>
 
-                    <h4> Minute  </h4>
+            <div class="minute">
+                    <p> Minute  </p>
                     {{ form.open_minute(class="form-dropdown", placeholder="Opening Time") }}
                         {% for error in form.open_minute.errors %}
                             {{ error }}
                         {% endfor %}
+            </div>
 
-                    <h4> Closing Hour  </h4>
+                    <h4> Closing </h4>
+            <div class="hour">
+                    <p> Hour </p>
                     {{ form.close_hour(class="form-dropdown", placeholder="Closing Time") }}
                         {% for error in form.close_hour.errors %}
                             {{ error }}
                         {% endfor %}
+            </div>
 
-                    <h4> Minute </h4>
+            <div class="minute">
+                    <p> Minute </p>
                     {{ form.close_minute(class="form-dropdown", placeholder="Closing Time") }}
                         {% for error in form.close_minute.errors %}
                             {{ error }}
                         {% endfor %}
-
+            </div>
 
                     {{ form.submit(class="button") }}
             </form>
+    </div>
 
 {% endblock %}
