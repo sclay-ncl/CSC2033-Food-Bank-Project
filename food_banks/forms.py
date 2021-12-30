@@ -3,7 +3,6 @@ from wtforms import StringField, SubmitField, SelectField
 from wtforms.validators import Email, Length, InputRequired, ValidationError
 from models import OpeningHours
 
-# forms
 
 class UpdateFoodBankInformationForm(FlaskForm):
     name = StringField(validators=[InputRequired(), Length(max=100)])  # max length set to conform with database
@@ -42,7 +41,5 @@ class OpeningHoursForm(FlaskForm):
         """
         # get days that have already had opening times set
         used_days = [x.day for x in OpeningHours.query.filter_by(address_id=form.address_id).all()]
-        print(used_days)
-        print(form.day.data)
         if form.day.data in used_days:
             raise ValidationError(f"Opening times for {form.day.data} have already been set.")
