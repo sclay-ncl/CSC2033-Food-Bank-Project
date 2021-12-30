@@ -192,16 +192,3 @@ class Associate(db.Model):
     associate = db.Table('associate',
                          db.Column('user_id', db.Integer, db.ForeignKey('user.id'), primary_key=True),
                          db.Column('fb_id', db.Integer, db.ForeignKey('food_bank.id'), primary_key=True))
-
-
-def init_db():
-    db.drop_all()
-    db.create_all()
-    user = User(role='admin',
-                first_name='John',
-                last_name='Doe',
-                email='johndoe@email.com',
-                phone_number='123456789',
-                password='IloveSecurity')
-    db.session.add(user)
-    db.session.commit()
