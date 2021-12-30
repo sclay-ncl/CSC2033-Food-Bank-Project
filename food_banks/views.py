@@ -1,5 +1,5 @@
 from flask_login import current_user, login_user, logout_user, login_required
-from flask import redirect, url_for, render_template, flash, Blueprint, session, request
+from flask import redirect, url_for, render_template, flash, Blueprint, session, request, abort
 from app import requires_roles, db
 from food_banks.forms import UpdateFoodBankInformationForm, AddressForm, OpeningHoursForm
 from models import Address, OpeningHours
@@ -74,9 +74,10 @@ def add_address():
 @food_banks_blueprint.route('/delete-address/<address_id>', methods=['GET', 'POST'])
 def delete_address(address_id):
     address = Address.query.filter_by(id=address_id).first()
-    if address:
-        db.session.delete(address)
-        db.session.commit()
+    if address.fb_id != current_user.associated[0].id:  # check if current user is associated with the food bank
+        abort(403)  # abort to forbidden page
+    db.session.delete(address)
+    db.session.commit()
     return redirect(url_for('food_banks.manage_addresses'))
 
 @login_required
@@ -84,20 +85,24 @@ def delete_address(address_id):
 @food_banks_blueprint.route('/manage-opening-hours/<address_id>', methods=['GET', 'POST'])
 def manage_opening_hours(address_id):
     address = Address.query.filter_by(id=address_id).first()
-    if address:
-        return render_template('food-bank-manage-hours.html', opening_hours=address.opening_hours,
-                               address_id=address_id)
+    if address.fb_id != current_user.associated[0].id:  # check if current user is associated with the food bank
+        abort(403)  # abort to forbidden page
+    return render_template('food-bank-manage-hours.html', opening_hours=address.opening_hours,
+                           address_id=address_id)
 
 @login_required
 @requires_roles
 @food_banks_blueprint.route('/add-opening-hours/', methods=['GET', 'POST'])
 def add_opening_hours():
     address_id = request.args.get('address_id')
-    address = Address.query.filter_by(id=address_id).first()  # TODO: check if address exists
+    address = Address.query.filter_by(id=address_id).first()
+    if address.fb_id != current_user.associated[0].id:  # check if current user is associated with the food bank
+        abort(403)  # abort to forbidden page
     form = OpeningHoursForm()
+    form.address_id = address_id
     if form.validate_on_submit():
-        open_time = datetime.strptime(form.open_hour.data+":"+form.open_minute.data, "%H:%M").time()
-        close_time = datetime.strptime(form.close_hour.data+":"+form.close_minute.data, "%H:%M").time()
+        open_time = datetime.strptime(form.open_hour.data + ":" + form.open_minute.data, "%H:%M").time()
+        close_time = datetime.strptime(form.close_hour.data + ":" + form.close_minute.data, "%H:%M").time()
         new_opening_hours = OpeningHours(address_id=address_id,
                                          day=form.day.data,
                                          open_time=open_time,
@@ -109,10 +114,13 @@ def add_opening_hours():
 
 @login_required
 @requires_roles('food_bank')
-@food_banks_blueprint.route('/delete-opening-hour/<address_id>/<day>', methods=['GET', 'POST'])
+@food_banks_blueprint.route('/delete-opening-hours/<address_id>/<day>', methods=['GET', 'POST'])
 def delete_opening_hours(address_id, day):
-    opening_hours = OpeningHours.query.filter_by(id=address_id, day=day)
-    if opening_hours:
+    opening_hours = OpeningHours.query.filter_by(address_id=address_id, day=day).first()
+    address = Address.query.filter_by(id=address_id).first()
+    if address.fb_id != current_user.associated[0].id:  # check if current user is associated with the food bank
+        abort(403)  # abort to forbidden page
+    elif opening_hours:
         db.session.delete(opening_hours)
         db.session.commit()
-    return redirect(url_for('food_banks.manage_opening_hours'))
+    return redirect(url_for('food_banks.manage_opening_hours', address_id=address_id))
