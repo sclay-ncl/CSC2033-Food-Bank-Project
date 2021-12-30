@@ -18,7 +18,7 @@
                     <td>{{ day.day }}</td>
                     <td>{{ open_time[:5] }}</td>
                     <td>{{ close_time[:5] }}</td>
-                    <td><a href="{{ url_for('food_banks.delete_opening_hours', address_id=opening_hours.address_id, day=opening_hours.day) }}" class="button">
+                    <td><a href="{{ url_for('food_banks.delete_opening_hours', address_id=day.address_id, day=day.day) }}" class="button">
                     Delete
                     </a></td>
                 </tr>
