@@ -12,7 +12,7 @@ class User(db.Model, UserMixin):
     last_name = db.Column(db.String(50), nullable=False)
     email = db.Column(db.String(50), nullable=False)
     phone_number = db.Column(db.String(50), nullable=False)
-    password = db.Column(db.String(255), nullable=False)  # TODO: implement hashing
+    password = db.Column(db.String(255), nullable=False)
     number_and_road = db.Column(db.String(50))
     town = db.Column(db.String(50))
     postcode = db.Column(db.String(8))
