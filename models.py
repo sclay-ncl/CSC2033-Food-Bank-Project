@@ -58,10 +58,13 @@ class FoodBank(db.Model):
     def update_stock_levels(self):
         """
         Calculates and sets the stock levels for the food bank based on the quantity of items in each category
+
+        @return urgent_categories: list of categories that have urgent level of stock
         """
         stock_levels = StockLevels.query.filter_by(fb_id=self.id).first()  # get stock_level table for this food bank
         categories = {'starchy', 'protein', 'fruit_veg', 'soup_sauce',
                       'drinks', 'snacks', 'condiments', 'cooking_ingredients', 'toiletries'}
+        urgent_categories = []
         for category in categories:
             # get the ids of all the items stocked in given category
             # the list comprehension extracts the integer from the returned tuple
@@ -75,12 +78,35 @@ class FoodBank(db.Model):
             high_boundary = getattr(stock_levels, category + "_high")
             if total_quantity < low_boundary:  # decide stock level based on total quantity
                 level = 0
+                urgent_categories.append(category)
             elif total_quantity < high_boundary:
                 level = 1
             else:
                 level = 2
             setattr(stock_levels, category, level)  # set the stock level
-            db.session.commit()
+        db.session.commit()
+        return urgent_categories
+
+    def generate_alerts(self, urgent_categories):
+        """
+        Generates a text string used for notifying donors about the categories in which stock in urgent
+        @param urgent_categories: list of categories that have an urgent level of stock
+        @return message: formatted text string including the name of the food bank, all urgent categories and a link to
+        donation suggestions.
+        """
+        category_key = {"fruit_veg": "Fruit and vegetables",
+                        "soup_sauce": "Soups and sauces",
+                        "cooking_ingredients": "Cooking ingredients",
+                        "starchy": "Starchy foods",
+                        "protein": "Protein rich foods"}
+        readable_categories = [category_key[c] if c in category_key.keys()
+                               else c.capitalize() for c in urgent_categories]
+        categories_string = "\n- ".join(readable_categories)
+        examples_url = "myexamplesite.com"   # TODO: make information page containing donation suggestions
+        message = f"{self.name} has urgently low stock in the following categories:\n" \
+                  f"- {categories_string}\n" \
+                  f"For examples of what to donate for each category, please visit {examples_url}"
+        return message
 
 
 class Item(db.Model):
