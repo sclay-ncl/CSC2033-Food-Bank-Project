@@ -47,7 +47,7 @@ class OpeningHoursForm(FlaskForm):
 class ManualStockLevelsForm(FlaskForm):
     """ Form for food banks to manually set their stock levels """
 
-    levels = ["High, Low, Urgent"]
+    levels = [(2, "High"), (1, "Low"), (0, "Urgent")]
     starchy = SelectField(choices=levels, validators=[InputRequired()])
     protein = SelectField(choices=levels, validators=[InputRequired()])
     fruit_veg = SelectField(choices=levels, validators=[InputRequired()])
