@@ -156,9 +156,13 @@ class StockLevels(db.Model):
     """Models the stock_levels table:
     Stores information about the stock level of each category of item for each food bank
     2 is high stock, 1 is low stock, 0 is urgent
-    Also stores the bounds for stock level rankings"""
+    Also stores the bounds for stock level rankings
+    auto_managed represent whether the food bank want to have their stock levels set manually or automatically, based
+    on item stock
+    """
 
     fb_id = db.Column(db.Integer, db.ForeignKey('food_bank.id'), primary_key=True)
+    auto_managed = db.Column(db.Boolean)
     # stock levels
     starchy = db.Column(db.Integer)
     protein = db.Column(db.Integer)
