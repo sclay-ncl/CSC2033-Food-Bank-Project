@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, SubmitField, SelectField
+from wtforms import StringField, SubmitField, SelectField, IntegerField, FieldList, FormField
 from wtforms.validators import Email, Length, InputRequired, ValidationError
 from models import OpeningHours
 
@@ -58,4 +58,15 @@ class ManualStockLevelsForm(FlaskForm):
     condiments = SelectField(choices=levels, validators=[InputRequired()])
     toiletries = SelectField(choices=levels, validators=[InputRequired()])
 
+    submit = SubmitField()
+
+class ItemStockForm(FlaskForm):
+    """Form for updating the quantity of an item in stock"""
+    item_name = None
+    quantity = IntegerField(validators=[InputRequired()])
+
+class StockManagementForm(FlaskForm):
+    """Form combing ItemStockForms used to update the quantity of stock across many items"""
+    items = None  # list of Item objects passed in after the form in instantiated
+    item_forms = FieldList(FormField(ItemStockForm))  # TODO see how this renders in html with front end team
     submit = SubmitField()
