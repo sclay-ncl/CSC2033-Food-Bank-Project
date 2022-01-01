@@ -1,8 +1,8 @@
-from flask_login import current_user, login_user, logout_user, login_required
+from flask_login import current_user, login_required
 from flask import redirect, url_for, render_template, flash, Blueprint, session, request, abort
 from app import requires_roles, db
-from food_banks.forms import UpdateFoodBankInformationForm, AddressForm, OpeningHoursForm
-from models import Address, OpeningHours
+from food_banks.forms import UpdateFoodBankInformationForm, AddressForm, OpeningHoursForm, ManualStockLevelsForm
+from models import Address, OpeningHours, StockLevels, Stocks
 from datetime import datetime
 
 food_banks_blueprint = Blueprint('food_banks', __name__, template_folder='templates')
@@ -133,3 +133,35 @@ def delete_opening_hours(address_id, day):
         db.session.delete(opening_hours)
         db.session.commit()
     return redirect(url_for('food_banks.manage_opening_hours', address_id=address_id))
+
+@login_required
+@requires_roles('food_bank')
+@food_banks_blueprint.route('/manual-stock-levels', methods=['GET', 'POST'])
+def manual_stock_levels():
+    """Allows food banks to manually set the stock levels of each category"""
+    current_food_bank = current_user.associated[0]
+    stock_levels = StockLevels.query.filter_by(fb_id=current_food_bank.id)
+    form = ManualStockLevelsForm()
+    if form.validate_on_submit():
+        stock_levels.starchy = form.starchy.data
+        stock_levels.protein = form.protein.data
+        stock_levels.fruit_veg = form.fruit_veg.data
+        stock_levels.soup_sauce = form.soup_sauce.data
+        stock_levels.drinks = form.drinks.data
+        stock_levels.snacks = form.snacks.data
+        stock_levels.cooking_ingredients = form.cooking_ingredients.data
+        stock_levels.condiments = form.condiments.data
+        stock_levels.toiletries = form.toiletries.data
+        db.session.commit()
+        return manual_stock_levels()
+
+    form.starchy.data = stock_levels.starchy
+    form.protein.data = stock_levels.protein
+    form.fruit_veg.data = stock_levels.fruit_veg
+    form.soup_sauce.data = stock_levels.soup_sauce
+    form.drinks.data = stock_levels.drinks
+    form.snacks.data = stock_levels.snacks
+    form.cooking_ingredients.data = stock_levels.cooking_ingredients
+    form.condiments.data = stock_levels.condiments
+    form.toiletries.data = stock_levels.toiletries
+    return render_template('manual-stock-levels.html', form=form)
