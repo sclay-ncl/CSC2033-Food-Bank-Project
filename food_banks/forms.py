@@ -43,3 +43,19 @@ class OpeningHoursForm(FlaskForm):
         used_days = [x.day for x in OpeningHours.query.filter_by(address_id=form.address_id).all()]
         if form.day.data in used_days:
             raise ValidationError(f"Opening times for {form.day.data} have already been set.")
+
+class ManualStockLevelsForm(FlaskForm):
+    """ Form for food banks to manually set their stock levels """
+
+    levels = ["High, Low, Urgent"]
+    starchy = SelectField(choices=levels, validators=[InputRequired()])
+    protein = SelectField(choices=levels, validators=[InputRequired()])
+    fruit_veg = SelectField(choices=levels, validators=[InputRequired()])
+    soup_sauce = SelectField(choices=levels, validators=[InputRequired()])
+    drinks = SelectField(choices=levels, validators=[InputRequired()])
+    snacks = SelectField(choices=levels, validators=[InputRequired()])
+    cooking_ingredients = SelectField(choices=levels, validators=[InputRequired()])
+    condiments = SelectField(choices=levels, validators=[InputRequired()])
+    toiletries = SelectField(choices=levels, validators=[InputRequired()])
+
+    submit = SubmitField()
