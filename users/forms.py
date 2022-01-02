@@ -28,7 +28,6 @@ def postcode_check(form, field):
 
 
 class RegisterForm(FlaskForm):
-    # TODO: Check if email already in database
     email = StringField(validators=[InputRequired(), Email(), Length(max=50)])
     first_name = StringField(validators=[InputRequired(), character_check, Length(max=50)])
     last_name: StringField = StringField(validators=[InputRequired(), character_check, Length(max=50)])

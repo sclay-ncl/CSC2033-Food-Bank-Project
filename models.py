@@ -12,7 +12,7 @@ class User(db.Model, UserMixin):
     last_name = db.Column(db.String(50), nullable=False)
     email = db.Column(db.String(50), nullable=False)
     phone_number = db.Column(db.String(50), nullable=False)
-    password = db.Column(db.String(255), nullable=False)  # TODO: implement hashing
+    password = db.Column(db.String(255), nullable=False)
     number_and_road = db.Column(db.String(50))
     town = db.Column(db.String(50))
     postcode = db.Column(db.String(8))
@@ -58,10 +58,13 @@ class FoodBank(db.Model):
     def update_stock_levels(self):
         """
         Calculates and sets the stock levels for the food bank based on the quantity of items in each category
+
+        @return urgent_categories: list of categories that have urgent level of stock
         """
         stock_levels = StockLevels.query.filter_by(fb_id=self.id).first()  # get stock_level table for this food bank
         categories = {'starchy', 'protein', 'fruit_veg', 'soup_sauce',
                       'drinks', 'snacks', 'condiments', 'cooking_ingredients', 'toiletries'}
+        urgent_categories = []
         for category in categories:
             # get the ids of all the items stocked in given category
             # the list comprehension extracts the integer from the returned tuple
@@ -75,12 +78,35 @@ class FoodBank(db.Model):
             high_boundary = getattr(stock_levels, category + "_high")
             if total_quantity < low_boundary:  # decide stock level based on total quantity
                 level = 0
+                urgent_categories.append(category)
             elif total_quantity < high_boundary:
                 level = 1
             else:
                 level = 2
             setattr(stock_levels, category, level)  # set the stock level
-            db.session.commit()
+        db.session.commit()
+        return urgent_categories
+
+    def generate_alerts(self, urgent_categories):
+        """
+        Generates a text string used for notifying donors about the categories in which stock in urgent
+        @param urgent_categories: list of categories that have an urgent level of stock
+        @return message: formatted text string including the name of the food bank, all urgent categories and a link to
+        donation suggestions.
+        """
+        category_key = {"fruit_veg": "Fruit and vegetables",
+                        "soup_sauce": "Soups and sauces",
+                        "cooking_ingredients": "Cooking ingredients",
+                        "starchy": "Starchy foods",
+                        "protein": "Protein rich foods"}
+        readable_categories = [category_key[c] if c in category_key.keys()
+                               else c.capitalize() for c in urgent_categories]
+        categories_string = "\n- ".join(readable_categories)
+        examples_url = "myexamplesite.com"   # TODO: make information page containing donation suggestions
+        message = f"{self.name} has urgently low stock in the following categories:\n" \
+                  f"- {categories_string}\n" \
+                  f"For examples of what to donate for each category, please visit {examples_url}"
+        return message
 
 
 class Item(db.Model):
@@ -130,9 +156,13 @@ class StockLevels(db.Model):
     """Models the stock_levels table:
     Stores information about the stock level of each category of item for each food bank
     2 is high stock, 1 is low stock, 0 is urgent
-    Also stores the bounds for stock level rankings"""
+    Also stores the bounds for stock level rankings
+    auto_managed represent whether the food bank want to have their stock levels set manually or automatically, based
+    on item stock
+    """
 
     fb_id = db.Column(db.Integer, db.ForeignKey('food_bank.id'), primary_key=True)
+    auto_managed = db.Column(db.Boolean)
     # stock levels
     starchy = db.Column(db.Integer)
     protein = db.Column(db.Integer)
@@ -192,16 +222,3 @@ class Associate(db.Model):
     associate = db.Table('associate',
                          db.Column('user_id', db.Integer, db.ForeignKey('user.id'), primary_key=True),
                          db.Column('fb_id', db.Integer, db.ForeignKey('food_bank.id'), primary_key=True))
-
-
-def init_db():
-    db.drop_all()
-    db.create_all()
-    user = User(role='admin',
-                first_name='John',
-                last_name='Doe',
-                email='johndoe@email.com',
-                phone_number='123456789',
-                password='IloveSecurity')
-    db.session.add(user)
-    db.session.commit()
