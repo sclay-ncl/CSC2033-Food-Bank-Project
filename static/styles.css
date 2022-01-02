@@ -147,6 +147,17 @@ p.page-header {
     text-decoration: underline;
 }
 
+.div-bg{
+    background: white;
+    width: 80%;
+    height: 465px;
+    padding-top: 20px;
+    margin-top: 20px;
+    margin-left: auto;
+    margin-right: auto;
+    box-shadow: 20px 20px rgba(0,0,0,.15);
+}
+
 #map {
     top: 20px;
     height: 350px;
@@ -411,6 +422,19 @@ h3.fb-contact-details{
     padding: 10px;
 }
 
+.circle {
+  width: 80px;
+  height: 80px;
+  line-height: 45px;
+  border-radius: 50%;
+  color: #fff;
+  text-align: center;
+  background: #97c170;
+  display: inline-block;
+  margin-top: 20px;
+  margin-right: 250px;
+}
+
 /* Manage Address Page */
 table, tr, td {
     border-collapse: collapse;
@@ -544,6 +568,24 @@ td.stock-table{
     height: 300px;
     overflow: hidden;
     border-radius: 0 0 20% 70%;
+}
+
+.index-info-div {
+    background: #ffffff;
+    position: absolute;
+    width: 80%;
+    height: 90%;
+    left: 10%;
+    right: 10%;
+    top: 480px;
+    align-content: center;
+}
+
+.index-info-img {
+    width: 1000px;
+    margin-right: auto;
+    margin-left: auto;
+    display: block;
 }
 
 .index-main-banner .index-text-right {
