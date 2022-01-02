@@ -46,13 +46,13 @@ nav .navbar-item{
   background: rgb(151, 193, 112);
 }
 
-@media screen and (min-width: 1237px) {
+@media screen and (min-width: 1401px) {
     .dropbtn {
         display: none !important;
     }
 }
 
-@media screen and (max-width: 1240px) {
+@media screen and (max-width: 1400px) {
     .navbar-item{
         visibility: collapse;
         display: none !important;}
@@ -152,9 +152,7 @@ p.page-header {
     text-align: center;
     width: 80%;
     padding-top: 20px;
-    margin-top: 20px;
-    margin-left: auto;
-    margin-right: auto;
+    margin: 20px auto 60px;
     box-shadow: 20px 20px rgba(0,0,0,.15);
 }
 
@@ -586,81 +584,49 @@ td.stock-table{
 
 .index-main-banner {
     background: #ffffff;
-    position: absolute;
     width: 80%;
-    left: 10%;
-    right: 10%;
-    top: 102px;
-    height: 300px;
+    height: auto;
     overflow: hidden;
     border-radius: 0 0 20% 70%;
+    box-shadow: 15px 15px rgba(0,0,0,.15);
+    text-align: center;
+    margin: 7px auto 60px;
 }
 
-.index-info-div {
-    background: #ffffff;
-    position: absolute;
-    width: 80%;
-    height: 90%;
-    left: 10%;
-    right: 10%;
-    top: 480px;
-    align-content: center;
+.index-text-right {
+    font: 1vw Poppins, sans-serif;
+    text-align: center;
+    padding-bottom: 40px;
 }
 
-.index-info-img {
-    width: 1000px;
-    margin-right: auto;
-    margin-left: auto;
-    display: block;
+.index-heading-right{
+    text-align: center;
+    font-size: 2vw;
 }
 
-.index-main-banner .index-text-right {
-    float: right;
-}
-
-.index-main-banner .index-img-left {
+.index-img-left {
     float: left;
+    width: 60%;
+    max-width: 650px;
 }
 
-.index-main-banner .index-donate-button{
+.index-button{
 	border-radius: 20px;
 	border: 1px solid #5c8631;
 	background-color: #97c170;
 	color: #000000;
-	font-size: 12px;
+	font-size: 1.2vh;
 	font-weight: bold;
 	padding: 12px 35px;
 	letter-spacing: 1px;
 	text-transform: uppercase;
     cursor: pointer;
-    position: relative;
-    left: 176px;
-    top: 30px;
     text-decoration: none;
 }
 
-.index-div-break{
-    background: #ffffff;
-    position: absolute;
-    width: 80%;
-    left: 10%;
-    right: 10%;
-    top: 480px;
-  height: 550px;
-  overflow: hidden;
-    align-content: center;
-
-}
-
-.index-div-break .index-div-p{
-    position: relative;
-    float: left;
-}
-
-.index-div-break .break-text {
-    position: relative;
-    text-decoration: underline;
-    text-decoration-thickness: 4px;
+.index-icon{
+    width: 100px;
+    height: 100px;
 }
 
 #donate-button-container{

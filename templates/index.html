@@ -3,22 +3,92 @@
 {% block content %}
     <div class="index-main-banner">
     <img src="../static/foodbank_image.jpg" alt="Food bank image" class="index-img-left">
-    <h1>Support Feeding Newcastle <br>
+    <h1 class="index-heading-right">Support Feeding Newcastle <br>
         this Christmas</h1>
-    <p>Help us fund food banks across Newcastle that helps <br>
+    <p class="index-text-right">Help us fund food banks across Newcastle that helps <br>
         people eat this christmas. </p>
-    <a href="{{ url_for('users.donate') }}" class="index-donate-button">
+    <a href="{{ url_for('users.donate') }}" class="index-button">
                         Make a difference
     </a>
     </div>
-    <div class="index-info-div">
-    <img src="../static/info.png" alt="Food bank image" class="index-info-img">
+
+    <div class="div-bg">
+        <table class="info-table">
+            <tr>
+                <th><h3></h3></th>
+                <th><h2 style="text-decoration: underline">What We Do For Users</h2></th>
+                <th><h3></h3></th>
+            </tr>
+            <tr>
+                <th><h3>Provide Information</h3></th>
+                <th><h3>Donation Alerts</h3></th>
+                <th><h3>Contact Us</h3></th>
+            </tr>
+            <tr>
+                <td><img src="../static/info.png" alt="info image" class="index-icon"></td>
+                <td><img src="../static/notify.png" alt="Alerts image" class="index-icon"></td>
+                <td><img src="../static/contact.png" alt="contact image" class="index-icon"></td>
+            </tr>
+            <tr>
+                <td><p>Provides information about all our<br>
+                       food bank. Users will be able to <br>
+                       see locations, opening times and <br>
+                       live stock updates.</p></td>
+                <td><p>Logged in users will automatically <br>
+                       be shown their closest food banks and <br>
+                       can save food banks to receive <br>
+                       notifications via email.</p></td>
+                <td><p>Need help or more information? <br>
+                       Feel free to contact Feeding newcastle,<br>
+                       @feedingnewcastle@gmail.com</p></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td style="padding: 35px"><a href="{{ url_for('users.register') }}" class="index-button">
+                        Sign up Here</a></td>
+                <td></td>
+            </tr>
+        </table>
     </div>
+
+    <div class="div-bg">
+        <table class="info-table">
+            <tr>
+                <th><h3></h3></th>
+                <th><h2 style="text-decoration: underline">What We Do For Food Banks</h2></th>
+                <th><h3></h3></th>
+            </tr>
+            <tr>
+                <th><h3>Stock Management</h3></th>
+                <th><h3>Dynamic Alert Boundaries</h3></th>
+                <th><h3>Money donations</h3></th>
+            </tr>
+            <tr>
+                <td><img src="../static/stock.png" alt="stock image" class="index-icon"></td>
+                <td><img src="../static/notify.png" alt="Alerts image" class="index-icon"></td>
+                <td><img src="../static/donations.png" alt="donation image" class="index-icon"></td>
+            </tr>
+            <tr>
+                <td><p>Able to use our database to track stock;<br>
+                       personalise how you want the database<br>
+                       to store your stock count and customise<br>
+                       it for your needs.</p></td>
+                <td><p>Set boundaries for your stock count. <br>
+                       Full control over when and if to send <br>
+                       out notifications to users about needed <br>
+                       foods, on a variety of platforms.</p></td>
+                <td><p>If registered as a food bank with us, <br>
+                       you will receive an equal split of the <br>
+                       monetary donations made. Which we  <br>
+                       trust you will know how best to use. </p></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td style="padding: 35px"><p>To register as a food bank, please contact <br>
+                       us at: @feedingnewcastle@gmail.com</p></td>
+                <td></td>
+            </tr>
+        </table>
     </div>
-
-
-
-
-
 
 {% endblock %}
