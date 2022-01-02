@@ -11,6 +11,7 @@
   font-family: 'Poppins', sans-serif;
 }
 
+/* Navigation Bar - When Screen is full sized */
 .nav{
   height: 95px;
   width: 100%;
@@ -46,6 +47,8 @@ nav .navbar-item{
   background: rgb(151, 193, 112);
 }
 
+/* Navigation Bar - When Screen is not full size */
+
 @media screen and (min-width: 1401px) {
     .dropbtn {
         display: none !important;
@@ -58,7 +61,6 @@ nav .navbar-item{
         display: none !important;}
 
 }
-
 
 .dropbtn {
     position: absolute;
@@ -156,6 +158,8 @@ p.page-header {
     box-shadow: 20px 20px rgba(0,0,0,.15);
 }
 
+/* Our Food Bank Page */
+
 #map {
     top: 20px;
     height: 350px;
@@ -212,6 +216,7 @@ p.page-header {
     transform: translate(-50%, -50%);
 }
 
+/* Login Page */
 .login-form{
     margin-top: 100px;
     margin-left: auto;
@@ -225,6 +230,7 @@ p.page-header {
     box-shadow: 20px 20px rgba(0,0,0,.15);
 }
 
+/* Register Form */
 .register-form{
     padding: 40px;
     max-width:600px;
@@ -361,7 +367,16 @@ button:active {
 /* Contact Us page */
 
 .contact-us{
-    margin: 2%;
+    margin-top: 30px;
+    margin-left: auto;
+    margin-right: auto;
+    align-content: center;
+    background: white;
+    position: relative;
+    width: 820px;
+    height: 230px;
+    padding: 15px;
+    box-shadow: 20px 20px rgba(0,0,0,.15);
 }
 
 /* Food Bank Information Page */
