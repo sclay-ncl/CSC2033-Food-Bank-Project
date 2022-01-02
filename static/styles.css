@@ -149,8 +149,8 @@ p.page-header {
 
 .div-bg{
     background: white;
+    text-align: center;
     width: 80%;
-    height: 465px;
     padding-top: 20px;
     margin-top: 20px;
     margin-left: auto;
@@ -431,14 +431,40 @@ h3.fb-contact-details{
   text-align: center;
   background: #97c170;
   display: inline-block;
-  margin-top: 20px;
-  margin-right: 250px;
+  margin-top: 25px;
+}
+
+/* info table */
+.info-table{
+    width:100%;
+    table-layout: fixed;
+    position: relative;
+    text-align: center;
+    padding: 0.5rem;
+    border-style : hidden!important;
+    border-collapse: collapse;
+}
+
+th.info-table{
+    padding: 20px 15px;
+    text-align: left;
+    font-weight: 500;
+    color: #000000;
+}
+
+td.info-table{
+    padding: 15px;
+    text-align: left;
+    vertical-align:middle;
+    font-weight: 300;
+    color: #000000;
 }
 
 /* Manage Address Page */
 table, tr, td {
     border-collapse: collapse;
     border: thin solid rgba(0, 0, 0, .15);
+    padding-bottom: 1em;
 }
 .manage-addresses{
     margin: 10px;
@@ -635,5 +661,10 @@ td.stock-table{
     position: relative;
     text-decoration: underline;
     text-decoration-thickness: 4px;
+}
+
+#donate-button-container{
+    padding-top: 50px;
+    padding-bottom: 20px;
 }
 
