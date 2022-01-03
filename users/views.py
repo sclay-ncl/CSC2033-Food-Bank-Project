@@ -138,16 +138,16 @@ def login():
     return render_template('login.html', form=form)
 
 
-@login_required
 @users_blueprint.route('/logout')
+@login_required
 def logout():
     logout_user()
     return redirect(url_for('index'))
 
 
+@users_blueprint.route('/profile', methods=['GET', 'POST'])
 @login_required
 @requires_roles('donor', 'collector', 'admin')
-@users_blueprint.route('/profile', methods=['GET', 'POST'])
 def profile():
     return render_template('profile.html',
                            acc_no=current_user.id,

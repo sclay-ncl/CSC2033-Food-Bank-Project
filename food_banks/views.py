@@ -8,23 +8,16 @@ from datetime import datetime
 food_banks_blueprint = Blueprint('food_banks', __name__, template_folder='templates')
 
 
+@food_banks_blueprint.route('/manage-stock')
 @login_required
 @requires_roles('food_bank')
-@food_banks_blueprint.route('/manage-stock')
 def manage_stock():
     return render_template('manage-stock.html')
 
 
-@login_required
-@requires_roles('food_bank')
-@food_banks_blueprint.route('/upcoming-appointments')
-def upcoming_appointments():
-    return render_template('upcoming-appointments.html')
-
-
-@login_required
-@requires_roles('food_bank')
 @food_banks_blueprint.route('/update-food-bank-profile', methods=['POST', 'GET'])
+@login_required
+@requires_roles('food_bank')
 def update_information():
     """Allows food bank account to update the contact information of their food bank"""
     form = UpdateFoodBankInformationForm()
@@ -43,18 +36,18 @@ def update_information():
     return render_template('update-food-bank-profile.html', form=form)
 
 
+@food_banks_blueprint.route('/manage-addresses')
 @login_required
 @requires_roles('food_bank')
-@food_banks_blueprint.route('/manage-addresses')
 def manage_addresses():
     """Allows food bank user account to view, add and delete previously added addresses"""
     current_food_bank = current_user.associated[0]  # get food bank associated with user
     return render_template('food-bank-manage-addresses.html', addresses=current_food_bank.address)
 
 
+@food_banks_blueprint.route('/add-address', methods=['GET', 'POST'])
 @login_required
 @requires_roles('food_bank')
-@food_banks_blueprint.route('/add-address', methods=['GET', 'POST'])
 def add_address():
     """Renders the form for adding a new address"""
     form = AddressForm()
@@ -72,9 +65,10 @@ def add_address():
 
     return render_template('food-bank-add-address.html', form=form)
 
+
+@food_banks_blueprint.route('/delete-address/<address_id>', methods=['GET', 'POST'])
 @login_required
 @requires_roles('food_bank')
-@food_banks_blueprint.route('/delete-address/<address_id>', methods=['GET', 'POST'])
 def delete_address(address_id):
     """Deletes a given address"""
     address = Address.query.filter_by(id=address_id).first()
@@ -84,9 +78,9 @@ def delete_address(address_id):
     db.session.commit()
     return redirect(url_for('food_banks.manage_addresses'))
 
-@login_required
-@requires_roles
+
 @food_banks_blueprint.route('/manage-opening-hours/<address_id>', methods=['GET', 'POST'])
+@login_required
 def manage_opening_hours(address_id):
     """Allows food bank user account to view, add and delete previously added opening hours for their food bank's
     addresses"""
@@ -96,9 +90,9 @@ def manage_opening_hours(address_id):
     return render_template('food-bank-manage-hours.html', opening_hours=address.opening_hours,
                            address_id=address_id)
 
-@login_required
-@requires_roles
+
 @food_banks_blueprint.route('/add-opening-hours/', methods=['GET', 'POST'])
+@login_required
 def add_opening_hours():
     """Renders the form for adding new opening hours"""
     address_id = request.args.get('address_id')
@@ -120,9 +114,10 @@ def add_opening_hours():
         return redirect(url_for('food_banks.manage_opening_hours', address_id=address_id))
     return render_template('food-bank-add-opening-hours.html', form=form)
 
+
+@food_banks_blueprint.route('/delete-opening-hours/<address_id>/<day>', methods=['GET', 'POST'])
 @login_required
 @requires_roles('food_bank')
-@food_banks_blueprint.route('/delete-opening-hours/<address_id>/<day>', methods=['GET', 'POST'])
 def delete_opening_hours(address_id, day):
     """Deletes opening hours for a given address and day"""
     opening_hours = OpeningHours.query.filter_by(address_id=address_id, day=day).first()
@@ -134,9 +129,10 @@ def delete_opening_hours(address_id, day):
         db.session.commit()
     return redirect(url_for('food_banks.manage_opening_hours', address_id=address_id))
 
+
+@food_banks_blueprint.route('/manual-stock-levels', methods=['GET', 'POST'])
 @login_required
 @requires_roles('food_bank')
-@food_banks_blueprint.route('/manual-stock-levels', methods=['GET', 'POST'])
 def manual_stock_levels():
     """Allows food banks to manually set the stock levels of each category"""
     current_food_bank = current_user.associated[0]
