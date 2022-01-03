@@ -19,6 +19,7 @@ app.config['RECAPTCHA_PRIVATE_KEY'] = "6LfFdRMcAAAAAILSgmbrJcTLnkDV5fG-xwPzyoR4"
 
 db = SQLAlchemy(app)
 
+
 # FUNCTIONS
 def requires_roles(*roles):
     def wrapper(f):
@@ -26,7 +27,7 @@ def requires_roles(*roles):
         def wrapped(*args, **kwargs):
             if current_user.role not in roles:
                 # Redirect the user to an unauthorised error page
-                return render_template()  # TODO: add path to error page
+                return render_template('403.html')  # TODO: add path to error page
             return f(*args, **kwargs)
         return wrapped
     return wrapper
@@ -38,6 +39,12 @@ def index():  # put application's code here
 
 
 if __name__ == '__main__':
+    my_host = "127.0.0.1"
+    free_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    free_socket.bind((my_host, 0))
+    free_socket.listen(5)
+    free_port = free_socket.getsockname()[1]
+    free_socket.close()
 
     # Login Manager
     login_manager = LoginManager()
