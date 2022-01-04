@@ -6,32 +6,17 @@
 <h1 class="page-header">Stock Management</h1>
 
 <!-- Inventory table -->
-<label for="stock-table">Inventory: </label>
-<table class="stock-table">
-    <tr>
-        <th>Inventory ID</th>
-        <th>Name</th>
-        <th>Description</th>
-        <th>Unit Price</th>
-        <th>Quantity in Stock</th>
-        <th>Reorder Level</th>
-        <th>Reorder Time in Days</th>
-        <th>Quantity in Reorder</th>
-        <th>Discontinued?</th>
-    </tr>
-    <tr>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-    </tr>
-
-
-</table>
+    <table class="stock-table">
+        <tr>
+            <th>Name</th>
+            <th>Quantity in Stock</th>
+        </tr>
+        {% for item_form in form.item_forms %}
+            <tr>
+                <td>{{ item_form.item_name }}</td>
+                <td>{{ item_form.quantity }}</td>
+            </tr>
+        {% endfor %}
+    </table>
 
 {% endblock %}
