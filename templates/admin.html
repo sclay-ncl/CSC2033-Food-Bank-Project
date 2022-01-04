@@ -1,4 +1,38 @@
 {% extends "base.html" %}
 
 {% block content %}
+    <h1>Admin</h1>
+    <div class="div-bg-large">
+        <form method="POST" action="/logs">
+            <div>
+                <button class="button" style="width: 15%">View Logs</button>
+            </div>
+        </form>
+        {% if logs %}
+            <table class="info-table">
+                <tr>
+                    <th>Date/Time</th>
+                    <th>Type</th>
+                    <th>Error Code</th>
+                    <th>Description</th>
+                    <th>URL</th>
+                    <th>Browser</th>
+                    <th>OS</th>
+                    <th>IP Address</th>
+                </tr>
+            {% for entry in logs %}
+                <tr>
+                    <td>{{ entry[0] }}</td>
+                    <td>{{ entry[1] }}</td>
+                    <td>{{ entry[2] }}</td>
+                    <td>{{ entry[3] }}</td>
+                    <td>{{ entry[4] }}</td>
+                    <td>{{ entry[5] }}</td>
+                    <td>{{ entry[6] }}</td>
+                    <td>{{ entry[7] }}</td>
+                </tr>
+            {% endfor %}
+            </table>
+        {% endif %}
+    </div>
 {% endblock %}

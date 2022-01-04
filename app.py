@@ -1,8 +1,8 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, request
 from flask_sqlalchemy import SQLAlchemy
 from functools import wraps
-from flask_login import current_user, LoginManager
-
+from flask_login import current_user, LoginManager, login_user
+import logging
 import socket
 
 app = Flask(__name__)
@@ -26,36 +26,61 @@ def requires_roles(*roles):
         @wraps(f)
         def wrapped(*args, **kwargs):
             if current_user.role not in roles:
-                # Redirect the user to an unauthorised error page
                 return render_template('403.html')  # TODO: add path to error page
             return f(*args, **kwargs)
+
         return wrapped
+
     return wrapper
 
 
 @app.route('/')
 def index():  # put application's code here
+    # testing purposes
+    user = User.query.filter_by(id="304").first()
+    login_user(user)
+
     return render_template('index.html')  # TODO: create index.html and render it (front end)
 
 
 # ERROR PAGE VIEWS
 @app.errorhandler(400)
 def bad_request(error):
+    logging.warning(', SECURITY, Error 400, Bad Request, %s, %s, %s, %s',
+                    request.url,
+                    request.user_agent.browser,
+                    request.user_agent.platform,
+                    request.environ['REMOTE_ADDR'])
     return render_template('400.html'), 400
 
 
 @app.errorhandler(403)
 def page_forbidden(error):
+    logging.warning(', SECURITY, Error 403, Page Forbidden, %s, %s, %s, %s',
+                    request.url,
+                    request.user_agent.browser,
+                    request.user_agent.platform,
+                    request.environ['REMOTE_ADDR'])
     return render_template('403.html'), 403
 
 
 @app.errorhandler(404)
 def page_not_found(error):
+    logging.warning(', SECURITY, Error 404, Page Not Found, %s, %s, %s, %s',
+                    request.url,
+                    request.user_agent.browser,
+                    request.user_agent.platform,
+                    request.environ['REMOTE_ADDR'])
     return render_template('404.html'), 404
 
 
 @app.errorhandler(503)
 def internal_error(error):
+    logging.warning(', SECURITY, Error 503, Internal Service Error, %s, %s, %s, %s',
+                    request.url,
+                    request.user_agent.browser,
+                    request.user_agent.platform,
+                    request.environ['REMOTE_ADDR'])
     return render_template('503.html'), 503
 
 
@@ -67,6 +92,21 @@ if __name__ == '__main__':
     free_port = free_socket.getsockname()[1]
     free_socket.close()
 
+    # Logging
+    class SecurityFilter(logging.Filter):
+        def filter(self, record):
+            return "SECURITY" in record.getMessage()
+
+    file_handler = logging.FileHandler('admin-log.log', 'a')
+    file_handler.setLevel(logging.WARNING)
+    file_handler.addFilter(SecurityFilter())
+    formatter = logging.Formatter('%(asctime)s : %(message)s', '%m/%d/%Y %I:%M:%S')
+    file_handler.setFormatter(formatter)
+
+    logger = logging.getLogger('')
+    logger.propagate = False
+    logger.addHandler(file_handler)
+
     # Login Manager
     login_manager = LoginManager()
     login_manager.login_view = 'users.login'
@@ -74,9 +114,11 @@ if __name__ == '__main__':
 
     from models import User
 
+
     @login_manager.user_loader
     def load_user(id):
         return User.query.get(int(id))
+
 
     # Blueprints
     from users.views import users_blueprint

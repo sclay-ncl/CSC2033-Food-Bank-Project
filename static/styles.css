@@ -158,6 +158,15 @@ p.page-header {
     box-shadow: 20px 20px rgba(0,0,0,.15);
 }
 
+.div-bg-large {
+    background: white;
+    text-align: center;
+    width: 90%;
+    padding-top: 20px;
+    margin: 20px auto 60px;
+    box-shadow: 20px 20px rgba(0,0,0,.15);
+}
+
 /* Our Food Bank Page */
 
 #map {

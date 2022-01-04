@@ -15,6 +15,25 @@ def admin():
     return render_template('admin.html')
 
 
+@admin_blueprint.route('/logs', methods=['POST'])
+@login_required
+@requires_roles('admin')
+def logs():
+    # opens log file
+    with open('admin-log.log', "r") as f:
+        # selects the last 10 and then reverses the order
+        content = f.read().splitlines()[-25:]
+        content.reverse()
+
+    logs_info = []
+    for log in content:
+        log_split = log.split(",")
+        logs_info.append(log_split)
+
+    # passes the content into the admin.html
+    return render_template('admin.html', logs=logs_info)
+
+
 @admin_blueprint.route('/food-bank-registration', methods=['GET', 'POST'])
 @login_required
 @requires_roles('admin')
