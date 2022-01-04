@@ -1,8 +1,8 @@
 from flask_login import current_user, login_required
 from flask import redirect, url_for, render_template, flash, Blueprint, session, request, abort
 from app import requires_roles, db
-from food_banks.forms import UpdateFoodBankInformationForm, AddressForm, OpeningHoursForm, ManualStockLevelsForm
-from models import Address, OpeningHours, StockLevels, Stocks
+from food_banks.forms import UpdateFoodBankInformationForm, AddressForm, OpeningHoursForm, ManualStockLevelsForm, StockManagementForm, ItemStockForm
+from models import Address, OpeningHours, StockLevels, Item
 from datetime import datetime
 
 food_banks_blueprint = Blueprint('food_banks', __name__, template_folder='templates')
@@ -165,3 +165,15 @@ def manual_stock_levels():
     form.condiments.data = stock_levels.condiments
     form.toiletries.data = stock_levels.toiletries
     return render_template('manual-stock-levels.html', form=form)
+
+@login_required
+@requires_roles('food_bank')
+@food_banks_blueprint.route('/manage-stock', methods=['GET', 'POST'])
+def manage_stock():
+    items = Item.query.all()
+    form = StockManagementForm()
+    for i in items:
+        item_form = ItemStockForm()
+        item_form.name = i.name
+    return render_template('manage-stock.html', form=form)
+
