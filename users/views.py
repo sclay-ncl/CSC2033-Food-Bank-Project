@@ -105,7 +105,7 @@ def register():
                         last_name=form.last_name.data,
                         password=generate_password_hash(form.password.data),
                         phone_number=form.phone_number.data,
-                        role='user',  # TODO: assign different user roles (donor and collector)
+                        role='user',  # TODO: assign different user roles (donor and collector and admin)
                         number_and_road=form.number_and_road.data,
                         town=form.town.data,
                         postcode=form.postcode.data,
@@ -138,16 +138,16 @@ def login():
     return render_template('login.html', form=form)
 
 
-@login_required
 @users_blueprint.route('/logout')
+@login_required
 def logout():
     logout_user()
     return redirect(url_for('index'))
 
 
+@users_blueprint.route('/profile', methods=['GET', 'POST'])
 @login_required
 @requires_roles('donor', 'collector', 'admin')
-@users_blueprint.route('/profile', methods=['GET', 'POST'])
 def profile():
     return render_template('profile.html',
                            acc_no=current_user.id,
@@ -179,18 +179,6 @@ def update_profile():
     form.postcode.data = user.postcode
     form.phone_number.data = user.phone_number
     return render_template('update-profile.html', form=form)
-
-
-@users_blueprint.route('/book_appointments')
-def book_appointments():
-    return render_template('book-appointments.html')
-
-
-@login_required
-@requires_roles('collector')
-@users_blueprint.route('/edit_appointments')
-def edit_appointments():
-    return render_template('edit-appointments.html')
 
 
 @users_blueprint.route('/food-bank-search', methods=['POST', 'GET'])

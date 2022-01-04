@@ -8,16 +8,16 @@ from werkzeug.security import check_password_hash, generate_password_hash
 admin_blueprint = Blueprint('admin', __name__, template_folder='templates')
 
 
+@admin_blueprint.route('/admin')
 @login_required
 @requires_roles('admin')
-@admin_blueprint.route('/admin')
 def admin():
     return render_template('admin.html')
 
 
+@admin_blueprint.route('/food-bank-registration', methods=['GET', 'POST'])
 @login_required
 @requires_roles('admin')
-@admin_blueprint.route('/food-bank-registration', methods=['GET', 'POST'])
 def food_bank_registration():
     form = FoodBankRegistrationForm()
 

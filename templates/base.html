@@ -37,9 +37,6 @@
                 </a>
                 {% endif %}
                 {% if not current_user.role=="admin" and not current_user.role=="food_bank"%}
-                <a href="{{ url_for('users.book_appointments') }}">
-                        Book an Appointment
-                </a>
                 <a href="{{ url_for('users.contact_us') }}">
                      Contact Us
                 </a>
@@ -70,9 +67,6 @@
                 {% if current_user.role=="food_bank"%}
                 <a href="{{ url_for('food_banks.manage_stock') }}">
                         Manage Stock
-                </a>
-                <a href="{{ url_for('food_banks.upcoming_appointments') }}">
-                    Appointments
                 </a>
                 <a href="{{ url_for('food_banks.update_information') }}">
                         Update Information
@@ -117,9 +111,6 @@
                 </a>
                 {% endif %}
                 {% if not current_user.role=="admin" and not current_user.role=="food_bank" and not current_user.role=="donor"%}
-                <a href="{{ url_for('users.book_appointments') }}" class="navbar-item">
-                    Book an Appointment
-                </a>
                 <a href="{{ url_for('users.contact_us') }}" class="navbar-item">
                      Contact Us
                 </a>
@@ -147,9 +138,6 @@
                 {% if current_user.role=="food_bank"%}
                 <a href="{{ url_for('food_banks.manage_stock') }}" class="navbar-item">
                         Manage Stock
-                </a>
-                <a href="{{ url_for('food_banks.upcoming_appointments') }}" class="navbar-item">
-                    Appointments
                 </a>
                 <a href="{{ url_for('food_banks.update_information') }}" class="navbar-item">
                         Update Information
