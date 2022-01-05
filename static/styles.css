@@ -704,3 +704,57 @@ td.stock-table{
     text-decoration: none;
     white-space: nowrap;
 }
+
+/*admin page */
+.admin-box{
+    width: 20%;
+    height: 100px;
+    border-radius: 20px;
+    background: white;
+    box-shadow: 10px 10px 10px rgba(0,0,0,.15);
+    border-left-style: solid;
+    border-left-width: 8px;
+    margin-left: 30px;
+    margin-top: 20px;
+    display: inline-block;
+}
+
+.admin-box-header{
+    padding-top: 20px;
+    padding-left: 40px;
+    text-align: left;
+    font-size: 16px;
+}
+
+.admin-box-text{
+    text-align: left;
+    padding-top: 0;
+    padding-left: 40px;
+    font-size: 24px;
+}
+
+.admin-button {
+    text-align: center;
+	border-radius: 20px;
+    background: #97c170;
+	color: #000000;
+	font-size: 12px;
+	font-weight: bold;
+	padding: 12px 35px;
+	letter-spacing: 1px;
+	text-transform: uppercase;
+    cursor: pointer;
+    display: block;
+    margin: 80px auto;
+    width: 55%;
+    border: 0;
+    box-shadow: 10px 10px 10px rgba(0,0,0,.15);
+}
+
+.admin-table{
+    width:80%;
+    margin: 0 auto;
+    text-align: center;
+    border-style : hidden!important;
+    border-collapse: collapse;
+}

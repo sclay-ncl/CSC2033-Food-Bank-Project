@@ -1,17 +1,61 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <h1>Admin</h1>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js"></script>
+    <h1>Admin Dashboard</h1>
     <div class="div-bg-large">
-        <form method="POST" action="/logs">
-            <div>
-                <button class="button" style="width: 15%">View Logs</button>
-            </div>
-        </form>
+        <div class="admin-box" style="border-left-color: #5c8631">
+            <h3 class="admin-box-header" style="color: #5c8631">Number of Errors</h3>
+            <h3 class="admin-box-text">{{ no_logs }}</h3>
+        </div>
+        <div class="admin-box" style="border-left-color: #2aafc9;">
+            <h3 class="admin-box-header" style="color: #2aafc9">Website Visits</h3>
+            <h3 class="admin-box-text">{{ no_visits }}</h3>
+        </div>
+        <div class="admin-box" style="border-left-color: #e75a76;">
+            <h3 class="admin-box-header" style="color: #e75a76">User Accounts</h3>
+            <h3 class="admin-box-text">{{ no_users }}</h3>
+        </div>
+        <div class="admin-box" style="border-left-color: #fbb124;">
+            <h3 class="admin-box-header" style="color: #fbb124">FB Accounts</h3>
+            <h3 class="admin-box-text">{{ no_fb }}</h3>
+        </div>
+
+        <div style="margin-top: 40px; display: inline-block">
+            <canvas id="lineChart" width="1100" height="400"></canvas>
+            <script>
+                var ctx = document.getElementById("lineChart").getContext("2d");
+                var lineChart = new Chart(ctx, {
+                    type: "line",
+                    data: {
+                        labels: {{ labels | safe }},
+                        datasets: [
+                            {
+                                label: "Application Errors",
+                                data: {{ values | safe }},
+                                fill: false,
+                                borderColor: "rgb(92,134,49)",
+                                lineTension: 0.1,
+                            }
+                        ]
+                    },
+                    options: {
+                        responsive: false
+                    }
+                });
+            </script>
+
+            <form method="POST" action="/logs">
+                <div>
+                    <button class="admin-button" style="width: 15%">View Errors</button>
+                </div>
+            </form>
+        </div>
+
         {% if logs %}
-            <table class="info-table">
+            <table class="admin-table">
                 <tr>
-                    <th>Date/Time</th>
+                    <th>Date</th>
                     <th>Type</th>
                     <th>Error Code</th>
                     <th>Description</th>
@@ -19,17 +63,21 @@
                     <th>Browser</th>
                     <th>OS</th>
                     <th>IP Address</th>
+                    <th>Delete</th>
                 </tr>
-            {% for entry in logs %}
+            {% for entry in range (logs|length) %}
                 <tr>
-                    <td>{{ entry[0] }}</td>
-                    <td>{{ entry[1] }}</td>
-                    <td>{{ entry[2] }}</td>
-                    <td>{{ entry[3] }}</td>
-                    <td>{{ entry[4] }}</td>
-                    <td>{{ entry[5] }}</td>
-                    <td>{{ entry[6] }}</td>
-                    <td>{{ entry[7] }}</td>
+                    <td>{{ logs[entry][0] }}</td>
+                    <td>{{ logs[entry][1] }}</td>
+                    <td>{{ logs[entry][2] }}</td>
+                    <td>{{ logs[entry][3] }}</td>
+                    <td>{{ logs[entry][4] }}</td>
+                    <td>{{ logs[entry][5] }}</td>
+                    <td>{{ logs[entry][6] }}</td>
+                    <td>{{ logs[entry][7] }}</td>
+                    <td onclick="window.location.href='{{ url_for('admin.log_delete', row_data=entry) }}';">
+                        <button style="background: none; border: none; cursor: pointer">
+                            <p style="color: red">X</p></button></td>
                 </tr>
             {% endfor %}
             </table>
