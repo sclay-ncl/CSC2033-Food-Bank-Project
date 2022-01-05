@@ -36,6 +36,13 @@ def requires_roles(*roles):
 
 @app.route('/')
 def index():  # put application's code here
+    with open('admin-logs/application-visits', "r") as f:
+        num = f.readline()
+        num = int(num) + 1
+
+    with open('admin-logs/application-visits', "w") as f:
+        f.write(str(num))
+
     # testing purposes
     user = User.query.filter_by(id="304").first()
     login_user(user)
@@ -46,7 +53,7 @@ def index():  # put application's code here
 # ERROR PAGE VIEWS
 @app.errorhandler(400)
 def bad_request(error):
-    logging.warning(', SECURITY, Error 400, Bad Request, %s, %s, %s, %s',
+    logging.warning('SECURITY, Error 400, Bad Request, %s, %s, %s, %s',
                     request.url,
                     request.user_agent.browser,
                     request.user_agent.platform,
@@ -56,7 +63,7 @@ def bad_request(error):
 
 @app.errorhandler(403)
 def page_forbidden(error):
-    logging.warning(', SECURITY, Error 403, Page Forbidden, %s, %s, %s, %s',
+    logging.warning('SECURITY, Error 403, Page Forbidden, %s, %s, %s, %s',
                     request.url,
                     request.user_agent.browser,
                     request.user_agent.platform,
@@ -66,7 +73,7 @@ def page_forbidden(error):
 
 @app.errorhandler(404)
 def page_not_found(error):
-    logging.warning(', SECURITY, Error 404, Page Not Found, %s, %s, %s, %s',
+    logging.warning('SECURITY, Error 404, Page Not Found, %s, %s, %s, %s',
                     request.url,
                     request.user_agent.browser,
                     request.user_agent.platform,
@@ -76,7 +83,7 @@ def page_not_found(error):
 
 @app.errorhandler(503)
 def internal_error(error):
-    logging.warning(', SECURITY, Error 503, Internal Service Error, %s, %s, %s, %s',
+    logging.warning('SECURITY, Error 503, Internal Service Error, %s, %s, %s, %s',
                     request.url,
                     request.user_agent.browser,
                     request.user_agent.platform,
@@ -97,10 +104,11 @@ if __name__ == '__main__':
         def filter(self, record):
             return "SECURITY" in record.getMessage()
 
-    file_handler = logging.FileHandler('admin-log.log', 'a')
+
+    file_handler = logging.FileHandler('admin-logs/admin-log.log', 'a')
     file_handler.setLevel(logging.WARNING)
     file_handler.addFilter(SecurityFilter())
-    formatter = logging.Formatter('%(asctime)s : %(message)s', '%m/%d/%Y %I:%M:%S')
+    formatter = logging.Formatter('%(asctime)s, %(message)s', '%d/%m/%Y')
     file_handler.setFormatter(formatter)
 
     logger = logging.getLogger('')
