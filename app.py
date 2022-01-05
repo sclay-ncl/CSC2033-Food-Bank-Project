@@ -44,8 +44,8 @@ def index():  # put application's code here
         f.write(str(num))
 
     # testing purposes
-    user = User.query.filter_by(id="304").first()
-    login_user(user)
+    #user = User.query.filter_by(id="304").first()
+    #login_user(user)
 
     return render_template('index.html')  # TODO: create index.html and render it (front end)
 
