@@ -48,6 +48,11 @@
                             {{ error }}
                         {% endfor %}
 
+                    {{ form.role(class="input", placeholder="Are you a donor or a collector?") }}
+                        {% for error in form.role.errors %}
+                            {{ error }}
+                        {% endfor %}
+
                     {{ form.password(class="input", placeholder="Enter your password") }}
                         {% for error in form.password.errors %}
                             {{ error }}

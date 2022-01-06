@@ -35,6 +35,7 @@ class RegisterForm(FlaskForm):
     town = StringField(validators=[address_character_check, Length(max=50)])
     postcode = StringField(validators=[InputRequired(), postcode_check, Length(max=50)])
     phone_number = StringField(validators=[Length(max=50)])
+    role = StringField(validators=[InputRequired(), character_check, Length(max=9)])
     # password is required to be filled, must be between 8 and 16 characters, has the option to contain a special
     # character, include at least one digit and an uppercase letter
     password = PasswordField(validators=[InputRequired(), Length(min=8, max=16, message= 'Password must be between 8 and 16 '
@@ -76,6 +77,7 @@ class UpdateAccountInformationForm(FlaskForm):
     town = StringField(validators=[address_character_check, Length(max=50)])
     postcode = StringField(validators=[InputRequired(), postcode_check, Length(max=50)])
     phone_number = StringField(validators=[Length(max=50)])
+    role = StringField(validators=[InputRequired(), character_check, Length(max=10)])
     submit = SubmitField()
 
 
