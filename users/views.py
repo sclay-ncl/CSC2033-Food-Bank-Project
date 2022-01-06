@@ -167,7 +167,7 @@ def update_profile():
     if form.validate_on_submit():  # if form is valid
         user.update_information(first_name=form.first_name.data, last_name=form.last_name.data, email=form.email.data,
                                 phone_number=form.phone_number.data, number_and_road=form.number_and_road.data,
-                                town=form.town.data, postcode=form.postcode.data)
+                                town=form.town.data, postcode=form.postcode.data, role=form.role.data)
         return profile()
 
     # get original user details and load them into the form
@@ -178,6 +178,7 @@ def update_profile():
     form.town.data = user.town
     form.postcode.data = user.postcode
     form.phone_number.data = user.phone_number
+    form.role.data = user.role
     return render_template('update-profile.html', form=form)
 
 
