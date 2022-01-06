@@ -10,7 +10,7 @@ app = Flask(__name__)
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SQLALCHEMY_DATABASE_URI'] = \
     "mysql+pymysql://csc2033_team15:Pea5NudeCure@127.0.0.1:8989/csc2033_team15"
-app.config['SECRET_KEY'] = 'LongAndRandomSecretKey'
+app.config['SECRET_KEY'] = '0L*[@8__9r.&s(AgSm(vZ|2=>az4|V$hoEA.TzSUex[sDy>MTo:^k!ZiEhlG'
 
 # TODO: change these API keys, obtained from Canvas (need a URL first)
 # https://www.google.com/u/2/recaptcha/admin/create

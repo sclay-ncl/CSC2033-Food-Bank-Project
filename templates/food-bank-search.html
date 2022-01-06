@@ -10,44 +10,43 @@
     <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
     <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v2.6.1/mapbox-gl.js'></script>
     <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v2.6.1/mapbox-gl.css' rel='stylesheet' />
+    <script  type='text/javascript' src="../static/config.js"></script>
 <script>
+    mapboxgl.accessToken = config.MAPBOX_API_TOKEN;
 
-mapboxgl.accessToken = 'pk.eyJ1IjoiZmVlZGluZ25ld2Nhc3RsZSIsImEiOiJja3hhOXphejQweTcwMzFxYzl1aXk4NXR5In0.OihrSx_S50ZkVWRPjEXL2Q';
+    const map = new mapboxgl.Map({
+      container: 'map',
+      style: 'mapbox://styles/mapbox/streets-v10',
+      center: [-1.6141237020492554, 54.972572326660156],
+      zoom: 11
+    });
 
-const map = new mapboxgl.Map({
-  container: 'map',
-  style: 'mapbox://styles/mapbox/streets-v10',
-  center: [-1.6141237020492554, 54.972572326660156],
-  zoom: 11
-});
-
-const lat = {{ lat|safe }};
-const long = {{ long|safe }};
-const fb_ids = {{ fb_info|safe }}
+    const lat = {{ lat|safe }};
+    const long = {{ long|safe }};
+    const fb_ids = {{ fb_info|safe }}
 
 
-for (let i = 0; i < lat.length; i++) {
-    const fb_id = fb_ids[i][1]
-    displayPointer(lat[i], long[i], fb_id)
-}
+    for (let i = 0; i < lat.length; i++) {
+        const fb_id = fb_ids[i][1]
+        displayPointer(lat[i], long[i], fb_id)
+    }
 
-function displayPointer(lat, long, fb_id) {
-    const popup = new mapboxgl.Popup({offset: 25}).setText(fb_id);
-    const marker = new mapboxgl.Marker().setLngLat([long, lat]).setPopup(popup).addTo(map);
-}
+    function displayPointer(lat, long, fb_id) {
+        const popup = new mapboxgl.Popup({offset: 25}).setText(fb_id);
+        const marker = new mapboxgl.Marker().setLngLat([long, lat]).setPopup(popup).addTo(map);
+    }
 
-map.addControl(
-new mapboxgl.GeolocateControl({
-positionOptions: {
-enableHighAccuracy: true
-},
-// When active the map will receive updates to the device's location as it changes.
-trackUserLocation: true,
-// Draw an arrow next to the location dot to indicate which direction the device is heading.
-showUserHeading: true
-})
-);
-
+    map.addControl(
+    new mapboxgl.GeolocateControl({
+    positionOptions: {
+    enableHighAccuracy: true
+    },
+    // When active the map will receive updates to the device's location as it changes.
+    trackUserLocation: true,
+    // Draw an arrow next to the location dot to indicate which direction the device is heading.
+    showUserHeading: true
+    })
+    );
 </script>
     </div>
     {% for fb in fb_info %}
