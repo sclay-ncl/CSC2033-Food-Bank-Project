@@ -162,14 +162,14 @@ def manual_stock_levels():
     form.toiletries.data = stock_levels.toiletries
     return render_template('manual-stock-levels.html', form=form)
 
-@login_required
-@requires_roles('food_bank')
-@food_banks_blueprint.route('/manage-stock', methods=['GET', 'POST'])
-def manage_stock():
-    items = Item.query.all()
-    form = StockManagementForm()
-    for i in items:
-        item_form = ItemStockForm()
-        item_form.name = i.name
-    return render_template('manage-stock.html', form=form)
+#@login_required
+#@requires_roles('food_bank')
+#@food_banks_blueprint.route('/manage-stock', methods=['GET', 'POST'])
+#def manage_stock():
+#    items = Item.query.all()
+#    form = StockManagementForm()
+#    for i in items:
+#        item_form = ItemStockForm()
+#        item_form.name = i.name
+#    return render_template('manage-stock.html', form=form)
 
