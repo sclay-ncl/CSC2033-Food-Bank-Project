@@ -8,7 +8,7 @@ from models import User, FoodBank, Associate
 from werkzeug.security import check_password_hash, generate_password_hash
 from math import cos, asin, sqrt, pi
 from users.forms import UpdateAccountInformationForm, FavForm, RequestResetForm, ResetPasswordForm
-from mail import send_reset_email
+from mail import send_reset_email, send_mail
 
 # CONFIG
 users_blueprint = Blueprint('users', __name__, template_folder='templates')
@@ -123,6 +123,8 @@ def register():
 
 @users_blueprint.route('/login', methods=['GET', 'POST'])
 def login():
+    #send_mail(1, ['Anthony.clermont@outlook.com', 'nathanhartley82@gmail.com'])
+
     form = LoginForm()
 
     if form.validate_on_submit():
