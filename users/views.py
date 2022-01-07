@@ -7,7 +7,8 @@ from app import db, requires_roles
 from models import User, FoodBank, Associate
 from werkzeug.security import check_password_hash, generate_password_hash
 from math import cos, asin, sqrt, pi
-from users.forms import UpdateAccountInformationForm, FavForm
+from users.forms import UpdateAccountInformationForm, FavForm, RequestResetForm, ResetPasswordForm
+from mail import send_reset_email
 
 # CONFIG
 users_blueprint = Blueprint('users', __name__, template_folder='templates')
@@ -259,3 +260,36 @@ def food_bank_information(food_bank_id):
 @users_blueprint.route('/donate')
 def donate():
     return render_template('donate.html')
+
+
+@users_blueprint.route('/reset_password', methods=['GET', 'POST'])
+def reset_request():
+    if current_user.is_authenticated:
+        return redirect(url_for('index'))
+    form = RequestResetForm()
+
+    if form.validate_on_submit():
+        user = User.query.filter_by(email=form.email.data).first()
+        send_reset_email(user)
+        flash('A Password email has been sent', 'info')
+        return redirect(url_for('users.login'))
+
+    return render_template('reset_request.html', form=form)
+
+
+@users_blueprint.route('/reset_password/<token>', methods=['GET', 'POST'])
+def reset_token(token):
+    user = User.verify_reset_token(token)
+    if user is None:
+        flash('Invalid or Expired Token', 'warning')
+        return redirect(url_for('users.reset_request'))
+
+    form = ResetPasswordForm()
+    if form.validate_on_submit():
+        hashed_password = generate_password_hash(form.password.data)
+        user.password = hashed_password
+        db.session.commit()
+
+        return redirect(url_for('users.login'))
+
+    return render_template('reset_token.html', form=form)
