@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block content %}
+        <div class="login-form">
+            {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                    <div class="notification-is-danger">
+                        {{ messages[0] }}
+                    </div>
+                {% endif %}
+            {% endwith %}
+                <form method="POST">
+                    <h1 style="padding-top: 55px;">Reset Password</h1>
+                        {{ form.csrf_token() }}
+                            {{ form.password(class="input", placeholder="Email") }}
+                            {% for error in form.password.errors %}
+                                {{ error }}
+                            {% endfor %}
+                            {{ form.confirm_password(class="input", placeholder="Email") }}
+                            {% for error in form.confirm_password.errors %}
+                                {{ error }}
+                            {% endfor %}
+
+                        {{ form.submit(class="button") }}
+                </form>
+        </div>
+{% endblock %}
