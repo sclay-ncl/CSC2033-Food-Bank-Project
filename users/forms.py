@@ -3,6 +3,7 @@ from wtforms import StringField, SubmitField, PasswordField, SelectField
 from wtforms.validators import Email, Length, EqualTo, ValidationError, InputRequired
 from ukpostcodeutils import validation
 import re
+from models import User
 
 
 # Custom Validation
@@ -89,3 +90,32 @@ class DietaryRequirementsForm(FlaskForm):
 class FavForm(FlaskForm):
     add = SubmitField("Favourite")
     remove = SubmitField("Un-favourite")
+
+
+class RequestResetForm(FlaskForm):
+    email = StringField(validators=[InputRequired(), Email(), Length(max=50)])
+    submit = SubmitField('Request Password Reset')
+
+    def validate_email(self, email):
+        user = User.query.filter_by(email=email.data).first()
+        if user is None:
+            raise ValidationError('There is no account with that email. Please register an account.')
+
+
+class ResetPasswordForm(FlaskForm):
+    password = PasswordField(
+        validators=[InputRequired(), Length(min=8, max=16, message='Password must be between 8 and 16 '
+                                                                   'characters.')])
+    confirm_password = PasswordField(
+        validators=[InputRequired(), EqualTo('password', message='This must be the same as '
+                                                                 'the password.')])
+    submit = SubmitField('Reset Password')
+
+    def validate_password(self, password):
+        p = re.compile(r'(?=.*\d)(?=.*[A-Z])')
+        if not p.match(self.password.data):
+            raise ValidationError("Password must contain at least 1 digit and 1 uppercase letter.")
+
+
+
+
