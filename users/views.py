@@ -123,7 +123,7 @@ def register():
 
 @users_blueprint.route('/login', methods=['GET', 'POST'])
 def login():
-    #send_mail(1, ['Anthony.clermont@outlook.com', 'nathanhartley82@gmail.com'])
+    send_mail(1)
 
     form = LoginForm()
 

@@ -1,6 +1,6 @@
 import smtplib
 from email.message import EmailMessage
-from models import FoodBank
+from models import FoodBank, Associate, User
 from flask import url_for
 
 
@@ -17,13 +17,17 @@ def send(subject, email_text, recip):
         smtp.send_message(message)
 
 
-def send_mail(food_bank_id, recip_list):
+def send_mail(food_bank_id):
     food_bank = FoodBank.query.filter_by(id=food_bank_id).first()
+    recip_list_obj = Associate.query.filter_by(fb_id=food_bank_id).all()
 
     subject = 'EMERGENCY DONATIONS NEEDED'
     msg = FoodBank.generate_alerts(food_bank, urgent_categories='test')
 
-    send(subject, msg, recip_list)
+    for i in range(len(recip_list_obj)):
+        user = User.query.filter_by(id=recip_list_obj[i].user_id).first()
+
+        send(subject, msg, user.email)
 
 
 def send_reset_email(user):
