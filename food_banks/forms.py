@@ -67,6 +67,5 @@ class ItemStockForm(FlaskForm):
 
 class StockManagementForm(FlaskForm):
     """Form combing ItemStockForms used to update the quantity of stock across many items"""
-    items = None  # list of Item objects passed in after the form in instantiated
     item_forms = FieldList(FormField(ItemStockForm))  # TODO see how this renders in html with front end team
     submit = SubmitField()
