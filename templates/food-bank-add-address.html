@@ -1,8 +1,7 @@
 {% extends "base.html" %}
 
 {% block content %}
-
-    <h3> Add Address </h3>
+<div class="update-profile-form">
     {% with messages = get_flashed_messages(with_categories=true) %}
         {% if messages %}
             {% for category, message in messages %}
@@ -14,29 +13,29 @@
     {% endwith %}
 
      <form method="POST">
+         <h1> Add Address </h1>
+            {{ form.csrf_token() }}
+                {{ form.building_name(class="input", placeholder="Building Name") }}
+                {% for error in form.building_name.errors %}
+                    {{ error }}
+                {% endfor %}
 
-                    {{ form.csrf_token() }}
-                        {{ form.building_name(class="input", placeholder="Building Name") }}
-                        {% for error in form.building_name.errors %}
-                            {{ error }}
-                        {% endfor %}
+            {{ form.number_and_road(class="input", placeholder="Address line") }}
+                {% for error in form.number_and_road.errors %}
+                    {{ error }}
+                {% endfor %}
 
-                    {{ form.number_and_road(class="input", placeholder="Address line") }}
-                        {% for error in form.number_and_road.errors %}
-                            {{ error }}
-                        {% endfor %}
+            {{ form.town(class="input", placeholder="Town") }}
+                {% for error in form.town.errors %}
+                    {{ error }}
+                {% endfor %}
 
-                    {{ form.town(class="input", placeholder="Town") }}
-                        {% for error in form.town.errors %}
-                            {{ error }}
-                        {% endfor %}
+            {{ form.postcode(class="input", placeholder="Postcode") }}
+                {% for error in form.postcode.errors %}
+                    {{ error }}
+                {% endfor %}
 
-                    {{ form.postcode(class="input", placeholder="Postcode") }}
-                        {% for error in form.postcode.errors %}
-                            {{ error }}
-                        {% endfor %}
-
-                    {{ form.submit(class="button") }}
-            </form>
-
+            {{ form.submit(class="button") }}
+    </form>
+</div>
 {% endblock %}

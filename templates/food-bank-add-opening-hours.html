@@ -1,7 +1,8 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <div class="add-opening-hours">
+    <h1 style="margin-top: 25px"> Add Opening Hours </h1>
+    <div class="add-opening-hours" style="padding-bottom: 25px">
         {% with messages = get_flashed_messages(with_categories=true) %}
             {% if messages %}
                 {% for category, message in messages %}
@@ -11,7 +12,7 @@
                 {% endfor %}
             {% endif %}
         {% endwith %}
-        <h3> Add Opening Hours </h3>
+
             <form method="POST">
                     {{ form.csrf_token() }}
                     <h4> Day </h4>
@@ -53,8 +54,9 @@
                             {{ error }}
                         {% endfor %}
             </div>
-
+                    <div style="width: 450px; margin: auto auto auto auto;">
                     {{ form.submit(class="button") }}
+                    </div>
             </form>
     </div>
 

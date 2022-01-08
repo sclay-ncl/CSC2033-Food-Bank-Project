@@ -316,6 +316,36 @@ p.page-header {
     box-shadow: 20px 20px rgba(0,0,0,.15);
 }
 
+/* register food bank form */
+.food-bank-register-form {
+    margin-top: 100px;
+    margin-left: auto;
+    margin-right: auto;
+    align-content: center;
+    background: white;
+    color: black;
+    position: relative;
+    height: auto;
+    width: 500px;
+    padding-bottom: 25px;
+    box-shadow: 20px 20px rgba(0,0,0,.15);
+}
+
+/* update profile form */
+.update-profile-form {
+    margin-top: 100px;
+    margin-left: auto;
+    margin-right: auto;
+    align-content: center;
+    background: white;
+    color: black;
+    position: relative;
+    height: auto;
+    width: 450px;
+    padding-bottom: 25px;
+    box-shadow: 20px 20px rgba(0,0,0,.15);
+}
+
 /* Register Form */
 .register-form{
     padding: 40px;
@@ -460,7 +490,7 @@ button:active {
     background: white;
     position: relative;
     width: 820px;
-    height: 230px;
+    height: auto;
     padding: 15px;
     box-shadow: 20px 20px rgba(0,0,0,.15);
 }
@@ -564,25 +594,22 @@ table, tr, td {
     border-collapse: collapse;
     border: thin solid rgba(0, 0, 0, .15);
     padding-bottom: 1em;
+    background: white;
 }
 .manage-addresses{
-    margin: 10px;
     width:100%;
     table-layout: fixed;
     position: relative;
     text-align: center;
-    padding: 0.5rem;
 }
 
 th.manage-addresses{
-    padding: 20px 15px;
     text-align: left;
     font-weight: 500;
     color: #000000;
 }
 
 td.manage-addresses{
-    padding: 15px;
     text-align: left;
     vertical-align:middle;
     font-weight: 300;
@@ -592,7 +619,6 @@ td.manage-addresses{
 
 /* Opening Hours */
 .opening-hours{
-    margin: 10px;
     width:100%;
     table-layout: fixed;
     position: relative;
@@ -618,7 +644,11 @@ td.opening-hours{
 /* Add Opening Hours */
 .add-opening-hours {
     text-align: center;
-    margin: 20px;
+    width: 60%;
+    background: white;
+    box-shadow: 15px 15px rgba(0,0,0,.15);
+    padding-top: 20px;
+    margin: 20px auto 60px;
 }
 
 .form-dropdown{
@@ -627,13 +657,15 @@ td.opening-hours{
     height: 50px;
     border: rgba(0,0,0,.15) 1px solid;
     box-sizing: border-box;
-    padding: 20px;
+    padding-left: 10px;
+    padding-right: 10px;
     display: block;
     margin: 15px auto 15px;
 }
 
 .add-opening-hours h4{
     Padding: 15px;
+
 }
 
 .add-hour{
