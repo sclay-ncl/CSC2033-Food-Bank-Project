@@ -4,11 +4,13 @@
 
         <div class="food-bank-register-form">
         <h1>Register your Food Bank</h1>
-            {% with messages = get_flashed_messages() %}
+            {% with messages = get_flashed_messages(with_categories=true) %}
                 {% if messages %}
-                    <div class="notification is-danger">
-                        {{ messages[0] }}. Go to <a href="{{ url_for('users.login') }}">login page</a>.
-                    </div>
+                    {% for category, message in messages %}
+                        <div class="notification-is-{{ category }}">
+                        {{ message }}
+                        </div>
+                    {% endfor %}
                 {% endif %}
             {% endwith %}
             <form method="POST">

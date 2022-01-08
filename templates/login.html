@@ -1,33 +1,40 @@
 {% extends "base.html" %}
 
 {% block content %}
-        <div class="login-form">
-            {% with messages = get_flashed_messages() %}
-                {% if messages %}
-                    <div class="notification-is-danger">
-                        {{ messages[0] }}
+    <div class="login-form">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="notification-is-{{ category }}">
+                    {{ message }}
                     </div>
-                {% endif %}
-            {% endwith %}
-                <form method="POST">
-                    <h1 style="padding-top: 55px;">Login</h1>
-                        {{ form.csrf_token() }}
-                            {{ form.email(class="input", placeholder="Email") }}
-                            {% for error in form.email.errors %}
-                                {{ error }}
-                            {% endfor %}
-                            {{ form.password(class="input", placeholder="Password") }}
-                            {% for error in form.password.errors %}
-                                {{ error }}
-                            {% endfor %}
-                <div class="recaptcha">
-                        {{ form.recaptcha }}
-                        {% for error in form.recaptcha.errors %}
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+            <form method="POST">
+                <h1 style="padding-top: 55px;">Login</h1>
+                    {{ form.csrf_token() }}
+                        {{ form.email(class="input", placeholder="Email") }}
+                        {% for error in form.email.errors %}
                             {{ error }}
                         {% endfor %}
-                </div>
-                        {{ form.submit(class="button") }}
+                        {{ form.password(class="input", placeholder="Password") }}
+                        {% for error in form.password.errors %}
+                            {{ error }}
+                        {% endfor %}
+            <div class="recaptcha">
+                    {{ form.recaptcha }}
+                    {% for error in form.recaptcha.errors %}
+                        {{ error }}
+                    {% endfor %}
+            </div>
+                    {{ form.submit(class="button") }}
+            <div>
+                <a class="password_reset" href="{{ url_for('users.reset_request') }}">
+                    Forgotten Password?
+                </a>
+            </div>
 
-                </form>
+            </form>
     </div>
 {% endblock %}

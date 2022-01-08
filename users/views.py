@@ -96,7 +96,7 @@ def register():
         user = User.query.filter_by(email=form.email.data).first()
 
         if user:
-            flash("This username already exists")
+            flash("This username already exists", 'info')
             return render_template('register.html', form=form)
         # if the inputted username matches up with a username in the db, return the user to the register page
         lat_long = get_lat_long(str(form.number_and_road.data), str(form.town.data), str(form.postcode.data).upper())
@@ -131,7 +131,7 @@ def login():
         user = User.query.filter_by(email=form.email.data).first()
 
         if not user or not check_password_hash(user.password, form.password.data):
-            flash("incorrect username/password")
+            flash("Incorrect Username/Password", 'danger')
             return render_template('login.html', form=form)
 
         else:
@@ -273,7 +273,7 @@ def reset_request():
     if form.validate_on_submit():
         user = User.query.filter_by(email=form.email.data).first()
         send_reset_email(user)
-        flash('A Password email has been sent', 'info')
+        flash('Password Email Sent', 'info')
         return redirect(url_for('users.login'))
 
     return render_template('reset_request.html', form=form)

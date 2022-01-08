@@ -94,7 +94,7 @@ class FavForm(FlaskForm):
 
 class RequestResetForm(FlaskForm):
     email = StringField(validators=[InputRequired(), Email(), Length(max=50)])
-    submit = SubmitField('Request Password Reset')
+    submit = SubmitField('Reset Password')
 
     def validate_email(self, email):
         user = User.query.filter_by(email=email.data).first()

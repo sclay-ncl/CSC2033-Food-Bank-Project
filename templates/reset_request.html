@@ -1,16 +1,19 @@
 {% extends "base.html" %}
 
 {% block content %}
-        <div class="login-form">
-            {% with messages = get_flashed_messages() %}
+        <div class="password_form">
+            {% with messages = get_flashed_messages(with_categories=true) %}
                 {% if messages %}
-                    <div class="notification-is-danger">
-                        {{ messages[0] }}
-                    </div>
+                    {% for category, message in messages %}
+                        <div class="notification-is-{{ category }}">
+                        {{ message }}
+                        </div>
+                    {% endfor %}
                 {% endif %}
             {% endwith %}
                 <form method="POST">
                     <h1 style="padding-top: 55px;">Reset Password</h1>
+                    <p style="padding-bottom: 5px; padding-top: 20px"> An email will be sent to your email,<br> with a link to reset your password.</p>
                         {{ form.csrf_token() }}
                             {{ form.email(class="input", placeholder="Email") }}
                             {% for error in form.email.errors %}

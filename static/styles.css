@@ -207,6 +207,7 @@ p.page-header {
   cursor: pointer;
 }
 
+/* flash notifications */
 .notification-is-danger{
     width: 90%;
     display: block;
@@ -221,7 +222,61 @@ p.page-header {
 	letter-spacing: 1px;
     position: absolute;
     left: 50%;
-    top: 4.5%;
+    top: 5.5%;
+    transform: translate(-50%, -50%);
+}
+
+.notification-is-info {
+    width: 90%;
+    display: block;
+    text-align: center;
+	border-radius: 20px;
+	border: 1px solid #44839a;
+	background-color: #b6d8ea;
+	color: #44839a;
+	font-size: 12px;
+	font-weight: bold;
+	padding: 10px 30px;
+	letter-spacing: 1px;
+    position: absolute;
+    left: 50%;
+    top: 5.5%;
+    transform: translate(-50%, -50%);
+}
+
+.notification-is-success {
+    width: 90%;
+    display: block;
+    text-align: center;
+	border-radius: 20px;
+	border: 1px solid #5c8631;
+	background-color: #cde1ba;
+	color: #5c8631;
+	font-size: 12px;
+	font-weight: bold;
+	padding: 10px 30px;
+	letter-spacing: 1px;
+    position: absolute;
+    left: 50%;
+    top: 5.5%;
+    transform: translate(-50%, -50%);
+}
+
+.notification-is-warning {
+    width: 90%;
+    display: block;
+    text-align: center;
+	border-radius: 20px;
+	border: 1px solid #c09b24;
+	background-color: #fae09b;
+	color: #c09b24;
+	font-size: 12px;
+	font-weight: bold;
+	padding: 10px 30px;
+	letter-spacing: 1px;
+    position: absolute;
+    left: 50%;
+    top: 7.5%;
     transform: translate(-50%, -50%);
 }
 
@@ -231,11 +286,33 @@ p.page-header {
     margin-left: auto;
     margin-right: auto;
     align-content: center;
+    text-align: center;
     background: white;
     color: black;
     position: relative;
     width: 350px;
     height: 550px;
+    box-shadow: 20px 20px rgba(0,0,0,.15);
+}
+
+.password_reset {
+    font-size: 14px;
+}
+
+/* Password Request & Reset Pages */
+
+.password_form {
+    margin-top: 100px;
+    margin-left: auto;
+    margin-right: auto;
+    align-content: center;
+    text-align: center;
+    background: white;
+    color: black;
+    position: relative;
+    width: 350px;
+    height: auto;
+    padding-bottom: 25px;
     box-shadow: 20px 20px rgba(0,0,0,.15);
 }
 

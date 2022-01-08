@@ -3,8 +3,18 @@
 {% block content %}
 
     <h3> Add Address </h3>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+                <div class="notification-is-{{ category }}">
+                {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
 
      <form method="POST">
+
                     {{ form.csrf_token() }}
                         {{ form.building_name(class="input", placeholder="Building Name") }}
                         {% for error in form.building_name.errors %}

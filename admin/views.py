@@ -142,7 +142,7 @@ def food_bank_registration():
         user = User.query.filter_by(email=form.email.data).first()
 
         if user:
-            flash("This email is already in use")
+            flash("Email Already Used", 'danger')
             return render_template('food-bank-registration.html', form=form)
 
         new_food_bank = FoodBank(name=form.name.data,

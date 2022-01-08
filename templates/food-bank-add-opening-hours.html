@@ -1,8 +1,16 @@
 {% extends "base.html" %}
 
 {% block content %}
-
     <div class="add-opening-hours">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="notification-is-{{ category }}">
+                    {{ message }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
         <h3> Add Opening Hours </h3>
             <form method="POST">
                     {{ form.csrf_token() }}
