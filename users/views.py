@@ -150,7 +150,7 @@ def logout():
 
 @users_blueprint.route('/profile', methods=['GET', 'POST'])
 @login_required
-@requires_roles('donor', 'collector', 'admin')
+@requires_roles('donor', 'collector', 'admin', 'food_bank')
 def profile():
     return render_template('profile.html',
                            acc_no=current_user.id,
