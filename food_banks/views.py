@@ -8,13 +8,6 @@ from datetime import datetime
 food_banks_blueprint = Blueprint('food_banks', __name__, template_folder='templates')
 
 
-@food_banks_blueprint.route('/manage-stock')
-@login_required
-@requires_roles('food_bank')
-def manage_stock():
-    return render_template('manage-stock.html')
-
-
 @food_banks_blueprint.route('/update-food-bank-profile', methods=['POST', 'GET'])
 @login_required
 @requires_roles('food_bank')
@@ -162,14 +155,14 @@ def manual_stock_levels():
     form.toiletries.data = stock_levels.toiletries
     return render_template('manual-stock-levels.html', form=form)
 
-#@login_required
-#@requires_roles('food_bank')
-#@food_banks_blueprint.route('/manage-stock', methods=['GET', 'POST'])
-#def manage_stock():
-#    items = Item.query.all()
-#    form = StockManagementForm()
-#    for i in items:
-#        item_form = ItemStockForm()
-#        item_form.name = i.name
-#    return render_template('manage-stock.html', form=form)
+@login_required
+@requires_roles('food_bank')
+@food_banks_blueprint.route('/manage-stock', methods=['GET', 'POST'])
+def manage_stock():
+   items = Item.query.all()
+   form = StockManagementForm()
+   for i in items:
+       item_form = ItemStockForm()
+       item_form.name = i.name
+   return render_template('manage-stock.html', form=form)
 
