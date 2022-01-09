@@ -74,6 +74,5 @@ class StockManagementForm(FlaskForm):
 
 class StockManagementOptionForm(FlaskForm):
     """Form to choose between stock management options"""
-    previous_choice = 0  # set outside the form
-    option = SelectField(default=previous_choice, choices=[(0, "Manual"), (1, "Automatic")])
+    option = SelectField(choices=[(0, "Manual"), (1, "Automatic")])
     submit = SubmitField("Refresh")
