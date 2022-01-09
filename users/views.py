@@ -8,7 +8,7 @@ from models import User, FoodBank, Associate, StockLevels
 from werkzeug.security import check_password_hash, generate_password_hash
 from math import cos, asin, sqrt, pi
 from users.forms import UpdateAccountInformationForm, FavForm, RequestResetForm, ResetPasswordForm
-from mail import send_reset_email, send_mail
+from notifications.mail import send_reset_email, send_mail
 
 # CONFIG
 users_blueprint = Blueprint('users', __name__, template_folder='templates')
@@ -150,7 +150,7 @@ def logout():
 
 @users_blueprint.route('/profile', methods=['GET', 'POST'])
 @login_required
-@requires_roles('donor', 'collector', 'admin', 'food_bank')
+@requires_roles('donor', 'collector', 'admin')
 def profile():
     return render_template('profile.html',
                            acc_no=current_user.id,
