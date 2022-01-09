@@ -7,6 +7,7 @@
 
     <!--for stock management -->
     <form class="management-option" method="POST">
+        {{ management_option_form.csrf_token }}
 
     <h4> Stock Management Option </h4>
     {{ management_option_form.option(class="form-dropdown") }}
