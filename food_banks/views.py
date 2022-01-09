@@ -137,6 +137,9 @@ def manage_item_stock():
 @requires_roles('food_bank')
 @food_banks_blueprint.route('/manage-stock', methods=['GET', 'POST'])
 def manage_stock():
+    """Where food banks can manage their stock. Choose between stock management type: automatic or manual,
+    the relevant form for the management option selected is rendered.
+       """
     current_food_bank = current_user.associated[0]
     management_option_form = StockManagementOptionForm(option=current_food_bank.management_option)
     if management_option_form.validate_on_submit():
