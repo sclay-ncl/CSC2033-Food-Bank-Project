@@ -64,6 +64,8 @@ class ItemStockForm(FlaskForm):
     """Form for updating the quantity of an item in stock"""
     item_name = None
     quantity = IntegerField(validators=[InputRequired()])
+    low_bound = IntegerField(validators=[InputRequired()])
+    high_bound = IntegerField(validators=[InputRequired()])
 
 class StockManagementForm(FlaskForm):
     """Form combing ItemStockForms used to update the quantity of stock across many items"""
