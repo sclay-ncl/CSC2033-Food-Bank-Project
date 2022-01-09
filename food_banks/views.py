@@ -122,38 +122,6 @@ def delete_opening_hours(address_id, day):
         db.session.commit()
     return redirect(url_for('food_banks.manage_opening_hours', address_id=address_id))
 
-
-@food_banks_blueprint.route('/manual-stock-levels', methods=['GET', 'POST'])
-@login_required
-@requires_roles('food_bank')
-def manual_stock_levels():
-    """Allows food banks to manually set the stock levels of each category"""
-    current_food_bank = current_user.associated[0]
-    stock_levels = StockLevels.query.filter_by(fb_id=current_food_bank.id)
-    form = ManualStockLevelsForm(starchy=stock_levels.starchy,  # sets levels from database
-                                 protein=stock_levels.protein,
-                                 fruit_veg=stock_levels.fruit_veg,
-                                 soup_sauce=stock_levels.soup_sauce,
-                                 drinks=stock_levels.drinks,
-                                 snacks=stock_levels.snacks,
-                                 cooking_ingredients=stock_levels.cooking_ingredients,
-                                 condiments=stock_levels.condiments,
-                                 toiletries=stock_levels.toiletries)
-    if form.validate_on_submit():
-        stock_levels.starchy = form.starchy.data
-        stock_levels.protein = form.protein.data
-        stock_levels.fruit_veg = form.fruit_veg.data
-        stock_levels.soup_sauce = form.soup_sauce.data
-        stock_levels.drinks = form.drinks.data
-        stock_levels.snacks = form.snacks.data
-        stock_levels.cooking_ingredients = form.cooking_ingredients.data
-        stock_levels.condiments = form.condiments.data
-        stock_levels.toiletries = form.toiletries.data
-        db.session.commit()
-        return manual_stock_levels()
-
-    return render_template('manual-stock-levels.html', form=form)
-
 @login_required
 @requires_roles('food_bank')
 @food_banks_blueprint.route('/manage-item-stock', methods=['GET', 'POST'])
@@ -174,5 +142,31 @@ def manage_stock():
     if management_option_form.validate_on_submit():
         current_food_bank.management_option = management_option_form.option.data
         db.session.commit()
-    return render_template('manage-stock.html', management_option_form=management_option_form)
+
+    # if food bank has chosen to manually set stock levels
+    if current_food_bank.management_option == 0:
+        stock_levels = StockLevels.query.filter_by(fb_id=current_food_bank.id)
+        form = ManualStockLevelsForm(starchy=stock_levels.starchy,  # sets levels from database
+                                     protein=stock_levels.protein,
+                                     fruit_veg=stock_levels.fruit_veg,
+                                     soup_sauce=stock_levels.soup_sauce,
+                                     drinks=stock_levels.drinks,
+                                     snacks=stock_levels.snacks,
+                                     cooking_ingredients=stock_levels.cooking_ingredients,
+                                     condiments=stock_levels.condiments,
+                                     toiletries=stock_levels.toiletries)
+        if form.validate_on_submit():
+            stock_levels.starchy = form.starchy.data
+            stock_levels.protein = form.protein.data
+            stock_levels.fruit_veg = form.fruit_veg.data
+            stock_levels.soup_sauce = form.soup_sauce.data
+            stock_levels.drinks = form.drinks.data
+            stock_levels.snacks = form.snacks.data
+            stock_levels.cooking_ingredients = form.cooking_ingredients.data
+            stock_levels.condiments = form.condiments.data
+            stock_levels.toiletries = form.toiletries.data
+            db.session.commit()
+            return manage_stock()
+
+    return render_template('manage-stock.html', management_option_form=management_option_form, form=form)
 
