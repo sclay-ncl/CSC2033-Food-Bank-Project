@@ -178,7 +178,6 @@ class StockLevels(db.Model):
     """
 
     fb_id = db.Column(db.Integer, db.ForeignKey('food_bank.id'), primary_key=True)
-    auto_managed = db.Column(db.Boolean)
     # stock levels
     starchy = db.Column(db.Integer)
     protein = db.Column(db.Integer)
