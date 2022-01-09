@@ -37,7 +37,13 @@ def convert_to_object(data, object_type):
                                 last_name=attr[2],
                                 email=attr[3],
                                 phone_number=attr[4],
-                                password=generate_password_hash(attr[5])))
+                                password=generate_password_hash(attr[5]),
+                                number_and_road=attr[6],
+                                town=attr[7],
+                                postcode=attr[8],
+                                long=attr[10],
+                                lat=attr[9]))
+
         elif object_type == "food_bank":
             new_food_bank = FoodBank(id=int(attr[0]),
                                      name=attr[1],
@@ -130,7 +136,7 @@ def pop_db():
     """
     db.drop_all()
     db.create_all()
-    data = {"user": csv_to_list(file="db data/user.csv", start_index=1),
+    data = {"user": csv_to_list(file="db data/new_user.csv", start_index=1),
             "food_bank": csv_to_list(file="db data/food_bank.csv", start_index=0),
             "item": csv_to_list(file="db data/item.csv", start_index=0),
             "address": csv_to_list(file="db data/address.csv", start_index=0),
