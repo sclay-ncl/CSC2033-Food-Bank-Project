@@ -2,7 +2,7 @@ from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField, SelectField, IntegerField, FieldList, FormField
 from wtforms.validators import Email, Length, InputRequired, ValidationError
 from models import OpeningHours
-
+from users.forms import postcode_check
 
 class UpdateFoodBankInformationForm(FlaskForm):
     name = StringField(validators=[InputRequired(), Length(max=100)])  # max length set to conform with database
@@ -16,7 +16,7 @@ class AddressForm(FlaskForm):
     building_name = StringField(validators=[Length(max=100)])  # not all places have a building name, therefore nullable
     number_and_road = StringField(validators=[InputRequired(), Length(max=50)])
     town = StringField(validators=[InputRequired(), Length(max=50)])
-    postcode = StringField(validators=[InputRequired(), Length(max=8)])  # TODO: Add postcode validation
+    postcode = StringField(validators=[InputRequired(), postcode_check, Length(max=8)])
 
     submit = SubmitField()
 
