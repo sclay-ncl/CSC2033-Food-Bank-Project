@@ -170,5 +170,13 @@ def manage_stock():
             stock_levels.toiletries = form.toiletries.data
             db.session.commit()
 
+    # if food bank has chosen to automatically set stock levels
+    if current_food_bank.management_option == 1:
+        items = Item.query.all()
+        form = StockManagementForm()
+        for i in items:
+            item_form = ItemStockForm(name=i.name)
+            form.item_forms.append_entry(item_form)
+
     return render_template('manage-stock.html', management_option_form=management_option_form, form=form)
 
