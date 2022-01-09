@@ -193,7 +193,7 @@ def food_bank_search():
 
     fb_address_data = FoodBank.query.all()
     for fb in fb_address_data:
-        if fb.address:
+        if len(fb.address) > 0:
             temp_fb = [fb.id, fb.name]
             fb_id_name.append(temp_fb)
             address = fb.address[0]
