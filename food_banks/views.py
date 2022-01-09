@@ -170,11 +170,12 @@ def manage_item_stock():
 @requires_roles('food_bank')
 @food_banks_blueprint.route('/manage-stock', methods=['GET', 'POST'])
 def manage_stock():
-    food_bank = current_user.associated[0]
+    current_food_bank = current_user.associated[0]
     management_option_form = StockManagementOptionForm()
     if management_option_form.validate_on_submit():
-        food_bank.management_option = management_option_form.option.data
+        print("CALLED")
+        current_food_bank.management_option = management_option_form.option.data
         db.session.commit()
-    management_option_form.option.data = food_bank.management_option  # load previous option choice
+    management_option_form.previous_choice = current_food_bank.management_option  # load previous option choice
     return render_template('manage-stock.html', management_option_form=management_option_form)
 
