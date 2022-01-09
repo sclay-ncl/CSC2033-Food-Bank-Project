@@ -172,6 +172,9 @@ def manage_item_stock():
 def manage_stock():
     food_bank = current_user.associated[0]
     management_option_form = StockManagementOptionForm()
-    management_option_form.option.data = food_bank.management_option
+    if management_option_form.validate_on_submit():
+        food_bank.management_option = management_option_form.option.data
+        db.session.commit()
+    management_option_form.option.data = food_bank.management_option  # load previous option choice
     return render_template('manage-stock.html', management_option_form=management_option_form)
 
