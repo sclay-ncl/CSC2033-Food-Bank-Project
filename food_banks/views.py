@@ -2,8 +2,9 @@ from flask_login import current_user, login_required
 from flask import redirect, url_for, render_template, flash, Blueprint, session, request, abort
 from app import requires_roles, db
 from food_banks.forms import UpdateFoodBankInformationForm, AddressForm, OpeningHoursForm, ManualStockLevelsForm, StockManagementForm, ItemStockForm, StockManagementOptionForm
-from models import Address, OpeningHours, StockLevels, Item
+from models import Address, OpeningHours, StockLevels, Item, Stocks
 from datetime import datetime
+from wtforms import FormField
 
 food_banks_blueprint = Blueprint('food_banks', __name__, template_folder='templates')
 
@@ -170,13 +171,23 @@ def manage_stock():
             stock_levels.toiletries = form.toiletries.data
             db.session.commit()
 
+        return render_template('manage-stock.html', management_option_form=management_option_form, form=form)
+
     # if food bank has chosen to automatically set stock levels
     if current_food_bank.management_option == 1:
         items = Item.query.all()
         form = StockManagementForm()
+        item_names = []
         for i in items:
-            item_form = ItemStockForm(name=i.name)
+            stock = Stocks.query.filter_by(fb_id=current_food_bank.id, item_id=i.id).first()
+            item_form = ItemStockForm()
+            item_names.append(i.name)
+            item_form.quantity = stock.quantity
             form.item_forms.append_entry(item_form)
+        if form.validate_on_submit():
+            for i in form.item_forms:
+                print(i)  #TODO: commit changes back to db
 
-    return render_template('manage-stock.html', management_option_form=management_option_form, form=form)
+
+        return render_template('manage-stock.html', management_option_form=management_option_form, form=form, item_names=item_names)
 
