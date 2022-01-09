@@ -39,7 +39,32 @@ const popup = new mapboxgl.Popup({offset: 25}).setText(msg);
 const marker = new mapboxgl.Marker().setLngLat([long, lat]).setPopup(popup).addTo(map);
 </script>
     </div>
-{{ fb_stock }}
+
+<div class="high-stock">
+High in stock:
+{{ 'Starchy foods' if fb_stock.starchy > fb_stock.starchy_high }}
+{{ 'Proteins' if fb_stock.protein > fb_stock.protein_high }}
+{{ 'Fruit and vegetables' if fb_stock.fruit_veg > fb_stock.fruit_veg_high }}
+{{ 'Soups' if fb_stock.soup_sauce > fb_stock.soup_sauce_high }}
+{{ 'Drinks' if fb_stock.drinks > fb_stock.drinks_high }}
+{{ 'Snacks' if fb_stock.snacks > fb_stock.snacks_high }}
+{{ 'Cooking ingredients' if fb_stock.cooking_ingredients > fb_stock.cooking_ingredients_high }}
+{{ 'Condiments' if fb_stock.condiments > fb_stock.condiments_high }}
+{{ 'Toiletries' if fb_stock.toiletries > fb_stock.toiletries_high }}
+</div>
+
+<div class="low-stock">
+Low in stock:
+{{ 'Starchy foods' if fb_stock.starchy < fb_stock.starchy_low }}
+{{ 'Proteins' if fb_stock.protein < fb_stock.protein_low }}
+{{ 'Fruit and vegetables' if fb_stock.fruit_veg < fb_stock.fruit_veg_low }}
+{{ 'Soups' if fb_stock.soup_sauce < fb_stock.soup_sauce_low }}
+{{ 'Drinks' if fb_stock.drinks < fb_stock.drinks_low }}
+{{ 'Snacks' if fb_stock.snacks < fb_stock.snacks_low }}
+{{ 'Cooking ingredients' if fb_stock.cooking_ingredients < fb_stock.cooking_ingredients_low }}
+{{ 'Condiments' if fb_stock.condiments < fb_stock.condiments_low }}
+{{ 'Toiletries' if fb_stock.toiletries < fb_stock.toiletries_low }}
+</div>
 
     <div class="fb-contact-details">
         <h4> Contact details: </h4>

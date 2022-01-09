@@ -4,7 +4,7 @@ from flask_login import current_user, login_user, logout_user, login_required
 from flask import redirect, url_for, render_template, flash, Blueprint, request
 from users.forms import LoginForm, RegisterForm
 from app import db, requires_roles
-from models import User, FoodBank, Associate
+from models import User, FoodBank, Associate, StockLevels
 from werkzeug.security import check_password_hash, generate_password_hash
 from math import cos, asin, sqrt, pi
 from users.forms import UpdateAccountInformationForm, FavForm, RequestResetForm, ResetPasswordForm
@@ -243,14 +243,15 @@ def food_bank_information(food_bank_id):
                 is_fav = True
 
     food_bank = FoodBank.query.filter_by(id=food_bank_id).first()
-    # stock_level = FoodBank.query.filter_by(fb_id=food_bank_id).first() TODO: fix this
+    stock_levels = StockLevels.query.filter_by(fb_id=food_bank_id).first()
+
     address = food_bank.address[0]
     lat_long = [address.lat, address.long]
     return render_template('food-bank-information.html',
                            lat=lat_long[0],
                            long=lat_long[1],
                            id=food_bank_id,
-                           # fb_stock=stock_level,
+                           fb_stock=stock_levels,
                            fb_name=food_bank.name,
                            fb_email=food_bank.email,
                            fb_phone=food_bank.phone_number,
