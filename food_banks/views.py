@@ -130,7 +130,15 @@ def manual_stock_levels():
     """Allows food banks to manually set the stock levels of each category"""
     current_food_bank = current_user.associated[0]
     stock_levels = StockLevels.query.filter_by(fb_id=current_food_bank.id)
-    form = ManualStockLevelsForm()
+    form = ManualStockLevelsForm(starchy=stock_levels.starchy,  # sets levels from database
+                                 protein=stock_levels.protein,
+                                 fruit_veg=stock_levels.fruit_veg,
+                                 soup_sauce=stock_levels.soup_sauce,
+                                 drinks=stock_levels.drinks,
+                                 snacks=stock_levels.snacks,
+                                 cooking_ingredients=stock_levels.cooking_ingredients,
+                                 condiments=stock_levels.condiments,
+                                 toiletries=stock_levels.toiletries)
     if form.validate_on_submit():
         stock_levels.starchy = form.starchy.data
         stock_levels.protein = form.protein.data
@@ -144,15 +152,6 @@ def manual_stock_levels():
         db.session.commit()
         return manual_stock_levels()
 
-    form.starchy.data = stock_levels.starchy
-    form.protein.data = stock_levels.protein
-    form.fruit_veg.data = stock_levels.fruit_veg
-    form.soup_sauce.data = stock_levels.soup_sauce
-    form.drinks.data = stock_levels.drinks
-    form.snacks.data = stock_levels.snacks
-    form.cooking_ingredients.data = stock_levels.cooking_ingredients
-    form.condiments.data = stock_levels.condiments
-    form.toiletries.data = stock_levels.toiletries
     return render_template('manual-stock-levels.html', form=form)
 
 @login_required
@@ -171,11 +170,9 @@ def manage_item_stock():
 @food_banks_blueprint.route('/manage-stock', methods=['GET', 'POST'])
 def manage_stock():
     current_food_bank = current_user.associated[0]
-    management_option_form = StockManagementOptionForm()
+    management_option_form = StockManagementOptionForm(option=current_food_bank.management_option)
     if management_option_form.validate_on_submit():
-        print("CALLED")
         current_food_bank.management_option = management_option_form.option.data
         db.session.commit()
-    management_option_form.previous_choice = current_food_bank.management_option  # load previous option choice
     return render_template('manage-stock.html', management_option_form=management_option_form)
 
