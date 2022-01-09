@@ -64,8 +64,15 @@ class ItemStockForm(FlaskForm):
     """Form for updating the quantity of an item in stock"""
     item_name = None
     quantity = IntegerField(validators=[InputRequired()])
+    low_bound = IntegerField(validators=[InputRequired()])
+    high_bound = IntegerField(validators=[InputRequired()])
 
 class StockManagementForm(FlaskForm):
     """Form combing ItemStockForms used to update the quantity of stock across many items"""
     item_forms = FieldList(FormField(ItemStockForm))  # TODO see how this renders in html with front end team
     submit = SubmitField()
+
+class StockManagementOptionForm(FlaskForm):
+    """Form to choose between stock management options"""
+    option = SelectField(choices=[(0, "Manual"), (1, "Automatic")], validators=[InputRequired()])
+    submit = SubmitField("Refresh")

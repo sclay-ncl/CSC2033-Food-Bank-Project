@@ -1,7 +1,7 @@
 from flask_login import current_user, login_required
 from flask import redirect, url_for, render_template, flash, Blueprint, session, request, abort
 from app import requires_roles, db
-from food_banks.forms import UpdateFoodBankInformationForm, AddressForm, OpeningHoursForm, ManualStockLevelsForm, StockManagementForm, ItemStockForm
+from food_banks.forms import UpdateFoodBankInformationForm, AddressForm, OpeningHoursForm, ManualStockLevelsForm, StockManagementForm, ItemStockForm, StockManagementOptionForm
 from models import Address, OpeningHours, StockLevels, Item
 from datetime import datetime
 
@@ -155,15 +155,26 @@ def manual_stock_levels():
     form.toiletries.data = stock_levels.toiletries
     return render_template('manual-stock-levels.html', form=form)
 
-
 @login_required
 @requires_roles('food_bank')
-@food_banks_blueprint.route('/manage-stock', methods=['GET', 'POST'])
-def manage_stock():
+@food_banks_blueprint.route('/manage-item-stock', methods=['GET', 'POST'])
+def manage_item_stock():
     items = Item.query.all()
     form = StockManagementForm()
     for i in items:
         item_form = ItemStockForm()
         item_form.name = i.name
-    return render_template('manage-stock.html', form=form)
+    return render_template('manage-item-stock.html', form=form)
+
+@login_required
+@requires_roles('food_bank')
+@food_banks_blueprint.route('/manage-stock', methods=['GET', 'POST'])
+def manage_stock():
+    food_bank = current_user.associated[0]
+    management_option_form = StockManagementOptionForm()
+    if management_option_form.validate_on_submit():
+        food_bank.management_option = management_option_form.option.data
+        db.session.commit()
+    management_option_form.option.data = food_bank.management_option  # load previous option choice
+    return render_template('manage-stock.html', management_option_form=management_option_form)
 

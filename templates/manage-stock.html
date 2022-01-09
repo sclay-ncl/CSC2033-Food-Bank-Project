@@ -3,20 +3,27 @@
 {% block content %}
 
 <!-- Page Header -->
-<h1 class="page-header">Stock Management</h1>
+<h1 class="page-header">Manage Stock</h1>
+
+    <!--for stock management -->
+    <form class="management-option" method="POST">
+
+    <h4> Stock Management Option </h4>
+    {{ management_option_form.option(class="form-dropdown") }}
+        {% for error in  management_option_form.option.errors %}
+            {{ error }}
+        {% endfor %}
+
+
+    <div class="refresh-btn">
+        {{ management_option_form.submit(class="button") }}
+    </div>
+
+    </form>
+
+
 
 <!-- Inventory table -->
-    <table class="stock-table">
-        <tr>
-            <th>Name</th>
-            <th>Quantity in Stock</th>
-        </tr>
-        {% for item_form in form.item_forms %}
-            <tr>
-                <td>{{ item_form.item_name }}</td>
-                <td>{{ item_form.quantity }}</td>
-            </tr>
-        {% endfor %}
-    </table>
+
 
 {% endblock %}

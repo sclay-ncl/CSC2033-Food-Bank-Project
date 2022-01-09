@@ -58,6 +58,8 @@ class FoodBank(db.Model):
     email = db.Column(db.String(50), nullable=False)
     phone_number = db.Column(db.String(50), nullable=False)
     website = db.Column(db.String(100))
+    management_option = db.Column(db.Boolean, nullable=False)
+    # stores how the food bank want to manage their stock, 0 is manual - 1 is automatic
 
     address = db.relationship('Address', cascade="delete, delete-orphan")
     stock_levels = db.relationship('StockLevels', cascade="delete, delete-orphan")
