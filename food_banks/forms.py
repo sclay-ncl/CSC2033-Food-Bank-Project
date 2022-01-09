@@ -71,3 +71,8 @@ class StockManagementForm(FlaskForm):
     """Form combing ItemStockForms used to update the quantity of stock across many items"""
     item_forms = FieldList(FormField(ItemStockForm))  # TODO see how this renders in html with front end team
     submit = SubmitField()
+
+class StockManagementOptionForm(FlaskForm):
+    """Form to choose between stock management options"""
+    option = SelectField(choices=[(0, "Manual"), (1, "Automatic")], validators=(InputRequired()))
+    submit = SubmitField("Refresh")
