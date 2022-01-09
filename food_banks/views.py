@@ -145,7 +145,7 @@ def manage_stock():
 
     # if food bank has chosen to manually set stock levels
     if current_food_bank.management_option == 0:
-        stock_levels = StockLevels.query.filter_by(fb_id=current_food_bank.id)
+        stock_levels = StockLevels.query.filter_by(fb_id=current_food_bank.id).first()
         form = ManualStockLevelsForm(starchy=stock_levels.starchy,  # sets levels from database
                                      protein=stock_levels.protein,
                                      fruit_veg=stock_levels.fruit_veg,
