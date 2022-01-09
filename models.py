@@ -137,7 +137,7 @@ class OpeningHours(db.Model):
     Stores the opening and closing times for a given day of a food bank address"""
 
     address_id = db.Column(db.Integer, db.ForeignKey('address.id'), primary_key=True)
-    day = db.Column(db.String(8), primary_key=True)
+    day = db.Column(db.String(9), primary_key=True)
     open_time = db.Column(db.Time, nullable=False)
     close_time = db.Column(db.Time, nullable=False)
 
