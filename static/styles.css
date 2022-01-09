@@ -500,13 +500,15 @@ button:active {
     margin: 2%;
 }
 
-table.high-stock{
-    background-color: green;
+.high-stock{
+    color: green;
 }
 
-table.low-stock{
-    background-color: red;
+.low-stock{
+    color: red;
 }
+
+
 
 h3.fb-contact-details{
     text-align: left;
