@@ -99,7 +99,7 @@ def add_opening_hours():
         open_time = datetime.strptime(form.open_hour.data + ":" + form.open_minute.data, "%H:%M").time()
         close_time = datetime.strptime(form.close_hour.data + ":" + form.close_minute.data, "%H:%M").time()
         new_opening_hours = OpeningHours(address_id=address_id,
-                                         day=form.day.data,
+                                         day=form.day.data.capitalize(),
                                          open_time=open_time,
                                          close_time=close_time)
         db.session.add(new_opening_hours)
