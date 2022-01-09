@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, SubmitField, SelectField, IntegerField, FieldList, FormField
+from wtforms import StringField, SubmitField, SelectField, IntegerField, FieldList, FormField, Form
 from wtforms.validators import Email, Length, InputRequired, ValidationError
 from models import OpeningHours
 from users.forms import postcode_check
@@ -60,12 +60,10 @@ class ManualStockLevelsForm(FlaskForm):
 
     submit = SubmitField()
 
-class ItemStockForm(FlaskForm):
+class ItemStockForm(Form):
     """Form for updating the quantity of an item in stock"""
     item_name = None
     quantity = IntegerField(validators=[InputRequired()])
-    low_bound = IntegerField(validators=[InputRequired()])
-    high_bound = IntegerField(validators=[InputRequired()])
 
 class StockManagementForm(FlaskForm):
     """Form combing ItemStockForms used to update the quantity of stock across many items"""
