@@ -169,7 +169,6 @@ def manage_stock():
             stock_levels.condiments = form.condiments.data
             stock_levels.toiletries = form.toiletries.data
             db.session.commit()
-            return manage_stock()
 
     return render_template('manage-stock.html', management_option_form=management_option_form, form=form)
 
