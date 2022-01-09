@@ -79,13 +79,9 @@
             <table class="item-table">
                 <th> Item </th>
                 <th> Quantity</th>
-                <th> Low Stock Boundary</th>
-                <th> High Stock Boundary</th>
                 <tr>
-                    <td>{{ item_form.item_name }}</td>
-                    <td>{{ item_form.quentity }}</td>
-                    <td>{{ item_form.low_bound }}</td>
-                    <td>{{ item_form.high_bound }}</td>
+                    <td>{{ item_names[loop.index] }}</td>
+                    <td>{{ item_form.quantity }}</td>
                 </tr>
             </table>
             {% endfor %}
