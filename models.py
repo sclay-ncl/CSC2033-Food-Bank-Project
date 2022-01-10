@@ -160,14 +160,6 @@ class Address(db.Model):
     opening_hours = db.relationship('OpeningHours', cascade="delete, delete-orphan")
 
 
-class DietReq(db.Model):
-    """Models the diet_req table:
-    Stores a user's dietary requirements note"""
-
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), primary_key=True)
-    note = db.Column(db.String(500), nullable=False)
-
-
 class StockLevels(db.Model):
     """Models the stock_levels table:
     Stores information about the stock level of each category of item for each food bank
@@ -208,17 +200,6 @@ class StockLevels(db.Model):
     cooking_ingredients_low = db.Column(db.Integer, default=10)
     condiments_low = db.Column(db.Integer, default=10)
     toiletries_low = db.Column(db.Integer, default=10)
-
-
-class Appointment(db.Model):
-    """Models the appointment association table that associates
-     the food_bank and user tables"""
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), primary_key=True)
-    fb_id = db.Column(db.Integer, db.ForeignKey('food_bank.id'), primary_key=True)
-    datetime = db.Column(db.DateTime, primary_key=True)
-
-    user = db.relationship('User', backref=db.backref('appointments'))
-    food_bank = db.relationship('FoodBank', backref=db.backref('appointments'))
 
 
 class Stocks(db.Model):
