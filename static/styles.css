@@ -925,3 +925,15 @@ td.stock-table{
     position: relative;
     text-align: center;
 }
+
+.category-boundaries th{
+    padding: 20px;
+}
+
+.category-boundaries tr{
+    height: 5%;
+}
+
+.category-boundaries td{
+    height: 5%;
+}

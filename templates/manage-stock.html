@@ -77,9 +77,9 @@
             {{ form.csrf_token() }}
                 <h2> Item Stock </h2>
                     <table class="item-table">
-                         {% for item_form in form.item_forms %}
                         <th> Item </th>
                         <th> Quantity</th>
+                         {% for item_form in form.item_forms %}
                         <tr>
                             <td>{{ item_names[loop.index0] }}</td>
                             <td>{{ item_form.quantity }}</td>
