@@ -15,6 +15,14 @@ users_blueprint = Blueprint('users', __name__, template_folder='templates')
 
 
 def get_lat_long(number_road, city, post_code):
+    """
+    Function returns the latitude and longitude of a given address
+
+    @param: address, address of desired latitude and longitude co-ordinates
+
+    @return: tuple of latitude and longitude co-ordinates
+    """
+    
     def find_gap(postcode):
         for i in range(len(postcode)):
             if postcode[i].isdigit():
@@ -25,13 +33,7 @@ def get_lat_long(number_road, city, post_code):
         post_code = find_gap(post_code)
 
     address = number_road + ", " + city + ", " + post_code
-    """
-    Function returns the latitude and longitude of a given address
 
-    @param: address, address of desired latitude and longitude co-ordinates
-
-    @return: tuple of latitude and longitude co-ordinates
-    """
     url = 'https://nominatim.openstreetmap.org/search/' + urllib.parse.quote(address) + '?format=json'
 
     try:
