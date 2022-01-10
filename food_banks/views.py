@@ -1,7 +1,7 @@
 from flask_login import current_user, login_required
 from flask import redirect, url_for, render_template, flash, Blueprint, session, request, abort
 from app import requires_roles, db
-from food_banks.forms import UpdateFoodBankInformationForm, AddressForm, OpeningHoursForm, ManualStockLevelsForm, StockManagementForm, ItemStockForm, StockManagementOptionForm
+from food_banks.forms import UpdateFoodBankInformationForm, AddressForm, OpeningHoursForm, ManualStockLevelsForm, StockQuantityForm, ItemStockForm, StockManagementOptionForm
 from models import Address, OpeningHours, StockLevels, Item, Stocks
 from datetime import datetime
 from wtforms import FormField
@@ -123,16 +123,6 @@ def delete_opening_hours(address_id, day):
         db.session.commit()
     return redirect(url_for('food_banks.manage_opening_hours', address_id=address_id))
 
-@login_required
-@requires_roles('food_bank')
-@food_banks_blueprint.route('/manage-item-stock', methods=['GET', 'POST'])
-def manage_item_stock():
-    items = Item.query.all()
-    form = StockManagementForm()
-    for i in items:
-        item_form = ItemStockForm()
-        item_form.name = i.name
-    return render_template('manage-item-stock.html', form=form)
 
 @login_required
 @requires_roles('food_bank')
@@ -176,18 +166,21 @@ def manage_stock():
     # if food bank has chosen to automatically set stock levels
     if current_food_bank.management_option == 1:
         items = Item.query.all()
-        form = StockManagementForm()
-        item_names = []
-        for i in items:
-            stock = Stocks.query.filter_by(fb_id=current_food_bank.id, item_id=i.id).first()
+        form = StockQuantityForm()
+        item_dict = {}  # stores item_form and stock object as a key,value pair
+        item_names = []  # stores item names to pass to html
+        for item in items:
+            stock = Stocks.query.filter_by(fb_id=current_food_bank.id, item_id=item.id).first()
             item_form = ItemStockForm()
-            item_names.append(i.name)
+            item_dict[item_form] = stock
+            item_names.append(item.name)
             item_form.quantity = stock.quantity
             form.item_forms.append_entry(item_form)
         if form.validate_on_submit():
-            for i in form.item_forms:
-                print(i)  #TODO: commit changes back to db
-
+            for item_form in form.item_forms:
+                stock = item_dict[item_form]  # fetch correct stock for form
+                stock.quantity = item_form.quantity.data
+                db.session.commit()
 
         return render_template('manage-stock.html', management_option_form=management_option_form, form=form, item_names=item_names)
 
