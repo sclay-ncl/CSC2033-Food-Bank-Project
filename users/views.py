@@ -345,12 +345,14 @@ def reset_token(token):
 
                    @param: token, The user token used to verify the user
 
-                   @return: Loads either the page again if not valid or the login page
+                   @return: Loads the login page if password has been reset,
+                            request password reset page reset if token is invalid/expired or
+                            reset token page if user needs to enter a new password.
     """
 
     # Calls class method of the user to verify the given token, will return true if valid
     user = User.verify_reset_token(token)
-    # Tells the user the code is invalid and sends them to the request another reset password
+    # Tells the user the code is invalid/expired and sends them to the request another reset password
     if user is None:
         flash('Invalid or Expired Token', 'warning')
         return redirect(url_for('users.reset_request'))
