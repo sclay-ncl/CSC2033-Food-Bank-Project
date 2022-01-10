@@ -501,14 +501,28 @@ button:active {
 }
 
 .high-stock{
+    text-align: center;
     color: green;
+    box-sizing: border-box;
+    width: 300px;
 }
 
 .low-stock{
+    text-align: center;
     color: red;
+    box-sizing: border-box;
+    width: 300px;
 }
 
+.column {
+    flex: 50%;
 
+}
+.row {
+    display: flex;
+    margin-left:30%;
+    margin-right:30%;
+}
 
 h3.fb-contact-details{
     text-align: left;

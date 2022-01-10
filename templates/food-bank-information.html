@@ -40,6 +40,8 @@ const marker = new mapboxgl.Marker().setLngLat([long, lat]).setPopup(popup).addT
 </script>
     </div>
 
+    <div class="row">
+    <div class="col">
 <table class="high-stock">
 <tr><td>High in stock:</td></tr>
     {% if fb_stock.starchy > fb_stock.starchy_high %}
@@ -70,8 +72,8 @@ const marker = new mapboxgl.Marker().setLngLat([long, lat]).setPopup(popup).addT
     <tr><td>Toiletries</td></tr>
     {% endif %}
         </table>
-
-
+    </div>
+<div class="col">
 <table class="low-stock">
 <tr><td>Low in stock:</td></tr>
     {% if fb_stock.starchy < fb_stock.starchy_low %}
@@ -102,6 +104,8 @@ const marker = new mapboxgl.Marker().setLngLat([long, lat]).setPopup(popup).addT
     <tr><td>Toiletries</td></tr>
     {% endif %}
         </table>
+</div>
+    </div>
 
     <div class="fb-contact-details">
         <h4> Contact details: </h4>
