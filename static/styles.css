@@ -875,3 +875,25 @@ td.stock-table{
     border-style : hidden!important;
     border-collapse: collapse;
 }
+
+.management-option{
+    text-align: left;
+    width: 15%;
+    height: 10%;
+}
+
+.manual-stock{
+    width:100%;
+    table-layout: fixed;
+    position: relative;
+    text-align: center;
+    padding: 0.5rem;
+}
+
+.item-table{
+    width:100%;
+    table-layout: fixed;
+    position: relative;
+    text-align: center;
+    padding: 0.5rem;
+}
