@@ -46,7 +46,6 @@ def get_logs():
 
 def get_log_graph_data():
     with open('admin-logs/admin-log.log', "r") as f:
-        # selects the last 10 and then reverses the order
         content = f.read().splitlines()
 
     logs_info = []

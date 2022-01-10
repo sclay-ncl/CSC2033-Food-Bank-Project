@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, SubmitField, SelectField, IntegerField, FieldList, FormField
+from wtforms import StringField, SubmitField, SelectField, IntegerField, FieldList, FormField, Form
 from wtforms.validators import Email, Length, InputRequired, ValidationError
 from models import OpeningHours
 from users.forms import postcode_check
@@ -60,19 +60,39 @@ class ManualStockLevelsForm(FlaskForm):
 
     submit = SubmitField()
 
-class ItemStockForm(FlaskForm):
+class ItemStockForm(Form):
     """Form for updating the quantity of an item in stock"""
-    item_name = None
     quantity = IntegerField(validators=[InputRequired()])
-    low_bound = IntegerField(validators=[InputRequired()])
-    high_bound = IntegerField(validators=[InputRequired()])
 
-class StockManagementForm(FlaskForm):
+class CategoryBoundaryForm(Form):
+    """Form for the setting of the category stock level boundaries"""
+    starchy_low = IntegerField(validators=[InputRequired()])
+    protein_low = IntegerField(validators=[InputRequired()])
+    fruit_veg_low = IntegerField(validators=[InputRequired()])
+    soup_sauce_low = IntegerField(validators=[InputRequired()])
+    drinks_low = IntegerField(validators=[InputRequired()])
+    snacks_low = IntegerField(validators=[InputRequired()])
+    cooking_ingredients_low = IntegerField(validators=[InputRequired()])
+    condiments_low = IntegerField(validators=[InputRequired()])
+    toiletries_low = IntegerField(validators=[InputRequired()])
+
+    starchy_high = IntegerField(validators=[InputRequired()])
+    protein_high = IntegerField(validators=[InputRequired()])
+    fruit_veg_high = IntegerField(validators=[InputRequired()])
+    soup_sauce_high = IntegerField(validators=[InputRequired()])
+    drinks_high = IntegerField(validators=[InputRequired()])
+    snacks_high = IntegerField(validators=[InputRequired()])
+    cooking_ingredients_high = IntegerField(validators=[InputRequired()])
+    condiments_high = IntegerField(validators=[InputRequired()])
+    toiletries_high = IntegerField(validators=[InputRequired()])
+
+class StockQuantityForm(FlaskForm):
     """Form combing ItemStockForms used to update the quantity of stock across many items"""
     item_forms = FieldList(FormField(ItemStockForm))  # TODO see how this renders in html with front end team
+    category_boundary_form = CategoryBoundaryForm()
     submit = SubmitField()
 
 class StockManagementOptionForm(FlaskForm):
     """Form to choose between stock management options"""
-    option = SelectField(choices=[(0, "Manual"), (1, "Automatic")], validators=[InputRequired()])
+    option = SelectField(choices=[(0, "Manual"), (1, "Automatic")])
     submit = SubmitField("Refresh")

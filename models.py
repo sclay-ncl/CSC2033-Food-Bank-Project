@@ -20,12 +20,22 @@ class User(db.Model, UserMixin):
     long = db.Column(db.Float)
     lat = db.Column(db.Float)
 
-    diet_req = db.relationship('DietReq', cascade="delete, delete-orphan")
     associated = db.relationship('FoodBank',
                                  secondary='associate',
                                  backref=db.backref('associated', lazy='dynamic'))
 
     def update_information(self, first_name, last_name, email, phone_number, number_and_road, town, postcode):
+        """
+            Updates information about the User
+
+            @param: first_name, The user's first name
+            @param: last_name, The user's last name
+            @param: email, The user's email
+            @param: phone_number, The user's phone number
+            @param: number_and_rood, The user's house number and road
+            @param: town, The user's town/city
+            @param: postcode, The user's postcode
+        """
         self.first_name = first_name
         self.last_name = last_name
         self.email = email
@@ -36,11 +46,25 @@ class User(db.Model, UserMixin):
         db.session.commit()
 
     def get_reset_token(self, expires_sec=900):
+        """
+            Generates the users reset token
+
+            @param: expires_sec, the amount of time the token will be valid: 15 minutes
+
+            @return: token needed to reset user's password
+        """
         s = Serializer(app.config['SECRET_KEY'], expires_sec)
         return s.dumps({'user_id': self.id}).decode('utf-8')
 
     @staticmethod
     def verify_reset_token(token):
+        """
+            Checks if the token given is valid
+
+            @param: token, the token given by the user which needs to be authenticated
+
+            @return: None if token is invalid or the user object if true
+        """
         s = Serializer(app.config['SECRET_KEY'])
         try:
             user_id = s.loads(token)['user_id']
@@ -58,13 +82,21 @@ class FoodBank(db.Model):
     email = db.Column(db.String(50), nullable=False)
     phone_number = db.Column(db.String(50), nullable=False)
     website = db.Column(db.String(100))
-    management_option = db.Column(db.Boolean, nullable=False)
+    management_option = db.Column(db.Integer, default=0, nullable=False)
     # stores how the food bank want to manage their stock, 0 is manual - 1 is automatic
 
     address = db.relationship('Address', cascade="delete, delete-orphan")
     stock_levels = db.relationship('StockLevels', cascade="delete, delete-orphan")
 
     def update_information(self, name, email, phone_number, website):
+        """
+                Updates information about the Food Bank
+
+                @param: name, The food bank's name
+                @param: email, The food bank's contact email
+                @param: phone_number, The food bank's contact phone number
+                @param: website, The food bank's website
+        """
         self.name = name
         self.email = email
         self.phone_number = phone_number
@@ -160,14 +192,6 @@ class Address(db.Model):
     opening_hours = db.relationship('OpeningHours', cascade="delete, delete-orphan")
 
 
-class DietReq(db.Model):
-    """Models the diet_req table:
-    Stores a user's dietary requirements note"""
-
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), primary_key=True)
-    note = db.Column(db.String(500), nullable=False)
-
-
 class StockLevels(db.Model):
     """Models the stock_levels table:
     Stores information about the stock level of each category of item for each food bank
@@ -178,7 +202,6 @@ class StockLevels(db.Model):
     """
 
     fb_id = db.Column(db.Integer, db.ForeignKey('food_bank.id'), primary_key=True)
-    auto_managed = db.Column(db.Boolean)
     # stock levels
     starchy = db.Column(db.Integer)
     protein = db.Column(db.Integer)
@@ -209,17 +232,6 @@ class StockLevels(db.Model):
     cooking_ingredients_low = db.Column(db.Integer, default=10)
     condiments_low = db.Column(db.Integer, default=10)
     toiletries_low = db.Column(db.Integer, default=10)
-
-
-class Appointment(db.Model):
-    """Models the appointment association table that associates
-     the food_bank and user tables"""
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), primary_key=True)
-    fb_id = db.Column(db.Integer, db.ForeignKey('food_bank.id'), primary_key=True)
-    datetime = db.Column(db.DateTime, primary_key=True)
-
-    user = db.relationship('User', backref=db.backref('appointments'))
-    food_bank = db.relationship('FoodBank', backref=db.backref('appointments'))
 
 
 class Stocks(db.Model):

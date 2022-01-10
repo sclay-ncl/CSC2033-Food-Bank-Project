@@ -5,6 +5,15 @@ from flask import url_for
 
 
 def send(subject, email_text, recip):
+    """
+        Function sends email(s)
+
+        @param: subject, the email subject line
+        @param: email_text, the email body
+        @param: recip, the list of emails to send the email to
+
+    """
+
     message = EmailMessage()
     message['SUBJECT'] = subject
     message['From'] = 'noreply.feedingnewcastle@gmail.com'
@@ -18,6 +27,13 @@ def send(subject, email_text, recip):
 
 
 def send_mail(food_bank_id):
+    """
+        Function constructs the needed stock email
+
+        @param: food_bank_id, the id of the food bank which needs the food
+
+    """
+
     food_bank = FoodBank.query.filter_by(id=food_bank_id).first()
     recip_list_obj = Associate.query.filter_by(fb_id=food_bank_id).all()
 
@@ -31,6 +47,14 @@ def send_mail(food_bank_id):
 
 
 def send_reset_email(user):
+    """
+        Function constructs the reset email
+
+        @param: user, the user object which has requested the password reset
+
+        @var: token, the token used to authenticate the user
+
+    """
     token = user.get_reset_token()
 
     subject = 'Password Reset Request'

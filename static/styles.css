@@ -877,3 +877,53 @@ td.stock-table{
     border-style : hidden!important;
     border-collapse: collapse;
 }
+
+/* Manage Stock Page */
+
+.management-option{
+    text-align: center;
+    padding-top: 10px;
+    margin-left: auto;
+    margin-right: auto;
+    align-content: center;
+    margin-bottom: 20px;
+    width: 30%;
+    height: 2%;
+    background-color: white;
+    box-shadow: 20px 20px rgba(0,0,0,.15);
+}
+
+.management-option .form-dropdown{
+    height: 25px;
+}
+
+.manual-stock{
+    width:95%;
+    margin-left: 2.5%;
+    table-layout: fixed;
+    position: relative;
+    text-align: center;
+}
+
+.manual-stock th{
+    padding: 10px;
+}
+
+.manual-stock .form-dropdown{
+    height: 100% ;
+}
+
+.item-table{
+    width: 95%;
+    margin-left: 2.5%;
+    position: relative;
+    text-align: center;
+}
+
+.category-boundaries{
+    width: 95%;
+    margin-left: 2.5%;
+    table-layout: fixed;
+    position: relative;
+    text-align: center;
+}
