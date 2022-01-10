@@ -113,11 +113,8 @@ def generate_stock_levels():
     food_banks = FoodBank.query.all()
     for f in food_banks:
         db.session.add(StockLevels(fb_id=f.id))
+        f.update_stock_levels()
     db.session.commit()
-
-
-def generate_appointments():  # need to design appointments system further
-    pass
 
 
 def add_to_db(object_list):
