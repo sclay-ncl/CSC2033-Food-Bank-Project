@@ -159,7 +159,8 @@ def profile():
                            firstname=current_user.first_name,
                            lastname=current_user.last_name,
                            phone=current_user.phone_number,
-                           user=current_user)
+                           user=current_user,
+                           saved_fb=current_user.associated)
 
 
 @users_blueprint.route('/update-profile', methods=['POST', 'GET'])

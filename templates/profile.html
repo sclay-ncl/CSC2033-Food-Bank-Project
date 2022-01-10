@@ -29,31 +29,31 @@
 
         {% if current_user.role=='donor' or current_user.role=='collector' %}
         <div class="fb-preference">
-        <p class="form-header"> Saved Food Bank: </p>
+        <p class="form-header"> Saved Food Banks: </p>
         </div>
+            {% if saved_fb %}
+                {% for fb in saved_fb %}
+                    {{ fb.name }} <br>
+                {% endfor %}
+            {% else %}
+                <p> You haven't saved any food banks yet! </p>
+            {% endif %}
         {% endif %}
 
         {% if current_user.role=='donor' %}
         <div class="notification">
         <p class="form-header"> Food Banks sending you notifications: </p>
-        <p class="form-header">Type of notification: </p>
+            {% if saved_fb %}
+                {% for fb in saved_fb %}
+                    {{ fb.name }} <br>
+                {% endfor %}
+            {% else %}
+                <p> You haven't saved any food banks yet! </p>
+            {% endif %}
         </div>
         {% endif %}
 
-        {% if current_user.role=='collector' %}
-        <div class="diet_req">
-        <p class="form-header">Dietary Requirements: </p>
-        </div>
-        {% endif %}
-
-
-        {% if current_user.role=='collector' %}
-        <div class="their-appointments">
-        <p class="form-header"> Date: </p> <p class="form-header"> Appointment Number: </p>
-        </div>
-        {% endif %}
-
-        <a href="{{ url_for('users.update_profile') }}" class="button">
+        <a href="{{ url_for('users.update_profile') }}" class="button" style="width: 30%">
             Update Profile
         </a>
     {% endif %}
