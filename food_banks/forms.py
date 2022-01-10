@@ -66,7 +66,7 @@ class ItemStockForm(Form):
     quantity = IntegerField(validators=[InputRequired()])
 
 class CategoryBoundaryForm(Form):
-    """Form for the setting of the category level boundaries"""
+    """Form for the setting of the category stock level boundaries"""
     starchy_low = IntegerField(validators=[InputRequired])
     protein_low = IntegerField(validators=[InputRequired])
     fruit_veg_low = IntegerField(validators=[InputRequired])
