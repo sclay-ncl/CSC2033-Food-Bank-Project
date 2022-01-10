@@ -1,10 +1,12 @@
-from flask_login import current_user, login_required
-from flask import redirect, url_for, render_template, flash, Blueprint, session, request, abort
-from app import requires_roles, db
-from food_banks.forms import UpdateFoodBankInformationForm, AddressForm, OpeningHoursForm, ManualStockLevelsForm, StockQuantityForm, ItemStockForm, StockManagementOptionForm
-from models import Address, OpeningHours, StockLevels, Item, Stocks
 from datetime import datetime
-from wtforms import FormField
+
+from flask import redirect, url_for, render_template, Blueprint, request, abort
+from flask_login import current_user, login_required
+
+from app import requires_roles, db
+from food_banks.forms import UpdateFoodBankInformationForm, AddressForm, OpeningHoursForm, ManualStockLevelsForm, \
+    StockQuantityForm, ItemStockForm, StockManagementOptionForm
+from models import Address, OpeningHours, StockLevels, Item, Stocks
 
 food_banks_blueprint = Blueprint('food_banks', __name__, template_folder='templates')
 

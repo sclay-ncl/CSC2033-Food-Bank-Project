@@ -1,6 +1,7 @@
-from app import db, app
 from flask_login import UserMixin
 from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
+
+from app import db, app
 
 
 class User(db.Model, UserMixin):

@@ -1,8 +1,10 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField, SelectField, IntegerField, FieldList, FormField, Form
 from wtforms.validators import Email, Length, InputRequired, ValidationError
+
 from models import OpeningHours
 from users.forms import postcode_check
+
 
 class UpdateFoodBankInformationForm(FlaskForm):
     name = StringField(validators=[InputRequired(), Length(max=100)])  # max length set to conform with database
@@ -89,7 +91,7 @@ class CategoryBoundaryForm(Form):
 class StockQuantityForm(FlaskForm):
     """Form combing ItemStockForms used to update the quantity of stock across many items"""
     item_forms = FieldList(FormField(ItemStockForm))  # TODO see how this renders in html with front end team
-    category_boundary_form = CategoryBoundaryForm()
+    category_boundary_form = FormField(CategoryBoundaryForm)
     submit = SubmitField()
 
 class StockManagementOptionForm(FlaskForm):

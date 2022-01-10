@@ -1,7 +1,9 @@
 import smtplib
 from email.message import EmailMessage
-from models import FoodBank, Associate, User
+
 from flask import url_for
+
+from models import FoodBank, Associate, User
 
 
 def send(subject, email_text, recip):
