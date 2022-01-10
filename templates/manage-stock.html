@@ -71,27 +71,81 @@
     {% endif %}
     </form>
 
-
+    <!-- Inventory table -->
     {% if current_user.associated[0].management_option==1 %}
-    <form method="POST">
-        {{ form.csrf_token() }}
-            {% for item_form in form.item_forms %}
-            <table class="item-table">
-                <th> Item </th>
-                <th> Quantity</th>
-                <tr>
-                    <td>{{ item_names[loop.index] }}</td>
-                    <td>{{ item_form.quantity }}</td>
-                </tr>
-            </table>
-            {% endfor %}
-        <div class="submit-button">
-        {{ form.submit(class="button") }}
-        </div>
-    </form>
+
+        <form method="POST">
+            {{ form.csrf_token() }}
+                <h2> Item Stock </h2>
+                {% for item_form in form.item_forms %}
+                    <table class="item-table">
+                        <th> Item </th>
+                        <th> Quantity</th>
+                        <tr>
+                            <td>{{ item_names[loop.index0] }}</td>
+                            <td>{{ item_form.quantity }}</td>
+                        </tr>
+                    </table>
+                {% endfor %}
+                <h2> Category stock boundaries</h2>
+                    <table class="category-boundaries">
+                        <th> Categories</th>
+                        <th> Low Level Boundaries</th>
+                        <th> High Level Boundaries</th>
+                        <tr>
+                            <td> Starchy </td>
+                            <td> {{ form.category_boundary_form.starchy_low }} </td>
+                            <td> {{ form.category_boundary_form.starchy_high }} </td>
+                        <tr>
+                            <td> Protein</td>
+                             <td> {{ form.category_boundary_form.protein_low }} </td>
+                            <td> {{ form.category_boundary_form.protein_high }} </td>
+                        </tr>
+                        <tr>
+                            <td> Fruit and Vegetables </td>
+                             <td> {{ form.category_boundary_form.fruit_veg_low }} </td>
+                            <td> {{ form.category_boundary_form.fruit_veg_high }} </td>
+                        </tr>
+                        <tr>
+                            <td> Soups and Sauces </td>
+                             <td> {{ form.category_boundary_form.soup_sauce_low }} </td>
+                            <td> {{ form.category_boundary_form.soup_sauce_high }} </td>
+                        </tr>
+                        <tr>
+                            <td> Drinks </td>
+                            <td> {{ form.category_boundary_form.drinks_low }} </td>
+                            <td> {{ form.category_boundary_form.drinks_high }} </td>
+                        </tr>
+                        <tr>
+                            <td> Snacks </td>
+                         <td> {{ form.category_boundary_form.snacks_low }} </td>
+                            <td> {{ form.category_boundary_form.snacks_high }} </td>
+                        </tr>
+                        <tr>
+                            <td> Cooking Ingredients</td>
+                         <td> {{ form.category_boundary_form.cooking_ingredients_low }} </td>
+                            <td> {{ form.category_boundary_form.cooking_ingredients_high }} </td>
+                        </tr>
+                        <tr>
+                            <td> Condiments</td>
+                            <td> {{ form.category_boundary_form.condiments_low }} </td>
+                            <td> {{ form.category_boundary_form.condiments_high }} </td>
+                        </tr>
+                        <tr>
+                            <td> Toiletries</td>
+                             <td> {{ form.category_boundary_form.toiletries_low }} </td>
+                            <td> {{ form.category_boundary_form.toiletries_high }} </td>
+                        </tr>
+                    </table>
+            <div class="submit-button">
+            {{ form.submit(class="button") }}
+            </div>
+        </form>
+
+
+
+
+
     {% endif %}
-
-<!-- Inventory table -->
-
 
 {% endblock %}
