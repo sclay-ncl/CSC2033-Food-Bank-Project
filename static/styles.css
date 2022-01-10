@@ -876,18 +876,36 @@ td.stock-table{
     border-collapse: collapse;
 }
 
+/* Manage Stock Page */
+
 .management-option{
-    text-align: left;
-    width: 20%;
-    height: 10%;
+    text-align: center;
+    padding-top: 10px;
+    margin-left: auto;
+    margin-right: auto;
+    align-content: center;
+    margin-bottom: 20px;
+    width: 30%;
+    height: 2%;
+    background-color: white;
+    box-shadow: 20px 20px rgba(0,0,0,.15);
+}
+
+.management-option .form-dropdown{
+    height: 25px;
 }
 
 .manual-stock{
-    width:100%;
+    width:95%;
+    margin-left: 2.5%;
     table-layout: fixed;
     position: relative;
     text-align: center;
-    padding: 0.5rem;
+}
+
+
+.manual-stock .form-dropdown{
+    height: 25px;
 }
 
 .item-table{
@@ -896,4 +914,12 @@ td.stock-table{
     position: relative;
     text-align: center;
     padding: 0.5rem;
+}
+
+.category-boundaries{
+    width:95%;
+    margin-left: 2.5%;
+    table-layout: fixed;
+    position: relative;
+    text-align: center;
 }
