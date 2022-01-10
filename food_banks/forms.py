@@ -65,7 +65,7 @@ class ItemStockForm(Form):
     item_name = None
     quantity = IntegerField(validators=[InputRequired()])
 
-class StockManagementForm(FlaskForm):
+class StockQuantityForm(FlaskForm):
     """Form combing ItemStockForms used to update the quantity of stock across many items"""
     item_forms = FieldList(FormField(ItemStockForm))  # TODO see how this renders in html with front end team
     submit = SubmitField()
