@@ -903,21 +903,23 @@ td.stock-table{
     text-align: center;
 }
 
+.manual-stock th{
+    padding: 10px;
+}
 
 .manual-stock .form-dropdown{
-    height: 25px;
+    height: 100% ;
 }
 
 .item-table{
-    width:100%;
-    table-layout: fixed;
+    width: 95%;
+    margin-left: 2.5%;
     position: relative;
     text-align: center;
-    padding: 0.5rem;
 }
 
 .category-boundaries{
-    width:95%;
+    width: 95%;
     margin-left: 2.5%;
     table-layout: fixed;
     position: relative;
