@@ -20,7 +20,6 @@ class User(db.Model, UserMixin):
     long = db.Column(db.Float)
     lat = db.Column(db.Float)
 
-    diet_req = db.relationship('DietReq', cascade="delete, delete-orphan")
     associated = db.relationship('FoodBank',
                                  secondary='associate',
                                  backref=db.backref('associated', lazy='dynamic'))
