@@ -77,16 +77,16 @@
         <form method="POST">
             {{ form.csrf_token() }}
                 <h2> Item Stock </h2>
-                {% for item_form in form.item_forms %}
                     <table class="item-table">
                         <th> Item </th>
                         <th> Quantity</th>
+                        {% for item_form in form.item_forms %}
                         <tr>
                             <td>{{ item_names[loop.index0] }}</td>
                             <td>{{ item_form.quantity }}</td>
                         </tr>
+                        {% endfor %}
                     </table>
-                {% endfor %}
                 <h2> Category stock boundaries</h2>
                     <table class="category-boundaries">
                         <th> Categories</th>
