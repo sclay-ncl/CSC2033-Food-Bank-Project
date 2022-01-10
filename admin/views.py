@@ -1,10 +1,12 @@
-from flask_login import current_user, login_user, logout_user, login_required
-from flask import redirect, url_for, render_template, flash, Blueprint, session
-from app import requires_roles, db
-from admin.forms import FoodBankRegistrationForm
-from models import User, FoodBank
-from werkzeug.security import check_password_hash, generate_password_hash
 from collections import Counter
+
+from flask import render_template, flash, Blueprint
+from flask_login import login_required
+from werkzeug.security import generate_password_hash
+
+from admin.forms import FoodBankRegistrationForm
+from app import requires_roles, db
+from models import User, FoodBank
 
 admin_blueprint = Blueprint('admin', __name__, template_folder='templates')
 

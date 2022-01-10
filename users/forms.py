@@ -1,8 +1,10 @@
+import re
+
 from flask_wtf import FlaskForm, RecaptchaField
+from ukpostcodeutils import validation
 from wtforms import StringField, SubmitField, PasswordField, SelectField
 from wtforms.validators import Email, Length, EqualTo, ValidationError, InputRequired
-from ukpostcodeutils import validation
-import re
+
 from models import User
 
 

@@ -1,9 +1,10 @@
-from flask import Flask, render_template, request
-from flask_sqlalchemy import SQLAlchemy
-from functools import wraps
-from flask_login import current_user, LoginManager, login_user
 import logging
 import socket
+from functools import wraps
+
+from flask import Flask, render_template, request
+from flask_login import current_user, LoginManager
+from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
 

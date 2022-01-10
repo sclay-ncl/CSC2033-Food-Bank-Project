@@ -1,9 +1,11 @@
 import csv
 import random
+from datetime import datetime
+
 from werkzeug.security import generate_password_hash
+
 from app import db
 from models import User, FoodBank, Item, OpeningHours, Address, Stocks, StockLevels
-from datetime import datetime
 
 
 def csv_to_list(file, start_index=0):
