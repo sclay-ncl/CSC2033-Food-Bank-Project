@@ -22,24 +22,29 @@ def get_lat_long(number_road, city, post_code):
 
     @return: tuple of latitude and longitude co-ordinates
     """
-    
+
     def find_gap(postcode):
+        # Finds where in the given postcode a space is needed
         for i in range(len(postcode)):
             if postcode[i].isdigit():
                 if postcode[i + 1].isalpha() and postcode[i + 2].isalpha():
                     return postcode[0:i] + " " + postcode[i:]
 
+    # Calls find_gap function if no gap is in the postcode
     if not " " in post_code:
         post_code = find_gap(post_code)
 
     address = number_road + ", " + city + ", " + post_code
 
+    # Query open street maps to return location data
     url = 'https://nominatim.openstreetmap.org/search/' + urllib.parse.quote(address) + '?format=json'
 
+    # Attempts to get the latitude and longitude of the given address
     try:
         response = requests.get(url).json()
         latitude = response[0]["lat"]
         longitude = response[0]["lon"]
+    # Rare case of an error from open street, latitude and longitude is set to Urban Sciences Building
     except LookupError:
         latitude = "54.972572326660156"
         longitude = "-1.6141237020492554"
@@ -63,21 +68,26 @@ def find_closest_fb(fb_address_lat, db_address_long):
     """
 
     def distance(usr_lat, usr_long, fb_lat, fb_long):
+        # Converts pie to radians so can be used to calculate the distance
         radians_convert = pi / 180
-        diam_earth_km = 12742
-        d_lat = fb_lat - usr_lat
-        d_long = fb_long - usr_long
+        diam_earth_km = 12742  # Stores the diameter of the earth in kilometers
+        d_lat = fb_lat - usr_lat  # Distance in latitude between the two points
+        d_long = fb_long - usr_long  # Distance in longitude between the two points
+        # Implementation of well known formula: Haversine which calculates distance between two lat, long co-ords
         haversine = 0.5 - cos(d_lat * radians_convert) / 2 + cos(usr_lat * radians_convert) * \
                     cos(fb_lat * radians_convert) * (1 - cos(d_long * radians_convert)) / 2
         dist = asin(sqrt(haversine))
         return diam_earth_km * dist
 
     def closest(fb_data, urs_cords):
+        # Use of lambda to anonymously call distance function and then return the minimum of the values returned
         return min(fb_data, key=lambda f: distance(urs_cords["lat"], urs_cords["lon"], f["lat"], f["lon"]))
 
+    # Stores the current users latitude and longitude in dictionary
     user_lat_long = {"lat": current_user.lat, "lon": current_user.long}
     fb_lat_long = []
 
+    # Loops through and stores all the food bank latitude and longitudes in a dictionary and all inside an array
     for fb in range(len(fb_address_lat)):
         dict_lat_long = {"lat": float(fb_address_lat[fb]), "lon": float(db_address_long[fb])}
         fb_lat_long.append(dict_lat_long)
@@ -190,10 +200,18 @@ def update_profile():
 
 @users_blueprint.route('/food-bank-search', methods=['POST', 'GET'])
 def food_bank_search():
+    """
+        Function loads data needed for the food bank search page and then directs the user to that page
+
+        @return: Food bank search view for either a logged in or anonymous user
+    """
+
     lat = []
     long = []
     fb_id_name = []
 
+    # Loops through all food banks and if an address exists for that food bank
+    # it will store the needed data in the corresponding arrays
     fb_address_data = FoodBank.query.all()
     for fb in fb_address_data:
         if len(fb.address) > 0:
@@ -203,12 +221,16 @@ def food_bank_search():
             lat.append(address.lat)
             long.append(address.long)
 
+    # If the user is logged in the function will get additional data for the page to use:
+    # Their closest food bank and all food banks the user has saved.
     if current_user.is_authenticated:
         closest_fb = find_closest_fb(lat, long)
         for fb in range(len(lat)):
+            # From the co-ords of the closest food bank, loop through and find the food banks name
             if str(lat[fb]) == str(closest_fb["lat"]) and str(long[fb]) == str(closest_fb["lon"]):
                 closest_fb_name_id = fb_id_name[fb][0], fb_id_name[fb][1]
 
+        # Saving the users saved food bank id's and names
         user_info = User.query.filter_by(id=current_user.id).first()
         fav_fb_data = user_info.associated
         fav_fb = []
@@ -224,8 +246,19 @@ def food_bank_search():
 
 @users_blueprint.route('/food-bank-information/<food_bank_id>', methods=['POST', 'GET'])
 def food_bank_information(food_bank_id):
+    """
+           Function loads data needed for to display information about the chosen food bank
+
+           @param: food_bank_id, The id of the food bank which page needs to be loaded
+
+           @return: Food bank information view about the chosen food bank
+    """
+
+    # The form used for logged in users to favourite/un-favourite the food bank
     form = FavForm()
+    # if the button has been clicked
     if request.method == 'POST':
+        # Checks which button has been clicked, to know whether to add/remove this food bank as a saved.
         if request.form['action'] == "add":
             new_fav = Associate(user_id=current_user.id, fb_id=food_bank_id)
 
@@ -236,18 +269,23 @@ def food_bank_information(food_bank_id):
             Associate.query.filter_by(fb_id=food_bank_id, user_id=current_user.id).delete()
             db.session.commit()
 
+    # If food banks is saved is set to False by default
     is_fav = False
+    # Will only try to change is_fav to true if user is logged in
     if current_user.is_authenticated:
         user_info = User.query.filter_by(id=current_user.id).first()
         fav_fb_data = user_info.associated
 
+        # Loops through to see if the user has saved this food bank
         for fb in fav_fb_data:
             if str(fb.id) == str(food_bank_id):
+                # If the food bank ID is found, is_fav is set to true
                 is_fav = True
 
     food_bank = FoodBank.query.filter_by(id=food_bank_id).first()
     stock_levels = StockLevels.query.filter_by(fb_id=food_bank_id).first()
 
+    # stores the food banks latitude and longitude
     address = food_bank.address[0]
     lat_long = [address.lat, address.long]
     return render_template('food-bank-information.html',
@@ -265,19 +303,36 @@ def food_bank_information(food_bank_id):
 
 @users_blueprint.route('/donate')
 def donate():
+    """
+               Function displays the donate page
+
+               @return: Donate view
+    """
+
     return render_template('donate.html')
 
 
 @users_blueprint.route('/reset_password', methods=['GET', 'POST'])
 def reset_request():
+    """
+               Function loads data needed for to send password reset email
+
+               @return: Loads either the page again if not valid or the login page
+    """
+
+    # If user is logged in they dont need to reset their password so is directed to the index page
     if current_user.is_authenticated:
         return redirect(url_for('index'))
     form = RequestResetForm()
 
+    # If form is validated
     if form.validate_on_submit():
+        # Get the user object
         user = User.query.filter_by(email=form.email.data).first()
+        # Calls the send email function
         send_reset_email(user)
         flash('Password Email Sent', 'info')
+
         return redirect(url_for('users.login'))
 
     return render_template('reset_request.html', form=form)
@@ -285,12 +340,24 @@ def reset_request():
 
 @users_blueprint.route('/reset_password/<token>', methods=['GET', 'POST'])
 def reset_token(token):
+    """
+                   Function loads data needed for to send password reset email
+
+                   @param: token, The user token used to verify the user
+
+                   @return: Loads either the page again if not valid or the login page
+    """
+
+    # Calls class method of the user to verify the given token, will return true if valid
     user = User.verify_reset_token(token)
+    # Tells the user the code is invalid and sends them to the request another reset password
     if user is None:
         flash('Invalid or Expired Token', 'warning')
         return redirect(url_for('users.reset_request'))
 
+    # Gets the form which allows users to set a new password
     form = ResetPasswordForm()
+    # If form is valid, hash the password the user has entered and store the new password in the database
     if form.validate_on_submit():
         hashed_password = generate_password_hash(form.password.data)
         user.password = hashed_password
