@@ -50,43 +50,44 @@ class ManualStockLevelsForm(FlaskForm):
     """ Form for food banks to manually set their stock levels """
 
     levels = [(2, "High"), (1, "Low"), (0, "Urgent")]
-    starchy = SelectField(choices=levels, validators=[InputRequired()])
-    protein = SelectField(choices=levels, validators=[InputRequired()])
-    fruit_veg = SelectField(choices=levels, validators=[InputRequired()])
-    soup_sauce = SelectField(choices=levels, validators=[InputRequired()])
-    drinks = SelectField(choices=levels, validators=[InputRequired()])
-    snacks = SelectField(choices=levels, validators=[InputRequired()])
-    cooking_ingredients = SelectField(choices=levels, validators=[InputRequired()])
-    condiments = SelectField(choices=levels, validators=[InputRequired()])
-    toiletries = SelectField(choices=levels, validators=[InputRequired()])
+    starchy = SelectField(choices=levels)
+    protein = SelectField(choices=levels)
+    fruit_veg = SelectField(choices=levels)
+    soup_sauce = SelectField(choices=levels)
+    drinks = SelectField(choices=levels)
+    snacks = SelectField(choices=levels)
+    cooking_ingredients = SelectField(choices=levels)
+    condiments = SelectField(choices=levels)
+    toiletries = SelectField(choices=levels)
 
     submit = SubmitField()
 
 class ItemStockForm(Form):
     """Form for updating the quantity of an item in stock"""
-    quantity = IntegerField(validators=[InputRequired()])
+    item_id = IntegerField()  # not rendered, used to store item_id as formfield destroys non-field variables
+    quantity = IntegerField()
 
 class CategoryBoundaryForm(Form):
     """Form for the setting of the category stock level boundaries"""
-    starchy_low = IntegerField(validators=[InputRequired()])
-    protein_low = IntegerField(validators=[InputRequired()])
-    fruit_veg_low = IntegerField(validators=[InputRequired()])
-    soup_sauce_low = IntegerField(validators=[InputRequired()])
-    drinks_low = IntegerField(validators=[InputRequired()])
-    snacks_low = IntegerField(validators=[InputRequired()])
-    cooking_ingredients_low = IntegerField(validators=[InputRequired()])
-    condiments_low = IntegerField(validators=[InputRequired()])
-    toiletries_low = IntegerField(validators=[InputRequired()])
+    starchy_low = IntegerField()
+    protein_low = IntegerField()
+    fruit_veg_low = IntegerField()
+    soup_sauce_low = IntegerField()
+    drinks_low = IntegerField()
+    snacks_low = IntegerField()
+    cooking_ingredients_low = IntegerField()
+    condiments_low = IntegerField()
+    toiletries_low = IntegerField()
 
-    starchy_high = IntegerField(validators=[InputRequired()])
-    protein_high = IntegerField(validators=[InputRequired()])
-    fruit_veg_high = IntegerField(validators=[InputRequired()])
-    soup_sauce_high = IntegerField(validators=[InputRequired()])
-    drinks_high = IntegerField(validators=[InputRequired()])
-    snacks_high = IntegerField(validators=[InputRequired()])
-    cooking_ingredients_high = IntegerField(validators=[InputRequired()])
-    condiments_high = IntegerField(validators=[InputRequired()])
-    toiletries_high = IntegerField(validators=[InputRequired()])
+    starchy_high = IntegerField()
+    protein_high = IntegerField()
+    fruit_veg_high = IntegerField()
+    soup_sauce_high = IntegerField()
+    drinks_high = IntegerField()
+    snacks_high = IntegerField()
+    cooking_ingredients_high = IntegerField()
+    condiments_high = IntegerField()
+    toiletries_high = IntegerField()
 
 class StockQuantityForm(FlaskForm):
     """Form combing ItemStockForms used to update the quantity of stock across many items"""
