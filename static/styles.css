@@ -198,7 +198,6 @@ p.page-header {
     cursor: pointer;
 }
 
-
 .marker {
   background-size: cover;
   width: 50px;
@@ -290,8 +289,8 @@ p.page-header {
     background: white;
     color: black;
     position: relative;
-    width: 350px;
-    height: 550px;
+    width: 25%;
+    height: 57%;
     box-shadow: 20px 20px rgba(0,0,0,.15);
 }
 
@@ -299,12 +298,7 @@ p.page-header {
     padding: 20px;
 }
 
-.password_reset {
-    font-size: 14px;
-}
-
 /* Password Request & Reset Pages */
-
 .password_form {
     margin-top: 100px;
     margin-left: auto;
@@ -318,6 +312,10 @@ p.page-header {
     height: auto;
     padding-bottom: 25px;
     box-shadow: 20px 20px rgba(0,0,0,.15);
+}
+
+.password_reset {
+    font-size: 14px;
 }
 
 /* register food bank form */
@@ -453,19 +451,22 @@ input::placeholder {
 
 .button {
     text-align: center;
-	border-radius: 20px;
+    vertical-align: middle;
+    height: 10%;
+    width: 55%;
+	border-radius: 30px;
 	border: 1px solid #5c8631;
 	background-color: #97c170;
 	color: #000000;
 	font-size: 12px;
 	font-weight: bold;
-	padding: 12px 35px;
+	padding:12px 35px;
 	letter-spacing: 1px;
 	text-transform: uppercase;
     cursor: pointer;
     display: block;
-    margin: 30px auto ;
-    width: 55%;
+    margin: 30px auto;
+
 }
 
 .fb-button{
@@ -496,7 +497,6 @@ button:active {
 }
 
 /* Contact Us page */
-
 .contact-us{
     margin-top: 30px;
     margin-left: auto;
@@ -508,6 +508,11 @@ button:active {
     height: auto;
     padding: 15px;
     box-shadow: 20px 20px rgba(0,0,0,.15);
+}
+
+.page-header{
+    padding-top: 30px;
+    padding-bottom: 15px;
 }
 
 /* Food Bank Information Page */
