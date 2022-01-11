@@ -167,22 +167,56 @@ def manage_stock():
 
     # if food bank has chosen to automatically set stock levels
     if current_food_bank.management_option == 1:
+        stock_levels = StockLevels.query.filter_by(fb_id=current_food_bank.id).first()
         items = Item.query.all()
-        form = StockQuantityForm()
-        item_dict = {}  # stores item_form and stock object as a key,value pair
-        item_names = []  # stores item names to pass to html
+        item_names = []
+        data = {"item_forms": []}  # set up
+
         for item in items:
-            stock = Stocks.query.filter_by(fb_id=current_food_bank.id, item_id=item.id).first()
-            item_form = ItemStockForm()
-            item_dict[item_form] = stock
+            stock = Stocks.query.filter_by(item_id=item.id, fb_id=current_food_bank.id).first()
             item_names.append(item.name)
-            item_form.quantity = stock.quantity
-            form.item_forms.append_entry(item_form)
+            item_data = {"item_id": int(item.id), "quantity": int(stock.quantity)}
+            data["item_forms"].append(item_data)
+        form = StockQuantityForm(data=data)
+
         if form.validate_on_submit():
-            for item_form in form.item_forms:
-                stock = item_dict[item_form]  # fetch correct stock for form
-                stock.quantity = item_form.quantity.data
-                db.session.commit()
+            for item_form in form.item_forms.data:
+                stock = Stocks.query.filter_by(item_id=item_form['item_id'], fb_id=current_food_bank.id).first()
+                stock.quantity = item_form['quantity']
 
-        return render_template('manage-stock.html', management_option_form=management_option_form, form=form, item_names=item_names)
+            # put data for boundary form back into database
+            categories = {'starchy', 'protein', 'fruit_veg', 'soup_sauce',
+                          'drinks', 'snacks', 'condiments', 'cooking_ingredients', 'toiletries'}
+            for category in categories:
+                form_boundary_low = getattr(form.category_boundary_form, category+"_low")  # get data from forms
+                form_boundary_high = getattr(form.category_boundary_form, category+"_high")
+                print(form_boundary_low)
+                setattr(stock_levels, category+"_low", form_boundary_low.data)  # set new level in database
+                setattr(stock_levels, category+"_high", form_boundary_high.data)
+            print(stock_levels.starchy_low)
+            db.session.commit()
 
+        # set up category boundary form
+        form.category_boundary_form.starchy_low.data = stock_levels.starchy_low
+        form.category_boundary_form.protein_low.data = stock_levels.protein_low
+        form.category_boundary_form.fruit_veg_low.data = stock_levels.fruit_veg_low
+        form.category_boundary_form.soup_sauce_low.data = stock_levels.soup_sauce_low
+        form.category_boundary_form.drinks_low.data = stock_levels.drinks_low
+        form.category_boundary_form.snacks_low.data = stock_levels.snacks_low
+        form.category_boundary_form.cooking_ingredients_low.data = stock_levels.cooking_ingredients_low
+        form.category_boundary_form.condiments_low.data = stock_levels.condiments_low
+        form.category_boundary_form.toiletries_low.data = stock_levels.toiletries_low
+        form.category_boundary_form.starchy_high.data = stock_levels.starchy_high
+        form.category_boundary_form.protein_high.data = stock_levels.protein_high
+        form.category_boundary_form.fruit_veg_high.data = stock_levels.fruit_veg_high
+        form.category_boundary_form.soup_sauce_high.data = stock_levels.soup_sauce_high
+        form.category_boundary_form.drinks_high.data = stock_levels.drinks_high
+        form.category_boundary_form.snacks_high.data = stock_levels.snacks_high
+        form.category_boundary_form.cooking_ingredients_high.data = stock_levels.cooking_ingredients_high
+        form.category_boundary_form.condiments_high.data = stock_levels.condiments_high
+        form.category_boundary_form.toiletries_high.data = stock_levels.toiletries_high
+
+        return render_template('manage-stock.html',
+                               management_option_form=management_option_form,
+                               form=form,
+                               item_names=item_names)
