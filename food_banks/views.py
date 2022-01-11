@@ -3,9 +3,9 @@ from datetime import datetime
 from flask import redirect, url_for, render_template, Blueprint, request, abort
 from flask_login import current_user, login_required
 
-from app import requires_roles, db
+from app import requires_roles, db, rss
 from food_banks.forms import UpdateFoodBankInformationForm, AddressForm, OpeningHoursForm, ManualStockLevelsForm, \
-    StockQuantityForm, ItemStockForm, StockManagementOptionForm
+    StockQuantityForm, StockManagementOptionForm
 from models import Address, OpeningHours, StockLevels, Item, Stocks
 
 food_banks_blueprint = Blueprint('food_banks', __name__, template_folder='templates')
@@ -139,6 +139,7 @@ def manage_stock():
         current_food_bank.management_option = management_option_form.option.data
         db.session.commit()
 
+
     # if food bank has chosen to manually set stock levels
     if current_food_bank.management_option == 0:
         stock_levels = StockLevels.query.filter_by(fb_id=current_food_bank.id).first()
@@ -170,31 +171,37 @@ def manage_stock():
         stock_levels = StockLevels.query.filter_by(fb_id=current_food_bank.id).first()
         items = Item.query.all()
         item_names = []
-        data = {"item_forms": []}  # set up
+        data = {"item_forms": []}  # set up data dictionary
 
         for item in items:
             stock = Stocks.query.filter_by(item_id=item.id, fb_id=current_food_bank.id).first()
             item_names.append(item.name)
-            item_data = {"item_id": int(item.id), "quantity": int(stock.quantity)}
+            item_data = {"item_id": int(item.id), "quantity": int(stock.quantity)}  # create sub-dictionary of item data
             data["item_forms"].append(item_data)
-        form = StockQuantityForm(data=data)
+        form = StockQuantityForm(data=data)  # instantiate form
 
         if form.validate_on_submit():
             for item_form in form.item_forms.data:
                 stock = Stocks.query.filter_by(item_id=item_form['item_id'], fb_id=current_food_bank.id).first()
                 stock.quantity = item_form['quantity']
 
-            # put data for boundary form back into database
+            # put data for boundary form back into database, currently not working
             categories = {'starchy', 'protein', 'fruit_veg', 'soup_sauce',
                           'drinks', 'snacks', 'condiments', 'cooking_ingredients', 'toiletries'}
-            for category in categories:
-                form_boundary_low = getattr(form.category_boundary_form, category+"_low")  # get data from forms
-                form_boundary_high = getattr(form.category_boundary_form, category+"_high")
-                print(form_boundary_low)
-                setattr(stock_levels, category+"_low", form_boundary_low.data)  # set new level in database
-                setattr(stock_levels, category+"_high", form_boundary_high.data)
-            print(stock_levels.starchy_low)
+            # for category in categories:
+            #     form_boundary_low = getattr(form.category_boundary_form, category+"_low")  # get data from forms
+            #     form_boundary_high = getattr(form.category_boundary_form, category+"_high")
+            #     print(form_boundary_high)
+            #     print(form_boundary_low)
+            #     setattr(stock_levels, category+"_low", form_boundary_low.data)  # set new level in database
+            #     setattr(stock_levels, category+"_high", form_boundary_high.data)
             db.session.commit()
+
+            # push notifications to RSS feed and user emails
+            urgent_categories = current_food_bank.update_information()
+            generated_message = current_food_bank.generate_alert(urgent_categories)
+            rss.generate_item(food_bank_id=current_food_bank.id, generated_message=generated_message)
+            rss.write_feed()
 
         # set up category boundary form
         form.category_boundary_form.starchy_low.data = stock_levels.starchy_low
