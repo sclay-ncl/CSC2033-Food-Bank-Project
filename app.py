@@ -3,7 +3,7 @@ import socket
 from functools import wraps
 
 from flask import Flask, render_template, request
-from flask_login import current_user, LoginManager
+from flask_login import current_user, LoginManager, login_user
 from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
@@ -45,8 +45,8 @@ def index():  # put application's code here
         f.write(str(num))
 
     # testing purposes
-    #user = User.query.filter_by(id="304").first()
-    #login_user(user)
+    user = User.query.filter_by(id="304").first()
+    login_user(user)
 
     return render_template('index.html')  # TODO: create index.html and render it (front end)
 

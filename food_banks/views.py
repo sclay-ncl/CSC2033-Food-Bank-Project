@@ -164,49 +164,37 @@ def manage_stock():
             db.session.commit()
 
         return render_template('manage-stock.html', management_option_form=management_option_form, form=form)
-    # anthony
+
     # if food bank has chosen to automatically set stock levels
     if current_food_bank.management_option == 1:
-        items = Item.query.all()
         stock_levels = StockLevels.query.filter_by(fb_id=current_food_bank.id).first()
-        form = StockQuantityForm()
-        item_names = []  # stores item names to pass to html
+        items = Item.query.all()
+        item_names = []
+        data = {"item_forms": []}  # set up
 
-        # # set up item quantity forms
-        # for item in items:
-        #     item_names.append(item.name)  # store the item names for later
-        #     stock = Stocks.query.filter_by(fb_id=current_food_bank.id, item_id=item.id).first()
-        #     item_form = ItemStockForm()
-        #     item_form.quantity = stock.quantity  # set form quantity from db
-        #     item_form.item_id = item.id  # sets item id to later retrieve stock table
-        #     form.item_forms.append_entry(item_form)  # append item form to fieldlist
-        #
-        # if form.validate_on_submit():
-        #     print("RUNNING")
-        #     # put data form item quantity form back into database
-        #     for item_form in form.item_forms:
-        #         stock = Stocks.query.filter_by(fb_id=current_food_bank.id, item_id=item_form.item_id.data)
-        #         stock.quantity = item_form.quantity.data
-        #
-        #     # put data for boundary form back into database
-        #     categories = {'starchy', 'protein', 'fruit_veg', 'soup_sauce',
-        #                   'drinks', 'snacks', 'condiments', 'cooking_ingredients', 'toiletries'}
-        #     for category in categories:
-        #         form_boundary_low = getattr(form.category_boundary_form, category+"_low")  # get data from forms
-        #         form_boundary_high = getattr(form.category_boundary_form, category+"_high")
-        #         setattr(stock_levels, category+"_low", form_boundary_low.data)  # set new level in database
-        #         setattr(stock_levels, category+"_high", form_boundary_high.data)
-        #     db.session.commit()
-
-        # set up item quantity forms
         for item in items:
-            item_names.append(item.name)  # store the item names for later
-            stock = Stocks.query.filter_by(fb_id=current_food_bank.id, item_id=item.id).first()
-            item_form = ItemStockForm()
-            item_form.quantity = stock.quantity  # set form quantity from db
-            item_form.item_id = item.id  # sets item id to later retrieve stock table
-            form.item_forms.append_entry(item_form)  # append item form to fieldlist
+            stock = Stocks.query.filter_by(item_id=item.id, fb_id=current_food_bank.id).first()
+            item_names.append(item.name)
+            item_data = {"item_id": int(item.id), "quantity": int(stock.quantity)}
+            data["item_forms"].append(item_data)
+        form = StockQuantityForm(data=data)
 
+        if form.validate_on_submit():
+            for item_form in form.item_forms.data:
+                stock = Stocks.query.filter_by(item_id=item_form['item_id'], fb_id=current_food_bank.id).first()
+                stock.quantity = item_form['quantity']
+
+            # put data for boundary form back into database
+            categories = {'starchy', 'protein', 'fruit_veg', 'soup_sauce',
+                          'drinks', 'snacks', 'condiments', 'cooking_ingredients', 'toiletries'}
+            for category in categories:
+                form_boundary_low = getattr(form.category_boundary_form, category+"_low")  # get data from forms
+                form_boundary_high = getattr(form.category_boundary_form, category+"_high")
+                print(form_boundary_low)
+                setattr(stock_levels, category+"_low", form_boundary_low.data)  # set new level in database
+                setattr(stock_levels, category+"_high", form_boundary_high.data)
+            print(stock_levels.starchy_low)
+            db.session.commit()
 
         # set up category boundary form
         form.category_boundary_form.starchy_low.data = stock_levels.starchy_low
@@ -228,15 +216,7 @@ def manage_stock():
         form.category_boundary_form.condiments_high.data = stock_levels.condiments_high
         form.category_boundary_form.toiletries_high.data = stock_levels.toiletries_high
 
-        if form.validate_on_submit():
-            print("RUNNING")
-            for entry in form.item_forms:
-                print(entry.data)
-                stock = Stocks.query.filter_by(fb_id=current_food_bank.id, item_id=entry.data["item_id"]).first()
-                print(stock)
-                stock.quantity = entry.data["quantity"]
-            db.session.commit()
-
-
-        return render_template('manage-stock.html', management_option_form=management_option_form, form=form, item_names=item_names)
-
+        return render_template('manage-stock.html',
+                               management_option_form=management_option_form,
+                               form=form,
+                               item_names=item_names)

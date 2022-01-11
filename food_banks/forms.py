@@ -64,7 +64,7 @@ class ManualStockLevelsForm(FlaskForm):
 
 class ItemStockForm(Form):
     """Form for updating the quantity of an item in stock"""
-    item_id = IntegerField()  # not rendered, used to store item_id as formfield destroys non-field variables
+    item_id = IntegerField()  # not rendered, used to store item_id as formfield destroys non-field variables#
     quantity = IntegerField()
 
 class CategoryBoundaryForm(Form):
