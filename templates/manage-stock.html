@@ -18,64 +18,64 @@
         </div>
     </form>
 
-    {% if current_user.associated[0].management_option==0 %}
     <!-- Stock Management form for manual option -->
+    {% if current_user.associated[0].management_option==0 %}
     <form method="POST">
         {{ form.csrf_token() }}
-        <table class="manual-stock">
-            <th> Category </th>
-            <th> Stock Level </th>
-            <tr>
-            </tr>
-                <td> Starchy </td>
-                <td> {{ form.starchy(class="form-dropdown")}} </td>
-            <tr>
-                <td> Protein</td>
-                <td> {{ form.protein(class="form-dropdown")}} </td>
-            </tr>
-            <tr>
-                <td> Fruit and Vegetables </td>
-                <td> {{ form.fruit_veg(class="form-dropdown")}} </td>
-            </tr>
-            <tr>
-                <td> Soups and Sauces </td>
-                <td> {{ form.soup_sauce(class="form-dropdown")}} </td>
-            </tr>
-            <tr>
-                <td> Drinks </td>
-                <td> {{ form.drinks(class="form-dropdown")}} </td>
-            </tr>
-            <tr>
-                <td> Snacks </td>
-                <td> {{ form.snacks(class="form-dropdown")}} </td>
-            </tr>
-            <tr>
-                <td> Cooking Ingredients</td>
-                <td> {{ form.cooking_ingredients(class="form-dropdown")}} </td>
-            </tr>
-            <tr>
-                <td> Condiments</td>
-                <td> {{ form.condiments(class="form-dropdown")}} </td>
-            </tr>
-            <tr>
-                <td> Toiletries</td>
-                <td> {{ form.toiletries(class="form-dropdown")}} </td>
-                <div class="submit-button">
-                {{ form.submit(class="button") }}
-                </div>
-            </tr>
-
-        </table>
-
-    {% endif %}
+          <div class="manual-stock">
+            <table class="manual-stock">
+                <th> Category </th>
+                <th> Stock Level </th>
+                <tr>
+                    <td> Starchy </td>
+                    <td> {{ form.starchy(class="form-dropdown-sm")}} </td>
+                </tr>
+                <tr>
+                    <td> Protein</td>
+                    <td> {{ form.protein(class="form-dropdown-sm")}} </td>
+                </tr>
+                <tr>
+                    <td> Fruit and Vegetables </td>
+                    <td> {{ form.fruit_veg(class="form-dropdown-sm")}} </td>
+                </tr>
+                <tr>
+                    <td> Soups and Sauces </td>
+                    <td> {{ form.soup_sauce(class="form-dropdown-sm")}} </td>
+                </tr>
+                <tr>
+                    <td> Drinks </td>
+                    <td> {{ form.drinks(class="form-dropdown-sm")}} </td>
+                </tr>
+                <tr>
+                    <td> Snacks </td>
+                    <td> {{ form.snacks(class="form-dropdown-sm")}} </td>
+                </tr>
+                <tr>
+                    <td> Cooking Ingredients</td>
+                    <td> {{ form.cooking_ingredients(class="form-dropdown-sm")}} </td>
+                </tr>
+                <tr>
+                    <td> Condiments</td>
+                    <td> {{ form.condiments(class="form-dropdown-sm")}} </td>
+                </tr>
+                <tr>
+                    <td> Toiletries</td>
+                    <td> {{ form.toiletries(class="form-dropdown-sm")}} </td>
+                </tr>
+            </table>
+          <div class="submit-button-sm">
+          {{ form.submit(class="button") }}
+          </div>
+      </div>
     </form>
+    {% endif %}
 
     <!-- Inventory table -->
     {% if current_user.associated[0].management_option==1 %}
-
         <form method="POST">
             {{ form.csrf_token() }}
-                <h2> Item Stock </h2>
+                <div class="item-table">
+                    <h2> Item Stock </h2>
                     <table class="item-table">
                         <th> Item </th>
                         <th> Quantity</th>
@@ -94,53 +94,48 @@
                         <th> High Level Boundaries</th>
                         <tr>
                             <td> Starchy </td>
-                            <td> {{ form.category_boundary_form.starchy_low (class="input") }}</td>
-                            <td> {{ form.category_boundary_form.starchy_high(class="input") }}</td>
+                            <td> {{ form.category_boundary_form.starchy_low (class="input-sm") }}</td>
+                            <td> {{ form.category_boundary_form.starchy_high(class="input-sm") }}</td>
                         </tr>
                             <td> Fruit and Vegetables </td>
-                            <td> {{ form.category_boundary_form.fruit_veg_low (class="input") }}</td>
-                            <td> {{ form.category_boundary_form.fruit_veg_high (class="input") }}</td>
+                            <td> {{ form.category_boundary_form.fruit_veg_low (class="input-sm") }}</td>
+                            <td> {{ form.category_boundary_form.fruit_veg_high (class="input-sm") }}</td>
                         </tr>
                         <tr>
                             <td> Soups and Sauces </td>
-                            <td> {{ form.category_boundary_form.soup_sauce_low (class="input") }}</td>
-                            <td> {{ form.category_boundary_form.soup_sauce_high (class="input") }}</td>
+                            <td> {{ form.category_boundary_form.soup_sauce_low (class="input-sm") }}</td>
+                            <td> {{ form.category_boundary_form.soup_sauce_high (class="input-sm") }}</td>
                         </tr>
                         <tr>
                             <td> Drinks </td>
-                            <td> {{ form.category_boundary_form.drinks_low (class="input") }}</td>
-                            <td> {{ form.category_boundary_form.drinks_high (class="input") }}</td>
+                            <td> {{ form.category_boundary_form.drinks_low (class="input-sm") }}</td>
+                            <td> {{ form.category_boundary_form.drinks_high (class="input-sm") }}</td>
                         </tr>
                         <tr>
                             <td> Snacks </td>
-                            <td> {{ form.category_boundary_form.snacks_low (class="input") }}</td>
-                            <td> {{ form.category_boundary_form.snacks_high (class="input") }}</td>
+                            <td> {{ form.category_boundary_form.snacks_low (class="input-sm") }}</td>
+                            <td> {{ form.category_boundary_form.snacks_high (class="input-sm") }}</td>
                         </tr>
                         <tr>
                             <td> Cooking Ingredients</td>
-                            <td> {{ form.category_boundary_form.cooking_ingredients_low (class="input") }}</td>
-                            <td> {{ form.category_boundary_form.cooking_ingredients_high (class="input") }}</td>
+                            <td> {{ form.category_boundary_form.cooking_ingredients_low (class="input-sm") }}</td>
+                            <td> {{ form.category_boundary_form.cooking_ingredients_high (class="input-sm") }}</td>
                         </tr>
                         <tr>
                             <td> Condiments</td>
-                            <td> {{ form.category_boundary_form.condiments_low  (class="input") }}</td>
-                            <td> {{ form.category_boundary_form.condiments_high (class="input") }}</td>
+                            <td> {{ form.category_boundary_form.condiments_low  (class="input-sm") }}</td>
+                            <td> {{ form.category_boundary_form.condiments_high (class="input-sm") }}</td>
                         </tr>
                         <tr>
                             <td> Toiletries</td>
-                            <td> {{ form.category_boundary_form.toiletries_low (class="input") }}</td>
-                            <td> {{ form.category_boundary_form.toiletries_high (class="input") }}</td>
-
+                            <td> {{ form.category_boundary_form.toiletries_low (class="input-sm") }}</td>
+                            <td> {{ form.category_boundary_form.toiletries_high (class="input-sm") }}</td>
                     </table>
-            <div class="submit-button">
-            {{ form.submit(class="button") }}
-            </div>
+                <div class="submit-button-sm">
+                {{ form.submit(class="button") }}
+                </div>
+                </div>
         </form>
-
-
-
-
-
     {% endif %}
 
 {% endblock %}

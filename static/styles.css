@@ -295,6 +295,10 @@ p.page-header {
     box-shadow: 20px 20px rgba(0,0,0,.15);
 }
 
+.login-form input{
+    padding: 20px;
+}
+
 .password_reset {
     font-size: 14px;
 }
@@ -331,6 +335,10 @@ p.page-header {
     box-shadow: 20px 20px rgba(0,0,0,.15);
 }
 
+.food-bank-register-form input{
+    padding: 20px;
+}
+
 /* update profile form */
 .update-profile-form {
     margin-top: 100px;
@@ -346,6 +354,10 @@ p.page-header {
     box-shadow: 20px 20px rgba(0,0,0,.15);
 }
 
+.update-profile-form input{
+    padding: 20px;
+}
+
 /* Register Form */
 .register-form{
     padding: 40px;
@@ -358,6 +370,10 @@ p.page-header {
     height:86%;
     width:80%;
     box-shadow: 20px 20px rgba(0,0,0,.15);
+}
+
+.register-form input{
+    padding: 20px;
 }
 
 .fb-list {
@@ -383,7 +399,6 @@ form label{
     width: 90%;
     border: rgba(0,0,0,.3) 2px solid;
     box-sizing: border-box;
-    padding: 20px;
     display: block;
     margin: 15px auto 30px;
 }
@@ -627,13 +642,13 @@ table, tr, td {
     text-align: center;
 }
 
-th.manage-addresses{
+.manage-addresses th{
     text-align: left;
     font-weight: 500;
     color: #000000;
 }
 
-td.manage-addresses{
+.manage-addresses td{
     text-align: left;
     vertical-align:middle;
     font-weight: 300;
@@ -650,14 +665,14 @@ td.manage-addresses{
     padding: 0.5rem;
 }
 
-th.opening-hours{
+.opening-hours th{
     padding: 20px 15px;
     text-align: left;
     font-weight: 500;
     color: #000000;
 }
 
-td.opening-hours{
+.opening-hours td{
     padding: 15px;
     text-align: left;
     vertical-align:middle;
@@ -689,7 +704,6 @@ td.opening-hours{
 
 .add-opening-hours h4{
     Padding: 15px;
-
 }
 
 .add-hour{
@@ -713,30 +727,6 @@ td.opening-hours{
 /* Update Food Bank Profile Page */
 .update-food-bank-profile h4{
     text-align: center;
-}
-
-/* Manage Stock Page */
-.stock-table{
-    width:100%;
-    table-layout: fixed;
-    position: relative;
-    text-align: center;
-    padding: 0.5rem;
-}
-
-th.stock-table{
-    padding: 20px 15px;
-    text-align: left;
-    font-weight: 500;
-    color: #000000;
-}
-
-td.stock-table{
-    padding: 15px;
-    text-align: left;
-    vertical-align:middle;
-    font-weight: 300;
-    color: #000000;
 }
 
 .index-main-banner {
@@ -838,7 +828,7 @@ td.stock-table{
     white-space: nowrap;
 }
 
-/*admin page */
+/* Admin page */
 .admin-box{
     width: 20%;
     height: 100px;
@@ -893,7 +883,7 @@ td.stock-table{
 }
 
 /* Manage Stock Page */
-
+/* Option bar to choose manual or automatic */
 .management-option{
     text-align: center;
     padding-top: 10px;
@@ -911,45 +901,79 @@ td.stock-table{
     height: 25px;
 }
 
+/* Manual Stock Table */
+
 .manual-stock{
-    width:95%;
+    width: 95%;
     margin-left: 2.5%;
-    table-layout: fixed;
     position: relative;
     text-align: center;
+    height: 15px;
 }
 
 .manual-stock th{
-    padding: 10px;
+    padding: 20px;
 }
 
-.manual-stock .form-dropdown{
-    height: 100% ;
+/* Form Dropdown Menu in Stock management page */
+.form-dropdown-sm{
+    font-size: 14px;
+    vertical-align: center;
+    text-align: center;
+    width: 80%;
 }
 
+/* Item Table on Automatic option page */
 .item-table{
     width: 95%;
     margin-left: 2.5%;
     position: relative;
     text-align: center;
+    height: 15px;
 }
 
+.item-table h2{
+    padding: 10px;
+}
+
+.item-table th{
+    padding: 20px;
+}
+
+.item-table td{
+     margin-top: 15px;
+}
+
+/* Category Boundaries Table on Automatic option page */
 .category-boundaries{
     width: 95%;
-    margin-left: 2.5%;
+    margin-left:2.5%;
     table-layout: fixed;
     position: relative;
     text-align: center;
+    height: 15px;
 }
 
+.category-boundaries h2{
+    padding: 20px;
+}
 .category-boundaries th{
     padding: 20px;
 }
 
-.category-boundaries tr{
-    height: 5%;
+/* Input in the stock management page */
+.input-sm{
+    font-size: 14px;
+    vertical-align: center;
+    text-align: center;
+    width: 80%;
+    margin-top: 15px;
 }
 
-.category-boundaries td{
-    height: 5%;
+/* Submit button on stock management page */
+.submit-button-sm{
+    width: 30%;
+    padding-bottom: 10px;
+    margin-left: auto;
+    margin-right: auto;
 }
