@@ -164,7 +164,7 @@ def manage_stock():
             db.session.commit()
 
         return render_template('manage-stock.html', management_option_form=management_option_form, form=form)
-
+    # anthony
     # if food bank has chosen to automatically set stock levels
     if current_food_bank.management_option == 1:
         items = Item.query.all()
