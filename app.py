@@ -7,6 +7,7 @@ from flask_login import current_user, LoginManager, login_user
 from flask_sqlalchemy import SQLAlchemy
 
 from notifications.rss import RSSManager
+
 app = Flask(__name__)
 
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
