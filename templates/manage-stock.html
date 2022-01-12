@@ -5,18 +5,9 @@
 <!-- Page Header -->
 <h1 class="page-header">Manage Stock</h1>
 
-    <!-- For stock management option button -->
-    <form class="management-option" method="POST">
-        {{ management_option_form.csrf_token }}
-        <h4> Stock Management Option </h4>
-        {{ management_option_form.option(class="form-dropdown") }}
-            {% for error in  management_option_form.option.errors %}
-                {{ error }}
-            {% endfor %}
-        <div class="refresh-btn">
-            {{ management_option_form.submit(class="button") }}
-        </div>
-    </form>
+    <a href="{{ url_for('food_banks.update_stock_option') }}" class="navbar-item">
+        Change option
+    </a>
 
     <!-- Stock Management form for manual option -->
     {% if current_user.associated[0].management_option==0 %}
