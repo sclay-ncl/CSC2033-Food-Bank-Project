@@ -528,6 +528,13 @@ button:active {
     width: 300px;
 }
 
+.med-stock{
+    text-align: center;
+    color: orange;
+    box-sizing: border-box;
+    width: 300px;
+}
+
 .low-stock{
     text-align: center;
     color: red;
@@ -536,13 +543,12 @@ button:active {
 }
 
 .column {
-    flex: 50%;
+    flex: 33%;
 
 }
 .row {
     display: flex;
-    margin-left:30%;
-    margin-right:30%;
+    justify-content: center;
 }
 
 h3.fb-contact-details{
