@@ -152,7 +152,11 @@ def login():
 
         else:
             login_user(user)
-            return render_template('profile.html')
+            if user.role == 'food_bank':
+                return redirect(url_for('food_banks.manage_stock'))
+            else:
+                return render_template('profile.html')
+
     # if the login details are correct it will redirect the user to the home page
     return render_template('login.html', form=form)
 
