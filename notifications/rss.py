@@ -21,7 +21,5 @@ class RSSManager:
         self.feed.items.append(new_item)
 
     def write_feed(self):
-        for line in self.feed.rss():
-            print(line)
         with open("rss.xml", "w") as rss_file:
             rss_file.writelines(self.feed.rss())

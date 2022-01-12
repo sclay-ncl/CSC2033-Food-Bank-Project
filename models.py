@@ -136,7 +136,7 @@ class FoodBank(db.Model):
         db.session.commit()
         return urgent_categories
 
-    def generate_alerts(self, urgent_categories):
+    def generate_alert(self, urgent_categories):
         """
         Generates a text string used for notifying donors about the categories in which stock in urgent
         @param urgent_categories: list of categories that have an urgent level of stock
