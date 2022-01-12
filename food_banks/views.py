@@ -142,7 +142,9 @@ def update_stock_option():
 @requires_roles('food_bank')
 @food_banks_blueprint.route('/manage-stock', methods=['GET', 'POST'])
 def manage_stock():
-    """Where food banks can manage their stock. Choose between stock management type: automatic or manual,
+    """
+    @author: Anthony Clermont, Sol Clay
+    Where food banks can manage their stock. Choose between stock management type: automatic or manual,
     the relevant form for the management option selected is rendered.
        """
     current_food_bank = current_user.associated[0]
