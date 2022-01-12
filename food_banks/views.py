@@ -125,6 +125,17 @@ def delete_opening_hours(address_id, day):
         db.session.commit()
     return redirect(url_for('food_banks.manage_opening_hours', address_id=address_id))
 
+@login_required
+@requires_roles('food_bank')
+@food_banks_blueprint.route('/update-stock-option/', methods=['GET', 'POST'])
+def update_stock_option():
+    current_food_bank = current_user.associated[0]
+    form = StockManagementOptionForm(option=current_food_bank.management_option)
+    if form.validate_on_submit():
+        update_stock_option(form.option.data)
+        db.session.commit()
+    return render_template("update-stock-option.html", management_option_form=form)
+
 
 @login_required
 @requires_roles('food_bank')
@@ -134,13 +145,6 @@ def manage_stock():
     the relevant form for the management option selected is rendered.
        """
     current_food_bank = current_user.associated[0]
-    management_option_form = StockManagementOptionForm(option=current_food_bank.management_option)
-    if management_option_form.validate_on_submit():
-        current_food_bank.management_option = management_option_form.option.data
-        db.session.commit()
-
-        return redirect(url_for('food_banks.manage_stock'))
-
 
     # if food bank has chosen to manually set stock levels
     if current_food_bank.management_option == 0:
@@ -200,10 +204,10 @@ def manage_stock():
             db.session.commit()
 
             # push notifications to RSS feed and user emails
-            urgent_categories = current_food_bank.update_information()
-            generated_message = current_food_bank.generate_alert(urgent_categories)
-            rss.generate_item(food_bank_id=current_food_bank.id, generated_message=generated_message)
-            rss.write_feed()
+            # urgent_categories = current_food_bank.update_information()
+            # generated_message = current_food_bank.generate_alert(urgent_categories)
+            # rss.generate_item(food_bank_id=current_food_bank.id, generated_message=generated_message)
+            # rss.write_feed()
 
         # set up category boundary form
         form.category_boundary_form.starchy_low.data = stock_levels.starchy_low
