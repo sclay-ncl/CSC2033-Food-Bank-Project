@@ -3,8 +3,6 @@ from email.message import EmailMessage
 
 from flask import url_for
 
-from models import FoodBank, Associate, User
-
 
 def send(subject, email_text, recip):
     """
@@ -28,23 +26,21 @@ def send(subject, email_text, recip):
         smtp.send_message(message)
 
 
-def send_mail(food_bank_id):
+def send_mail(food_bank_id, msg):
     """
         Function constructs the needed stock email
 
         @param: food_bank_id, the id of the food bank which needs the food
-
+        @param: msg, message to send
     """
+    from models import Associate, User
 
-    food_bank = FoodBank.query.filter_by(id=food_bank_id).first()
     recip_list_obj = Associate.query.filter_by(fb_id=food_bank_id).all()
 
-    subject = 'EMERGENCY DONATIONS NEEDED'
-    msg = FoodBank.generate_alerts(food_bank, urgent_categories='test')
+    subject = 'URGENT DONATIONS NEEDED'
 
     for i in range(len(recip_list_obj)):
-        user = User.query.filter_by(id=recip_list_obj[i].user_id).first()
-
+        user = User.query.filter_by(id=recip_list_obj[i].user_id, role="donor").first()
         send(subject, msg, user.email)
 
 
