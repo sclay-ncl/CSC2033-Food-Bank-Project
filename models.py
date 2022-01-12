@@ -1,8 +1,8 @@
 from flask_login import UserMixin
 from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
 
-from app import db, app
-
+from app import db, rss, app
+from notifications.mail import send_mail
 
 class User(db.Model, UserMixin):
     """Models the user table:
@@ -156,6 +156,15 @@ class FoodBank(db.Model):
                   f"- {categories_string}\n" \
                   f"For examples of what to donate for each category, please visit {examples_url}"
         return message
+
+    def push_alerts(self):
+        """Pushes alerts to donor users and the rss feed"""
+        urgent_categories = self.update_stock_levels()
+        generated_message = self.generate_alert(urgent_categories)
+        rss.generate_item(food_bank_id=self.id, generated_message=generated_message)
+        rss.write_feed()
+        send_mail(self.id, msg=generated_message)
+
 
 
 class Item(db.Model):
