@@ -132,7 +132,7 @@ def update_stock_option():
     current_food_bank = current_user.associated[0]
     form = StockManagementOptionForm(option=current_food_bank.management_option)
     if form.validate_on_submit():
-        update_stock_option(form.option.data)
+        current_food_bank.management_option = form.option.data
         db.session.commit()
     return render_template("update-stock-option.html", management_option_form=form)
 
@@ -170,7 +170,7 @@ def manage_stock():
             stock_levels.toiletries = form.toiletries.data
             db.session.commit()
 
-        return render_template('manage-stock.html', management_option_form=management_option_form, form=form)
+        return render_template('manage-stock.html', form=form)
 
     # if food bank has chosen to automatically set stock levels
     if current_food_bank.management_option == 1:
@@ -230,6 +230,5 @@ def manage_stock():
         form.category_boundary_form.toiletries_high.data = stock_levels.toiletries_high
 
         return render_template('manage-stock.html',
-                               management_option_form=management_option_form,
                                form=form,
                                item_names=item_names)
