@@ -7,7 +7,7 @@ from flask_login import current_user, login_user, logout_user, login_required
 from werkzeug.security import check_password_hash, generate_password_hash
 
 from app import db, requires_roles
-from models import User, FoodBank, Associate, StockLevels
+from models import User, FoodBank, Associate, StockLevels, OpeningHours
 from notifications.mail import send_reset_email
 from users.forms import LoginForm, RegisterForm
 from users.forms import UpdateAccountInformationForm, FavForm, RequestResetForm, ResetPasswordForm
@@ -284,8 +284,36 @@ def food_bank_information(food_bank_id):
                 # If the food bank ID is found, is_fav is set to true
                 is_fav = True
 
+    # Query's data needed
     food_bank = FoodBank.query.filter_by(id=food_bank_id).first()
     stock_levels = StockLevels.query.filter_by(fb_id=food_bank_id).first()
+    opening_times = OpeningHours.query.filter_by(address_id=food_bank_id).all()
+
+    # loops through the data and formats it in correct way
+    opening_times_data = []
+    for ot in opening_times:
+        opening_times_data.append([ot.day, ot.open_time, ot.close_time])
+
+    # Dictionary of information to be passed through to HTML, default to closed
+    opening_times_format = {'Monday': 'Closed',
+                            'Tuesday': 'Closed',
+                            'Wednesday': 'Closed',
+                            'Thursday': 'Closed',
+                            'Friday': 'Closed',
+                            'Saturday': 'Closed',
+                            'Sunday': 'Closed'}
+
+    # loops through each opening time data and finds the corresponding day
+    days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
+    for index in range(len(opening_times_data)):
+        for day in range(len(days)):
+            if days[day] == opening_times_data[index][0]:
+                # formats time correctly
+                open_t = (str(opening_times_data[index][1]))[0:5]
+                close_t = (str(opening_times_data[index][2]))[0:5]
+                # changes the dictionary data for that day
+                opening_times_format[opening_times_data[index][0]] = open_t + " - " + close_t
+                break
 
     # stores the food banks latitude and longitude
     address = food_bank.address[0]
@@ -299,6 +327,10 @@ def food_bank_information(food_bank_id):
                            fb_email=food_bank.email,
                            fb_phone=food_bank.phone_number,
                            fb_web=food_bank.website,
+                           fb_num_road=address.number_and_road,
+                           town=address.town,
+                           postcode=address.postcode,
+                           opening_times=opening_times_format,
                            form=form,
                            is_fav=is_fav)
 
