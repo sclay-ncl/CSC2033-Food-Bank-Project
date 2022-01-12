@@ -521,21 +521,21 @@ button:active {
     text-align: center;
     color: green;
     box-sizing: border-box;
-    width: 300px;
+    width: 270px;
 }
 
 .med-stock{
     text-align: center;
     color: orange;
     box-sizing: border-box;
-    width: 300px;
+    width: 270px;
 }
 
 .low-stock{
     text-align: center;
     color: red;
     box-sizing: border-box;
-    width: 300px;
+    width: 270px;
 }
 
 .column {
