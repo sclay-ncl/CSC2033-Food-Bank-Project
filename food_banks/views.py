@@ -139,6 +139,8 @@ def manage_stock():
         current_food_bank.management_option = management_option_form.option.data
         db.session.commit()
 
+        return redirect(url_for('food_banks.manage_stock'))
+
     # if food bank has chosen to manually set stock levels
     if current_food_bank.management_option == 0:
         stock_levels = StockLevels.query.filter_by(fb_id=current_food_bank.id).first()
