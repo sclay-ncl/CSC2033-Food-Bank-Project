@@ -92,7 +92,7 @@ class CategoryBoundaryForm(Form):
 class StockQuantityForm(FlaskForm):
     """Form combing ItemStockForms used to update the quantity of stock across many items"""
     item_forms = FieldList(FormField(ItemStockForm))
-    category_boundary_form = CategoryBoundaryForm()
+    category_boundary_form = FormField(CategoryBoundaryForm)
     submit = SubmitField()
 
 class StockManagementOptionForm(FlaskForm):

@@ -2,8 +2,6 @@ from datetime import datetime
 
 from rfeed import Item, Feed
 
-from models import FoodBank
-
 
 class RSSManager:
     """Uses the rfeed library to create a stock alerts RSS feed"""
@@ -14,6 +12,7 @@ class RSSManager:
                          description="Alert feed for food bank stock notifications.")
 
     def generate_item(self, food_bank_id, generated_message):
+        from models import FoodBank  # imported here to avoid circular imports
         food_bank = FoodBank.query.filter_by(id=food_bank_id).first()
         new_item = Item(title=food_bank.name,
                         link=f"url/food-bank-information/{food_bank_id})",

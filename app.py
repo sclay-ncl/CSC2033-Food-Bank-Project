@@ -6,6 +6,8 @@ from flask import Flask, render_template, request
 from flask_login import current_user, LoginManager, login_user
 from flask_sqlalchemy import SQLAlchemy
 
+from notifications.rss import RSSManager
+
 app = Flask(__name__)
 
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
@@ -19,6 +21,7 @@ app.config['RECAPTCHA_PUBLIC_KEY'] = "6LfFdRMcAAAAAEeOwLocqoG8LhRNZhE0TYF8MdMG"
 app.config['RECAPTCHA_PRIVATE_KEY'] = "6LfFdRMcAAAAAILSgmbrJcTLnkDV5fG-xwPzyoR4"
 
 db = SQLAlchemy(app)
+rss = RSSManager()
 
 
 # FUNCTIONS
