@@ -191,6 +191,10 @@ def profile():
 @users_blueprint.route('/update-profile', methods=['POST', 'GET'])
 @login_required
 def update_profile():
+    """
+    @author: Sol Clay
+    Allows the user to update their profile information
+    """
     user = current_user
     form = UpdateAccountInformationForm()  # show update form
     if form.validate_on_submit():  # if form is valid

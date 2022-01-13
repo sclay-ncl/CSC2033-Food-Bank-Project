@@ -4,7 +4,10 @@ from wtforms.validators import Email, Length, InputRequired, EqualTo
 
 
 class FoodBankRegistrationForm(FlaskForm):
-    """Form for admins to add new food banks to the database"""
+    """
+    @author: Sol Clay
+    Form for admins to add new food banks to the database
+    """
 
     # food bank information
     name = StringField(validators=[InputRequired(), Length(max=100)])  # max length set to conform with database
