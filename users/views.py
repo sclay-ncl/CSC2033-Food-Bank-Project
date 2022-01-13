@@ -117,12 +117,17 @@ def register():
         # if the inputted username matches up with a username in the db, return the user to the register page
         lat_long = get_lat_long(str(form.number_and_road.data), str(form.town.data), str(form.postcode.data).upper())
 
+        if form.role.data == 'Picking up food':
+            usr_role = 'collector'
+        else:
+            usr_role = 'donor'
+
         new_user = User(email=form.email.data,
                         first_name=form.first_name.data,
                         last_name=form.last_name.data,
                         password=generate_password_hash(form.password.data),
                         phone_number=form.phone_number.data,
-                        role=form.role.data,
+                        role=usr_role,
                         number_and_road=form.number_and_road.data,
                         town=form.town.data,
                         postcode=form.postcode.data,
