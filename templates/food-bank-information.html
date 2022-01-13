@@ -40,6 +40,32 @@ const marker = new mapboxgl.Marker().setLngLat([long, lat]).setPopup(popup).addT
 </script>
     </div>
 
+    <div class="div-bg" style="width: 75%; max-width: 850px">
+        <h4> Address Details: </h4>
+        <p> {{ fb_num_road }}, {{ town }}, {{ postcode }} </p> <br>
+
+        <h4> Contact Details: </h4>
+        <p> Email:  {{ fb_email }} </p>
+        <p> Phone number: {{ fb_phone }} </p>
+        <p> Website: {{ fb_web if fb_web is not none else 'Not Avaialble'}} </p> <br>
+
+        <h4> Opening Times: </h4>
+        <p> Monday: {{ opening_times['Monday'] }} </p>
+        <p> Tuesday: {{ opening_times['Tuesday'] }} </p>
+        <p> Wednesday: {{ opening_times['Wednesday'] }} </p>
+        <p> Thursday: {{ opening_times['Thursday'] }} </p>
+        <p> Friday: {{ opening_times['Friday'] }} </p>
+        <p> Saturday: {{ opening_times['Saturday'] }} </p>
+        <p> Sunday: {{ opening_times['Sunday'] }} </p>
+        <br>
+    </div>
+
+<div class="div-bg" style="max-width: 850px">
+    <h4> {{ fb_name }}'s Stock Needs </h4>
+
+    <p> This is a basic overview of {{ fb_name }}'s stock. <br> Please, if possible, donate foods and items which
+        <br> are in low stock and avoid items which we are high in stock. </p>
+    <br><br>
 
     <div class="row">
     <div class="col">
@@ -141,25 +167,6 @@ const marker = new mapboxgl.Marker().setLngLat([long, lat]).setPopup(popup).addT
 </div>
     </div>
 <br><br>
-
-    <div class="div-bg">
-        <h4> Address Details: </h4>
-        <p> {{ fb_num_road }}, {{ town }}, {{ postcode }} </p> <br>
-
-        <h4> Contact Details: </h4>
-        <p> Email:  {{ fb_email }} </p>
-        <p> Phone number: {{ fb_phone }} </p>
-        <p> Website: {{ fb_web if fb_web is not none else 'Not Avaialble'}} </p> <br>
-
-        <h4> Opening Times: </h4>
-        <p> Monday: {{ opening_times['Monday'] }} </p>
-        <p> Tuesday: {{ opening_times['Tuesday'] }} </p>
-        <p> Wednesday: {{ opening_times['Wednesday'] }} </p>
-        <p> Thursday: {{ opening_times['Thursday'] }} </p>
-        <p> Friday: {{ opening_times['Friday'] }} </p>
-        <p> Saturday: {{ opening_times['Saturday'] }} </p>
-        <p> Sunday: {{ opening_times['Sunday'] }} </p>
-
-    </div>
+</div>
 
 {% endblock %}

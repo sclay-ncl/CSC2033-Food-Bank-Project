@@ -48,6 +48,7 @@ class User(db.Model, UserMixin):
 
     def get_reset_token(self, expires_sec=900):
         """
+            @author: Anthony Clermont
             Generates the users reset token
 
             @param: expires_sec, the amount of time the token will be valid: 15 minutes
@@ -60,6 +61,7 @@ class User(db.Model, UserMixin):
     @staticmethod
     def verify_reset_token(token):
         """
+            @author: Anthony Clermont
             Checks if the token given is valid
 
             @param: token, the token given by the user which needs to be authenticated

@@ -6,6 +6,7 @@ from flask import url_for
 
 def send(subject, email_text, recip):
     """
+        @author: Anthony Clermont
         Function sends email(s)
 
         @param: subject, the email subject line
@@ -46,6 +47,7 @@ def send_mail(food_bank_id, msg):
 
 def send_reset_email(user):
     """
+        @author: Anthony Clermont
         Function constructs the reset email
 
         @param: user, the user object which has requested the password reset

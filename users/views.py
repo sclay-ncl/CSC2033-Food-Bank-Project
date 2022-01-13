@@ -18,6 +18,7 @@ users_blueprint = Blueprint('users', __name__, template_folder='templates')
 
 def get_lat_long(number_road, city, post_code):
     """
+    @author: Anthony Clermont
     Function returns the latitude and longitude of a given address
 
     @param: address, address of desired latitude and longitude co-ordinates
@@ -57,6 +58,7 @@ def get_lat_long(number_road, city, post_code):
 # https://stackoverflow.com/questions/41336756/find-the-closest-latitude-and-longitude parts took from this
 def find_closest_fb(fb_address_lat, db_address_long):
     """
+    @author: Anthony Clermont
     Function returns the latitude and longitude of the closest food bank to the logged in user.
 
     @param: usr_lat: The current user's latitude co-ordinate
@@ -115,12 +117,17 @@ def register():
         # if the inputted username matches up with a username in the db, return the user to the register page
         lat_long = get_lat_long(str(form.number_and_road.data), str(form.town.data), str(form.postcode.data).upper())
 
+        if form.role.data == 'Picking up food':
+            usr_role = 'collector'
+        else:
+            usr_role = 'donor'
+
         new_user = User(email=form.email.data,
                         first_name=form.first_name.data,
                         last_name=form.last_name.data,
                         password=generate_password_hash(form.password.data),
                         phone_number=form.phone_number.data,
-                        role=form.role.data,
+                        role=usr_role,
                         number_and_road=form.number_and_road.data,
                         town=form.town.data,
                         postcode=form.postcode.data,
@@ -150,7 +157,11 @@ def login():
 
         else:
             login_user(user)
-            return render_template('profile.html')
+            if user.role == 'food_bank':
+                return redirect(url_for('food_banks.manage_stock'))
+            else:
+                return render_template('profile.html')
+
     # if the login details are correct it will redirect the user to the home page
     return render_template('login.html', form=form)
 
@@ -203,9 +214,10 @@ def update_profile():
 @users_blueprint.route('/food-bank-search', methods=['POST', 'GET'])
 def food_bank_search():
     """
-        Function loads data needed for the food bank search page and then directs the user to that page
+    @author: Anthony Clermont
+    Function loads data needed for the food bank search page and then directs the user to that page
 
-        @return: Food bank search view for either a logged in or anonymous user
+    @return: Food bank search view for either a logged in or anonymous user
     """
 
     lat = []
@@ -249,11 +261,12 @@ def food_bank_search():
 @users_blueprint.route('/food-bank-information/<food_bank_id>', methods=['POST', 'GET'])
 def food_bank_information(food_bank_id):
     """
-           Function loads data needed for to display information about the chosen food bank
+    @author: Anthony Clermont
+    Function loads data needed for to display information about the chosen food bank
 
-           @param: food_bank_id, The id of the food bank which page needs to be loaded
+    @param: food_bank_id, The id of the food bank which page needs to be loaded
 
-           @return: Food bank information view about the chosen food bank
+    @return: Food bank information view about the chosen food bank
     """
 
     # The form used for logged in users to favourite/un-favourite the food bank
@@ -338,9 +351,10 @@ def food_bank_information(food_bank_id):
 @users_blueprint.route('/donate')
 def donate():
     """
-               Function displays the donate page
+    @author: Anthony Clermont
+    Function displays the donate page
 
-               @return: Donate view
+    @return: Donate view
     """
 
     return render_template('donate.html')
@@ -349,9 +363,10 @@ def donate():
 @users_blueprint.route('/reset_password', methods=['GET', 'POST'])
 def reset_request():
     """
-               Function loads data needed for to send password reset email
+    @author: Anthony Clermont
+    Function loads data needed for to send password reset email
 
-               @return: Loads either the page again if not valid or the login page
+    @return: Loads either the page again if not valid or the login page
     """
 
     # If user is logged in they dont need to reset their password so is directed to the index page
@@ -375,13 +390,14 @@ def reset_request():
 @users_blueprint.route('/reset_password/<token>', methods=['GET', 'POST'])
 def reset_token(token):
     """
-                   Function loads data needed for to send password reset email
+    @author: Anthony Clermont
+    Function loads data needed for to send password reset email
 
-                   @param: token, The user token used to verify the user
+    @param: token, The user token used to verify the user
 
-                   @return: Loads the login page if password has been reset,
-                            request password reset page reset if token is invalid/expired or
-                            reset token page if user needs to enter a new password.
+    @return: Loads the login page if password has been reset,
+            request password reset page reset if token is invalid/expired or
+            reset token page if user needs to enter a new password.
     """
 
     # Calls class method of the user to verify the given token, will return true if valid
