@@ -524,14 +524,14 @@ button:active {
     width: 300px;
 }
 
-.med-stock{
+.low-stock{
     text-align: center;
     color: orange;
     box-sizing: border-box;
     width: 300px;
 }
 
-.low-stock{
+.urgent-stock{
     text-align: center;
     color: red;
     box-sizing: border-box;

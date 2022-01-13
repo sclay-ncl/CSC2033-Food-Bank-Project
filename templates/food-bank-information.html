@@ -44,98 +44,97 @@ const marker = new mapboxgl.Marker().setLngLat([long, lat]).setPopup(popup).addT
     <div class="row">
     <div class="col">
 <table class="high-stock">
-<tr><td>High in stock:</td></tr>
-    {% if fb_stock.starchy > fb_stock.starchy_high %}
+<tr><td>Well stocked:</td></tr>
+    {% if fb_stock.starchy == 2 %}
     <tr><td>Starchy foods</td></tr>
     {% endif %}
-    {% if fb_stock.protein > fb_stock.protein_high %}
+    {% if fb_stock.protein == 2 %}
     <tr><td>Protein</td></tr>
     {% endif %}
-    {% if fb_stock.fruit_veg > fb_stock.fruit_veg_high %}
+    {% if fb_stock.fruit_veg == 2 %}
     <tr><td>Fruit and vegetables</td></tr>
     {% endif %}
-    {% if fb_stock.soup_sauce > fb_stock.soup_sauce_high %}
+    {% if fb_stock.soup_sauce == 2 %}
     <tr><td>Soups</td></tr>
     {% endif %}
-    {% if fb_stock.drinks > fb_stock.drinks_high %}
+    {% if fb_stock.drinks == 2 %}
     <tr><td>Drinks</td></tr>
     {% endif %}
-    {% if fb_stock.snacks > fb_stock.snacks_high %}
+    {% if fb_stock.snacks == 2 %}
     <tr><td>Snacks</td></tr>
     {% endif %}
-    {% if fb_stock.cooking_ingredients > fb_stock.cooking_ingredients_high %}
+    {% if fb_stock.cooking_ingredients == 2 %}
     <tr><td>Cooking Ingredients</td></tr>
     {% endif %}
-    {% if fb_stock.condiments > fb_stock.condiments_high %}
+    {% if fb_stock.condiments == 2 %}
     <tr><td>Condiments</td></tr>
     {% endif %}
-    {% if fb_stock.toiletries > fb_stock.toiletries_high %}
+    {% if fb_stock.toiletries == 2 %}
     <tr><td>Toiletries</td></tr>
     {% endif %}
         </table>
     </div>
     <div class="col">
-        <table class="med-stock">
-            <tr><td>Medium stock:</td></tr>
-        {% if fb_stock.starchy > fb_stock.starchy_low and fb_stock.starchy < fb_stock.starchy_high%}
+        <table class="low-stock">
+            <tr><td>Low in stock:</td></tr>
+        {% if fb_stock.starchy == 1%}
         <tr><td>Starchy foods</td></tr>
         {% endif %}
-        {% if fb_stock.protein > fb_stock.protein_low and fb_stock.protein < fb_stock.protein_high%}
+        {% if fb_stock.protein == 1 %}
         <tr><td>Protein</td></tr>
         {% endif %}
-        {% if fb_stock.fruit_veg > fb_stock.fruit_veg_low and fb_stock.fruit_veg < fb_stock.fruit_veg_high%}
+        {% if fb_stock.fruit_veg == 1 %}
         <tr><td>Fruit and vegetables</td></tr>
         {% endif %}
-        {% if fb_stock.soup_sauce > fb_stock.soup_sauce_low and fb_stock.soup_sauce < fb_stock.soup_sauce_high%}
+        {% if fb_stock.soup_sauce == 1 %}
         <tr><td>Soups</td></tr>
         {% endif %}
-        {% if fb_stock.drinks > fb_stock.drinks_low and fb_stock.drinks < fb_stock.drinks_high%}
+        {% if fb_stock.drinks == 1 %}
         <tr><td>Drinks</td></tr>
         {% endif %}
-        {% if fb_stock.snacks > fb_stock.snacks_low and fb_stock.snacks < fb_stock.snacks_high%}
+        {% if fb_stock.snacks == 1 %}
         <tr><td>Snacks</td></tr>
         {% endif %}
-        {% if fb_stock.cooking_ingredients > fb_stock.cooking_ingredients_low and
-        fb_stock.cooking_ingredients < fb_stock.cooking_ingredients_high%}
+        {% if fb_stock.cooking_ingredients == 1 %}
         <tr><td>Cooking Ingredients</td></tr>
         {% endif %}
-        {% if fb_stock.condiments > fb_stock.condiments_low and fb_stock.condiments < fb_stock.condiments_high%}
+        {% if fb_stock.condiments == 1 %}
         <tr><td>Condiments</td></tr>
         {% endif %}
-        {% if fb_stock.toiletries > fb_stock.toiletries_low and fb_stock.toiletries < fb_stock.toiletries_high%}
+        {% if fb_stock.toiletries == 1 %}
         <tr><td>Toiletries</td></tr>
         {% endif %}
         </table>
     </div>
 
 <div class="col">
-<table class="low-stock">
-<tr><td>Low in stock:</td></tr>
-    {% if fb_stock.starchy < fb_stock.starchy_low %}
+<table class="urgent-stock">
+<tr><td>Urgently needed:</td></tr>
+    {% if fb_stock.starchy == 0 %}
     <tr><td>Starchy foods</td></tr>
     {% endif %}
-    {% if fb_stock.protein < fb_stock.protein_low %}
+    {% if fb_stock.protein == 0 %}
     <tr><td>Protein</td></tr>
     {% endif %}
-    {% if fb_stock.fruit_veg < fb_stock.fruit_veg_low %}
+    {% if fb_stock.fruit_veg == 0 %}
     <tr><td>Fruit and vegetables</td></tr>
     {% endif %}
-    {% if fb_stock.soup_sauce < fb_stock.soup_sauce_low %}
+    {% if fb_stock.soup_sauce == 0 %}
     <tr><td>Soups</td></tr>
     {% endif %}
-    {% if fb_stock.drinks < fb_stock.drinks_low %}
+    {% if fb_stock.drinks == 0 %}
     <tr><td>Drinks</td></tr>
     {% endif %}
-    {% if fb_stock.snacks < fb_stock.snacks_low %}
+    {% if fb_stock.snacks == 0 %}
     <tr><td>Snacks</td></tr>
     {% endif %}
-    {% if fb_stock.cooking_ingredients < fb_stock.cooking_ingredients_low %}
+    {% if fb_stock.cooking_ingredients == 0 %}
     <tr><td>Cooking Ingredients</td></tr>
     {% endif %}
-    {% if fb_stock.condiments < fb_stock.condiments_low %}
+    {% if fb_stock.condiments == 0 %}
     <tr><td>Condiments</td></tr>
     {% endif %}
-    {% if fb_stock.toiletries < fb_stock.toiletries_low %}
+    {% if fb_stock.toiletries == 0 %}
     <tr><td>Toiletries</td></tr>
     {% endif %}
         </table>
