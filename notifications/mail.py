@@ -6,7 +6,7 @@ from flask import url_for
 
 def send(subject, email_text, recip):
     """
-        @author: Anthony Clermont
+        @author: Anthony Clermont, Nathan Hartley
         Function sends email(s)
 
         @param: subject, the email subject line
@@ -29,6 +29,7 @@ def send(subject, email_text, recip):
 
 def send_mail(food_bank_id, msg):
     """
+        @author: Nathan Hartley
         Function constructs the needed stock email
 
         @param: food_bank_id, the id of the food bank which needs the food
