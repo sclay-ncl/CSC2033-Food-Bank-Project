@@ -267,7 +267,7 @@ def food_bank_search():
 @users_blueprint.route('/food-bank-information/<food_bank_id>', methods=['POST', 'GET'])
 def food_bank_information(food_bank_id):
     """
-    @author: Anthony Clermont
+    @author: Anthony Clermont, Alli Edwards
     Function loads data needed for to display information about the chosen food bank
 
     @param: food_bank_id, The id of the food bank which page needs to be loaded
