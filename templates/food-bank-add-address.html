@@ -1,6 +1,10 @@
 {% extends "base.html" %}
 
 {% block content %}
+
+<!-- @author Tess Goulandris
+Displaying a form where a food banks can add an address -->
+
 <div class="update-profile-form">
     {% with messages = get_flashed_messages(with_categories=true) %}
         {% if messages %}
