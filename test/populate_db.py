@@ -10,11 +10,13 @@ from models import User, FoodBank, Item, OpeningHours, Address, Stocks, StockLev
 
 def csv_to_list(file, start_index=0):
     """
+    @author: Sol Clay
+
     Converts data stored in csv files into a list of lists that contain the database field data
 
-    :param file: the csv file containing the data
-    :param start_index: defines which column the list should begin at
-    :return output: a list of lists, each list containing the field data for one table row """
+    @param file: the csv file containing the data
+    @param start_index: defines which column the list should begin at
+    @return output: a list of lists, each list containing the field data for one table row """
 
     with open(file, mode='r') as f:
         csv_data = csv.reader(f)
@@ -24,11 +26,13 @@ def csv_to_list(file, start_index=0):
 
 def convert_to_object(data, object_type):
     """
+    @author: Sol Clay, Anthony Clermont
+
     Converts database field data stored in lists into sqlalchemy models
 
-    :param data: the data stored in lists
-    :param object_type: the model to which the data should be converted to
-    :return list of sqlalchemy model objects
+    @param data: the data stored in lists
+    @param object_type: the model to which the data should be converted to
+    @return list of sqlalchemy model objects
     """
     objects = []
     for i in range(1, len(data)):
@@ -85,10 +89,12 @@ def convert_to_object(data, object_type):
 
 def generate_stocks(low, high):
     """
+    @author: Sol Clay
+
     Generates instances of the association table Stocks with a bounded random quantity
 
-    :param low: lower bound for stock count
-    :param high: upper bound for stock count
+    @param low: lower bound for stock count
+    @param high: upper bound for stock count
     """
     items_count = db.session.query(Item).count()
     food_bank_count = db.session.query(FoodBank).count()
@@ -101,6 +107,8 @@ def generate_stocks(low, high):
 
 def generate_notify():
     """"
+    @author: Sol Clay
+
     Generates instances of the association table notify for each user with the role donor, picking a random food bank
     """
     donor_users = User.query.filter_by(role="donor").all()
@@ -111,7 +119,10 @@ def generate_notify():
 
 
 def generate_stock_levels():
-    """Generates a stock_levels table for each food bank"""
+    """
+    @author: Sol Clay
+    Generates a stock_levels table for each food bank
+    """
     food_banks = FoodBank.query.all()
     for f in food_banks:
         db.session.add(StockLevels(fb_id=f.id))
@@ -121,9 +132,11 @@ def generate_stock_levels():
 
 def add_to_db(object_list):
     """
+    @author: Sol Clay
+
     Iterates through a list of objects and adds them to the database session
 
-    :param object_list: list of sqlalchemy models
+    @param object_list: list of sqlalchemy models
     """
     for i in object_list:
         db.session.add(i)
@@ -131,6 +144,7 @@ def add_to_db(object_list):
 
 def pop_db():
     """
+    @author: Sol Clay
     Populates the database with data, some randomly generated, some defined in csv files.
     """
     db.drop_all()

@@ -1,5 +1,6 @@
 {% extends "base.html" %}
-
+<!-- @author Tess Goulandris
+Displaying a form where a user can create an account -->
 {% block content %}
 
         <div class="register-form">
@@ -17,52 +18,72 @@
                     {{ form.csrf_token() }}
                         {{ form.first_name(class="first-name", placeholder="First Name") }}
                         {% for error in form.first_name.errors %}
-                            {{ error }}
+                            <div class="notification-is-warning">
+                                {{ error }}
+                            </div>
                         {% endfor %}
 
                     {{ form.last_name(class="last-name", placeholder="Last Name") }}
                         {% for error in form.last_name.errors %}
-                            {{ error }}
+                            <div class="notification-is-warning">
+                                {{ error }}
+                            </div>
                         {% endfor %}
 
                     {{ form.email(class="input", placeholder="Enter your Email Address") }}
                         {% for error in form.email.errors %}
-                            {{ error }}
+                            <div class="notification-is-warning">
+                                {{ error }}
+                            </div>
                         {% endfor %}
 
                     {{ form.phone_number(class="input", placeholder="Enter your Phone Number") }}
                         {% for error in form.phone_number.errors %}
-                            {{ error }}
+                            <div class="notification-is-warning">
+                                {{ error }}
+                            </div>
                         {% endfor %}
 
                     {{ form.number_and_road(class="input", placeholder="Enter the first line of your address") }}
                         {% for error in form.number_and_road.errors %}
-                            {{ error }}
+                            <div class="notification-is-warning">
+                                {{ error }}
+                            </div>
                         {% endfor %}
 
                     {{ form.town(class="input", placeholder="Enter your town/city") }}
                         {% for error in form.town.errors %}
-                            {{ error }}
+                            <div class="notification-is-warning">
+                                {{ error }}
+                            </div>
                         {% endfor %}
 
                     {{ form.postcode(class="input", placeholder="Enter your postcode") }}
                         {% for error in form.postcode.errors %}
-                            {{ error }}
+                            <div class="notification-is-warning">
+                                {{ error }}
+                            </div>
                         {% endfor %}
 
                     {{ form.role(class="input", placeholder="Are you picking up or donating food?") }}
                         {% for error in form.role.errors %}
-                            {{ error }}
+                            <div class="notification-is-warning">
+                                {{ error }}
+                            </div>
                         {% endfor %}
 
                     {{ form.password(class="input", placeholder="Enter your password") }}
                         {% for error in form.password.errors %}
-                            {{ error }}
+                            <div class="notification-is-warning">
+                                {{ error }}
+                            </div>
                         {% endfor %}
 
                     {{ form.confirm_password(class="input", placeholder="Confirm your password") }}
                         {% for error in form.confirm_password.errors %}
-                            {{ error }}
+                            <div class="notification-is-warning">
+                                {{ error }}
+                            </div>
                         {% endfor %}
 
                     {{ form.submit(class="button") }}

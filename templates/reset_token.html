@@ -17,11 +17,15 @@
                         {{ form.csrf_token() }}
                             {{ form.password(class="input", placeholder="Password") }}
                             {% for error in form.password.errors %}
+                                <div class="notification-is-warning">
                                 {{ error }}
+                                </div>
                             {% endfor %}
                             {{ form.confirm_password(class="input", placeholder="Confirm Password") }}
                             {% for error in form.confirm_password.errors %}
+                                <div class="notification-is-warning">
                                 {{ error }}
+                                </div>
                             {% endfor %}
 
                         {{ form.submit(class="button") }}

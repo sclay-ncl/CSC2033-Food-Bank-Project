@@ -7,6 +7,10 @@ from users.forms import postcode_check
 
 
 class UpdateFoodBankInformationForm(FlaskForm):
+    """
+    @author: Sol Clay
+    Form for food banks to update their displayed infomration
+    """
     name = StringField(validators=[InputRequired(), Length(max=100)])  # max length set to conform with database
     email = StringField(validators=[InputRequired(), Email(), Length(max=50)])
     phone_number = StringField(validators=[])  # TODO: Add phone validation
@@ -15,6 +19,10 @@ class UpdateFoodBankInformationForm(FlaskForm):
     submit = SubmitField()
 
 class AddressForm(FlaskForm):
+    """
+    @author: Sol Clay
+    Form for food banks to add an address to their information page
+    """
     building_name = StringField(validators=[Length(max=100)])  # not all places have a building name, therefore nullable
     number_and_road = StringField(validators=[InputRequired(), Length(max=50)])
     town = StringField(validators=[InputRequired(), Length(max=50)])
@@ -23,7 +31,10 @@ class AddressForm(FlaskForm):
     submit = SubmitField()
 
 class OpeningHoursForm(FlaskForm):
-    """Form for food banks to add opening times"""
+    """
+    @author: Sol Clay
+    Form for food banks to add opening times to an address
+    """
 
     days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
     hours = ["0" + str(x) if x < 10 else str(x) for x in range(0, 25)]
@@ -39,6 +50,7 @@ class OpeningHoursForm(FlaskForm):
 
     def validate_day(form, day):
         """
+        @author: Sol Clay
         Validates that the day selected has no associated opening hours
         """
         # get days that have already had opening times set
@@ -47,7 +59,10 @@ class OpeningHoursForm(FlaskForm):
             raise ValidationError(f"Opening times for {form.day.data} have already been set.")
 
 class ManualStockLevelsForm(FlaskForm):
-    """ Form for food banks to manually set their stock levels """
+    """
+    @author: Sol Clay
+    Form for food banks to manually set their stock levels
+    """
 
     levels = [(2, "High"), (1, "Low"), (0, "Urgent")]
     starchy = SelectField(choices=levels)
@@ -63,12 +78,18 @@ class ManualStockLevelsForm(FlaskForm):
     submit = SubmitField()
 
 class ItemStockForm(Form):
-    """Form for updating the quantity of an item in stock"""
+    """
+    @author: Sol Clay
+    Form for updating the quantity of an item in stock
+    """
     item_id = IntegerField()  # not rendered, used to store item_id as formfield destroys non-field variables#
     quantity = IntegerField()
 
 class CategoryBoundaryForm(Form):
-    """Form for the setting of the category stock level boundaries"""
+    """
+    @author: Sol Clay
+    Form for the setting of the category stock level boundaries
+    """
     starchy_low = IntegerField()
     protein_low = IntegerField()
     fruit_veg_low = IntegerField()
@@ -90,12 +111,18 @@ class CategoryBoundaryForm(Form):
     toiletries_high = IntegerField()
 
 class StockQuantityForm(FlaskForm):
-    """Form combing ItemStockForms used to update the quantity of stock across many items"""
+    """
+    @author: Sol Clay
+    Form combining ItemStockForms and CategoryBoundaryForm used to update the quantity of stock across many items
+    """
     item_forms = FieldList(FormField(ItemStockForm))
     category_boundary_form = FormField(CategoryBoundaryForm)
     submit = SubmitField()
 
 class StockManagementOptionForm(FlaskForm):
-    """Form to choose between stock management options"""
+    """
+    @author: Sol Clay
+    Form to choose between stock management options
+    """
     option = SelectField(choices=[(0, "Manual"), (1, "Automatic")])
     submit = SubmitField()

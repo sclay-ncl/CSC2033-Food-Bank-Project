@@ -13,11 +13,11 @@ admin_blueprint = Blueprint('admin', __name__, template_folder='templates')
 
 def delete_log(file, line_delete):
     """
-        @author: Anthony Clermont
-        Function deletes a log from log file
+    @author: Anthony Clermont
+    Function deletes a log from log file
 
-        @param: file, the file path for the file to delete from
-        @param: line_delete, the index of the line to be deleted
+    @param: file, the file path for the file to delete from
+    @param: line_delete, the index of the line to be deleted
     """
     count = len(open(file).readlines())
 
@@ -43,10 +43,10 @@ def delete_log(file, line_delete):
 
 def get_logs():
     """
-        @author: Anthony Clermont
-        Function gets all the log data
+    @author: Anthony Clermont
+    Function gets all the log data
 
-        @return, returns all log data in an array
+    @return, returns all log data in an array
     """
     # Opens log file
     with open('admin-logs/admin-log.log', "r") as f:
@@ -65,10 +65,10 @@ def get_logs():
 
 def get_log_graph_data():
     """
-        @author: Anthony Clermont
-        Function organises data for graph
+    @author: Anthony Clermont
+    Function organises data for graph
 
-        @return, returns tuple containing data for the rows and columns of the graph
+    @return, returns tuple containing data for the rows and columns of the graph
     """
     # Opens log file
     with open('admin-logs/admin-log.log', "r") as f:
@@ -103,10 +103,10 @@ def get_log_graph_data():
 
 def get_no_visits():
     """
-        @author: Anthony Clermont
-        Function gets the number of visits to the application
+    @author: Anthony Clermont
+    Function gets the number of visits to the application
 
-        @return, returns the number of visits to the application
+    @return, returns the number of visits to the application
     """
     with open('admin-logs/application-visits', "r") as f:
         return f.readline()
@@ -114,10 +114,10 @@ def get_no_visits():
 
 def get_no_users():
     """
-        @author: Anthony Clermont
-        Function gets the number of users registered
+    @author: Anthony Clermont
+    Function gets the number of users registered
 
-        @return, returns the number of users registered
+    @return, returns the number of users registered
     """
     user_count = db.session.query(User).count()
     return user_count
@@ -125,10 +125,10 @@ def get_no_users():
 
 def get_no_fb():
     """
-        @author: Anthony Clermont
-        Function gets the number of food banks registered
+    @author: Anthony Clermont
+    Function gets the number of food banks registered
 
-        @return, returns the number of food banks registered
+    @return, returns the number of food banks registered
     """
     fb_count = db.session.query(FoodBank).count()
     return fb_count
@@ -196,6 +196,11 @@ def log_delete(row_data):
 @login_required
 @requires_roles('admin')
 def food_bank_registration():
+    """
+    @author: Sol Clay
+    Allows admin users to register a new food bank on the database, creates a food_bank user account associated with
+    the food bank
+    """
     form = FoodBankRegistrationForm()
 
     if form.validate_on_submit():  # check if email is already used in the database

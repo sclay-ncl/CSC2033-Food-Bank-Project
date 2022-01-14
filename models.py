@@ -5,8 +5,11 @@ from app import db, rss, app
 from notifications.mail import send_mail
 
 class User(db.Model, UserMixin):
-    """Models the user table:
-    Stores all user information"""
+    """
+    @author: Sol Clay
+    Models the user table:
+    Stores all user information
+    """
 
     id = db.Column(db.Integer, primary_key=True)
     role = db.Column(db.String(50), nullable=False)
@@ -27,15 +30,16 @@ class User(db.Model, UserMixin):
 
     def update_information(self, first_name, last_name, email, phone_number, number_and_road, town, postcode):
         """
-            Updates information about the User
+        @author: Sol Clay
+        Updates information about the User
 
-            @param: first_name, The user's first name
-            @param: last_name, The user's last name
-            @param: email, The user's email
-            @param: phone_number, The user's phone number
-            @param: number_and_rood, The user's house number and road
-            @param: town, The user's town/city
-            @param: postcode, The user's postcode
+        @param: first_name, The user's first name
+        @param: last_name, The user's last name
+        @param: email, The user's email
+        @param: phone_number, The user's phone number
+        @param: number_and_rood, The user's house number and road
+        @param: town, The user's town/city
+        @param: postcode, The user's postcode
         """
         self.first_name = first_name
         self.last_name = last_name
@@ -77,8 +81,11 @@ class User(db.Model, UserMixin):
 
 
 class FoodBank(db.Model):
-    """Models the food_bank table:
-    Stores all Food Bank information"""
+    """
+    @author: Sol Clay
+    Models the food_bank table:
+    Stores all Food Bank information
+    """
 
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(100), nullable=False)
@@ -93,12 +100,13 @@ class FoodBank(db.Model):
 
     def update_information(self, name, email, phone_number, website):
         """
-                Updates information about the Food Bank
+        @author: Sol Clay
+        Updates information about the Food Bank
 
-                @param: name, The food bank's name
-                @param: email, The food bank's contact email
-                @param: phone_number, The food bank's contact phone number
-                @param: website, The food bank's website
+        @param: name, The food bank's name
+        @param: email, The food bank's contact email
+        @param: phone_number, The food bank's contact phone number
+        @param: website, The food bank's website
         """
         self.name = name
         self.email = email
@@ -108,6 +116,7 @@ class FoodBank(db.Model):
 
     def update_stock_levels(self):
         """
+        @author: Sol Clay
         Calculates and sets the stock levels for the food bank based on the quantity of items in each category
 
         @return urgent_categories: list of categories that have urgent level of stock
@@ -140,7 +149,10 @@ class FoodBank(db.Model):
 
     def generate_alert(self, urgent_categories):
         """
+        @author: Sol Clay
+
         Generates a text string used for notifying donors about the categories in which stock in urgent
+
         @param urgent_categories: list of categories that have an urgent level of stock
         @return message: formatted text string including the name of the food bank, all urgent categories and a link to
         donation suggestions.
@@ -160,7 +172,11 @@ class FoodBank(db.Model):
         return message
 
     def push_alerts(self):
-        """Pushes alerts to donor users and the rss feed"""
+        """
+        @author: Sol Clay
+
+        Pushes alerts to donor users and the rss feed
+        """
         urgent_categories = self.update_stock_levels()
         generated_message = self.generate_alert(urgent_categories)
         rss.generate_item(food_bank_id=self.id, generated_message=generated_message)
@@ -170,8 +186,12 @@ class FoodBank(db.Model):
 
 
 class Item(db.Model):
-    """Models the item table:
-    Stores item information"""
+    """
+    @author: Sol Clay
+
+    Models the item table:
+    Stores item information
+    """
 
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(100), nullable=False)
@@ -179,8 +199,12 @@ class Item(db.Model):
 
 
 class OpeningHours(db.Model):
-    """Models opening_hours table:
-    Stores the opening and closing times for a given day of a food bank address"""
+    """
+    @author: Sol Clay
+
+    Models opening_hours table:
+    Stores the opening and closing times for a given day of a food bank address
+    """
 
     address_id = db.Column(db.Integer, db.ForeignKey('address.id'), primary_key=True)
     day = db.Column(db.String(9), primary_key=True)
@@ -189,8 +213,12 @@ class OpeningHours(db.Model):
 
 
 class Address(db.Model):
-    """Models address table:
-    Store the address of a food bank"""
+    """
+    @author: Sol Clay
+
+    Models address table:
+    Store the address of a food bank
+    """
 
     id = db.Column(db.Integer, primary_key=True)
     fb_id = db.Column(db.Integer, db.ForeignKey('food_bank.id'))
@@ -205,7 +233,10 @@ class Address(db.Model):
 
 
 class StockLevels(db.Model):
-    """Models the stock_levels table:
+    """
+    @author: Sol Clay
+
+    Models the stock_levels table:
     Stores information about the stock level of each category of item for each food bank
     2 is high stock, 1 is low stock, 0 is urgent
     Also stores the bounds for stock level rankings
@@ -247,8 +278,12 @@ class StockLevels(db.Model):
 
 
 class Stocks(db.Model):
-    """Models the stocks association table that associates
-     the food_bank and item tables"""
+    """
+    @author: Sol Clay
+
+    Models the stocks association table that associates
+    the food_bank and item tables
+     """
     fb_id = db.Column(db.Integer, db.ForeignKey('food_bank.id'), primary_key=True)
     item_id = db.Column(db.Integer, db.ForeignKey("item.id"), primary_key=True)
     quantity = db.Column(db.Integer, nullable=False)

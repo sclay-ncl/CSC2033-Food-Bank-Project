@@ -1,6 +1,10 @@
 {% extends "base.html" %}
 
+<!-- @author Tess Goulandris
+Displaying a form where a user can login to an account -->
+
 {% block content %}
+
     <div class="login-form">
         {% with messages = get_flashed_messages(with_categories=true) %}
             {% if messages %}
@@ -16,16 +20,22 @@
                     {{ form.csrf_token() }}
                         {{ form.email(class="input", placeholder="Email") }}
                         {% for error in form.email.errors %}
-                            {{ error }}
+                            <div class="notification-is-warning">
+                                {{ error }}
+                            </div>
                         {% endfor %}
                         {{ form.password(class="input", placeholder="Password") }}
                         {% for error in form.password.errors %}
-                            {{ error }}
+                            <div class="notification-is-warning">
+                                {{ error }}
+                            </div>
                         {% endfor %}
             <div class="recaptcha">
                     {{ form.recaptcha }}
                     {% for error in form.recaptcha.errors %}
-                        {{ error }}
+                        <div class="notification-is-warning">
+                            {{ error }}
+                        </div>
                     {% endfor %}
             </div>
                     {{ form.submit(class="button") }}

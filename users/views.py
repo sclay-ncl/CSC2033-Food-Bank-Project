@@ -54,8 +54,9 @@ def get_lat_long(number_road, city, post_code):
 
     return latitude, longitude
 
-
-# https://stackoverflow.com/questions/41336756/find-the-closest-latitude-and-longitude parts took from this
+# https://stackoverflow.com/questions/4913349/haversine-formula-in-python-bearing-and-distance-between-two-gps-points
+# https://stackoverflow.com/questions/41336756/find-the-closest-latitude-and-longitude
+# parts of code used as reference from these links
 def find_closest_fb(fb_address_lat, db_address_long):
     """
     @author: Anthony Clermont
@@ -112,7 +113,7 @@ def register():
         user = User.query.filter_by(email=form.email.data).first()
 
         if user:
-            flash("This username already exists", 'info')
+            flash("This username already exists", 'danger')
             return render_template('register.html', form=form)
         # if the inputted username matches up with a username in the db, return the user to the register page
         lat_long = get_lat_long(str(form.number_and_road.data), str(form.town.data), str(form.postcode.data).upper())
@@ -137,6 +138,7 @@ def register():
         db.session.add(new_user)
         db.session.commit()
 
+        flash("Account Created", 'success')
         return redirect(url_for('users.login'))
 
     return render_template('register.html', form=form)
@@ -191,6 +193,10 @@ def profile():
 @users_blueprint.route('/update-profile', methods=['POST', 'GET'])
 @login_required
 def update_profile():
+    """
+    @author: Sol Clay
+    Allows the user to update their profile information
+    """
     user = current_user
     form = UpdateAccountInformationForm()  # show update form
     if form.validate_on_submit():  # if form is valid
@@ -415,6 +421,7 @@ def reset_token(token):
         user.password = hashed_password
         db.session.commit()
 
+        flash('Password Has Been Reset', 'success')
         return redirect(url_for('users.login'))
 
     return render_template('reset_token.html', form=form)

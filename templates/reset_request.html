@@ -17,7 +17,9 @@
                         {{ form.csrf_token() }}
                             {{ form.email(class="input", placeholder="Email") }}
                             {% for error in form.email.errors %}
+                                <div class="notification-is-danger">
                                 {{ error }}
+                                </div>
                             {% endfor %}
 
                         {{ form.submit(class="button") }}

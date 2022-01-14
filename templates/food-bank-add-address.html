@@ -1,6 +1,10 @@
 {% extends "base.html" %}
 
 {% block content %}
+
+<!-- @author Tess Goulandris
+Displaying a form where a food banks can add an address -->
+
 <div class="update-profile-form">
     {% with messages = get_flashed_messages(with_categories=true) %}
         {% if messages %}
@@ -17,22 +21,30 @@
             {{ form.csrf_token() }}
                 {{ form.building_name(class="input", placeholder="Building Name") }}
                 {% for error in form.building_name.errors %}
+                    <div class="notification-is-warning">
                     {{ error }}
+                    </div>
                 {% endfor %}
 
             {{ form.number_and_road(class="input", placeholder="Address line") }}
                 {% for error in form.number_and_road.errors %}
+                    <div class="notification-is-warning">
                     {{ error }}
+                    </div>
                 {% endfor %}
 
             {{ form.town(class="input", placeholder="Town") }}
                 {% for error in form.town.errors %}
+                    <div class="notification-is-warning">
                     {{ error }}
+                    </div>
                 {% endfor %}
 
             {{ form.postcode(class="input", placeholder="Postcode") }}
                 {% for error in form.postcode.errors %}
+                    <div class="notification-is-warning">
                     {{ error }}
+                    </div>
                 {% endfor %}
 
             {{ form.submit(class="button") }}

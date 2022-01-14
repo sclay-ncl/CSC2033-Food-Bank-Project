@@ -72,7 +72,10 @@ class LoginForm(FlaskForm):
 
 
 class UpdateAccountInformationForm(FlaskForm):
-    # TODO: Check if email already in database
+    """
+    @author: Sol Clay
+    Form for users to update their account information
+    """
     email = StringField(validators=[InputRequired(), Email(), Length(max=50)])
     first_name = StringField(validators=[InputRequired(), character_check, Length(max=50)])
     last_name: StringField = StringField(validators=[InputRequired(), character_check, Length(max=50)])
@@ -81,11 +84,6 @@ class UpdateAccountInformationForm(FlaskForm):
     postcode = StringField(validators=[InputRequired(), postcode_check, Length(max=50)])
     phone_number = StringField(validators=[Length(max=50)])
     role = SelectField(choices=['Picking up food', 'Donating food'])
-    submit = SubmitField()
-
-
-class DietaryRequirementsForm(FlaskForm):
-    requirements = StringField(Length(max=500))
     submit = SubmitField()
 
 
