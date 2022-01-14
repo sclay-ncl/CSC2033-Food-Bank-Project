@@ -1,3 +1,5 @@
+
+
 {% extends "base.html" %}
 
 {% block content %}
@@ -66,6 +68,10 @@ const marker = new mapboxgl.Marker().setLngLat([long, lat]).setPopup(popup).addT
     <p> This is a basic overview of {{ fb_name }}'s stock. <br> Please, if possible, donate foods and items which
         <br> are in low stock and avoid items which we are high in stock. </p>
     <br><br>
+
+<!-- author: Alli Edwards
+Table shows the stock level of all categories for given food bank
+Table rows only show if condition is met -->
 
     <div class="row">
     <div class="col">
