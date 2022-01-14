@@ -137,7 +137,7 @@ def internal_error(error):
 
 if __name__ == '__main__':
     """
-    @author: Anthony Clermont
+    @author: Anthony Clermont, Nathan Hartley
     main application run function
 
     @returns, runs application
