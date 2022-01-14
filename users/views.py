@@ -113,7 +113,7 @@ def register():
         user = User.query.filter_by(email=form.email.data).first()
 
         if user:
-            flash("This username already exists", 'info')
+            flash("This username already exists", 'danger')
             return render_template('register.html', form=form)
         # if the inputted username matches up with a username in the db, return the user to the register page
         lat_long = get_lat_long(str(form.number_and_road.data), str(form.town.data), str(form.postcode.data).upper())
@@ -138,6 +138,7 @@ def register():
         db.session.add(new_user)
         db.session.commit()
 
+        flash("Account Created", 'success')
         return redirect(url_for('users.login'))
 
     return render_template('register.html', form=form)
@@ -420,6 +421,7 @@ def reset_token(token):
         user.password = hashed_password
         db.session.commit()
 
+        flash('Password Has Been Reset', 'success')
         return redirect(url_for('users.login'))
 
     return render_template('reset_token.html', form=form)
