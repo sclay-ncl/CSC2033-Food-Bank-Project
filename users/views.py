@@ -54,8 +54,9 @@ def get_lat_long(number_road, city, post_code):
 
     return latitude, longitude
 
-
-# https://stackoverflow.com/questions/41336756/find-the-closest-latitude-and-longitude parts took from this
+# https://stackoverflow.com/questions/4913349/haversine-formula-in-python-bearing-and-distance-between-two-gps-points
+# https://stackoverflow.com/questions/41336756/find-the-closest-latitude-and-longitude
+# parts of code used as reference from these links
 def find_closest_fb(fb_address_lat, db_address_long):
     """
     @author: Anthony Clermont
