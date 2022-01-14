@@ -15,7 +15,10 @@ food_banks_blueprint = Blueprint('food_banks', __name__, template_folder='templa
 @login_required
 @requires_roles('food_bank')
 def update_information():
-    """Allows food bank account to update the contact information of their food bank"""
+    """
+    @author: Sol Clay
+    Allows food bank account to update the contact information of their food bank
+    """
     form = UpdateFoodBankInformationForm()
     current_food_bank = current_user.associated[0]  # get food bank associated with user
     if form.validate_on_submit():  # if form is valid
@@ -36,7 +39,10 @@ def update_information():
 @login_required
 @requires_roles('food_bank')
 def manage_addresses():
-    """Allows food bank user account to view, add and delete previously added addresses"""
+    """
+    @author: Sol Clay
+    Allows food bank user account to view, add and delete previously added addresses
+    """
     current_food_bank = current_user.associated[0]  # get food bank associated with user
     return render_template('food-bank-manage-addresses.html', addresses=current_food_bank.address)
 
@@ -45,7 +51,10 @@ def manage_addresses():
 @login_required
 @requires_roles('food_bank')
 def add_address():
-    """Renders the form for adding a new address"""
+    """
+    @author: Sol Clay
+    Renders the form for adding a new address
+    """
     form = AddressForm()
     current_food_bank = current_user.associated[0]  # get food bank associated with user
     if form.validate_on_submit():
@@ -66,7 +75,10 @@ def add_address():
 @login_required
 @requires_roles('food_bank')
 def delete_address(address_id):
-    """Deletes a given address"""
+    """
+    @author: Sol Clay
+    Deletes a given address
+    """
     address = Address.query.filter_by(id=address_id).first()
     if address.fb_id != current_user.associated[0].id:  # check if current user is associated with the food bank
         abort(403)  # abort to forbidden page
@@ -77,9 +89,13 @@ def delete_address(address_id):
 
 @food_banks_blueprint.route('/manage-opening-hours/<address_id>', methods=['GET', 'POST'])
 @login_required
+@requires_roles('food_bank')
 def manage_opening_hours(address_id):
-    """Allows food bank user account to view, add and delete previously added opening hours for their food bank's
-    addresses"""
+    """
+    @author: Sol Clay
+    Allows food bank user account to view, add and delete previously added opening hours for their food bank's
+    addresses
+    """
     address = Address.query.filter_by(id=address_id).first()
     if address.fb_id != current_user.associated[0].id:  # check if current user is associated with the food bank
         abort(403)  # abort to forbidden page
@@ -89,8 +105,12 @@ def manage_opening_hours(address_id):
 
 @food_banks_blueprint.route('/add-opening-hours/', methods=['GET', 'POST'])
 @login_required
+@requires_roles('food_bank')
 def add_opening_hours():
-    """Renders the form for adding new opening hours"""
+    """
+    @author: Sol Clay
+    Renders the form for adding new opening hours
+    """
     address_id = request.args.get('address_id')
     address = Address.query.filter_by(id=address_id).first()
     if address.fb_id != current_user.associated[0].id:  # check if current user is associated with the food bank
@@ -115,7 +135,10 @@ def add_opening_hours():
 @login_required
 @requires_roles('food_bank')
 def delete_opening_hours(address_id, day):
-    """Deletes opening hours for a given address and day"""
+    """
+    @author: Sol Clay
+    Deletes opening hours for a given address and day
+    """
     opening_hours = OpeningHours.query.filter_by(address_id=address_id, day=day).first()
     address = Address.query.filter_by(id=address_id).first()
     if address.fb_id != current_user.associated[0].id:  # check if current user is associated with the food bank
@@ -129,7 +152,10 @@ def delete_opening_hours(address_id, day):
 @requires_roles('food_bank')
 @food_banks_blueprint.route('/update-stock-option/', methods=['GET', 'POST'])
 def update_stock_option():
-    """Page to set food bank stock option preference"""
+    """
+    @author: Sol Clay, Anthony Clermont
+    Page to set food bank stock option preference
+    """
     current_food_bank = current_user.associated[0]
     form = StockManagementOptionForm(option=current_food_bank.management_option)
     if form.validate_on_submit():
