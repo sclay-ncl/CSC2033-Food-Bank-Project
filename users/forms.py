@@ -72,8 +72,7 @@ class RegisterForm(FlaskForm):
         if not p.match(self.password.data):
             raise ValidationError("Password must contain at least 1 digit and 1 uppercase letter.")
 
-    # TODO: figure out why this isn't working, no validation for phone is working
-    def validate_phone(self, phone_number):
+    def validate_phone_number(self, phone_number):
         """
         @author: Nathan Hartley
         @param: phone_number - The phone number inputted by the user
