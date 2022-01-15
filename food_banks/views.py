@@ -198,6 +198,12 @@ def manage_stock():
             stock_levels.condiments = form.condiments.data
             stock_levels.toiletries = form.toiletries.data
             db.session.commit()
+            urgent_categories = []
+            for field_name, value in form.data.items():  # iterate through submitted data
+                if field_name not in ["submit", "csrf_token"]:  # filter out unwanted fields
+                    if int(value) == 0: # check if level is urgent
+                        urgent_categories.append(field_name)
+            current_food_bank.push_alerts(urgent_categories=urgent_categories)
 
         return render_template('manage-stock.html', form=form)
 
@@ -229,7 +235,8 @@ def manage_stock():
                 setattr(stock_levels, category+"_low", form_boundary_low.data)  # set new level in database
                 setattr(stock_levels, category+"_high", form_boundary_high.data)
             db.session.commit()
-            current_food_bank.push_alerts()
+            urgent_categories = current_food_bank.update_stock_levels()
+            current_food_bank.push_alerts(urgent_categories=urgent_categories)
 
         # set up category boundary form
         form.category_boundary_form.starchy_low.data = stock_levels.starchy_low

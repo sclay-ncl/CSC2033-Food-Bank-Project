@@ -171,13 +171,12 @@ class FoodBank(db.Model):
                   f"For examples of what to donate for each category, please visit {examples_url}"
         return message
 
-    def push_alerts(self):
+    def push_alerts(self, urgent_categories):
         """
         @author: Sol Clay
 
         Pushes alerts to donor users and the rss feed
         """
-        urgent_categories = self.update_stock_levels()
         generated_message = self.generate_alert(urgent_categories)
         rss.generate_item(food_bank_id=self.id, generated_message=generated_message)
         rss.write_feed()
