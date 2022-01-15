@@ -2,7 +2,7 @@ import urllib.parse
 from math import cos, asin, sqrt, pi
 
 import requests
-from flask import redirect, url_for, render_template, flash, Blueprint, request
+from flask import redirect, url_for, render_template, flash, Blueprint, request, abort
 from flask_login import current_user, login_user, logout_user, login_required
 from werkzeug.security import check_password_hash, generate_password_hash
 
@@ -102,11 +102,17 @@ def find_closest_fb(fb_address_lat, db_address_long):
 
 @users_blueprint.route('/contact-us', methods=['GET', 'POST'])
 def contact_us():
+    if not current_user.is_anonymous and current_user.role == 'food_bank' or current_user.role == 'admin':
+        abort(403)  # abort to forbidden page
+
     return render_template('contact-us.html')
 
 
 @users_blueprint.route('/register', methods=['GET', 'POST'])
 def register():
+    if not current_user.is_anonymous:
+        return redirect(url_for('index'))
+
     form = RegisterForm()
 
     if form.validate_on_submit():
@@ -146,7 +152,8 @@ def register():
 
 @users_blueprint.route('/login', methods=['GET', 'POST'])
 def login():
-    # send_mail(1)
+    if not current_user.is_anonymous:
+        return redirect(url_for('index'))
 
     form = LoginForm()
 
@@ -191,6 +198,7 @@ def profile():
 
 
 @users_blueprint.route('/update-profile', methods=['POST', 'GET'])
+@requires_roles('donor', 'collector', 'admin')
 @login_required
 def update_profile():
     """
@@ -225,6 +233,9 @@ def food_bank_search():
 
     @return: Food bank search view for either a logged in or anonymous user
     """
+
+    if not current_user.is_anonymous and current_user.role == 'food_bank' or current_user.role == 'admin':
+        abort(403)  # abort to forbidden page
 
     lat = []
     long = []
@@ -276,6 +287,9 @@ def food_bank_information(food_bank_id):
 
     @return: Food bank information view about the chosen food bank
     """
+
+    if not current_user.is_anonymous and current_user.role == 'food_bank' or current_user.role == 'admin':
+        abort(403)  # abort to forbidden page
 
     # The form used for logged in users to favourite/un-favourite the food bank
     form = FavForm()
@@ -379,6 +393,8 @@ def donate():
 
     @return: Donate view
     """
+    if not current_user.is_anonymous and current_user.role == 'food_bank' or current_user.role == 'admin':
+        abort(403)  # abort to forbidden page
 
     return render_template('donate.html')
 
