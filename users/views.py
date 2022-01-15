@@ -7,7 +7,7 @@ from flask_login import current_user, login_user, logout_user, login_required
 from werkzeug.security import check_password_hash, generate_password_hash
 
 from app import db, requires_roles
-from models import User, FoodBank, Associate, StockLevels, OpeningHours
+from models import User, FoodBank, StockLevels, OpeningHours
 from notifications.mail import send_reset_email
 from users.forms import LoginForm, RegisterForm
 from users.forms import UpdateAccountInformationForm, FavForm, RequestResetForm, ResetPasswordForm
@@ -303,19 +303,19 @@ def food_bank_information(food_bank_id):
     if not current_user.is_anonymous and current_user.role == 'food_bank' or current_user.role == 'admin':
         abort(403)  # abort to forbidden page
 
+    food_bank = FoodBank.query.filter_by(id=food_bank_id).first()
+
     # The form used for logged in users to favourite/un-favourite the food bank
     form = FavForm()
     # if the button has been clicked
     if request.method == 'POST':
         # Checks which button has been clicked, to know whether to add/remove this food bank as a saved.
         if request.form['action'] == "add":
-            new_fav = Associate(user_id=current_user.id, fb_id=food_bank_id)
-
-            db.session.add(new_fav)
+            current_user.associated.append(food_bank)
             db.session.commit()
 
         if request.form['action'] == "remove":
-            Associate.query.filter_by(fb_id=food_bank_id, user_id=current_user.id).delete()
+            current_user.associated.delete(food_bank)
             db.session.commit()
 
     # If food banks is saved is set to False by default
@@ -333,7 +333,6 @@ def food_bank_information(food_bank_id):
 
 
     # Query's data needed
-    food_bank = FoodBank.query.filter_by(id=food_bank_id).first()
     stock_levels = StockLevels.query.filter_by(fb_id=food_bank_id).first()
 
     fb_address_id = []
