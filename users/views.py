@@ -110,6 +110,12 @@ def contact_us():
 
 @users_blueprint.route('/register', methods=['GET', 'POST'])
 def register():
+    """
+    @author: Nathan Hartley
+    Function returns user to index page if they are already logged in.
+    Flashes a message to the user if the email they entered is already in the database.
+    Returns user to index page if all requirements have been met for the input fields.
+    """
     if not current_user.is_anonymous:
         return redirect(url_for('index'))
 
@@ -152,6 +158,13 @@ def register():
 
 @users_blueprint.route('/login', methods=['GET', 'POST'])
 def login():
+    """
+    @author: Nathan Hartley
+    Function returns user to index page if they are already logged in.
+    Returns user to index page after a successful login attempt.
+    Flashes a message to the user if the login email or password is incorrect and cannot be found in the database.
+    Returns the user to profile page after a successful login attempt if the user's role is food_bank.
+    """
     if not current_user.is_anonymous:
         return redirect(url_for('index'))
 
@@ -171,7 +184,6 @@ def login():
             else:
                 return render_template('profile.html')
 
-    # if the login details are correct it will redirect the user to the home page
     return render_template('login.html', form=form)
 
 
