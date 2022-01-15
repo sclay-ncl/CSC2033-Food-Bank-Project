@@ -49,7 +49,7 @@ Page to display food bank information and map-->
     {% for index in range(id|length) %}
         <div class="div-bg" style="width: 75%; max-width: 850px">
             <h4> Address Details: </h4>
-            {% if fb_txt_address[index][0] == 'NULL' %}
+            {% if fb_txt_address[index][0] == 'NULL' or fb_txt_address[index][0] == "" %}
                 <p> {{ fb_txt_address[index][1] }}, {{ fb_txt_address[index][2] }}, {{ fb_txt_address[index][3] }} </p> <br>
             {% else %}
                 <p> {{ fb_txt_address[index][0] }}, {{ fb_txt_address[index][1] }}, {{ fb_txt_address[index][2] }}, {{ fb_txt_address[index][3] }} </p> <br>

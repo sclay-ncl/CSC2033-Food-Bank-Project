@@ -3,6 +3,8 @@ from datetime import datetime
 from flask import redirect, url_for, render_template, Blueprint, request, abort
 from flask_login import current_user, login_required
 
+from users.views import get_lat_long
+
 from app import requires_roles, db, rss
 from food_banks.forms import UpdateFoodBankInformationForm, AddressForm, OpeningHoursForm, ManualStockLevelsForm, \
     StockQuantityForm, StockManagementOptionForm
@@ -58,11 +60,15 @@ def add_address():
     form = AddressForm()
     current_food_bank = current_user.associated[0]  # get food bank associated with user
     if form.validate_on_submit():
+        lat_long = get_lat_long(form.number_and_road.data, form.town.data, form.postcode.data)
+
         new_address = Address(fb_id=current_food_bank.id,
                               building_name=form.building_name.data,
                               number_and_road=form.number_and_road.data,
                               town=form.town.data,
-                              postcode=form.postcode.data)
+                              postcode=form.postcode.data,
+                              lat=lat_long[0],
+                              long=lat_long[1])
 
         db.session.add(new_address)
         db.session.commit()
