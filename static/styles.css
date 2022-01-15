@@ -504,7 +504,7 @@ button:active {
     align-content: center;
     background: white;
     position: relative;
-    width: 820px;
+    width: 60%;
     height: auto;
     padding: 15px;
     box-shadow: 20px 20px rgba(0,0,0,.15);
@@ -520,21 +520,21 @@ button:active {
     text-align: center;
     color: green;
     box-sizing: border-box;
-    width: 270px;
+    width: 17vw;
 }
 
 .low-stock{
     text-align: center;
     color: orange;
     box-sizing: border-box;
-    width: 270px;
+    width: 17vw;
 }
 
 .urgent-stock{
     text-align: center;
     color: red;
     box-sizing: border-box;
-    width: 270px;
+    width: 17vw;
 }
 
 .column {

@@ -1,15 +1,19 @@
 import re
-
 from flask_wtf import FlaskForm, RecaptchaField
 from ukpostcodeutils import validation
 from wtforms import StringField, SubmitField, PasswordField, SelectField
 from wtforms.validators import Email, Length, EqualTo, ValidationError, InputRequired
-
 from models import User
 
 
-# Custom Validation
+# Custom validation
 def character_check(form, field):
+    """
+    @author: Nathan Hartley
+
+    @returns: A message to the user that the name fields cannot contain any of the excluded characters if the
+    requirements are not met
+    """
     excluded_characters = "±§!@€#<$%^&*()_+={}[]:;'|<,>.?/1234567890"
     for char in field.data:
         if char in excluded_characters:
@@ -18,6 +22,12 @@ def character_check(form, field):
 
 # character_check but without the numbers
 def address_character_check(form, field):
+    """
+    @author: Nathan Hartley
+
+    @returns: A message to the user that the address fields cannot contain any of the excluded characters if the
+    requirements are not met
+    """
     excluded_characters = "±§!@€#<#$%^&*()_+={}[]:;'|<>.?/"
     for char in field.data:
         if char in excluded_characters:
@@ -31,6 +41,10 @@ def postcode_check(form, field):
 
 
 class RegisterForm(FlaskForm):
+    """
+    @author: Nathan Hartley
+    Form for users to input their details when registering
+    """
     email = StringField(validators=[InputRequired(), Email(), Length(max=50)])
     first_name = StringField(validators=[InputRequired(), character_check, Length(max=50)])
     last_name: StringField = StringField(validators=[InputRequired(), character_check, Length(max=50)])
@@ -39,32 +53,43 @@ class RegisterForm(FlaskForm):
     postcode = StringField(validators=[InputRequired(), postcode_check, Length(max=50)])
     phone_number = StringField(validators=[Length(max=50)])
     role = SelectField(choices=['Picking up food', 'Donating food'])
-    # password is required to be filled, must be between 8 and 16 characters, has the option to contain a special
-    # character, include at least one digit and an uppercase letter
-    password = PasswordField(validators=[InputRequired(), Length(min=8, max=16, message= 'Password must be between 8 and 16 '
-                                                                                   'characters.')])
-    confirm_password = PasswordField(validators=[InputRequired(), EqualTo('password', message='This must be the same as '
-                                                                                         'the password.')])
-    # confirm password must be the same as password
+    password = PasswordField(validators=[InputRequired(), Length(min=8, max=16, message='Password must be between 8 '
+                                                                                        'and 16 characters.')])
+    confirm_password = PasswordField(validators=[InputRequired(), EqualTo('password', message='This must be the same '
+                                                                                              'as the password.')])
     submit = SubmitField()
 
     # Pattern Matching
-    # will raise a Validation Error if password doesnt contain a digit or uppercase letter
-    # its called implicitly because its inside of the RegisterForm class
     def validate_password(self, password):
+        """
+        @author: Nathan Hartley
+        @param: password - The password inputted by the user
+
+        @returns: A message to the user that the password has to include a digit and an uppercase if it does not meet
+        the requirements
+        """
         p = re.compile(r'(?=.*\d)(?=.*[A-Z])')
         if not p.match(self.password.data):
             raise ValidationError("Password must contain at least 1 digit and 1 uppercase letter.")
 
-    # will raise a Validation Error if phone number isn't 11 digits in length, or start with 07
-    # TODO: figure out why this isn't working, no validation for phone is working
-    def validate_phone(self, phone_number):
+    def validate_phone_number(self, phone_number):
+        """
+        @author: Nathan Hartley
+        @param: phone_number - The phone number inputted by the user
+
+        @returns: A message to the user that the phone number must start with 07 and be 11 digits in length if it
+        does not meet the requirements
+        """
         ph = re.compile(r'^(?:\s*)[0][7]\d{9}(?:\s*)$')
         if not ph.match(self.phone_number.data):
             raise ValidationError("Phone number must be 11 digits total length and start with 07.")
 
 
 class LoginForm(FlaskForm):
+    """
+    @author: Nathan Hartley
+    Form for users to input their details when logging in
+    """
     email = StringField(validators=[InputRequired(), Email()])
     password = PasswordField(validators=[InputRequired()])
     recaptcha = RecaptchaField()
@@ -114,7 +139,3 @@ class ResetPasswordForm(FlaskForm):
         p = re.compile(r'(?=.*\d)(?=.*[A-Z])')
         if not p.match(self.password.data):
             raise ValidationError("Password must contain at least 1 digit and 1 uppercase letter.")
-
-
-
-
