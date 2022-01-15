@@ -109,7 +109,6 @@ class UpdateAccountInformationForm(FlaskForm):
     town = StringField(validators=[address_character_check, Length(max=50)])
     postcode = StringField(validators=[InputRequired(), postcode_check, Length(max=50)])
     phone_number = StringField(validators=[Length(max=50)])
-    role = SelectField(choices=['Picking up food', 'Donating food'])
     submit = SubmitField()
 
 
