@@ -122,8 +122,8 @@ class FoodBank(db.Model):
         @return urgent_categories: list of categories that have urgent level of stock
         """
         stock_levels = StockLevels.query.filter_by(fb_id=self.id).first()  # get stock_level table for this food bank
-        categories = {'starchy', 'protein', 'fruit_veg', 'soup_sauce',
-                      'drinks', 'snacks', 'condiments', 'cooking_ingredients', 'toiletries'}
+        categories = ['starchy', 'protein', 'fruit_veg', 'soup_sauce',
+                      'drinks', 'snacks', 'condiments', 'cooking_ingredients', 'toiletries']
         urgent_categories = []
         for category in categories:
             # get the ids of all the items stocked in given category
@@ -292,7 +292,6 @@ class Stocks(db.Model):
 
 
 # associate table models any user association with a food bank
-class Associate(db.Model):
-    associate = db.Table('associate',
-                         db.Column('user_id', db.Integer, db.ForeignKey('user.id'), primary_key=True),
-                         db.Column('fb_id', db.Integer, db.ForeignKey('food_bank.id'), primary_key=True))
+associate = db.Table('associate',
+                     db.Column('user_id', db.Integer, db.ForeignKey('user.id'), primary_key=True),
+                     db.Column('fb_id', db.Integer, db.ForeignKey('food_bank.id'), primary_key=True))
