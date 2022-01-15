@@ -102,8 +102,9 @@ def find_closest_fb(fb_address_lat, db_address_long):
 
 @users_blueprint.route('/contact-us', methods=['GET', 'POST'])
 def contact_us():
-    if not current_user.is_anonymous and current_user.role == 'food_bank' or current_user.role == 'admin':
-        abort(403)  # abort to forbidden page
+    if not current_user.is_anonymous:
+        if current_user.role == 'food_bank' or current_user.role == 'admin':
+            abort(403)  # abort to forbidden page
 
     return render_template('contact-us.html')
 
@@ -246,8 +247,9 @@ def food_bank_search():
     @return: Food bank search view for either a logged in or anonymous user
     """
 
-    if not current_user.is_anonymous and current_user.role == 'food_bank' or current_user.role == 'admin':
-        abort(403)  # abort to forbidden page
+    if not current_user.is_anonymous:
+        if current_user.role == 'food_bank' or current_user.role == 'admin':
+            abort(403)  # abort to forbidden page
 
     lat = []
     long = []
@@ -300,8 +302,9 @@ def food_bank_information(food_bank_id):
     @return: Food bank information view about the chosen food bank
     """
 
-    if not current_user.is_anonymous and current_user.role == 'food_bank' or current_user.role == 'admin':
-        abort(403)  # abort to forbidden page
+    if not current_user.is_anonymous:
+        if current_user.role == 'food_bank' or current_user.role == 'admin':
+            abort(403)  # abort to forbidden page
 
     food_bank = FoodBank.query.filter_by(id=food_bank_id).first()
 
@@ -404,8 +407,9 @@ def donate():
 
     @return: Donate view
     """
-    if not current_user.is_anonymous and current_user.role == 'food_bank' or current_user.role == 'admin':
-        abort(403)  # abort to forbidden page
+    if not current_user.is_anonymous:
+        if current_user.role == 'food_bank' or current_user.role == 'admin':
+            abort(403)  # abort to forbidden page
 
     return render_template('donate.html')
 
