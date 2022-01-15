@@ -25,7 +25,7 @@ def update_information():
         current_food_bank.update_information(name=form.name.data, email=form.email.data,
                                              phone_number=form.phone_number.data,
                                              website=form.website.data)
-        return update_information()
+        return redirect(url_for("food_banks.update_information"))
 
     # get original food bank details and load them into the form
     form.name.data = current_food_bank.name
