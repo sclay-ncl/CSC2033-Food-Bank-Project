@@ -35,15 +35,15 @@ def send_mail(food_bank_id, msg):
         @param: food_bank_id, the id of the food bank which needs the food
         @param: msg, message to send
     """
-    from models import Associate, User
+    from models import FoodBank, User  # to avoid circular imports
 
-    recip_list_obj = Associate.query.filter_by(fb_id=food_bank_id).all()
+    food_bank = FoodBank.query.filter_by(id=food_bank_id).first()
+    emails = [user.email for user in food_bank.associated if user.role == "donor"]
 
     subject = 'URGENT DONATIONS NEEDED'
 
-    for i in range(len(recip_list_obj)):
-        user = User.query.filter_by(id=recip_list_obj[i].user_id, role="donor").first()
-        send(subject, msg, user.email)
+    for email in emails:
+        send(subject, msg, email)
 
 
 def send_reset_email(user):
