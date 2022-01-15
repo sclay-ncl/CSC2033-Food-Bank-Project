@@ -52,7 +52,7 @@ Page to display all food banks in system and all on map-->
     );
 </script>
     </div>
-    {% for fb in fb_info %}
+    {% for fb in no_dup %}
         <a href="{{ url_for('users.food_bank_information' ,food_bank_id=fb[0]) }}" class="fb-button">
                 {{ fb[1] }}
         </a>

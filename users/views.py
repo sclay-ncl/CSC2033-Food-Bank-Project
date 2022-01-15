@@ -229,17 +229,19 @@ def food_bank_search():
     lat = []
     long = []
     fb_id_name = []
+    no_dup = []
 
     # Loops through all food banks and if an address exists for that food bank
     # it will store the needed data in the corresponding arrays
     fb_address_data = FoodBank.query.all()
     for fb in fb_address_data:
         if len(fb.address) > 0:
-            temp_fb = [fb.id, fb.name]
-            fb_id_name.append(temp_fb)
-            address = fb.address[0]
-            lat.append(address.lat)
-            long.append(address.long)
+            no_dup.append([fb.id, fb.name])
+            for address in fb.address:
+                temp_fb = [fb.id, fb.name]
+                fb_id_name.append(temp_fb)
+                lat.append(address.lat)
+                long.append(address.long)
 
     # If the user is logged in the function will get additional data for the page to use:
     # Their closest food bank and all food banks the user has saved.
@@ -259,9 +261,9 @@ def food_bank_search():
 
         return render_template('food-bank-search-logged-in.html', lat=closest_fb["lat"], long=closest_fb["lon"],
                                closest_fb=closest_fb, closest_fb_name_id=closest_fb_name_id, fav_fb=fav_fb,
-                               fb_info=fb_id_name)
+                               fb_info=fb_id_name, no_dup=no_dup)
 
-    return render_template('food-bank-search.html', lat=lat, long=long, fb_info=fb_id_name)
+    return render_template('food-bank-search.html', lat=lat, long=long, fb_info=fb_id_name, no_dup=no_dup)
 
 
 @users_blueprint.route('/food-bank-information/<food_bank_id>', methods=['POST', 'GET'])
@@ -303,55 +305,70 @@ def food_bank_information(food_bank_id):
                 # If the food bank ID is found, is_fav is set to true
                 is_fav = True
 
+
     # Query's data needed
     food_bank = FoodBank.query.filter_by(id=food_bank_id).first()
     stock_levels = StockLevels.query.filter_by(fb_id=food_bank_id).first()
-    opening_times = OpeningHours.query.filter_by(address_id=food_bank_id).all()
 
-    # loops through the data and formats it in correct way
-    opening_times_data = []
-    for ot in opening_times:
-        opening_times_data.append([ot.day, ot.open_time, ot.close_time])
+    fb_address_id = []
+    fb_lat = []
+    fb_long = []
+    fb_opening_times = []
+    fb_txt_address = []
 
-    # Dictionary of information to be passed through to HTML, default to closed
-    opening_times_format = {'Monday': 'Closed',
-                            'Tuesday': 'Closed',
-                            'Wednesday': 'Closed',
-                            'Thursday': 'Closed',
-                            'Friday': 'Closed',
-                            'Saturday': 'Closed',
-                            'Sunday': 'Closed'}
+    for address in food_bank.address:
+        fb_txt_address.append([address.building_name, address.number_and_road, address.town, address.postcode])
 
-    # loops through each opening time data and finds the corresponding day
-    days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
-    for index in range(len(opening_times_data)):
-        for day in range(len(days)):
-            if days[day] == opening_times_data[index][0]:
-                # formats time correctly
-                open_t = (str(opening_times_data[index][1]))[0:5]
-                close_t = (str(opening_times_data[index][2]))[0:5]
-                # changes the dictionary data for that day
-                opening_times_format[opening_times_data[index][0]] = open_t + " - " + close_t
-                break
+        fb_lat.append(address.lat)
+        fb_long.append(address.long)
+        fb_address_id.append(address.id)
 
-    # stores the food banks latitude and longitude
-    address = food_bank.address[0]
-    lat_long = [address.lat, address.long]
+        opening_times = OpeningHours.query.filter_by(address_id=address.id).all()
+
+        # loops through the data and formats it in correct way
+        opening_times_data = []
+        for ot in opening_times:
+            opening_times_data.append([ot.day, ot.open_time, ot.close_time])
+
+        # Dictionary of information to be passed through to HTML, default to closed
+        opening_times_format = {'Monday': 'Closed',
+                                'Tuesday': 'Closed',
+                                'Wednesday': 'Closed',
+                                'Thursday': 'Closed',
+                                'Friday': 'Closed',
+                                'Saturday': 'Closed',
+                                'Sunday': 'Closed'}
+
+        # loops through each opening time data and finds the corresponding day
+        days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
+        for index in range(len(opening_times_data)):
+            for day in range(len(days)):
+                if days[day] == opening_times_data[index][0]:
+                    # formats time correctly
+                    open_t = (str(opening_times_data[index][1]))[0:5]
+                    close_t = (str(opening_times_data[index][2]))[0:5]
+                    # changes the dictionary data for that day
+                    opening_times_format[opening_times_data[index][0]] = open_t + " - " + close_t
+                    break
+
+        fb_opening_times.append(opening_times_format)
+
+    c_coord = [sum(fb_lat) / len(fb_lat), sum(fb_long) / len(fb_long)]
+
     return render_template('food-bank-information.html',
-                           lat=lat_long[0],
-                           long=lat_long[1],
-                           id=food_bank_id,
+                           lat=fb_lat,
+                           long=fb_long,
+                           id=fb_address_id,
                            fb_stock=stock_levels,
                            fb_name=food_bank.name,
                            fb_email=food_bank.email,
                            fb_phone=food_bank.phone_number,
                            fb_web=food_bank.website,
-                           fb_num_road=address.number_and_road,
-                           town=address.town,
-                           postcode=address.postcode,
-                           opening_times=opening_times_format,
+                           fb_txt_address=fb_txt_address,
+                           opening_times=fb_opening_times,
                            form=form,
-                           is_fav=is_fav)
+                           is_fav=is_fav,
+                           c_coord=c_coord)
 
 
 @users_blueprint.route('/donate')

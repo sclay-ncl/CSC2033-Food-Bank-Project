@@ -23,45 +23,54 @@ Page to display food bank information and map-->
     <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v2.6.1/mapbox-gl.css' rel='stylesheet' />
     <script  type='text/javascript' src="../static/config.js"></script>
 <script>
+    mapboxgl.accessToken = config.MAPBOX_API_TOKEN;
 
-mapboxgl.accessToken = config.MAPBOX_API_TOKEN;
+    const lat = {{ lat|safe }};
+    const long = {{ long|safe }};
+    const c_coord = {{ c_coord|safe }}
 
-const lat = {{ lat|safe }};
-const long = {{ long|safe }};
+    const map = new mapboxgl.Map({
+      container: 'map',
+      style: 'mapbox://styles/mapbox/streets-v10',
+      center: [c_coord[1], c_coord[0]],
+      zoom: 12
+    });
 
-const map = new mapboxgl.Map({
-  container: 'map',
-  style: 'mapbox://styles/mapbox/streets-v10',
-  center: [long, lat],
-  zoom: 14
-});
+    for (let i = 0; i < lat.length; i++) {
+        displayPointer(lat[i], long[i])
+    }
 
-var msg = {{fb_name|tojson}};
+    function displayPointer(lat, long) {
+        const marker = new mapboxgl.Marker().setLngLat([long, lat]).addTo(map);
+    }
 
-const popup = new mapboxgl.Popup({offset: 25}).setText(msg);
-const marker = new mapboxgl.Marker().setLngLat([long, lat]).setPopup(popup).addTo(map);
 </script>
     </div>
+    {% for index in range(id|length) %}
+        <div class="div-bg" style="width: 75%; max-width: 850px">
+            <h4> Address Details: </h4>
+            {% if fb_txt_address[index][0] == 'NULL' %}
+                <p> {{ fb_txt_address[index][1] }}, {{ fb_txt_address[index][2] }}, {{ fb_txt_address[index][3] }} </p> <br>
+            {% else %}
+                <p> {{ fb_txt_address[index][0] }}, {{ fb_txt_address[index][1] }}, {{ fb_txt_address[index][2] }}, {{ fb_txt_address[index][3] }} </p> <br>
+            {% endif %}
 
-    <div class="div-bg" style="width: 75%; max-width: 850px">
-        <h4> Address Details: </h4>
-        <p> {{ fb_num_road }}, {{ town }}, {{ postcode }} </p> <br>
+            <h4> Contact Details: </h4>
+            <p> Email:  {{ fb_email }} </p>
+            <p> Phone number: {{ fb_phone }} </p>
+            <p> Website: {{ fb_web if fb_web is not none else 'Not Avaialble'}} </p> <br>
 
-        <h4> Contact Details: </h4>
-        <p> Email:  {{ fb_email }} </p>
-        <p> Phone number: {{ fb_phone }} </p>
-        <p> Website: {{ fb_web if fb_web is not none else 'Not Avaialble'}} </p> <br>
-
-        <h4> Opening Times: </h4>
-        <p> Monday: {{ opening_times['Monday'] }} </p>
-        <p> Tuesday: {{ opening_times['Tuesday'] }} </p>
-        <p> Wednesday: {{ opening_times['Wednesday'] }} </p>
-        <p> Thursday: {{ opening_times['Thursday'] }} </p>
-        <p> Friday: {{ opening_times['Friday'] }} </p>
-        <p> Saturday: {{ opening_times['Saturday'] }} </p>
-        <p> Sunday: {{ opening_times['Sunday'] }} </p>
-        <br>
-    </div>
+            <h4> Opening Times: </h4>
+            <p> Monday: {{ opening_times[index]['Monday'] }} </p>
+            <p> Tuesday: {{ opening_times[index]['Tuesday'] }} </p>
+            <p> Wednesday: {{ opening_times[index]['Wednesday'] }} </p>
+            <p> Thursday: {{ opening_times[index]['Thursday'] }} </p>
+            <p> Friday: {{ opening_times[index]['Friday'] }} </p>
+            <p> Saturday: {{ opening_times[index]['Saturday'] }} </p>
+            <p> Sunday: {{ opening_times[index]['Sunday'] }} </p>
+            <br>
+        </div>
+    {% endfor %}
 
 <div class="div-bg" style="max-width: 850px">
     <h4> {{ fb_name }}'s Stock Needs </h4>
