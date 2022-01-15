@@ -315,7 +315,7 @@ def food_bank_information(food_bank_id):
             db.session.commit()
 
         if request.form['action'] == "remove":
-            current_user.associated.delete(food_bank)
+            current_user.associated.remove(food_bank)
             db.session.commit()
 
     # If food banks is saved is set to False by default
