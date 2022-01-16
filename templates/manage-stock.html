@@ -7,6 +7,16 @@ category boundaries -->
 
 {% block content %}
 
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+                <div class="notification-is-{{ category }}">
+                {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+
 <!-- Page Header -->
 <h1 class="page-header">Manage Stock</h1>
 
