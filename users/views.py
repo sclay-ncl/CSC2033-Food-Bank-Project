@@ -191,6 +191,10 @@ def login():
 @users_blueprint.route('/logout')
 @login_required
 def logout():
+    """
+    @author: Nathan Hartley
+    Function returns user to index page and makes the user anonymous
+    """
     logout_user()
     return redirect(url_for('index'))
 
