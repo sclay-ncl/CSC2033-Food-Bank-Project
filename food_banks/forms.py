@@ -1,3 +1,4 @@
+import re
 from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField, SelectField, IntegerField, FieldList, FormField, Form
 from wtforms.validators import Email, Length, InputRequired, ValidationError
@@ -13,10 +14,23 @@ class UpdateFoodBankInformationForm(FlaskForm):
     """
     name = StringField(validators=[InputRequired(), Length(max=100)])  # max length set to conform with database
     email = StringField(validators=[InputRequired(), Email(), Length(max=50)])
-    phone_number = StringField(validators=[])  # TODO: Add phone validation
+    phone_number = StringField(validators=[Length(max=50)])
     website = StringField(validators=[Length(max=100)])
 
+    def validate_phone_number(self, phone_number):
+        """
+        @author: Nathan Hartley
+        @param: phone_number - The phone number inputted by the user
+
+        @returns: A message to the user that the phone number must start with 07 and be 11 digits in length if it
+        does not meet the requirements
+        """
+        ph = re.compile(r'^(?:\s*)[0][7]\d{9}(?:\s*)$')
+        if not ph.match(self.phone_number.data):
+            raise ValidationError("Phone number must be 11 digits total length and start with 07.")
+
     submit = SubmitField()
+
 
 class AddressForm(FlaskForm):
     """
@@ -29,6 +43,7 @@ class AddressForm(FlaskForm):
     postcode = StringField(validators=[InputRequired(), postcode_check, Length(max=8)])
 
     submit = SubmitField()
+
 
 class OpeningHoursForm(FlaskForm):
     """
@@ -58,6 +73,7 @@ class OpeningHoursForm(FlaskForm):
         if form.day.data in used_days:
             raise ValidationError(f"Opening times for {form.day.data} have already been set.")
 
+
 class ManualStockLevelsForm(FlaskForm):
     """
     @author: Sol Clay
@@ -77,6 +93,7 @@ class ManualStockLevelsForm(FlaskForm):
 
     submit = SubmitField()
 
+
 class ItemStockForm(Form):
     """
     @author: Sol Clay
@@ -84,6 +101,7 @@ class ItemStockForm(Form):
     """
     item_id = IntegerField()  # not rendered, used to store item_id as formfield destroys non-field variables#
     quantity = IntegerField()
+
 
 class CategoryBoundaryForm(Form):
     """
@@ -110,6 +128,7 @@ class CategoryBoundaryForm(Form):
     condiments_high = IntegerField()
     toiletries_high = IntegerField()
 
+
 class StockQuantityForm(FlaskForm):
     """
     @author: Sol Clay
@@ -118,6 +137,7 @@ class StockQuantityForm(FlaskForm):
     item_forms = FieldList(FormField(ItemStockForm))
     category_boundary_form = FormField(CategoryBoundaryForm)
     submit = SubmitField()
+
 
 class StockManagementOptionForm(FlaskForm):
     """
