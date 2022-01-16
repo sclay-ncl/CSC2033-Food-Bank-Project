@@ -89,6 +89,11 @@ category boundaries. -->
                         <tr>
                             <td>{{ item_names[loop.index0] }}</td>
                             <td>{{ item_form.quantity }}</td>
+                            {% for error in item_form.quantity.errors %}
+                                <div class="notification-is-warning">
+                                    {{ error }}
+                                </div>
+                            {% endfor %}
                         </tr>
                         {% endfor %}
                     </table>
@@ -101,46 +106,136 @@ category boundaries. -->
                         <tr>
                             <td> Starchy </td>
                             <td> {{ form.category_boundary_form.starchy_low (class="input-sm") }}</td>
+                            {% for error in form.category_boundary_form.starchy_low.errors %}
+                            <div class="notification-is-warning">
+                                {{ error }}
+                            </div>
+                            {% endfor %}
                             <td> {{ form.category_boundary_form.starchy_high(class="input-sm") }}</td>
+                            {% for error in form.category_boundary_form.starchy_high.errors %}
+                            <div class="notification-is-warning">
+                                {{ error }}
+                            </div>
+                            {% endfor %}
                         </tr>
                         <tr>
                             <td> Protein </td>
                             <td> {{ form.category_boundary_form.protein_low (class="input-sm") }}</td>
+                            {% for error in form.category_boundary_form.protein_low.errors %}
+                            <div class="notification-is-warning">
+                                {{ error }}
+                            </div>
+                            {% endfor %}
                             <td> {{ form.category_boundary_form.protein_high(class="input-sm") }}</td>
+                            {% for error in form.category_boundary_form.protein_high.errors %}
+                            <div class="notification-is-warning">
+                                {{ error }}
+                            </div>
+                            {% endfor %}
                         </tr>
                             <td> Fruit and Vegetables </td>
                             <td> {{ form.category_boundary_form.fruit_veg_low (class="input-sm") }}</td>
+                            {% for error in form.category_boundary_form.fruit_veg_low.errors %}
+                            <div class="notification-is-warning">
+                                {{ error }}
+                            </div>
+                            {% endfor %}
                             <td> {{ form.category_boundary_form.fruit_veg_high (class="input-sm") }}</td>
+                            {% for error in form.category_boundary_form.fruit_veg_high.errors %}
+                            <div class="notification-is-warning">
+                                {{ error }}
+                            </div>
+                            {% endfor %}
                         </tr>
                         <tr>
                             <td> Soups and Sauces </td>
                             <td> {{ form.category_boundary_form.soup_sauce_low (class="input-sm") }}</td>
+                            {% for error in form.category_boundary_form.soup_sauce_low.errors %}
+                            <div class="notification-is-warning">
+                                {{ error }}
+                            </div>
+                            {% endfor %}
                             <td> {{ form.category_boundary_form.soup_sauce_high (class="input-sm") }}</td>
+                            {% for error in form.category_boundary_form.soup_sauce_high.errors %}
+                            <div class="notification-is-warning">
+                                {{ error }}
+                            </div>
+                            {% endfor %}
                         </tr>
                         <tr>
                             <td> Drinks </td>
                             <td> {{ form.category_boundary_form.drinks_low (class="input-sm") }}</td>
+                            {% for error in form.category_boundary_form.drinks_low.errors %}
+                            <div class="notification-is-warning">
+                                {{ error }}
+                            </div>
+                            {% endfor %}
                             <td> {{ form.category_boundary_form.drinks_high (class="input-sm") }}</td>
+                            {% for error in form.category_boundary_form.drinks_high.errors %}
+                            <div class="notification-is-warning">
+                                {{ error }}
+                            </div>
+                            {% endfor %}
                         </tr>
                         <tr>
                             <td> Snacks </td>
                             <td> {{ form.category_boundary_form.snacks_low (class="input-sm") }}</td>
+                            {% for error in form.category_boundary_form.snacks_low.errors %}
+                            <div class="notification-is-warning">
+                                {{ error }}
+                            </div>
+                            {% endfor %}
                             <td> {{ form.category_boundary_form.snacks_high (class="input-sm") }}</td>
+                            {% for error in form.category_boundary_form.snacks_high.errors %}
+                            <div class="notification-is-warning">
+                                {{ error }}
+                            </div>
+                            {% endfor %}
                         </tr>
                         <tr>
                             <td> Cooking Ingredients</td>
                             <td> {{ form.category_boundary_form.cooking_ingredients_low (class="input-sm") }}</td>
+                            {% for error in form.category_boundary_form.cooking_ingredients_low.errors %}
+                            <div class="notification-is-warning">
+                                {{ error }}
+                            </div>
+                            {% endfor %}
                             <td> {{ form.category_boundary_form.cooking_ingredients_high (class="input-sm") }}</td>
+                            {% for error in form.category_boundary_form.cooking_ingredients_high.errors %}
+                            <div class="notification-is-warning">
+                                {{ error }}
+                            </div>
+                            {% endfor %}
                         </tr>
                         <tr>
                             <td> Condiments</td>
                             <td> {{ form.category_boundary_form.condiments_low  (class="input-sm") }}</td>
+                            {% for error in form.category_boundary_form.condiments_low.errors %}
+                            <div class="notification-is-warning">
+                                {{ error }}
+                            </div>
+                            {% endfor %}
                             <td> {{ form.category_boundary_form.condiments_high (class="input-sm") }}</td>
+                            {% for error in form.category_boundary_form.condiments_high.errors %}
+                            <div class="notification-is-warning">
+                                {{ error }}
+                            </div>
+                            {% endfor %}
                         </tr>
                         <tr>
                             <td> Toiletries</td>
                             <td> {{ form.category_boundary_form.toiletries_low (class="input-sm") }}</td>
+                            {% for error in form.category_boundary_form.toiletries_low.errors %}
+                            <div class="notification-is-warning">
+                                {{ error }}
+                            </div>
+                            {% endfor %}
                             <td> {{ form.category_boundary_form.toiletries_high (class="input-sm") }}</td>
+                            {% for error in form.category_boundary_form.toiletries_high.errors %}
+                            <div class="notification-is-warning">
+                                {{ error }}
+                            </div>
+                            {% endfor %}
                     </table>
                 <div class="submit-button-sm">
                 {{ form.submit(class="button") }}
