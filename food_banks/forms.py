@@ -6,6 +6,24 @@ from wtforms.validators import Email, Length, InputRequired, ValidationError
 from models import OpeningHours
 from users.forms import postcode_check
 
+# validators
+
+def greater_than_lower(field_name):
+    """
+    @author: Sol Clay
+
+    Validates that the high boundary is greater than the lower boundary
+
+    @param: field_name string of name of field to compare to
+    """
+    message = 'High boundary must be be greater than the lower boundary'
+
+    def _greater_than_lower(form, field):
+        comp_field = getattr(form, field_name)
+        if field.data <= comp_field.data:
+            raise ValidationError(message)
+
+    return _greater_than_lower
 
 
 class UpdateFoodBankInformationForm(FlaskForm):
@@ -88,8 +106,8 @@ class ItemStockForm(Form):
     @author: Sol Clay
     Form for updating the quantity of an item in stock
     """
-    item_id = IntegerField()  # not rendered, used to store item_id as formfield destroys non-field variables#
-    quantity = IntegerField()
+    item_id = IntegerField()  # not rendered, used to store item_id as formfield destroys non-field variables
+    quantity = IntegerField(validators=[InputRequired()])
 
 
 class CategoryBoundaryForm(Form):
@@ -97,25 +115,25 @@ class CategoryBoundaryForm(Form):
     @author: Sol Clay
     Form for the setting of the category stock level boundaries
     """
-    starchy_low = IntegerField()
-    protein_low = IntegerField()
-    fruit_veg_low = IntegerField()
-    soup_sauce_low = IntegerField()
-    drinks_low = IntegerField()
-    snacks_low = IntegerField()
-    cooking_ingredients_low = IntegerField()
-    condiments_low = IntegerField()
-    toiletries_low = IntegerField()
+    starchy_low = IntegerField(validators=[InputRequired()])
+    protein_low = IntegerField(validators=[InputRequired()])
+    fruit_veg_low = IntegerField(validators=[InputRequired()])
+    soup_sauce_low = IntegerField(validators=[InputRequired()])
+    drinks_low = IntegerField(validators=[InputRequired()])
+    snacks_low = IntegerField(validators=[InputRequired()])
+    cooking_ingredients_low = IntegerField(validators=[InputRequired()])
+    condiments_low = IntegerField(validators=[InputRequired()])
+    toiletries_low = IntegerField(validators=[InputRequired()])
 
-    starchy_high = IntegerField()
-    protein_high = IntegerField()
-    fruit_veg_high = IntegerField()
-    soup_sauce_high = IntegerField()
-    drinks_high = IntegerField()
-    snacks_high = IntegerField()
-    cooking_ingredients_high = IntegerField()
-    condiments_high = IntegerField()
-    toiletries_high = IntegerField()
+    starchy_high = IntegerField(validators=[InputRequired(), greater_than_lower("starchy_low")])
+    protein_high = IntegerField(validators=[InputRequired(), greater_than_lower("protein_low")])
+    fruit_veg_high = IntegerField(validators=[InputRequired(), greater_than_lower("fruit_veg_low")])
+    soup_sauce_high = IntegerField(validators=[InputRequired(), greater_than_lower("soup_sauce_low")])
+    drinks_high = IntegerField(validators=[InputRequired(), greater_than_lower("drinks_low")])
+    snacks_high = IntegerField(validators=[InputRequired(), greater_than_lower("snacks_low")])
+    cooking_ingredients_high = IntegerField(validators=[InputRequired(), greater_than_lower("cooking_ingredients_low")])
+    condiments_high = IntegerField(validators=[InputRequired(), greater_than_lower("condiments_low")])
+    toiletries_high = IntegerField(validators=[InputRequired(), greater_than_lower("toiletries_low")])
 
 
 class StockQuantityForm(FlaskForm):
