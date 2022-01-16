@@ -7,6 +7,7 @@ from models import OpeningHours
 from users.forms import postcode_check
 
 
+
 class UpdateFoodBankInformationForm(FlaskForm):
     """
     @author: Sol Clay
@@ -16,18 +17,6 @@ class UpdateFoodBankInformationForm(FlaskForm):
     email = StringField(validators=[InputRequired(), Email(), Length(max=50)])
     phone_number = StringField(validators=[Length(max=50)])
     website = StringField(validators=[Length(max=100)])
-
-    def validate_phone_number(self, phone_number):
-        """
-        @author: Nathan Hartley
-        @param: phone_number - The phone number inputted by the user
-
-        @returns: A message to the user that the phone number must start with 07 and be 11 digits in length if it
-        does not meet the requirements
-        """
-        ph = re.compile(r'^(?:\s*)[0][7]\d{9}(?:\s*)$')
-        if not ph.match(self.phone_number.data):
-            raise ValidationError("Phone number must be 11 digits total length and start with 07.")
 
     submit = SubmitField()
 
