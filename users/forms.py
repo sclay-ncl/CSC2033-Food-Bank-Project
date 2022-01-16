@@ -35,6 +35,11 @@ def address_character_check(form, field):
 
 
 def postcode_check(form, field):
+    """
+    @author: Anthony Clermont
+
+    Checks if postcode is valid
+    """
     postcode = field.data.replace(" ", "")
     if not validation.is_valid_postcode(postcode.upper()):
         raise ValidationError(f" {field.data} is not a valid postcode.")
@@ -112,11 +117,21 @@ class UpdateAccountInformationForm(FlaskForm):
 
 
 class FavForm(FlaskForm):
+    """
+        @author: Anthony Clermont
+
+        renders add/remove food bank as saved
+    """
     add = SubmitField("Favourite")
     remove = SubmitField("Un-favourite")
 
 
 class RequestResetForm(FlaskForm):
+    """
+        @author: Anthony Clermont
+
+        Form for users to request a password reser
+    """
     email = StringField(validators=[InputRequired(), Email(), Length(max=50)])
     submit = SubmitField('Reset Password')
 
@@ -127,6 +142,11 @@ class RequestResetForm(FlaskForm):
 
 
 class ResetPasswordForm(FlaskForm):
+    """
+        @author: Anthony Clermont
+
+        Form which allows users to enter a new password
+    """
     password = PasswordField(
         validators=[InputRequired(), Length(min=8, max=16, message='Password must be between 8 and 16 '
                                                                    'characters.')])
