@@ -43,19 +43,6 @@ Displaying a users account details -->
             {% endif %}
         {% endif %}
 
-        {% if current_user.role=='donor' %}
-        <div class="notification">
-        <p class="form-header"> Food Banks sending you notifications: </p>
-            {% if saved_fb %}
-                {% for fb in saved_fb %}
-                    {{ fb.name }} <br>
-                {% endfor %}
-            {% else %}
-                <p> You haven't saved any food banks yet! </p>
-            {% endif %}
-        </div>
-        {% endif %}
-
         <a href="{{ url_for('users.update_profile') }}" class="button" style="width: 30%">
             Update Profile
         </a>
