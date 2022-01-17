@@ -165,7 +165,7 @@ class FoodBank(db.Model):
         readable_categories = [category_key[c] if c in category_key.keys()
                                else c.capitalize() for c in urgent_categories]
         categories_string = "\n- ".join(readable_categories)
-        examples_url = "myexamplesite.com"   # TODO: make information page containing donation suggestions
+        examples_url = "https://www.trusselltrust.org/get-help/emergency-food/food-parcel/"
         message = f"{self.name} has urgently low stock in the following categories:\n" \
                   f"- {categories_string}\n" \
                   f"For examples of what to donate for each category, please visit {examples_url}"
@@ -177,10 +177,11 @@ class FoodBank(db.Model):
 
         Pushes alerts to donor users and the rss feed
         """
-        generated_message = self.generate_alert(urgent_categories)
-        rss.generate_item(food_bank_id=self.id, generated_message=generated_message)
-        rss.write_feed()
-        send_mail(self.id, msg=generated_message)
+        if len(urgent_categories) > 0:
+            generated_message = self.generate_alert(urgent_categories)
+            rss.generate_item(food_bank_id=self.id, generated_message=generated_message)
+            rss.write_feed()
+            send_mail(self.id, msg=generated_message)
 
 
 
