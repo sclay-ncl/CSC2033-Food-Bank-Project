@@ -2,7 +2,7 @@ import logging
 import socket
 from functools import wraps
 
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, send_file
 from flask_login import current_user, LoginManager, login_user
 from flask_sqlalchemy import SQLAlchemy
 
@@ -11,8 +11,9 @@ from notifications.rss import RSSManager
 app = Flask(__name__)
 
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-app.config['SQLALCHEMY_DATABASE_URI'] = \
-    "mysql+pymysql://csc2033_team15:Pea5NudeCure@127.0.0.1:8989/csc2033_team15"
+app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:///temp.db"
+# app.config['SQLALCHEMY_DATABASE_URI'] = \
+#     "mysql+pymysql://csc2033_team15:Pea5NudeCure@127.0.0.1:8989/csc2033_team15"
 app.config['SECRET_KEY'] = '0L*[@8__9r.&s(AgSm(vZ|2=>az4|V$hoEA.TzSUex[sDy>MTo:^k!ZiEhlG'
 
 # TODO: change these API keys, obtained from Canvas (need a URL first)
@@ -64,11 +65,14 @@ def index():
         f.write(str(num))
 
     # testing purposes
-    user = User.query.filter_by(id="304").first()
-    #login_user(user)
+    user = User.query.filter_by(id="2").first()
+    login_user(user)
 
     return render_template('index.html')
 
+@app.route("/feed")
+def feed():
+    return send_file("rss.xml")
 
 # ERROR PAGE VIEWS
 @app.errorhandler(400)
@@ -189,4 +193,4 @@ if __name__ == '__main__':
     app.register_blueprint(food_banks_blueprint)
 
     # Running the app
-    app.run(host=my_host, port=free_port, debug=True)
+    app.run(host=my_host, port=5000, debug=True)
