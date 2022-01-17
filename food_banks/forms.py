@@ -1,6 +1,6 @@
 import re
 from flask_wtf import FlaskForm
-from wtforms import StringField, SubmitField, SelectField, IntegerField, FieldList, FormField, Form
+from wtforms import StringField, SubmitField, SelectField, IntegerField, FieldList, FormField, Form, IntegerRangeField
 from wtforms.validators import Email, Length, InputRequired, ValidationError
 
 from models import OpeningHours
@@ -22,6 +22,8 @@ def greater_than_lower(field_name):
         comp_field = getattr(form, field_name)
         if field.data <= comp_field.data:
             raise ValidationError(message)
+        if field.data < 0 or comp_field.data < 0:
+            raise ValidationError("Input must be greater than 0")
 
     return _greater_than_lower
 
@@ -109,6 +111,9 @@ class ItemStockForm(Form):
     item_id = IntegerField()  # not rendered, used to store item_id as formfield destroys non-field variables
     quantity = IntegerField(validators=[InputRequired()])
 
+    def validate_quantity(self, field):
+        if self.quantity.data < 0:
+            raise ValidationError("Input must be greater than 0.")
 
 class CategoryBoundaryForm(Form):
     """
