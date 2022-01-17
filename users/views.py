@@ -238,7 +238,6 @@ def update_profile():
     form.town.data = user.town
     form.postcode.data = user.postcode
     form.phone_number.data = user.phone_number
-    form.role.data = user.role
     return render_template('update-profile.html', form=form)
 
 
