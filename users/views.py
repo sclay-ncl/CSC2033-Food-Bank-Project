@@ -317,8 +317,9 @@ def food_bank_information(food_bank_id):
     if request.method == 'POST':
         # Checks which button has been clicked, to know whether to add/remove this food bank as a saved.
         if request.form['action'] == "add":
-            current_user.associated.append(food_bank)
-            db.session.commit()
+            if food_bank not in current_user.associated:
+                current_user.associated.append(food_bank)
+                db.session.commit()
 
         if request.form['action'] == "remove":
             current_user.associated.remove(food_bank)
