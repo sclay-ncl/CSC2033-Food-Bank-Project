@@ -7,7 +7,7 @@
 * [Project Authors](#project-authors)
 * [Technologies Used](#technologies-used)
 * [Features](#features)
-* [Screenshots](#screenshots)
+* [References](#references)
 * [Setup](#setup)
 * [Usage](#usage)
 
@@ -92,14 +92,35 @@ Credits of this image: https://bonnydowns.org/foodbank/
 
 
 ## Setup
-What are the project requirements/dependencies? Where are they listed? A requirements.txt or a Pipfile.lock file perhaps? Where is it located?
 
-Proceed to describe how to install / setup one's local environment / get started with the project.
+How to configure your local environment:
 
+#### Local Environment
+If you do not have a virtual environment (venv folder):  
+1. Open a Terminal
+2. CD into where the project is saved: ``` cd ProjectLocation ```
+3. Create the virtualenv: ``` virtualenv -p python3 myenv ```
+4. Activate the environment: ``` source myenv/bin/activate ```
+
+#### Project Dependencies
+To install the project's dependencies, run the following command:  
+``` pip install -r requirements.txt ```
+
+#### Interpreter Configuration
+Please ensure your python interpreter configuration is working in the current directory.  
+For more information about how to do this please visit your IDE's Documentation:
+- [PyCharm](https://www.jetbrains.com/pycharm/learn/)
+- [Visual Studio Code](https://code.visualstudio.com/docs)
+- [Sublime Text](https://www.sublimetext.com/docs/)
+- [Eclipse](https://www.eclipse.org/documentation/)
 
 ## Usage
-How does one go about using it?
-Provide various use cases and code examples here.
+To start the server and be able to run the application within your local environment:
 
-`write-your-code-here`
+Open a terminal, cd into the project directory if not already.   
+Run the following command: ``` python app.py ```
 
+Alternatively navigate to app.py file. Navigate to and run the line: 
+```python 
+if __name__ == '__main__': 
+```
