@@ -63,31 +63,39 @@ If you would like to see the donation link working in full please watch the demo
 
 
 ## Application Pages
-- Register and Login
+- [Register](./templates/register.html)
   - Error Validation
   - Hashing Functionality
+- [Login](./templates/login.html)
+  - Error Validation
+  - Checking Hashing Functionality 
   - Email Password Reset Functionality
-- Food Bank Search
+- [Food Bank Search](./templates/food-bank-search.html)
   - Mapbox Api Usage to Display Key Data
   - Multi-Location Support
-- Food Bank Information
+  - Automatic Closest Food Bank (Logged In Only)
+- [Food Bank Information](./templates/food-bank-information.html)
   - Detailed Information Provided
   - Food Bank Category Stock Levels
-- Contact
+- [Food Bank Information (Logged-In)](./templates/food-bank-information.html)
+  - Detailed Information Provided
+  - Food Bank Category Stock Levels
+  - Save/Un-Save food banks
+- [Contact](./templates/contact-us.html)
   - Useful Information
-- Donate
+- [Donate](./templates/donate.html)
   - Paypal Donation link 
-- Profile
+- [Profile](./templates/profile.html)
   - View/Edit Profile 
-- Admin Dashboard
+- [Admin Dashboard](./templates/admin.html)
   - Overview of Key Application Data
   - View/Delete Error Logs
 - Food Bank User
-  - Add New Locations
-  - Add/Remove Opening Times
-  - View/Edit Food Bank Contact Information
-  - Manual or Automatic Stock Boundaries
-  - Stock Management
+  - [Add New Locations](./templates/food-bank-add-address.html)
+  - [Add/Remove Opening Times](./templates/food-bank-add-opening-hours.html)
+  - [View/Edit Food Bank Contact Information](./templates/food-bank-information.html)
+  - [Manual or Automatic Stock Boundaries](./templates/manage-stock.html)
+  - [Stock Management](./templates/manage-stock.html)
 
 ## References
 This image has been used in the index page.  
