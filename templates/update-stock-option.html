@@ -1,0 +1,27 @@
+<!-- author: Anthony Clermont
+Page which allows food bank users to change stock to manual or automatic -->
+
+{% extends "base.html" %}
+
+{% block content %}
+
+<!-- Page Header -->
+<h1 class="page-header">Stock Management Options</h1>
+
+    <!-- For stock management option button -->
+    <form class="management-option" method="POST">
+        {{ management_option_form.csrf_token }}
+        <h4> Stock Management Option </h4>
+        {{ management_option_form.option(class="form-dropdown") }}
+            {% for error in  management_option_form.option.errors %}
+                {{ error }}
+            {% endfor %}
+        <div class="refresh-btn">
+            {{ management_option_form.submit(class="button") }}
+        </div>
+    </form>
+
+    <a href="{{ url_for('food_banks.manage_stock') }}" class="button">
+        Back
+    </a>
+{% endblock %}

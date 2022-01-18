@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+
+<!-- @author Tess Goulandris
+Displaying a form where a food banks can add their open hours -->
+
+{% block content %}
+    <h1 style="margin-top: 25px"> Add Opening Hours </h1>
+    <div class="add-opening-hours" style="padding-bottom: 25px">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="notification-is-{{ category }}">
+                    {{ message }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+
+            <form method="POST">
+                    {{ form.csrf_token() }}
+                    <h4> Day </h4>
+                        {{ form.day(class="form-dropdown") }}
+                        {% for error in form.day.errors %}
+                            {{ error }}
+                        {% endfor %}
+
+                    <h4> Opening </h4>
+            <div class="add-hour">
+                    <p> Hour </p>
+                    {{ form.open_hour(class="form-dropdown") }}
+                        {% for error in form.open_hour.errors %}
+                            {{ error }}
+                        {% endfor %}
+            </div>
+
+            <div class="add-minute">
+                    <p> Minute </p>
+                    {{ form.open_minute(class="form-dropdown") }}
+                        {% for error in form.open_minute.errors %}
+                            {{ error }}
+                        {% endfor %}
+            </div>
+
+                    <h4> Closing </h4>
+            <div class="add-hour">
+                    <p> Hour </p>
+                    {{ form.close_hour(class="form-dropdown") }}
+                        {% for error in form.close_hour.errors %}
+                            {{ error }}
+                        {% endfor %}
+            </div>
+
+            <div class="add-minute">
+                    <p> Minute </p>
+                    {{ form.close_minute(class="form-dropdown") }}
+                        {% for error in form.close_minute.errors %}
+                            {{ error }}
+                        {% endfor %}
+            </div>
+                    <div style="width: 450px; margin: auto auto auto auto;">
+                    {{ form.submit(class="button") }}
+                    </div>
+            </form>
+    </div>
+
+{% endblock %}

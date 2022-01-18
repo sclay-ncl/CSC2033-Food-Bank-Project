@@ -1,57 +1,92 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Register</title>
-    <link rel="stylesheet" href="../static/styles.css">
+{% extends "base.html" %}
+<!-- @author Tess Goulandris
+Displaying a form where a user can create an account -->
+{% block content %}
 
-</head>
-<!-- Creating a top navigation bar  -->
-<nav>
-    <div class="logo-image">
-        <img src="../static/logo600x200.png" alt="Feeding Newcastle">
-    </div>
-    <ul>
-    <li><a href="food-banks.html"> Our Food Banks </a></li>
-    <li><a href="appointments.html"> Book an Appointment </a></li>
-    <li><a href="donate.html"> Donate </a></li>
-    <li><a href="login.html"> Login </a></li>
-    </ul>
-</nav>
+        <div class="register-form">
+        <h1>Register</h1>
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    {% for category, message in messages %}
+                        <div class="notification-is-{{ category }}">
+                        {{ message }}
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+            <form method="POST">
+                    {{ form.csrf_token() }}
+                        {{ form.first_name(class="first-name", placeholder="First Name") }}
+                        {% for error in form.first_name.errors %}
+                            <div class="notification-is-warning">
+                                {{ error }}
+                            </div>
+                        {% endfor %}
 
-<body>
+                    {{ form.last_name(class="last-name", placeholder="Last Name") }}
+                        {% for error in form.last_name.errors %}
+                            <div class="notification-is-warning">
+                                {{ error }}
+                            </div>
+                        {% endfor %}
 
-<!-- Creating the Register Form  -->
-<div class="register-form">
-<form>
-    <!-- Page Header -->
-    <h1> Register </h1>
+                    {{ form.email(class="input", placeholder="Enter your Email Address") }}
+                        {% for error in form.email.errors %}
+                            <div class="notification-is-warning">
+                                {{ error }}
+                            </div>
+                        {% endfor %}
 
-    <div class="first-name">
-    <label for="f-name">Name:</label>
-        <input type="text" placeholder="First Name">
-    </div>
-    <div class="last-name">
-    <label for="l-name"></label>
-        <input type="text" placeholder="Last Name">
-    </div>
+                    {{ form.phone_number(class="input", placeholder="Enter your Phone Number") }}
+                        {% for error in form.phone_number.errors %}
+                            <div class="notification-is-warning">
+                                {{ error }}
+                            </div>
+                        {% endfor %}
 
-    <label for="email">Email Address:</label>
-    <input type="text" placeholder="Enter your Email Address">
-    <label for="phone-num">Phone Number:</label>
-    <input type="text" placeholder="Enter your Phone Number">
+                    {{ form.number_and_road(class="input", placeholder="Enter the first line of your address") }}
+                        {% for error in form.number_and_road.errors %}
+                            <div class="notification-is-warning">
+                                {{ error }}
+                            </div>
+                        {% endfor %}
 
-    <label for="password">Password:</label>
-    <input type="password" placeholder="Enter your Password">
-    <label for="confirm-password">Confirm Password:</label>
-    <input type="password" placeholder="Enter your Password again">
+                    {{ form.town(class="input", placeholder="Enter your town/city") }}
+                        {% for error in form.town.errors %}
+                            <div class="notification-is-warning">
+                                {{ error }}
+                            </div>
+                        {% endfor %}
 
-    <div class="submit-button">
-    <button type="submit" value="Submit"> Submit </button>
-    </div>
+                    {{ form.postcode(class="input", placeholder="Enter your postcode") }}
+                        {% for error in form.postcode.errors %}
+                            <div class="notification-is-warning">
+                                {{ error }}
+                            </div>
+                        {% endfor %}
 
-</form>
-</div>
+                    {{ form.role(class="input", placeholder="Are you picking up or donating food?") }}
+                        {% for error in form.role.errors %}
+                            <div class="notification-is-warning">
+                                {{ error }}
+                            </div>
+                        {% endfor %}
 
-</body>
-</html>
+                    {{ form.password(class="input", placeholder="Enter your password") }}
+                        {% for error in form.password.errors %}
+                            <div class="notification-is-warning">
+                                {{ error }}
+                            </div>
+                        {% endfor %}
+
+                    {{ form.confirm_password(class="input", placeholder="Confirm your password") }}
+                        {% for error in form.confirm_password.errors %}
+                            <div class="notification-is-warning">
+                                {{ error }}
+                            </div>
+                        {% endfor %}
+
+                    {{ form.submit(class="button") }}
+            </form>
+        </div>
+{% endblock %}

@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+
+<!-- @author Tess Goulandris
+Displaying a table where a food banks can manage their addresses -->
+
+{% block content %}
+    <h1 style="margin-top: 25px"> Manage Food Bank Addresses</h1>
+<div class="div-bg-large" style="padding-bottom: 5px">
+
+        <table class="manage-addresses">
+                <tr>
+                    <th> Building Name</th>
+                    <th> Address Line </th>
+                    <th> Town </th>
+                    <th> Postcode </th>
+                    <th> Edit Opening Hours</th>
+                    <th> Delete Address</th>
+                </tr>
+                {% for address in addresses %}
+                <tr>
+                    <td>{{ address.building_name }}</td>
+                    <td>{{ address.number_and_road }}</td>
+                    <td>{{ address.town }}</td>
+                    <td>{{ address.postcode }}</td>
+                    <div class="opening-hours-button">
+                        <td><a href="{{ url_for('food_banks.manage_opening_hours', address_id=address.id) }}" class="button">
+                            Opening Hours
+                        </a></td>
+                    </div>
+                    <div class="delete-button">
+                    <td><a href="{{ url_for('food_banks.delete_address', address_id=address.id) }}" class="button">
+                    Delete
+                    </a></td>
+                    </div>
+                </tr>
+                {% endfor %}
+
+        </table>
+
+    <div class="add-button">
+        <a href="{{ url_for('food_banks.add_address') }}" class="button" style="width: 250px">
+            Add Address
+        </a>
+    </div>
+</div>
+
+{% endblock %}

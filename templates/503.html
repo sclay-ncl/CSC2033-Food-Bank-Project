@@ -1,7 +1,26 @@
-{% extends "base.html" %}
+<!-- author: Anthony Clermont
+ Called upon 503 error -->
 
-{% block content %}
+<!DOCTYPE html>
+<html lang="en">
 
-    <h2 class="title is-2">Service Unavailable</h2>
-
-{% endblock %}
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Feeding Newcastle</title>
+    <link rel="stylesheet" href="../static/styles.css" />
+    <link rel="shortcut icon" href="../static/favicon.ico">
+</head>
+<body>
+    <div class="error-div">
+        <h1 class="error-header">503</h1>
+        <h3 class="error-txt">Oops, Something Went Wrong!  </h3>
+        <div class="error-button-div">
+            <a href="{{ url_for('index') }}" class="error-button">
+                Return to Home
+            </a>
+        </div>
+    </div>
+</body>
+</html>

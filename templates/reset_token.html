@@ -1,0 +1,37 @@
+<!-- author: Anthony Clermont
+Page which allows users to enter a new password -->
+
+{% extends "base.html" %}
+
+{% block content %}
+        <div class="password_form">
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    {% for category, message in messages %}
+                        <div class="notification-is-{{ category }}">
+                        {{ message }}
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+                <form method="POST">
+                    <h1 style="padding-top: 55px;">Reset Password</h1>
+                    <p style="padding-bottom: 5px; padding-top: 20px"> Please enter your new password.</p>
+                        {{ form.csrf_token() }}
+                            {{ form.password(class="input", placeholder="Password") }}
+                            {% for error in form.password.errors %}
+                                <div class="notification-is-warning">
+                                {{ error }}
+                                </div>
+                            {% endfor %}
+                            {{ form.confirm_password(class="input", placeholder="Confirm Password") }}
+                            {% for error in form.confirm_password.errors %}
+                                <div class="notification-is-warning">
+                                {{ error }}
+                                </div>
+                            {% endfor %}
+
+                        {{ form.submit(class="button") }}
+                </form>
+        </div>
+{% endblock %}

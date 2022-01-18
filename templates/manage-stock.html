@@ -1,0 +1,247 @@
+{% extends "base.html" %}
+
+<!-- @author Tess Goulandris
+Displaying a table or form where a food bank can manage their stock either manually or automatically,
+if the food bank chooses to automatically manage their stock a form is shown where they can set the
+category boundaries. -->
+
+{% block content %}
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+                <div class="notification-is-{{ category }}">
+                {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+
+<!-- Page Header -->
+<h1 class="page-header">Manage Stock</h1>
+
+    <a href="{{ url_for('food_banks.update_stock_option') }}" class="button">
+        Change option
+    </a>
+
+    <!-- Stock Management form for manual option -->
+    {% if current_user.associated[0].management_option==0 %}
+    <form method="POST">
+        {{ form.csrf_token() }}
+          <div class="manual-stock">
+            <table class="manual-stock">
+                <th> Category </th>
+                <th> Stock Level </th>
+                <tr>
+                    <td> Starchy </td>
+                    <td> {{ form.starchy(class="form-dropdown-sm")}} </td>
+                </tr>
+                <tr>
+                    <td> Protein</td>
+                    <td> {{ form.protein(class="form-dropdown-sm")}} </td>
+                </tr>
+                <tr>
+                    <td> Fruit and Vegetables </td>
+                    <td> {{ form.fruit_veg(class="form-dropdown-sm")}} </td>
+                </tr>
+                <tr>
+                    <td> Soups and Sauces </td>
+                    <td> {{ form.soup_sauce(class="form-dropdown-sm")}} </td>
+                </tr>
+                <tr>
+                    <td> Drinks </td>
+                    <td> {{ form.drinks(class="form-dropdown-sm")}} </td>
+                </tr>
+                <tr>
+                    <td> Snacks </td>
+                    <td> {{ form.snacks(class="form-dropdown-sm")}} </td>
+                </tr>
+                <tr>
+                    <td> Cooking Ingredients</td>
+                    <td> {{ form.cooking_ingredients(class="form-dropdown-sm")}} </td>
+                </tr>
+                <tr>
+                    <td> Condiments</td>
+                    <td> {{ form.condiments(class="form-dropdown-sm")}} </td>
+                </tr>
+                <tr>
+                    <td> Toiletries</td>
+                    <td> {{ form.toiletries(class="form-dropdown-sm")}} </td>
+                </tr>
+            </table>
+          <div class="submit-button-sm">
+          {{ form.submit(class="button") }}
+          </div>
+      </div>
+    </form>
+    {% endif %}
+
+    <!-- Inventory table -->
+    {% if current_user.associated[0].management_option==1 %}
+        <form method="POST">
+            {{ form.csrf_token() }}
+                <div class="item-table">
+                    <h2> Item Stock </h2>
+                    <table class="item-table">
+                        <th> Item </th>
+                        <th> Quantity</th>
+                         {% for item_form in form.item_forms %}
+                        <tr>
+                            <td>{{ item_names[loop.index0] }}</td>
+                            <td>{{ item_form.quantity }}</td>
+                            {% for error in item_form.quantity.errors %}
+                                <div class="notification-is-warning">
+                                    {{ error }}
+                                </div>
+                            {% endfor %}
+                        </tr>
+                        {% endfor %}
+                    </table>
+
+                <h2> Category stock boundaries</h2>
+                    <table class="category-boundaries">
+                        <th> Categories</th>
+                        <th> Low Level Boundaries</th>
+                        <th> High Level Boundaries</th>
+                        <tr>
+                            <td> Starchy </td>
+                            <td> {{ form.category_boundary_form.starchy_low (class="input-sm") }}</td>
+                            {% for error in form.category_boundary_form.starchy_low.errors %}
+                            <div class="notification-is-warning">
+                                {{ error }}
+                            </div>
+                            {% endfor %}
+                            <td> {{ form.category_boundary_form.starchy_high(class="input-sm") }}</td>
+                            {% for error in form.category_boundary_form.starchy_high.errors %}
+                            <div class="notification-is-warning">
+                                {{ error }}
+                            </div>
+                            {% endfor %}
+                        </tr>
+                        <tr>
+                            <td> Protein </td>
+                            <td> {{ form.category_boundary_form.protein_low (class="input-sm") }}</td>
+                            {% for error in form.category_boundary_form.protein_low.errors %}
+                            <div class="notification-is-warning">
+                                {{ error }}
+                            </div>
+                            {% endfor %}
+                            <td> {{ form.category_boundary_form.protein_high(class="input-sm") }}</td>
+                            {% for error in form.category_boundary_form.protein_high.errors %}
+                            <div class="notification-is-warning">
+                                {{ error }}
+                            </div>
+                            {% endfor %}
+                        </tr>
+                            <td> Fruit and Vegetables </td>
+                            <td> {{ form.category_boundary_form.fruit_veg_low (class="input-sm") }}</td>
+                            {% for error in form.category_boundary_form.fruit_veg_low.errors %}
+                            <div class="notification-is-warning">
+                                {{ error }}
+                            </div>
+                            {% endfor %}
+                            <td> {{ form.category_boundary_form.fruit_veg_high (class="input-sm") }}</td>
+                            {% for error in form.category_boundary_form.fruit_veg_high.errors %}
+                            <div class="notification-is-warning">
+                                {{ error }}
+                            </div>
+                            {% endfor %}
+                        </tr>
+                        <tr>
+                            <td> Soups and Sauces </td>
+                            <td> {{ form.category_boundary_form.soup_sauce_low (class="input-sm") }}</td>
+                            {% for error in form.category_boundary_form.soup_sauce_low.errors %}
+                            <div class="notification-is-warning">
+                                {{ error }}
+                            </div>
+                            {% endfor %}
+                            <td> {{ form.category_boundary_form.soup_sauce_high (class="input-sm") }}</td>
+                            {% for error in form.category_boundary_form.soup_sauce_high.errors %}
+                            <div class="notification-is-warning">
+                                {{ error }}
+                            </div>
+                            {% endfor %}
+                        </tr>
+                        <tr>
+                            <td> Drinks </td>
+                            <td> {{ form.category_boundary_form.drinks_low (class="input-sm") }}</td>
+                            {% for error in form.category_boundary_form.drinks_low.errors %}
+                            <div class="notification-is-warning">
+                                {{ error }}
+                            </div>
+                            {% endfor %}
+                            <td> {{ form.category_boundary_form.drinks_high (class="input-sm") }}</td>
+                            {% for error in form.category_boundary_form.drinks_high.errors %}
+                            <div class="notification-is-warning">
+                                {{ error }}
+                            </div>
+                            {% endfor %}
+                        </tr>
+                        <tr>
+                            <td> Snacks </td>
+                            <td> {{ form.category_boundary_form.snacks_low (class="input-sm") }}</td>
+                            {% for error in form.category_boundary_form.snacks_low.errors %}
+                            <div class="notification-is-warning">
+                                {{ error }}
+                            </div>
+                            {% endfor %}
+                            <td> {{ form.category_boundary_form.snacks_high (class="input-sm") }}</td>
+                            {% for error in form.category_boundary_form.snacks_high.errors %}
+                            <div class="notification-is-warning">
+                                {{ error }}
+                            </div>
+                            {% endfor %}
+                        </tr>
+                        <tr>
+                            <td> Cooking Ingredients</td>
+                            <td> {{ form.category_boundary_form.cooking_ingredients_low (class="input-sm") }}</td>
+                            {% for error in form.category_boundary_form.cooking_ingredients_low.errors %}
+                            <div class="notification-is-warning">
+                                {{ error }}
+                            </div>
+                            {% endfor %}
+                            <td> {{ form.category_boundary_form.cooking_ingredients_high (class="input-sm") }}</td>
+                            {% for error in form.category_boundary_form.cooking_ingredients_high.errors %}
+                            <div class="notification-is-warning">
+                                {{ error }}
+                            </div>
+                            {% endfor %}
+                        </tr>
+                        <tr>
+                            <td> Condiments</td>
+                            <td> {{ form.category_boundary_form.condiments_low  (class="input-sm") }}</td>
+                            {% for error in form.category_boundary_form.condiments_low.errors %}
+                            <div class="notification-is-warning">
+                                {{ error }}
+                            </div>
+                            {% endfor %}
+                            <td> {{ form.category_boundary_form.condiments_high (class="input-sm") }}</td>
+                            {% for error in form.category_boundary_form.condiments_high.errors %}
+                            <div class="notification-is-warning">
+                                {{ error }}
+                            </div>
+                            {% endfor %}
+                        </tr>
+                        <tr>
+                            <td> Toiletries</td>
+                            <td> {{ form.category_boundary_form.toiletries_low (class="input-sm") }}</td>
+                            {% for error in form.category_boundary_form.toiletries_low.errors %}
+                            <div class="notification-is-warning">
+                                {{ error }}
+                            </div>
+                            {% endfor %}
+                            <td> {{ form.category_boundary_form.toiletries_high (class="input-sm") }}</td>
+                            {% for error in form.category_boundary_form.toiletries_high.errors %}
+                            <div class="notification-is-warning">
+                                {{ error }}
+                            </div>
+                            {% endfor %}
+                    </table>
+                <div class="submit-button-sm">
+                {{ form.submit(class="button") }}
+                </div>
+                </div>
+        </form>
+    {% endif %}
+
+{% endblock %}

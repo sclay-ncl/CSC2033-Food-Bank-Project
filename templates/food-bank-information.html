@@ -1,0 +1,188 @@
+<!-- author: Anthony Clermont
+Page to display food bank information and map-->
+
+{% extends "base.html" %}
+
+{% block content %}
+<!-- Page Header -->
+    <h1 class="page-header"> {{ fb_name }}</h1>
+
+    <form method="POST">
+        {% if not is_fav and current_user.is_authenticated %}
+        <button style="background: transparent; border: 0" type=submit name="action" value="add" class="fav"> <img src="../static/unsaved.png" alt="not saved" width="40" height="40"></button>
+        {% elif is_fav%}
+        <button style="background: transparent; border: 0" type=submit name="action" value="remove" class="fav"> <img src="../static/saved.png" alt="saved" width="40" height="40"></button>
+        {% endif %}
+    </form>
+
+
+<div id='map'>
+
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+    <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v2.6.1/mapbox-gl.js'></script>
+    <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v2.6.1/mapbox-gl.css' rel='stylesheet' />
+    <script  type='text/javascript' src="../static/config.js"></script>
+<script>
+    mapboxgl.accessToken = config.MAPBOX_API_TOKEN;
+
+    const lat = {{ lat|safe }};
+    const long = {{ long|safe }};
+    const c_coord = {{ c_coord|safe }}
+
+    const map = new mapboxgl.Map({
+      container: 'map',
+      style: 'mapbox://styles/mapbox/streets-v10',
+      center: [c_coord[1], c_coord[0]],
+      zoom: 12
+    });
+
+    for (let i = 0; i < lat.length; i++) {
+        displayPointer(lat[i], long[i])
+    }
+
+    function displayPointer(lat, long) {
+        const marker = new mapboxgl.Marker().setLngLat([long, lat]).addTo(map);
+    }
+
+</script>
+    </div>
+    {% for index in range(id|length) %}
+        <div class="div-bg" style="width: 75%; max-width: 850px">
+            <h4> Address Details: </h4>
+            {% if fb_txt_address[index][0] == 'NULL' or fb_txt_address[index][0] == "" %}
+                <p> {{ fb_txt_address[index][1] }}, {{ fb_txt_address[index][2] }}, {{ fb_txt_address[index][3] }} </p> <br>
+            {% else %}
+                <p> {{ fb_txt_address[index][0] }}, {{ fb_txt_address[index][1] }}, {{ fb_txt_address[index][2] }}, {{ fb_txt_address[index][3] }} </p> <br>
+            {% endif %}
+
+            <h4> Contact Details: </h4>
+            <p> Email:  {{ fb_email }} </p>
+            <p> Phone number: {{ fb_phone }} </p>
+            <p> Website: {{ fb_web if fb_web is not none else 'Not Avaialble'}} </p> <br>
+
+            <h4> Opening Times: </h4>
+            <p> Monday: {{ opening_times[index]['Monday'] }} </p>
+            <p> Tuesday: {{ opening_times[index]['Tuesday'] }} </p>
+            <p> Wednesday: {{ opening_times[index]['Wednesday'] }} </p>
+            <p> Thursday: {{ opening_times[index]['Thursday'] }} </p>
+            <p> Friday: {{ opening_times[index]['Friday'] }} </p>
+            <p> Saturday: {{ opening_times[index]['Saturday'] }} </p>
+            <p> Sunday: {{ opening_times[index]['Sunday'] }} </p>
+            <br>
+        </div>
+    {% endfor %}
+
+<div class="div-bg" style="max-width: 850px">
+    <h4> {{ fb_name }}'s Stock Needs </h4>
+
+    <p> This is a basic overview of {{ fb_name }}'s stock. <br> Please, if possible, donate foods and items which
+        <br> are in low stock and avoid items which we are high in stock. </p>
+    <br><br>
+
+<!-- author: Alli Edwards
+Table shows the stock level of all categories for given food bank
+Table rows only show if condition is met -->
+
+    <div class="row">
+    <div class="col">
+<table class="high-stock">
+<tr><td>Well stocked:</td></tr>
+    {% if fb_stock.starchy == 2 %}
+    <tr><td>Starchy foods</td></tr>
+    {% endif %}
+    {% if fb_stock.protein == 2 %}
+    <tr><td>Protein</td></tr>
+    {% endif %}
+    {% if fb_stock.fruit_veg == 2 %}
+    <tr><td>Fruit and vegetables</td></tr>
+    {% endif %}
+    {% if fb_stock.soup_sauce == 2 %}
+    <tr><td>Soups</td></tr>
+    {% endif %}
+    {% if fb_stock.drinks == 2 %}
+    <tr><td>Drinks</td></tr>
+    {% endif %}
+    {% if fb_stock.snacks == 2 %}
+    <tr><td>Snacks</td></tr>
+    {% endif %}
+    {% if fb_stock.cooking_ingredients == 2 %}
+    <tr><td>Cooking Ingredients</td></tr>
+    {% endif %}
+    {% if fb_stock.condiments == 2 %}
+    <tr><td>Condiments</td></tr>
+    {% endif %}
+    {% if fb_stock.toiletries == 2 %}
+    <tr><td>Toiletries</td></tr>
+    {% endif %}
+        </table>
+    </div>
+    <div class="col">
+        <table class="low-stock">
+            <tr><td>Low in stock:</td></tr>
+        {% if fb_stock.starchy == 1%}
+        <tr><td>Starchy foods</td></tr>
+        {% endif %}
+        {% if fb_stock.protein == 1 %}
+        <tr><td>Protein</td></tr>
+        {% endif %}
+        {% if fb_stock.fruit_veg == 1 %}
+        <tr><td>Fruit and vegetables</td></tr>
+        {% endif %}
+        {% if fb_stock.soup_sauce == 1 %}
+        <tr><td>Soups</td></tr>
+        {% endif %}
+        {% if fb_stock.drinks == 1 %}
+        <tr><td>Drinks</td></tr>
+        {% endif %}
+        {% if fb_stock.snacks == 1 %}
+        <tr><td>Snacks</td></tr>
+        {% endif %}
+        {% if fb_stock.cooking_ingredients == 1 %}
+        <tr><td>Cooking Ingredients</td></tr>
+        {% endif %}
+        {% if fb_stock.condiments == 1 %}
+        <tr><td>Condiments</td></tr>
+        {% endif %}
+        {% if fb_stock.toiletries == 1 %}
+        <tr><td>Toiletries</td></tr>
+        {% endif %}
+        </table>
+    </div>
+
+<div class="col">
+<table class="urgent-stock">
+<tr><td>Urgently needed:</td></tr>
+    {% if fb_stock.starchy == 0 %}
+    <tr><td>Starchy foods</td></tr>
+    {% endif %}
+    {% if fb_stock.protein == 0 %}
+    <tr><td>Protein</td></tr>
+    {% endif %}
+    {% if fb_stock.fruit_veg == 0 %}
+    <tr><td>Fruit and vegetables</td></tr>
+    {% endif %}
+    {% if fb_stock.soup_sauce == 0 %}
+    <tr><td>Soups</td></tr>
+    {% endif %}
+    {% if fb_stock.drinks == 0 %}
+    <tr><td>Drinks</td></tr>
+    {% endif %}
+    {% if fb_stock.snacks == 0 %}
+    <tr><td>Snacks</td></tr>
+    {% endif %}
+    {% if fb_stock.cooking_ingredients == 0 %}
+    <tr><td>Cooking Ingredients</td></tr>
+    {% endif %}
+    {% if fb_stock.condiments == 0 %}
+    <tr><td>Condiments</td></tr>
+    {% endif %}
+    {% if fb_stock.toiletries == 0 %}
+    <tr><td>Toiletries</td></tr>
+    {% endif %}
+        </table>
+</div>
+    </div>
+<br><br>
+</div>
+
+{% endblock %}

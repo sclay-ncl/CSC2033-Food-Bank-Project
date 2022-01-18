@@ -1,51 +1,50 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Login</title>
-    <link rel="stylesheet" href="../static/styles.css">
+{% extends "base.html" %}
 
+<!-- @author Tess Goulandris, Anthony Clermont
+Displaying a form where a user can login to an account -->
 
-</head>
-<!-- Creating a top navigation bar  -->
-<nav>
-    <div class="logo-image">
-        <img src="../static/logo600x200.png" alt="Feeding Newcastle">
+{% block content %}
+
+    <div class="login-form">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="notification-is-{{ category }}">
+                    {{ message }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+            <form method="POST">
+                <h1 style="padding-top: 55px;">Login</h1>
+                    {{ form.csrf_token() }}
+                        {{ form.email(class="input", placeholder="Email") }}
+                        {% for error in form.email.errors %}
+                            <div class="notification-is-warning">
+                                {{ error }}
+                            </div>
+                        {% endfor %}
+                        {{ form.password(class="input", placeholder="Password") }}
+                        {% for error in form.password.errors %}
+                            <div class="notification-is-warning">
+                                {{ error }}
+                            </div>
+                        {% endfor %}
+            <div class="recaptcha">
+                    {{ form.recaptcha }}
+                    {% for error in form.recaptcha.errors %}
+                        <div class="notification-is-warning">
+                            {{ error }}
+                        </div>
+                    {% endfor %}
+            </div>
+                    {{ form.submit(class="button") }}
+            <div>
+                <a class="password_reset" href="{{ url_for('users.reset_request') }}">
+                    Forgotten Password?
+                </a>
+            </div>
+
+            </form>
     </div>
-    <ul>
-    <li><a href="food-banks.html"> Our Food Banks </a></li>
-    <li><a href="appointments.html"> Book an Appointment </a></li>
-    <li><a href="donate.html"> Donate </a></li>
-    <li><a href="register.html"> Register </a></li>
-    </ul>
-</nav>
-
-<body>
-
-<!-- Creating the Register Form  -->
-<div class="login-form">
-<form>
-    <!-- Page Header -->
-    <h1> Login </h1>
-
-    <label for="email">Email Address:</label>
-    <input type="text" placeholder="Enter your Email Address">
-
-    <label for="password">Password:</label>
-    <input type="password" placeholder="Enter your Password">
-
-
-    <div class="submit-button">
-    <button type="submit" value="Submit"> Submit </button>
-    </div>
-
-    <div class="login_text">Or Register:</div>
-    <div class="link-to-reg">
-        <a href="register.html">Register</a>
-    </div>
-
-</form>
-</div>
-
-</body>
-</html>
+{% endblock %}

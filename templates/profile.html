@@ -1,10 +1,52 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends "base.html" %}
 
-</body>
-</html>
+<!-- @author Tess Goulandris, Anthony Clermont
+Displaying a users account details -->
+
+{% block content %}
+
+    {% if current_user.is_authenticated %}
+
+        <h3> My Profile </h3>
+        <h1> Account Details </h1>
+
+    <div class="profile-display">
+        <div class="name-details">
+        <p class="form-header"> Name </p>
+        {{ current_user.first_name }} {{ current_user.last_name}}
+        </div>
+
+        <div class="contact-details">
+        <p class="form-header"> Email Address </p>
+        {{ current_user.email }}
+        <p class="form-header"> Phone Number </p>
+        {{ current_user.phone_number}}
+        </div>
+
+        <div class="address-details">
+        <p class="form-header"> Address Details </p>
+        {{ current_user.number_and_road}} <br>
+        {{ current_user.town }} <br>
+        {{ current_user.postcode }}
+        </div>
+
+        {% if current_user.role=='donor' or current_user.role=='collector' %}
+        <div class="fb-preference">
+        <p class="form-header"> Saved Food Banks: </p>
+        </div>
+            {% if saved_fb %}
+                {% for fb in saved_fb %}
+                    {{ fb.name }} <br>
+                {% endfor %}
+            {% else %}
+                <p> You haven't saved any food banks yet! </p>
+            {% endif %}
+        {% endif %}
+
+        <a href="{{ url_for('users.update_profile') }}" class="button" style="width: 30%">
+            Update Profile
+        </a>
+    {% endif %}
+    </div>
+
+{% endblock %}

@@ -1,0 +1,161 @@
+<!-- author: Alli Edwards, Tess Goulandris, Anthony Clermont
+Page that links the stylesheet to all pages, upholds role-based access, creates functional navigation bar -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Feeding Newcastle</title>
+    <link rel="stylesheet" href="../static/styles.css" />
+    <link rel="shortcut icon" href="../static/favicon.ico">
+</head>
+<body>
+    <div class="dropdown">
+          <button class="dropbtn">Menu</button>
+          <div class="dropdown-content">
+              {% if current_user.is_authenticated%}
+                <a href="{{ url_for('users.logout') }}">
+                    Logout
+                </a>
+                {% endif %}
+              {% if current_user.is_authenticated and not current_user.role =='food_bank' %}
+                <a href="{{ url_for('users.profile') }}">
+                    Profile
+                </a>
+                {% endif %}
+                {% if current_user.is_authenticated and current_user.role=='admin'%}
+                <a href="{{ url_for('admin.admin') }}">
+                    Admin
+                </a>
+                <a href="{{ url_for('admin.food_bank_registration') }}">
+                    Register Food Banks
+                </a>
+                {% endif %}
+                {% if not current_user.is_authenticated %}
+                <a href="{{ url_for('users.register') }}">
+                    Register
+                </a>
+                <a href="{{ url_for('users.login') }}">
+                    Login
+                </a>
+                {% endif %}
+                {% if not current_user.role=="admin" and not current_user.role=="food_bank"%}
+                <a href="{{ url_for('users.contact_us') }}">
+                     Contact Us
+                </a>
+                <a href="{{ url_for('users.donate') }}">
+                    Donate
+                </a>
+                <a href="{{ url_for('users.food_bank_search') }}">
+                    Our Food Banks
+                </a>
+                <a href="{{ url_for('index') }}">
+                     Home
+                </a>
+                {% endif %}
+                {% if current_user.role=="donor" %}
+                <a href="{{ url_for('users.contact_us') }}" class="navbar-item">
+                    Contact Us
+                </a>
+                <a href="{{ url_for('users.donate') }}" class="navbar-item">
+                    Donate
+                </a>
+                <a href="{{ url_for('users.food_bank_search') }}" class="navbar-item">
+                    Our Food Banks
+                </a>
+                <a href="{{ url_for('index') }}" class="navbar-item">
+                     Home
+                </a>
+                {% endif %}
+                {% if current_user.role=="food_bank"%}
+                <a href="{{ url_for('food_banks.manage_stock') }}">
+                        Manage Stock
+                </a>
+                <a href="{{ url_for('food_banks.update_information') }}">
+                        Update Information
+                </a>
+                <a href="{{ url_for('food_banks.manage_addresses') }}">
+                        Manage Addresses
+                </a>
+                {% endif %}
+             </div>
+            </div>
+        <nav class="nav">
+            <div class="logo">
+                     <img src="../static/logo600x200.png" alt="Feeding Newcastle" width="240" height="80">
+            </div>
+            <div class="navbar-item">
+                {% if current_user.is_authenticated%}
+                    <a href="{{ url_for('users.logout') }}" class="navbar-item">
+                        Logout
+                    </a>
+                {% endif %}
+                {% if current_user.is_authenticated and not current_user.role =='food_bank' %}
+                    <a href="{{ url_for('users.profile') }}" class="navbar-item">
+                        Profile
+                    </a>
+                {% endif %}
+                {% if current_user.is_authenticated and current_user.role=='admin'%}
+                <a href="{{ url_for('admin.admin') }}" class="navbar-item">
+                    Admin
+                </a>
+                <a href="{{ url_for('admin.food_bank_registration') }}" class="navbar-item">
+                    Register Food Banks
+                </a>
+                {% endif %}
+                {% if not current_user.is_authenticated %}
+                <a href="{{ url_for('users.register') }}" class="navbar-item">
+                    Register
+                </a>
+                <a href="{{ url_for('users.login') }}" class="navbar-item">
+                    Login
+                </a>
+                <a href="{{ url_for('users.donate') }}" class="navbar-item">
+                    Donate
+                </a>
+                {% endif %}
+                {% if not current_user.role=="admin" and not current_user.role=="food_bank" and not current_user.role=="donor"%}
+                <a href="{{ url_for('users.contact_us') }}" class="navbar-item">
+                     Contact Us
+                </a>
+                <a href="{{ url_for('users.food_bank_search') }}" class="navbar-item">
+                    Our Food Banks
+                </a>
+                <a href="{{ url_for('index') }}" class="navbar-item">
+                     Home
+                </a>
+                {% endif %}
+                {% if current_user.role=="donor" %}
+                <a href="{{ url_for('users.contact_us') }}" class="navbar-item">
+                    Contact Us
+                </a>
+                <a href="{{ url_for('users.donate') }}" class="navbar-item">
+                    Donate
+                </a>
+                <a href="{{ url_for('users.food_bank_search') }}" class="navbar-item">
+                    Our Food Banks
+                </a>
+                <a href="{{ url_for('index') }}" class="navbar-item">
+                     Home
+                </a>
+                {% endif %}
+                {% if current_user.role=="food_bank"%}
+                <a href="{{ url_for('food_banks.manage_stock') }}" class="navbar-item">
+                        Manage Stock
+                </a>
+                <a href="{{ url_for('food_banks.update_information') }}" class="navbar-item">
+                        Update Information
+                </a>
+                <a href="{{ url_for('food_banks.manage_addresses') }}" class="navbar-item">
+                        Manage Addresses
+                </a>
+                {% endif %}
+             </div>
+         </nav>
+         <div id="content">{% block content %}{% endblock %}</div>
+<div style="margin-bottom: 5%"></div>
+</body>
+</html>

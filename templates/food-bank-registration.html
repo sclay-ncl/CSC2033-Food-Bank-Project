@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+
+<!-- @author Tess Goulandris
+Displaying a form where a food bank can create an account -->
+
+{% block content %}
+        <div class="food-bank-register-form">
+
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    {% for category, message in messages %}
+                        <div class="notification-is-{{ category }}">
+                        {{ message }}
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+            <form method="POST">
+                <h1 style="padding-top: 55px;">Register New Food Bank</h1>
+                    {{ form.csrf_token() }}
+                        {{ form.name(class="input", placeholder="Food Bank Name") }}
+                        {% for error in form.name.errors %}
+                            <div class="notification-is-warning">
+                                {{ error }}
+                            </div>
+                        {% endfor %}
+
+                    {{ form.email(class="input", placeholder="Enter the Food Bank Email Address") }}
+                        {% for error in form.email.errors %}
+                            <div class="notification-is-warning">
+                                {{ error }}
+                            </div>
+                        {% endfor %}
+
+                    {{ form.phone_number(class="input", placeholder="Enter the Food Bank Phone Number") }}
+                        {% for error in form.phone_number.errors %}
+                            <div class="notification-is-warning">
+                                {{ error }}
+                            </div>
+                        {% endfor %}
+
+                    {{ form.website(class="input", placeholder="Enter the Food Bank Website") }}
+                        {% for error in form.website.errors %}
+                            <div class="notification-is-warning">
+                                {{ error }}
+                            </div>
+                        {% endfor %}
+
+
+                    {{ form.password(class="input", placeholder="Enter password") }}
+                        {% for error in form.password.errors %}
+                            <div class="notification-is-warning">
+                                {{ error }}
+                            </div>
+                        {% endfor %}
+
+                    {{ form.confirm_password(class="input", placeholder="Confirm password") }}
+                        {% for error in form.confirm_password.errors %}
+                            <div class="notification-is-warning">
+                                {{ error }}
+                            </div>
+                        {% endfor %}
+
+                        {{ form.submit(class="button") }}
+            </form>
+        </div>
+{% endblock %}

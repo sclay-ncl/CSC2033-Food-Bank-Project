@@ -1,13 +1,8 @@
 /* Style Sheet */
-
+/* Author: Tess Goulandris, Anthony Clermont, Alli Edwards*/
 /* Styling the Navigation Bar */
-/* Used as inspiration - CHANGE NAV MORE https://codepen.io/fghty/pen/NWpjwVd */
+/* Used as inspiration -  https://codepen.io/fghty/pen/NWpjwVd */
 @import url('https://fonts.googleapis.com/css?family=Poppins:400,500,600,700&display=swap');
-
-body{
-    background-color: aliceblue;
-    align-text: center;
-}
 
 *{
   margin: 0;
@@ -15,65 +10,353 @@ body{
   box-sizing: border-box;
   font-family: 'Poppins', sans-serif;
 }
-nav{
-  display: flex;
-  height: 80px;
+
+/* Navigation Bar - When Screen is full sized */
+.nav{
+  height: 95px;
   width: 100%;
-  background: black;
+  background: #5c8631;
   align-items: center;
   justify-content: space-between;
   padding: 0 50px 0 100px;
-  flex-wrap: wrap;
+    box-shadow: 0 8px 2px -2px rgba(0,0,0,.15);
 }
 
-nav ul{
-  display: flex;
-  flex-wrap: wrap;
-  list-style: none;
-}
-
-nav ul li{
-  margin: 0 5px;
-}
-
-nav ul li a{
-  color: aliceblue;
-  text-decoration: none;
-  font-size: 18px;
-  font-weight: 500;
-  padding: 8px 15px;
-  letter-spacing: 1px;
-}
-
-.logo-image img{
-    height: 80px;
-    width: auto;
-    object-fit: contain;
+.nav .logo{
     float: left;
+    position: relative;
+    top: 10px;
+}
+
+nav .navbar-item{
+    color: #f2f2f2;
+    text-decoration: none;
+    font-size: 18px;
+    font-weight: 500;
+    padding: 8px 15px;
+    border-radius: 5px;
+    letter-spacing: 1px;
+    transition: all 0.3s ease;
+    float: right;
+    position: relative;
+    top: 10px;
+}
+
+.nav a:hover{
+  color: #ffffff;
+  background: rgb(151, 193, 112);
+}
+
+/* Navigation Bar - When Screen is not full size */
+
+@media screen and (min-width: 1401px) {
+    .dropbtn {
+        display: none !important;
+    }
+}
+
+@media screen and (max-width: 1400px) {
+    .navbar-item{
+        visibility: collapse;
+        display: none !important;}
+
+}
+
+.dropbtn {
+    position: absolute;
+    top: 10px;
+	border-radius: 15px;
+	border: 1px solid #ffffff;
+	background-color: #ffffff;
+	color: #000000;
+	font-size: 14px;
+	font-weight: bold;
+	padding: 10px 24px;
+	letter-spacing: 1px;
+    text-decoration: none;
+    cursor: pointer;
+    margin: 8px auto 0;
+    box-shadow: 5px 5px rgba(0,0,0,.15);
+}
+
+.dropdown {
+    position: absolute;
+    display: inline-block;
+    float: right;
+    top: 10px;
+    right: 25%;
+    z-index: 1000;
+}
+
+.dropdown-content {
+    top: 62px;
+    display: none;
+    position: absolute;
+    background-color: #5c8631;
+    border-radius: 15px;
+}
+
+.dropdown-content a {
+    color: #ffffff;
+    padding: 10px 15px;
+    text-decoration: none;
+    display: block;
+}
+
+.dropdown-content a:hover {
+    background-color: #97c170;
+    border-radius: 5px
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+.dropdown:hover .dropbtn {
+    background-color: #97c170;
 }
 
 /* Header */
 h1 {
-    padding: 40px 20px 20px 20px;
+    padding: 20px ;
     text-align: center;
     color: black;
 }
 
-/* Body */
+h3 {
+    text-align: center;
+    padding: 30px 10px 10px 10px;
+}
 
+h4 {
+    padding-bottom: 5px;
+}
+
+/* Body */
+body {
+    background-color: #97c170;
+}
+
+p {
+    font: 15px Poppins, sans-serif;
+    color: black;
+}
+
+p.page-header {
+    font-size: 20px;
+    text-align: center;
+    color: #a9a9a9;
+    text-decoration: underline;
+}
+
+.div-bg{
+    background: white;
+    text-align: center;
+    width: 80%;
+    padding-top: 20px;
+    margin: 20px auto 60px;
+    box-shadow: 20px 20px rgba(0,0,0,.15);
+}
+
+.div-bg-large {
+    background: white;
+    text-align: center;
+    width: 90%;
+    padding-top: 20px;
+    margin: 20px auto 60px;
+    box-shadow: 20px 20px rgba(0,0,0,.15);
+}
+
+/* Our Food Bank Page */
+
+#map {
+    top: 20px;
+    height: 350px;
+    width: 70%;
+    box-shadow: 20px 20px rgba(0,0,0,.15);
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 85px;
+    max-width: 850px;
+}
+
+#map1 {
+    top: 20px;
+    height: 350px;
+    width: 70%;
+    box-shadow: 20px 20px rgba(0,0,0,.15);
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 70px;
+    max-width: 850px;
+}
+
+.fav {
+    position: relative;
+    top: 50%;
+    left: 50%;
+    cursor: pointer;
+}
+
+.marker {
+  background-size: cover;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+/* flash notifications */
+.notification-is-danger{
+    width: 90%;
+    display: block;
+    text-align: center;
+	border-radius: 20px;
+	border: 1px solid #8e2c23;
+	background-color: #fedce0;
+	color: #8e2c23;
+	font-size: 12px;
+	font-weight: bold;
+	padding: 10px 30px;
+	letter-spacing: 1px;
+    position: absolute;
+    left: 50%;
+    top: 5.5%;
+    transform: translate(-50%, -50%);
+}
+
+.notification-is-info {
+    width: 90%;
+    display: block;
+    text-align: center;
+	border-radius: 20px;
+	border: 1px solid #44839a;
+	background-color: #b6d8ea;
+	color: #44839a;
+	font-size: 12px;
+	font-weight: bold;
+	padding: 10px 30px;
+	letter-spacing: 1px;
+    position: absolute;
+    left: 50%;
+    top: 5.5%;
+    transform: translate(-50%, -50%);
+}
+
+.notification-is-success {
+    width: 90%;
+    display: block;
+    text-align: center;
+	border-radius: 20px;
+	border: 1px solid #5c8631;
+	background-color: #cde1ba;
+	color: #5c8631;
+	font-size: 12px;
+	font-weight: bold;
+	padding: 10px 30px;
+	letter-spacing: 1px;
+    position: absolute;
+    left: 50%;
+    top: 5.5%;
+    transform: translate(-50%, -50%);
+}
+
+.notification-is-warning {
+    width: 90%;
+    display: block;
+    text-align: center;
+	border-radius: 20px;
+	border: 1px solid #c09b24;
+	background-color: #fae09b;
+	color: #c09b24;
+	font-size: 12px;
+	font-weight: bold;
+	padding: 10px 30px;
+	letter-spacing: 1px;
+    position: absolute;
+    left: 50%;
+    top: 7.5%;
+    transform: translate(-50%, -50%);
+}
+
+/* Login Page */
 .login-form{
     margin-top: 100px;
-    margin-left: 500px;
-    margin-right: 500px;
+    margin-left: auto;
+    margin-right: auto;
     align-content: center;
+    text-align: center;
+    background: white;
+    color: black;
+    position: relative;
+    width: 25%;
+    height: 57%;
+    box-shadow: 20px 20px rgba(0,0,0,.15);
+}
+
+.login-form input{
+    padding: 20px;
+}
+
+/* Password Request & Reset Pages */
+.password_form {
+    margin-top: 100px;
+    margin-left: auto;
+    margin-right: auto;
+    align-content: center;
+    text-align: center;
     background: white;
     color: black;
     position: relative;
     width: 350px;
-    height: 550px;
+    height: auto;
+    padding-bottom: 25px;
     box-shadow: 20px 20px rgba(0,0,0,.15);
 }
 
+.password_reset {
+    font-size: 14px;
+}
+
+/* register food bank form */
+.food-bank-register-form {
+    margin-top: 100px;
+    margin-left: auto;
+    margin-right: auto;
+    align-content: center;
+    background: white;
+    color: black;
+    position: relative;
+    height: auto;
+    width: 500px;
+    padding-bottom: 25px;
+    box-shadow: 20px 20px rgba(0,0,0,.15);
+}
+
+.food-bank-register-form input{
+    padding: 20px;
+}
+
+/* update profile form */
+.update-profile-form {
+    margin-top: 100px;
+    margin-left: auto;
+    margin-right: auto;
+    align-content: center;
+    background: white;
+    color: black;
+    position: relative;
+    height: auto;
+    width: 450px;
+    padding-bottom: 25px;
+    box-shadow: 20px 20px rgba(0,0,0,.15);
+}
+
+.update-profile-form input{
+    padding: 20px;
+}
+
+/* Register Form */
 .register-form{
     padding: 40px;
     max-width:600px;
@@ -83,38 +366,70 @@ h1 {
     color: black;
     position: relative;
     height:86%;
-    width:50%;
+    width:80%;
     box-shadow: 20px 20px rgba(0,0,0,.15);
+}
+
+.register-form input{
+    padding: 20px;
+}
+
+.fb-list {
+    font-size: 14px;
+    text-align: center;
+    height: 50px;
+    width: 90%;
+    border: rgba(0,0,0,.3) 2px solid;
+    box-sizing: border-box;
+    padding: 20px;
+    display: block;
+    margin: 15px auto 30px;
 }
 
 form label{
   padding: 20px 25px 20px 40px;
 }
 
-input{
+.input{
     font-size: 14px;
     text-align: center;
     height: 50px;
-    width: 100%;
+    width: 90%;
     border: rgba(0,0,0,.3) 2px solid;
     box-sizing: border-box;
-    padding: 20px;
-    margin-top: 15px;
-    margin-bottom: 30px;
+    display: block;
+    margin: 15px auto 30px;
 }
 
+.recaptcha {
+    margin: auto;
+    padding: 20px;
+    display: inline-block;
+}
 
 .first-name{
     position:relative;
-    width:48%;
+    width:42.5%;
     margin-right:4%;
+    margin-left: 5%;
     display:inline-block;
+    font-size: 14px;
+    text-align: center;
+    height: 50px;
+    border: rgba(0,0,0,.3) 2px solid;
+    box-sizing: border-box;
 }
 
 .last-name{
-    width:48%;
+    width:42.5%;
     display: block;
     float:right;
+    margin-right: 5%;
+    font-size: 14px;
+    text-align: center;
+    height: 50px;
+    border: rgba(0,0,0,.3) 2px solid;
+    box-sizing: border-box;
 }
 
 input::placeholder {
@@ -134,16 +449,43 @@ input::placeholder {
     font-size: 14px;
 }
 
-button {
-	border-radius: 20px;
-	border: 1px solid #bde0ff;
-	background-color: #bde0ff;
-	color: black;
+.button {
+    text-align: center;
+    vertical-align: middle;
+    height: 10%;
+    width: 55%;
+	border-radius: 30px;
+	border: 1px solid #5c8631;
+	background-color: #97c170;
+	color: #000000;
 	font-size: 12px;
 	font-weight: bold;
-	padding: 12px 45px;
+	padding:12px 35px;
 	letter-spacing: 1px;
 	text-transform: uppercase;
+    cursor: pointer;
+    display: block;
+    margin: 30px auto;
+
+}
+
+.fb-button{
+    text-align: center;
+	border-radius: 15px;
+	border: 1px solid #ffffff;
+	background-color: #ffffff;
+	color: #000000;
+	font-size: 14px;
+	font-weight: bold;
+	padding: 12px 35px;
+	letter-spacing: 1px;
+    text-decoration: none;
+    cursor: pointer;
+    display: block;
+    margin: 8px auto 0;
+    width: 60%;
+    max-width: 850px;
+    box-shadow: 5px 5px rgba(0,0,0,.15);
 }
 
 .submit-button{
@@ -154,18 +496,491 @@ button:active {
 	transform: scale(0.95);
 }
 
-body {
-    background-color: aliceblue;
+/* Contact Us page */
+.contact-us{
+    margin-top: 30px;
+    margin-left: auto;
+    margin-right: auto;
+    align-content: center;
+    background: white;
+    position: relative;
+    width: 60%;
+    height: auto;
+    padding: 15px;
+    box-shadow: 20px 20px rgba(0,0,0,.15);
 }
 
-p {
-    font: 15px Poppins, sans-serif;
+.page-header{
+    padding-top: 30px;
+    padding-bottom: 15px;
 }
 
-p.page-header {
-    font-size: 20px;
+/* Food Bank Information Page */
+.high-stock{
     text-align: center;
-    color: gray;
-    text-decoration: underline;
+    color: green;
+    box-sizing: border-box;
+    width: 17vw;
+}
 
+.low-stock{
+    text-align: center;
+    color: orange;
+    box-sizing: border-box;
+    width: 17vw;
+}
+
+.urgent-stock{
+    text-align: center;
+    color: red;
+    box-sizing: border-box;
+    width: 17vw;
+}
+
+.column {
+    flex: 33%;
+
+}
+.row {
+    display: flex;
+    justify-content: center;
+}
+
+h3.fb-contact-details{
+    text-align: left;
+}
+
+/* Profile page */
+.profile-display{
+    border: thin solid rgba(0, 0, 0, .15);
+    text-align: center;
+    margin: 20px auto;
+    background-color: white;
+    align-content: center;
+    position: relative;
+    width: 60%;
+    height: 75%;
+    box-shadow: 20px 20px rgba(0,0,0,.15);
+    font-size: 15px;
+}
+
+.form-header{
+    font-weight: bold;
+    padding: 2px;
+}
+
+.name-details{
+    padding: 10px;
+}
+
+.contact-details{
+    padding: 10px;
+}
+
+.address-details{
+    padding: 10px;
+}
+
+.fb-preference{
+    padding: 10px;
+}
+
+.notification{
+    padding: 10px;
+}
+
+.diet_req{
+    padding: 10px;
+}
+
+.their-appointments{
+    padding: 10px;
+}
+
+.circle {
+  width: 80px;
+  height: 80px;
+  line-height: 45px;
+  border-radius: 50%;
+  color: #fff;
+  text-align: center;
+  background: #97c170;
+  display: inline-block;
+  margin-top: 25px;
+}
+
+/* info table */
+.info-table{
+    width:100%;
+    table-layout: fixed;
+    position: relative;
+    text-align: center;
+    padding: 0.5rem;
+    border-style : hidden!important;
+    border-collapse: collapse;
+}
+
+th.info-table{
+    padding: 20px 15px;
+    text-align: left;
+    font-weight: 500;
+    color: #000000;
+}
+
+td.info-table{
+    padding: 15px;
+    text-align: left;
+    vertical-align:middle;
+    font-weight: 300;
+    color: #000000;
+}
+
+/* Manage Address Page */
+table, tr, td {
+    border-collapse: collapse;
+    border: thin solid rgba(0, 0, 0, .15);
+    padding-bottom: 1em;
+    background: white;
+}
+.manage-addresses{
+    width:100%;
+    table-layout: fixed;
+    position: relative;
+    text-align: center;
+}
+
+.manage-addresses th{
+    text-align: left;
+    font-weight: 500;
+    color: #000000;
+}
+
+.manage-addresses td{
+    text-align: left;
+    vertical-align:middle;
+    font-weight: 300;
+    color: #000000;
+}
+
+
+/* Manage Opening Hours Page */
+.opening-hours{
+    width:100%;
+    table-layout: fixed;
+    position: relative;
+    text-align: center;
+    padding: 0.5rem;
+}
+
+.opening-hours th{
+    padding: 20px 15px;
+    text-align: left;
+    font-weight: 500;
+    color: #000000;
+}
+
+.opening-hours td{
+    padding: 15px;
+    text-align: left;
+    vertical-align:middle;
+    font-weight: 300;
+    color: #000000;
+}
+
+/* Add Opening Hours Page */
+.add-opening-hours {
+    text-align: center;
+    width: 60%;
+    background: white;
+    box-shadow: 15px 15px rgba(0,0,0,.15);
+    padding-top: 20px;
+    margin: 20px auto 60px;
+}
+
+.form-dropdown{
+    font-size: 14px;
+    text-align: center;
+    height: 50px;
+    border: rgba(0,0,0,.15) 1px solid;
+    box-sizing: border-box;
+    padding-left: 10px;
+    padding-right: 10px;
+    display: block;
+    margin: 15px auto 15px;
+}
+
+.add-opening-hours h4{
+    Padding: 15px;
+}
+
+.add-hour{
+    position:relative;
+    margin-left: 35%;
+    margin-right: 0.5%;
+    display:inline-block;
+    font-size: 14px;
+    text-align: center;
+}
+
+.add-minute{
+    margin-left: 0.5%;
+    margin-right: 40%;
+    float: right;
+    display: block;
+    font-size: 14px;
+    text-align: center;
+}
+
+/* Update Food Bank Profile Page */
+.update-food-bank-profile h4{
+    text-align: center;
+}
+
+.index-main-banner {
+    background: #ffffff;
+    width: 80%;
+    height: auto;
+    overflow: hidden;
+    border-radius: 0 0 20% 70%;
+    box-shadow: 15px 15px rgba(0,0,0,.15);
+    text-align: center;
+    margin: 7px auto 60px;
+}
+
+.index-text-right {
+    font: 1vw Poppins, sans-serif;
+    text-align: center;
+    padding-bottom: 40px;
+}
+
+.index-heading-right{
+    text-align: center;
+    font-size: 2vw;
+}
+
+.index-img-left {
+    float: left;
+    width: 60%;
+    max-width: 650px;
+}
+
+.index-button{
+	border-radius: 20px;
+	border: 1px solid #5c8631;
+	background-color: #97c170;
+	color: #000000;
+	font-size: 1.2vh;
+	font-weight: bold;
+	padding: 12px 35px;
+	letter-spacing: 1px;
+	text-transform: uppercase;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.index-icon{
+    width: 100px;
+    height: 100px;
+}
+
+#donate-button-container{
+    padding-top: 50px;
+    padding-bottom: 20px;
+}
+
+/* error page layout */
+.error-header{
+    padding: 0;
+    text-align: center;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+    font-size: 100px;
+}
+
+.error-txt{
+    padding: 0;
+    text-align: center;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+.error-div{
+    position: absolute;
+    left: 50%;
+    top: 40%;
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+}
+
+.error-button-div {
+    margin: 0;
+  position: absolute;
+  top: 120%;
+  left: 50%;
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}
+
+.error-button{
+    border-radius: 20px;
+	background-color: #ffffff;
+	color: #000000;
+	font-size: 10px;
+	font-weight: bold;
+	padding: 12px 35px;
+	letter-spacing: 1px;
+	text-transform: uppercase;
+    cursor: pointer;
+    text-decoration: none;
+    white-space: nowrap;
+}
+
+/* Admin page */
+.admin-box{
+    width: 20%;
+    height: 100px;
+    border-radius: 20px;
+    background: white;
+    box-shadow: 10px 10px 10px rgba(0,0,0,.15);
+    border-left-style: solid;
+    border-left-width: 8px;
+    margin-left: 30px;
+    margin-top: 20px;
+    display: inline-block;
+}
+
+.admin-box-header{
+    padding-top: 20px;
+    padding-left: 40px;
+    text-align: left;
+    font-size: 16px;
+}
+
+.admin-box-text{
+    text-align: left;
+    padding-top: 0;
+    padding-left: 40px;
+    font-size: 24px;
+}
+
+.admin-button {
+    text-align: center;
+	border-radius: 20px;
+    background: #97c170;
+	color: #000000;
+	font-size: 12px;
+	font-weight: bold;
+	padding: 12px 35px;
+	letter-spacing: 1px;
+	text-transform: uppercase;
+    cursor: pointer;
+    display: block;
+    margin: 80px auto;
+    width: 55%;
+    border: 0;
+    box-shadow: 10px 10px 10px rgba(0,0,0,.15);
+}
+
+.admin-table{
+    width:80%;
+    margin: 0 auto;
+    text-align: center;
+    border-style : hidden!important;
+    border-collapse: collapse;
+}
+
+/* Manage Stock Page */
+/* Option bar to choose manual or automatic */
+.management-option{
+    text-align: center;
+    padding-top: 10px;
+    margin-left: auto;
+    margin-right: auto;
+    align-content: center;
+    margin-bottom: 20px;
+    width: 30%;
+    height: 2%;
+    background-color: white;
+    box-shadow: 20px 20px rgba(0,0,0,.15);
+}
+
+.management-option .form-dropdown{
+    height: 25px;
+}
+
+/* Manual Stock Table */
+
+.manual-stock{
+    width: 95%;
+    margin-left: 2.5%;
+    position: relative;
+    text-align: center;
+    height: 15px;
+}
+
+.manual-stock th{
+    padding: 20px;
+}
+
+/* Form Dropdown Menu in Stock management page */
+.form-dropdown-sm{
+    font-size: 14px;
+    vertical-align: center;
+    text-align: center;
+    width: 80%;
+}
+
+/* Item Table on Automatic option page */
+.item-table{
+    width: 95%;
+    margin-left: 2.5%;
+    position: relative;
+    text-align: center;
+    height: 15px;
+}
+
+.item-table h2{
+    padding: 10px;
+}
+
+.item-table th{
+    padding: 20px;
+}
+
+.item-table td{
+     margin-top: 15px;
+}
+
+/* Category Boundaries Table on Automatic option page */
+.category-boundaries{
+    width: 95%;
+    margin-left:2.5%;
+    table-layout: fixed;
+    position: relative;
+    text-align: center;
+    height: 15px;
+}
+
+.category-boundaries h2{
+    padding: 20px;
+}
+.category-boundaries th{
+    padding: 20px;
+}
+
+/* Input in the stock management page */
+.input-sm{
+    font-size: 14px;
+    vertical-align: center;
+    text-align: center;
+    width: 80%;
+    margin-top: 15px;
+}
+
+/* Submit button on stock management page */
+.submit-button-sm{
+    width: 30%;
+    padding-bottom: 10px;
+    margin-left: auto;
+    margin-right: auto;
 }

@@ -1,10 +1,66 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+<!-- author: Anthony Clermont
+ User donate page -->
 
-</body>
-</html>
+{% extends "base.html" %}
+
+{% block content %}
+    <h1 style="padding-top: 30px">Donate</h1>
+    <div class="div-bg" style="margin-bottom: 50px; padding-bottom: 20px">
+        <h3>Big or small, every donation helps people in need.</h3>
+        <p>Many people in this city live each day without
+            enough money to buy <br> adequate food and basic necessities.
+            Food banks rely on the community's <br> support to ensure
+            those in need receive help.
+            <br><br> All donations
+            help with this cause and will provide the basic necessities
+            people need.
+            <h3>Feeding Newcastle thanks you for your support!</h3>
+    </div>
+
+    <div class="div-bg">
+        <table class="info-table">
+            <tr>
+                <th><h1 class="circle"> 1</h1></th>
+                <th><h1 class="circle"> 2</h1></th>
+                <th><h1 class="circle"> 3</h1></th>
+            </tr>
+            <tr>
+                <td><h3>Make your donation</h3></td>
+                <td><h3>Distribute the donations</h3></td>
+                <td><h3>Food banks utilise the donation</h3></td>
+            </tr>
+            <tr>
+                <td><p>When you make a donation, it <br>
+                       will help provide meals for families <br>
+                       in Newcastle.</p></td>
+                <td><p>Once your donation has been made <br>
+                       our team distributes the donations <br>
+                       to the food banks registered with us.</p></td>
+                <td><p>The food banks themselves decide how best <br>
+                       to use the donations: Buying essential food, <br>
+                       the cost of transporting the food and <br>
+                       up-keep costs of the food banks building <br>
+                       are common examples of how the <br>
+                       donations may be used.</p></td>
+            </tr>
+        </table>
+
+        <div id="donate-button-container">
+        <div id="donate-button"></div>
+        <script src="https://www.paypalobjects.com/donate/sdk/donate-sdk.js" charset="UTF-8"></script>
+        <script>
+        PayPal.Donation.Button({
+        env:'production',
+        hosted_button_id:'UXZKJH6VWNFTG',
+        image: {
+        src:'https://pics.paypal.com/00/s/ZDExMThjODMtYTI5OC00YzAzLTg5YTctNWI4NmYwMDQ0NDU3/file.PNG',
+        alt:'Donate with PayPal button',
+        title:'PayPal - The safer, easier way to pay online!',
+        }
+        }).render('#donate-button');
+        </script>
+        </div>
+
+
+    </div>
+{% endblock %}
