@@ -23,7 +23,7 @@ For both people in need and wanting to help and food bank managers and volunteer
 
 ## Important Information ❗
 
-The PayPal Donation button is live any donation made will go through to Feeding Newcastle's PayPal account.
+The PayPal Donation button is **live** any donation made will go through to Feeding Newcastle's PayPal account.
 If you would like to see the donation link working in full please watch the demonstration video.
 
 ## Project Authors
@@ -39,6 +39,8 @@ If you would like to see the donation link working in full please watch the demo
 - [Flask - version 2.0](https://flask.palletsprojects.com/en/2.0.x/)
 - [SQL Alchemy - version 2.5.1](https://www.sqlalchemy.org/)
 - [Mapbox API](https://www.mapbox.com/)
+- [Open Street Maps](https://wiki.openstreetmap.org/wiki/API)
+- [Google Re-Captcha](https://www.google.com/recaptcha/about/)
 
 
 ## Libraries Used
@@ -98,7 +100,7 @@ If you would like to see the donation link working in full please watch the demo
   - [Stock Management](./templates/manage-stock.html)
 
 ## References
-This image has been used in the index page.  
+This image has been used in the [index](./templates/index.html) page.  
 ![Example screenshot](./static/referance_image.jpg)  
 Credits of this image: https://bonnydowns.org/foodbank/
 
