@@ -5,9 +5,11 @@
 
 ## Table of Contents
 * [General Info](#general-information)
+* [Important Info](#important-information-)
 * [Project Authors](#project-authors)
 * [Technologies Used](#technologies-used)
-* [Features](#features)
+* [Libraries Used](#libraries-used)
+* [Application Pages](#application-pages)
 * [References](#references)
 * [Setup](#setup)
 * [Usage](#usage)
