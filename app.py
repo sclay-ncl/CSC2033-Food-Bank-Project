@@ -11,9 +11,9 @@ from notifications.rss import RSSManager
 app = Flask(__name__)
 
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:///temp.db"
-# app.config['SQLALCHEMY_DATABASE_URI'] = \
-#     "mysql+pymysql://csc2033_team15:Pea5NudeCure@127.0.0.1:8989/csc2033_team15"
+# app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:///temp.db"
+app.config['SQLALCHEMY_DATABASE_URI'] = \
+    "mysql+pymysql://csc2033_team15:Pea5NudeCure@127.0.0.1:8989/csc2033_team15"
 app.config['SECRET_KEY'] = '0L*[@8__9r.&s(AgSm(vZ|2=>az4|V$hoEA.TzSUex[sDy>MTo:^k!ZiEhlG'
 
 # TODO: change these API keys, obtained from Canvas (need a URL first)
@@ -65,8 +65,8 @@ def index():
         f.write(str(num))
 
     # testing purposes
-    user = User.query.filter_by(id="2").first()
-    login_user(user)
+    # user = User.query.filter_by(id="101").first()
+    # login_user(user)
 
     return render_template('index.html')
 
@@ -146,13 +146,6 @@ if __name__ == '__main__':
 
     @returns, runs application
     """
-    # Finds free port (testing purpose)
-    my_host = "127.0.0.1"
-    free_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    free_socket.bind((my_host, 0))
-    free_socket.listen(5)
-    free_port = free_socket.getsockname()[1]
-    free_socket.close()
 
     # Logging
     class SecurityFilter(logging.Filter):
@@ -193,4 +186,4 @@ if __name__ == '__main__':
     app.register_blueprint(food_banks_blueprint)
 
     # Running the app
-    app.run(host=my_host, port=5000, debug=True)
+    app.run(port=80, debug=True)
