@@ -110,7 +110,7 @@ Credits of this image: https://bonnydowns.org/foodbank/
 How to configure your local environment:
 
 #### Local Environment
-If you do not have a virtual environment (venv folder):  
+If you do **not** have a virtual environment (venv folder):  
 1. Open a Terminal
 2. CD into where the project is saved: ``` cd ProjectLocation ```
 3. Create the virtualenv: ``` virtualenv -p python3 myenv ```
@@ -134,7 +134,7 @@ To start the server and be able to run the application within your local environ
 Open a terminal, cd into the project directory if not already.   
 Run the following command: ``` python app.py ```
 
-Alternatively navigate to app.py file. Navigate to and run the line: 
+Alternatively navigate to [app.py](./app.py). Navigate to and run the line: 
 ```python 
 if __name__ == '__main__': 
 ```
