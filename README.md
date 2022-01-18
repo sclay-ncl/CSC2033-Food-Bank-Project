@@ -1,4 +1,5 @@
 # Feeding Newcastle
+![Example screenshot](./static/logo600x200.png)  
 > Project for CSC2033 Team 15,
 > Git Repo [_here_](https://github.com/sclay-ncl/CSC2033-Food-Bank-Project).
 
