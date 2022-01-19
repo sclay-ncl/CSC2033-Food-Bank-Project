@@ -6,13 +6,12 @@ from flask import url_for
 
 def send(subject, email_text, recip):
     """
-        @author: Anthony Clermont, Nathan Hartley
-        Function sends email(s)
+    @author: Anthony Clermont, Nathan Hartley
+    Function sends email(s)
 
-        @param: subject, the email subject line
-        @param: email_text, the email body
-        @param: recip, the list of emails to send the email to
-
+    @param: subject, the email subject line
+    @param: email_text, the email body
+    @param: recip, the list of emails to send the email to
     """
 
     message = EmailMessage()
@@ -29,13 +28,13 @@ def send(subject, email_text, recip):
 
 def send_mail(food_bank_id, msg):
     """
-        @author: Nathan Hartley
-        Function constructs the needed stock email
+    @author: Nathan Hartley
+    Function constructs the needed stock email
 
-        @param: food_bank_id, the id of the food bank which needs the food
-        @param: msg, message to send
+    @param: food_bank_id, the id of the food bank which needs the food
+    @param: msg, message to send
     """
-    from models import FoodBank, User  # to avoid circular imports
+    from models import FoodBank  # to avoid circular imports
 
     food_bank = FoodBank.query.filter_by(id=food_bank_id).first()
     emails = [user.email for user in food_bank.associated if user.role == "donor"]

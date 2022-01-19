@@ -101,12 +101,13 @@ If you would like to see the donation link working in full please watch the demo
 
 ## Setup
 
-How to configure your local environment:
+#### Clone the repository
+```git clone https://github.com/sclay-ncl/CSC2033-Food-Bank-Project.git```
 
 #### Local Environment
-If you do **not** have a virtual environment (venv folder):  
+Create a virtual environment:  
 1. Open a Terminal
-2. CD into where the project is saved: ``` cd ProjectLocation ```
+2. Change directory into project directory: ``` cd ProjectLocation ```
 3. Create the virtualenv: ``` virtualenv -p python3 myenv ```
 4. Activate the environment: ``` source myenv/bin/activate ```
 
@@ -115,7 +116,7 @@ To install the project's dependencies, run the following command:
 ``` pip install -r requirements.txt ```
 
 #### Interpreter Configuration
-Please ensure your python interpreter configuration is working in the current directory.  
+If using an interpreter to run the project, please ensure your configuration is working in the current directory.  
 For more information about how to do this please visit your IDE's Documentation:
 - [PyCharm](https://www.jetbrains.com/pycharm/learn/)
 - [Visual Studio Code](https://code.visualstudio.com/docs)
@@ -123,7 +124,16 @@ For more information about how to do this please visit your IDE's Documentation:
 - [Eclipse](https://www.eclipse.org/documentation/)
 
 ## Usage
-To start the server and be able to run the application within your local environment:
+#### Set up the database connection
+In [app.py](./app.py) line 14, set the [database URI](https://flask-sqlalchemy.palletsprojects.com/en/2.x/config/), 
+both SQLite and MariaDB have been tested and work with the program.
+
+#### Populate the database the sample data
+The user passwords in the sample data are **insecure**, do not use in deployment.
+Open a terminal, change directory to the project directory if not already.   
+Run the following command: ``` python test/populate_db.py ```
+
+#### Start the Server and Run Application:
 
 Open a terminal, change directory to the project directory if not already.   
 Run the following command: ``` python app.py ```

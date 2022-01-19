@@ -63,12 +63,12 @@ def find_closest_fb(fb_address_lat, db_address_long):
     @author: Anthony Clermont
     Function returns the latitude and longitude of the closest food bank to the logged in user.
 
-    @param: usr_lat: The current user's latitude co-ordinate
-    @param: usr_long: The current user's longitude co-ordinate
-    @param: fb_lat: The food bank's latitude co-ordinate the code is currently checking
-    @param: fb_long: The food bank's longitude co-ordinate the code is currently checking
-    @param: fb_data: Query from the database of all food bank data
-    @param: A tuple of the current user's co-ordinates
+    @param: usr_lat, The current user's latitude co-ordinate
+    @param: usr_long, The current user's longitude co-ordinate
+    @param: fb_lat, The food bank's latitude co-ordinate the code is currently checking
+    @param: fb_long, The food bank's longitude co-ordinate the code is currently checking
+    @param: fb_data, Query from the database of all food bank data
+    @param: urs_cords, A tuple of the current user's co-ordinates
 
     @return: Dictionary of the co-ordinates of the closest food bank
     """
@@ -118,10 +118,9 @@ def contact_us():
 def register():
     """
     @author: Nathan Hartley
-    Function returns user to index page if they are already logged in.
-    Flashes a message to the user if the email they entered is already in the database.
-    Returns user to index page if all requirements have been met for the input fields.
+    Renders the registration form and page for user registration.
     """
+
     if not current_user.is_anonymous:
         return redirect(url_for('index'))
 
@@ -176,7 +175,7 @@ def login():
     if form.validate_on_submit():  # validates Form
         user = User.query.filter_by(email=form.email.data).first()
 
-        if not user or not check_password_hash(user.password, form.password.data):
+        if not user or not check_password_hash(user.password, form.password.data):  # check if login details are correct
             flash("Incorrect Username/Password", 'danger')
             return render_template('login.html', form=form)
 
@@ -195,7 +194,7 @@ def login():
 def logout():
     """
     @author: Nathan Hartley
-    Function returns user to index page and makes the user anonymous
+    Function returns user to index page and logs the user out
     """
     logout_user()  # logs out user
     return redirect(url_for('index'))

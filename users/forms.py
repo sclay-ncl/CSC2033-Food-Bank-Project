@@ -10,9 +10,7 @@ from models import User
 def character_check(form, field):
     """
     @author: Nathan Hartley
-
-    @returns: A message to the user that the name fields cannot contain any of the excluded characters if the
-    requirements are not met
+    Validates that no excluded characters are contained in the password
     """
     excluded_characters = "±§!@€#<$%^&*()_+={}[]:;'|<,>.?/1234567890"
     for char in field.data:

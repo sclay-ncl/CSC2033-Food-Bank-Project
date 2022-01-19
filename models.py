@@ -4,6 +4,7 @@ from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
 from app import db, rss, app
 from notifications.mail import send_mail
 
+
 class User(db.Model, UserMixin):
     """
     @author: Sol Clay
@@ -52,12 +53,12 @@ class User(db.Model, UserMixin):
 
     def get_reset_token(self, expires_sec=900):
         """
-            @author: Anthony Clermont
-            Generates the users reset token
+        @author: Anthony Clermont
+        Generates the users reset token
 
-            @param: expires_sec, the amount of time the token will be valid: 15 minutes
+        @param: expires_sec, the amount of time the token will be valid: 15 minutes
 
-            @return: token needed to reset user's password
+        @return: token needed to reset user's password
         """
         s = Serializer(app.config['SECRET_KEY'], expires_sec)
         return s.dumps({'user_id': self.id}).decode('utf-8')
@@ -65,12 +66,12 @@ class User(db.Model, UserMixin):
     @staticmethod
     def verify_reset_token(token):
         """
-            @author: Anthony Clermont
-            Checks if the token given is valid
+        @author: Anthony Clermont
+        Checks if the token given is valid
 
-            @param: token, the token given by the user which needs to be authenticated
+        @param: token, the token given by the user which needs to be authenticated
 
-            @return: None if token is invalid or the user object if true
+        @return: None if token is invalid or the user object if true
         """
         s = Serializer(app.config['SECRET_KEY'])
         try:
@@ -119,7 +120,7 @@ class FoodBank(db.Model):
         @author: Sol Clay
         Calculates and sets the stock levels for the food bank based on the quantity of items in each category
 
-        @return urgent_categories: list of categories that have urgent level of stock
+        @return: urgent_categories, list of categories that have urgent level of stock
         """
         stock_levels = StockLevels.query.filter_by(fb_id=self.id).first()  # get stock_level table for this food bank
         categories = ['starchy', 'protein', 'fruit_veg', 'soup_sauce',
@@ -174,7 +175,6 @@ class FoodBank(db.Model):
     def push_alerts(self, urgent_categories):
         """
         @author: Sol Clay
-
         Pushes alerts to donor users and the rss feed
         """
         if len(urgent_categories) > 0:

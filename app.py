@@ -28,7 +28,7 @@ def requires_roles(*roles):
     @author: Anthony Clermont
     wrapper function used as a decorator with other functions to check is the user can access a given page
 
-    @param, *roles, all the roles which are required to access the webpage
+    @param: *roles, all the roles which are required to access the webpage
 
     @return: to where decorator is called
     """
@@ -81,7 +81,7 @@ def bad_request(error):
     @author: Anthony Clermont
     bad request error route
 
-    @returns, sends user to error page
+    @return: sends user to error page
     """
     logging.warning('SECURITY, Error 400, Bad Request, %s, %s, %s, %s',
                     request.url,
@@ -97,7 +97,7 @@ def page_forbidden(error):
     @author: Anthony Clermont
     page forbidden error route
 
-    @returns, sends user to error page
+    @return: sends user to error page
     """
     logging.warning('SECURITY, Error 403, Page Forbidden, %s, %s, %s, %s',
                     request.url,
@@ -113,7 +113,7 @@ def page_not_found(error):
     @author: Anthony Clermont
     page not found error route
 
-    @returns, sends user to error page
+    @returns: sends user to error page
     """
     logging.warning('SECURITY, Error 404, Page Not Found, %s, %s, %s, %s',
                     request.url,
@@ -129,7 +129,7 @@ def internal_error(error):
     @author: Anthony Clermont
     internal error route
 
-    @returns, sends user to error page
+    @return: sends user to error page
     """
     logging.warning('SECURITY, Error 503, Internal Service Error, %s, %s, %s, %s',
                     request.url,
@@ -144,7 +144,7 @@ if __name__ == '__main__':
     @author: Anthony Clermont, Nathan Hartley
     main application run function
 
-    @returns, runs application
+    @return: runs application
     """
 
     # Logging

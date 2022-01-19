@@ -46,7 +46,7 @@ def get_logs():
     @author: Anthony Clermont
     Function gets all the log data
 
-    @return, returns all log data in an array
+    @return: returns all log data in an array
     """
     # Opens log file
     with open('admin-logs/admin-log.log', "r") as f:
@@ -68,7 +68,7 @@ def get_log_graph_data():
     @author: Anthony Clermont
     Function organises data for graph
 
-    @return, returns tuple containing data for the rows and columns of the graph
+    @return: returns tuple containing data for the rows and columns of the graph
     """
     # Opens log file
     with open('admin-logs/admin-log.log', "r") as f:
@@ -106,7 +106,7 @@ def get_no_visits():
     @author: Anthony Clermont
     Function gets the number of visits to the application
 
-    @return, returns the number of visits to the application
+    @return: returns the number of visits to the application
     """
     with open('admin-logs/application-visits', "r") as f:
         return f.readline()

@@ -3,6 +3,7 @@ from datetime import datetime
 from flask import url_for
 from rfeed import Item, Feed
 
+
 class RSSManager:
     """
     @author: Sol Clay
@@ -11,13 +12,12 @@ class RSSManager:
 
     def __init__(self):
         self.feed = Feed(title="Feeding Newcastle Alerts Feed",
-                         link="placeholderurl.com",
+                         link="PlaceholderURL",
                          description="Alert feed for food bank stock notifications.")
 
     def generate_item(self, food_bank_id, generated_message):
         """
         @author: Sol Clay
-
         Generates a rfeed Item with food bank stock information
 
         @param: food_bank_id - id of the food bank the notification is for
@@ -34,7 +34,6 @@ class RSSManager:
     def write_feed(self):
         """
         @author: Sol Clay
-
         Writes the rss feed to the rss xml file
         """
         with open("rss.xml", "w") as rss_file:

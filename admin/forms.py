@@ -12,7 +12,7 @@ class FoodBankRegistrationForm(FlaskForm):
     # food bank information
     name = StringField(validators=[InputRequired(), Length(max=100)])  # max length set to conform with database
     email = StringField(validators=[InputRequired(), Email(), Length(max=50)])
-    phone_number = StringField(validators=[])  # TODO: Add phone validation
+    phone_number = StringField(validators=[Length(max=50)])
     website = StringField(validators=[Length(max=100)])
     password = PasswordField(validators=[InputRequired(), Length(min=8, max=16, message='Password must be between 8 '
                                                                                         'and 16 characters.')])

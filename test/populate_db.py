@@ -11,12 +11,12 @@ from models import User, FoodBank, Item, OpeningHours, Address, Stocks, StockLev
 def csv_to_list(file, start_index=0):
     """
     @author: Sol Clay
-
     Converts data stored in csv files into a list of lists that contain the database field data
 
-    @param file: the csv file containing the data
-    @param start_index: defines which column the list should begin at
-    @return output: a list of lists, each list containing the field data for one table row """
+    @param: file, the csv file containing the data
+    @param: start_index, defines which column the list should begin at
+    @return: output, a list of lists, each list containing the field data for one table row
+    """
 
     with open(file, mode='r') as f:
         csv_data = csv.reader(f)
@@ -93,8 +93,8 @@ def generate_stocks(low, high):
     @author: Sol Clay
     Generates instances of the association table Stocks with a bounded random quantity
 
-    @param low: lower bound for stock count
-    @param high: upper bound for stock count
+    @param: low, lower bound for stock count
+    @param: high, upper bound for stock count
     """
     items_count = db.session.query(Item).count()
     food_bank_count = db.session.query(FoodBank).count()

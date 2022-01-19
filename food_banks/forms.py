@@ -5,14 +5,14 @@ from wtforms.validators import Email, Length, InputRequired, ValidationError
 from models import OpeningHours
 from users.forms import postcode_check
 
+
 # validators
 def greater_than_lower(field_name):
     """
     @author: Sol Clay
-
     Validates that the high boundary is greater than the lower boundary
 
-    @param: field_name string of name of field to compare to
+    @param: field_name, string of name of field to compare to
     """
     message = 'High boundary must be be greater than the lower boundary'
 
@@ -57,7 +57,6 @@ class OpeningHoursForm(FlaskForm):
     @author: Sol Clay
     Form for food banks to add opening times to an address
     """
-
     days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
     hours = ["0" + str(x) if x < 10 else str(x) for x in range(0, 25)]
     minutes = ["00", "15", "30", "45"]

@@ -3,12 +3,11 @@ from datetime import datetime
 from flask import redirect, url_for, render_template, Blueprint, request, abort
 from flask_login import current_user, login_required
 
-from users.views import get_lat_long
-
-from app import requires_roles, db, rss
+from app import requires_roles, db
 from food_banks.forms import UpdateFoodBankInformationForm, AddressForm, OpeningHoursForm, ManualStockLevelsForm, \
     StockQuantityForm, StockManagementOptionForm
 from models import Address, OpeningHours, StockLevels, Item, Stocks
+from users.views import get_lat_long
 
 food_banks_blueprint = Blueprint('food_banks', __name__, template_folder='templates')
 
@@ -179,7 +178,7 @@ def manage_stock():
     @author: Anthony Clermont, Sol Clay
     Where food banks can manage their stock. Choose between stock management type: automatic or manual,
     the relevant form for the management option selected is rendered.
-       """
+    """
     current_food_bank = current_user.associated[0]
 
     # if food bank has chosen to manually set stock levels
