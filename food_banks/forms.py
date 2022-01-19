@@ -1,13 +1,11 @@
-import re
 from flask_wtf import FlaskForm
-from wtforms import StringField, SubmitField, SelectField, IntegerField, FieldList, FormField, Form, IntegerRangeField
+from wtforms import StringField, SubmitField, SelectField, IntegerField, FieldList, FormField, Form
 from wtforms.validators import Email, Length, InputRequired, ValidationError
 
 from models import OpeningHours
 from users.forms import postcode_check
 
 # validators
-
 def greater_than_lower(field_name):
     """
     @author: Sol Clay
@@ -31,7 +29,7 @@ def greater_than_lower(field_name):
 class UpdateFoodBankInformationForm(FlaskForm):
     """
     @author: Sol Clay
-    Form for food banks to update their displayed infomration
+    Form for food banks to update their displayed information
     """
     name = StringField(validators=[InputRequired(), Length(max=100)])  # max length set to conform with database
     email = StringField(validators=[InputRequired(), Email(), Length(max=50)])
@@ -114,6 +112,7 @@ class ItemStockForm(Form):
     def validate_quantity(self, field):
         if self.quantity.data < 0:
             raise ValidationError("Input must be greater than 0.")
+
 
 class CategoryBoundaryForm(Form):
     """

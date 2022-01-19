@@ -6,3 +6,5 @@ address_id,day,open_time,close_time
 3,Tuesday,10:00,16:00
 3,Wednesday,10:00,16:00
 3,Thursday,10:00,16:00
+10,Monday,10:00,14:00
+10,Friday,12:30,17:30

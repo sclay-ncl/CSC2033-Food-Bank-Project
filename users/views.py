@@ -34,7 +34,7 @@ def get_lat_long(number_road, city, post_code):
                     return postcode[0:i] + " " + postcode[i:]
 
     # Calls find_gap function if no gap is in the postcode
-    if not " " in post_code:
+    if " " not in post_code:
         post_code = find_gap(post_code)
 
     address = number_road + ", " + city + ", " + post_code
@@ -53,6 +53,7 @@ def get_lat_long(number_road, city, post_code):
         longitude = "-1.6141237020492554"
 
     return latitude, longitude
+
 
 # https://stackoverflow.com/questions/4913349/haversine-formula-in-python-bearing-and-distance-between-two-gps-points
 # https://stackoverflow.com/questions/41336756/find-the-closest-latitude-and-longitude
@@ -102,6 +103,10 @@ def find_closest_fb(fb_address_lat, db_address_long):
 
 @users_blueprint.route('/contact-us', methods=['GET', 'POST'])
 def contact_us():
+    """
+    @author: Anthony Clermont
+    Renders the contact page, which Allows users to view contact information
+    """
     if not current_user.is_anonymous:
         if current_user.role == 'food_bank' or current_user.role == 'admin':
             abort(403)  # abort to forbidden page
@@ -161,17 +166,14 @@ def register():
 def login():
     """
     @author: Nathan Hartley
-    Function returns user to index page if they are already logged in.
-    Returns user to index page after a successful login attempt.
-    Flashes a message to the user if the login email or password is incorrect and cannot be found in the database.
-    Returns the user to profile page after a successful login attempt if the user's role is food_bank.
+    Renders the login form and page for user login.
     """
-    if not current_user.is_anonymous:
+    if not current_user.is_anonymous:  # Returns user to index page if they are logged in
         return redirect(url_for('index'))
 
     form = LoginForm()
 
-    if form.validate_on_submit():
+    if form.validate_on_submit():  # validates Form
         user = User.query.filter_by(email=form.email.data).first()
 
         if not user or not check_password_hash(user.password, form.password.data):
@@ -179,7 +181,7 @@ def login():
             return render_template('login.html', form=form)
 
         else:
-            login_user(user)
+            login_user(user)  # logs in user
             if user.role == 'food_bank':
                 return redirect(url_for('food_banks.manage_stock'))
             else:
@@ -195,7 +197,7 @@ def logout():
     @author: Nathan Hartley
     Function returns user to index page and makes the user anonymous
     """
-    logout_user()
+    logout_user()  # logs out user
     return redirect(url_for('index'))
 
 
@@ -203,6 +205,10 @@ def logout():
 @login_required
 @requires_roles('donor', 'collector', 'admin')
 def profile():
+    """
+    @author: Anthony Clermont
+    Renders the profile page, which allows the user to view their profile information
+    """
     return render_template('profile.html',
                            acc_no=current_user.id,
                            role=current_user.role,
@@ -337,7 +343,6 @@ def food_bank_information(food_bank_id):
             if str(fb.id) == str(food_bank_id):
                 # If the food bank ID is found, is_fav is set to true
                 is_fav = True
-
 
     # Query's data needed
     stock_levels = StockLevels.query.filter_by(fb_id=food_bank_id).first()

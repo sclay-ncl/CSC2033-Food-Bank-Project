@@ -99,12 +99,6 @@ If you would like to see the donation link working in full please watch the demo
   - [Manual or Automatic Stock Boundaries](./templates/manage-stock.html)
   - [Stock Management](./templates/manage-stock.html)
 
-## References
-This image has been used in the [index](./templates/index.html) page.  
-![Example screenshot](./static/referance_image.jpg)  
-Credits of this image: https://bonnydowns.org/foodbank/
-
-
 ## Setup
 
 How to configure your local environment:
@@ -131,10 +125,18 @@ For more information about how to do this please visit your IDE's Documentation:
 ## Usage
 To start the server and be able to run the application within your local environment:
 
-Open a terminal, cd into the project directory if not already.   
+Open a terminal, change directory to the project directory if not already.   
 Run the following command: ``` python app.py ```
 
-Alternatively navigate to [app.py](./app.py). Navigate to and run the line: 
-```python 
-if __name__ == '__main__': 
-```
+#### Test User Accounts
+Account type: Email, Password  
+Admin: TestAdmin@email.com, password  
+User: TestUser@email.com, password  
+Food Bank: TestFoodBank@foodbank.com, password  
+
+
+## References
+This image has been used in the [index](./templates/index.html) page.  
+![Example screenshot](./static/referance_image.jpg)  
+Credits of this image: https://bonnydowns.org/foodbank/
+

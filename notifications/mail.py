@@ -23,7 +23,7 @@ def send(subject, email_text, recip):
     message.set_content(msg)
 
     with smtplib.SMTP_SSL('smtp.gmail.com', 465) as smtp:
-        smtp.login('noreply.feedingnewcastle@gmail.com', 'FeedingNewcastle22')  # 'wfrdqalctmuzgcet'
+        smtp.login('noreply.feedingnewcastle@gmail.com', 'FeedingNewcastle22')
         smtp.send_message(message)
 
 
@@ -48,13 +48,12 @@ def send_mail(food_bank_id, msg):
 
 def send_reset_email(user):
     """
-        @author: Anthony Clermont
-        Function constructs the reset email
+    @author: Anthony Clermont
+    Function constructs the reset email
 
-        @param: user, the user object which has requested the password reset
+    @param: user, the user object which has requested the password reset
 
-        @var: token, the token used to authenticate the user
-
+    @var: token, the token used to authenticate the user
     """
     token = user.get_reset_token()
 
@@ -65,8 +64,3 @@ def send_reset_email(user):
 If this request was not made by you please email us: @feedingnewcastle@gmail.com.
 '''
     send(subject, msg, user.email)
-
-
-
-
-

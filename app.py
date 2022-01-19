@@ -1,9 +1,8 @@
 import logging
-import socket
 from functools import wraps
 
 from flask import Flask, render_template, request, send_file
-from flask_login import current_user, LoginManager, login_user
+from flask_login import current_user, LoginManager
 from flask_sqlalchemy import SQLAlchemy
 
 from notifications.rss import RSSManager
@@ -11,12 +10,10 @@ from notifications.rss import RSSManager
 app = Flask(__name__)
 
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-# app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:///temp.db"
 app.config['SQLALCHEMY_DATABASE_URI'] = \
     "mysql+pymysql://csc2033_team15:Pea5NudeCure@127.0.0.1:8989/csc2033_team15"
 app.config['SECRET_KEY'] = '0L*[@8__9r.&s(AgSm(vZ|2=>az4|V$hoEA.TzSUex[sDy>MTo:^k!ZiEhlG'
 
-# TODO: change these API keys, obtained from Canvas (need a URL first)
 # https://www.google.com/u/2/recaptcha/admin/create
 app.config['RECAPTCHA_PUBLIC_KEY'] = "6LfFdRMcAAAAAEeOwLocqoG8LhRNZhE0TYF8MdMG"
 app.config['RECAPTCHA_PRIVATE_KEY'] = "6LfFdRMcAAAAAILSgmbrJcTLnkDV5fG-xwPzyoR4"
@@ -33,14 +30,14 @@ def requires_roles(*roles):
 
     @param, *roles, all the roles which are required to access the webpage
 
-    @returns, to where decorator is called
+    @return: to where decorator is called
     """
     def wrapper(f):
         @wraps(f)
         def wrapped(*args, **kwargs):
             # if user is not allowed to access that page send them to page restricted error page
             if current_user.role not in roles:
-                return render_template('403.html')  # TODO: add path to error page
+                return render_template('403.html')
             return f(*args, **kwargs)
 
         return wrapped
@@ -54,7 +51,7 @@ def index():
     @author: Anthony Clermont
     index page, is called when application is ran/visited
 
-    @returns, sends the user to the home page
+    @return: sends the user to the home page
     """
     # increments the application visits number
     with open('admin-logs/application-visits', "r") as f:
@@ -65,14 +62,17 @@ def index():
         f.write(str(num))
 
     # testing purposes
+    # skip log-in functionality
     # user = User.query.filter_by(id="101").first()
     # login_user(user)
 
     return render_template('index.html')
 
+
 @app.route("/feed")
 def feed():
     return send_file("rss.xml")
+
 
 # ERROR PAGE VIEWS
 @app.errorhandler(400)
@@ -186,4 +186,4 @@ if __name__ == '__main__':
     app.register_blueprint(food_banks_blueprint)
 
     # Running the app
-    app.run(port=80, debug=True)
+    app.run()

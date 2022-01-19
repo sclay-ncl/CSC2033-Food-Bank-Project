@@ -99,3 +99,5 @@ id,role,first_name,last_name,email,phone,password,number_and_road,town,postcode,
 98,donor,Gnni,Marsy,gmarsy2p@sfgate.com,919 948 5788,8fco76,11 Framlington Pl,Newcastle upon Tyne,NE2 4AD,54.983120,-1.621791
 99,collector,Judon,Blaase,jblaase2q@ebay.co.uk,416 344 0948,0PHkSq7hnl,4 Linum Pl,Newcastle upon Tyne,NE4 9TS,54.985723,-1.657847
 100,admin,Sibilla,Hooban,shooban2r@icq.com,648 122 1839,rzN3SiYUC4,Market St,Newcastle upon Tyne,NE1 6AN,54.973355,-1.610423
+101,admin,Test,Admin,TestAdmin@email.com,0191 208 6000,password,1 Science Square,Newcastle upon Tyne,NE4 5TG,54.973513,-1.625082
+102,donor,Test,Donor,TestUser@email.com,0191 208 6000,password,1 Science Square,Newcastle upon Tyne,NE4 5TG,54.973513, -1.625082

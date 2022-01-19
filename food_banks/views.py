@@ -154,6 +154,7 @@ def delete_opening_hours(address_id, day):
         db.session.commit()
     return redirect(url_for('food_banks.manage_opening_hours', address_id=address_id))
 
+
 @login_required
 @requires_roles('food_bank')
 @food_banks_blueprint.route('/update-stock-option/', methods=['GET', 'POST'])
@@ -207,7 +208,7 @@ def manage_stock():
             urgent_categories = []
             for field_name, value in form.data.items():  # iterate through submitted data
                 if field_name not in ["submit", "csrf_token"]:  # filter out unwanted fields
-                    if int(value) == 0: # check if level is urgent
+                    if int(value) == 0:  # check if level is urgent
                         urgent_categories.append(field_name)
             current_food_bank.push_alerts(urgent_categories=urgent_categories)
 

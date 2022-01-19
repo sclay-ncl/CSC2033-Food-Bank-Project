@@ -24,9 +24,7 @@ def character_check(form, field):
 def address_character_check(form, field):
     """
     @author: Nathan Hartley
-
-    @returns: A message to the user that the address fields cannot contain any of the excluded characters if the
-    requirements are not met
+    Validates that the address field does not contain any of the excluded characters
     """
     excluded_characters = "±§!@€#<#$%^&*()_+={}[]:;'|<>.?/"
     for char in field.data:
@@ -37,7 +35,6 @@ def address_character_check(form, field):
 def postcode_check(form, field):
     """
     @author: Anthony Clermont
-
     Checks if postcode is valid
     """
     postcode = field.data.replace(" ", "")
@@ -68,10 +65,9 @@ class RegisterForm(FlaskForm):
     def validate_password(self, password):
         """
         @author: Nathan Hartley
-        @param: password - The password inputted by the user
+        Validates that the password includes a digit and an uppercase
 
-        @returns: A message to the user that the password has to include a digit and an uppercase if it does not meet
-        the requirements
+        @param: password, The password inputted by the user
         """
         p = re.compile(r'(?=.*\d)(?=.*[A-Z])')
         if not p.match(self.password.data):
@@ -80,10 +76,9 @@ class RegisterForm(FlaskForm):
     def validate_phone_number(self, phone_number):
         """
         @author: Nathan Hartley
-        @param: phone_number - The phone number inputted by the user
+        Validates that the phone number must start with 07 and be 11 digits in length
 
-        @returns: A message to the user that the phone number must start with 07 and be 11 digits in length if it
-        does not meet the requirements
+        @param: phone_number, the phone number inputted by the user
         """
         ph = re.compile(r'^(?:\s*)[0][7]\d{9}(?:\s*)$')
         if not ph.match(self.phone_number.data):
@@ -118,9 +113,8 @@ class UpdateAccountInformationForm(FlaskForm):
 
 class FavForm(FlaskForm):
     """
-        @author: Anthony Clermont
-
-        renders add/remove food bank as saved
+    @author: Anthony Clermont
+    renders add/remove food bank as saved
     """
     add = SubmitField("Favourite")
     remove = SubmitField("Un-favourite")
@@ -128,9 +122,8 @@ class FavForm(FlaskForm):
 
 class RequestResetForm(FlaskForm):
     """
-        @author: Anthony Clermont
-
-        Form for users to request a password reser
+    @author: Anthony Clermont
+    Form for users to request a password reset
     """
     email = StringField(validators=[InputRequired(), Email(), Length(max=50)])
     submit = SubmitField('Reset Password')
@@ -143,9 +136,8 @@ class RequestResetForm(FlaskForm):
 
 class ResetPasswordForm(FlaskForm):
     """
-        @author: Anthony Clermont
-
-        Form which allows users to enter a new password
+    @author: Anthony Clermont
+    Form which allows users to enter a new password
     """
     password = PasswordField(
         validators=[InputRequired(), Length(min=8, max=16, message='Password must be between 8 and 16 '

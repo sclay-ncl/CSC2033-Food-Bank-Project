@@ -117,7 +117,7 @@ def get_no_users():
     @author: Anthony Clermont
     Function gets the number of users registered
 
-    @return, returns the number of users registered
+    @return: returns the number of users registered
     """
     user_count = db.session.query(User).count()
     return user_count
@@ -128,7 +128,7 @@ def get_no_fb():
     @author: Anthony Clermont
     Function gets the number of food banks registered
 
-    @return, returns the number of food banks registered
+    @return: returns the number of food banks registered
     """
     fb_count = db.session.query(FoodBank).count()
     return fb_count
@@ -160,6 +160,7 @@ def logs():
     @author: Anthony Clermont
     Collects log data to display
     """
+    # Call function to get graph data
     graph_data = get_log_graph_data()
     return render_template('admin.html',
                            logs=get_logs(),

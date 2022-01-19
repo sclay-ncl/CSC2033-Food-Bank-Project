@@ -184,7 +184,6 @@ class FoodBank(db.Model):
             send_mail(self.id, msg=generated_message)
 
 
-
 class Item(db.Model):
     """
     @author: Sol Clay

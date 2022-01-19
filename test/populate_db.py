@@ -30,9 +30,10 @@ def convert_to_object(data, object_type):
 
     Converts database field data stored in lists into sqlalchemy models
 
-    @param data: the data stored in lists
-    @param object_type: the model to which the data should be converted to
-    @return list of sqlalchemy model objects
+    @param: data, the data stored in lists
+    @param: object_type, the model to which the data should be converted to
+
+    @return: list of sqlalchemy model objects
     """
     objects = []
     for i in range(1, len(data)):
@@ -90,7 +91,6 @@ def convert_to_object(data, object_type):
 def generate_stocks(low, high):
     """
     @author: Sol Clay
-
     Generates instances of the association table Stocks with a bounded random quantity
 
     @param low: lower bound for stock count
@@ -108,7 +108,6 @@ def generate_stocks(low, high):
 def generate_notify():
     """"
     @author: Sol Clay
-
     Generates instances of the association table notify for each user with the role donor, picking a random food bank
     """
     donor_users = User.query.filter_by(role="donor").all()
@@ -133,7 +132,6 @@ def generate_stock_levels():
 def add_to_db(object_list):
     """
     @author: Sol Clay
-
     Iterates through a list of objects and adds them to the database session
 
     @param object_list: list of sqlalchemy models
